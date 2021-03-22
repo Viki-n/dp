@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.7.7)  15 MAR 2021 00:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2019.7.7)  22 MAR 2021 01:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2171,8 +2171,8 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
-Package hyperref Info: Option `unicode' set `true' on input line 119.
-Package hyperref Info: Option `breaklinks' set `true' on input line 120.
+Package hyperref Info: Option `unicode' set `true' on input line 121.
+Package hyperref Info: Option `breaklinks' set `true' on input line 122.
 
 \@input{makra.aux}
 \openout2 = `makra.aux'.
@@ -2184,37 +2184,37 @@ Package hyperref Info: Option `breaklinks' set `true' on input line 120.
 (./kap02.aux) (./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
 \openout1 = `prace.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 126.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 126.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 128.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 128.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 128.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 126.
+LaTeX Font Info:    ... okay on input line 128.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 128.
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 \AtBeginShipoutBox=\box29
-Package hyperref Info: Link coloring OFF on input line 126.
+Package hyperref Info: Link coloring OFF on input line 128.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -2224,9 +2224,9 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count123
 )
-LaTeX Info: Redefining \ref on input line 126.
-LaTeX Info: Redefining \pageref on input line 126.
-LaTeX Info: Redefining \nameref on input line 126.
+LaTeX Info: Redefining \ref on input line 128.
+LaTeX Info: Redefining \pageref on input line 128.
+LaTeX Info: Redefining \nameref on input line 128.
 
 (./prace.out) (./prace.out)
 \@outlinefile=\write5
@@ -2270,7 +2270,7 @@ Package hyperref Info: Option `pageanchor' set `false' on input line 6.
 
 pdfTeX warning: pdflatex (file ../img/logo-cs.pdf): PDF inclusion: found PDF ve
 rsion <1.5>, but at most version <1.4> allowed
-<../img/logo-cs.pdf, id=86, 506.4591pt x 156.49065pt>
+<../img/logo-cs.pdf, id=90, 506.4591pt x 156.49065pt>
 File: ../img/logo-cs.pdf Graphic file (type pdf)
  <use ../img/logo-cs.pdf>
 Package pdftex.def Info: ../img/logo-cs.pdf used on input line 10.
@@ -2345,27 +2345,27 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
  (./kap01.tex
 Kapitola 1.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 61.
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for T1+lmss on input line 71.
-
-(/usr/share/texmf/tex/latex/lm/t1lmss.fd
-File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 30.
+(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ) [3
 
 
 
-] [4]
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 193.
- [5]) [6]
+]) [4]
 \openout2 = `kap02.aux'.
 
  (./kap02.tex
 Kapitola 2.
-) [7
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 6.
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for T1+lmss on input line 7.
+
+(/usr/share/texmf/tex/latex/lm/t1lmss.fd
+File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)) [5
 
 
 
@@ -2378,55 +2378,53 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 52.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <7> on input line 52.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 62.
-(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
-File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [8
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 52.
+[6
 
 
 
-] [9]
-<../img/ukazka-obr01.pdf, id=272, 433.62pt x 433.62pt>
+] [7] <../img/ukazka-obr01.pdf, id=241, 433.62pt x 433.62pt>
 File: ../img/ukazka-obr01.pdf Graphic file (type pdf)
 
 <use ../img/ukazka-obr01.pdf>
 Package pdftex.def Info: ../img/ukazka-obr01.pdf used on input line 156.
 (pdftex.def)             Requested size: 398.3596pt x 398.3596pt.
 
-<../img/ukazka-obr02.pdf, id=273, 433.62pt x 433.62pt>
+<../img/ukazka-obr02.pdf, id=242, 433.62pt x 433.62pt>
 File: ../img/ukazka-obr02.pdf Graphic file (type pdf)
 
 <use ../img/ukazka-obr02.pdf>
 Package pdftex.def Info: ../img/ukazka-obr02.pdf used on input line 165.
 (pdftex.def)             Requested size: 398.3596pt x 398.3596pt.
 
-<../img/ukazka-obr03.pdf, id=274, 433.62pt x 614.295pt>
+<../img/ukazka-obr03.pdf, id=243, 433.62pt x 614.295pt>
 File: ../img/ukazka-obr03.pdf Graphic file (type pdf)
 
 <use ../img/ukazka-obr03.pdf>
 Package pdftex.def Info: ../img/ukazka-obr03.pdf used on input line 171.
 (pdftex.def)             Requested size: 398.3596pt x 563.39606pt.
-) [10] [11 <../img/ukazka-obr01.pdf>] [12 <../img/ukazka-obr02.pdf>] [13 <../im
-g/ukazka-obr03.pdf>]
+) [8] [9 <../img/ukazka-obr01.pdf>] [10 <../img/ukazka-obr02.pdf>] [11 <../img/
+ukazka-obr03.pdf>]
 \openout2 = `kap04.aux'.
 
  (./kap04.tex
 Kapitola 4.
-) [14
+) [12
 
 
 
 ]
 \openout2 = `zaver.aux'.
 
- (./zaver.tex) [15
+ (./zaver.tex) [13
 
 
 
 ]
 \openout2 = `literatura.aux'.
 
- (./literatura.tex (./prace.bbl)) [16
+ (./literatura.tex (./prace.bbl)) [14
 
 
 
@@ -2435,60 +2433,57 @@ Kapitola 4.
 \openout7 = `prace.lof'.
 
 
-[17
+[15
 
 
 ] (./prace.lot)
 \tf@lot=\write8
 \openout8 = `prace.lot'.
 
- [18
+ [16
 
-] [19
+] [17
 
 ]
 P\v {r}\'{\i }loha A.
-[20
+[18
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 173.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 173.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 175.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 175.
  (./prace.aux (./titulka.aux) (./uvod.aux) (./kap01.aux) (./kap02.aux)
 (./kap03.aux) (./kap04.aux) (./zaver.aux) (./literatura.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 173.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 173.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 175.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 175.
 Package rerunfilecheck Info: File `prace.out' has not changed.
-(rerunfilecheck)             Checksum: 0E314E3EF924358A706DD89A14DA83B4;2638.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 173.
+(rerunfilecheck)             Checksum: EDD44D7FE3CA7D02167FAAD8692AB4FD;2662.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 175.
  ) 
 Here is how much of TeX's memory you used:
- 15570 strings out of 494896
- 211366 string characters out of 6178633
- 274161 words of memory out of 5000000
- 18433 multiletter control sequences out of 15000+600000
- 124511 words of font info for 92 fonts, out of 8000000 for 9000
+ 15547 strings out of 494896
+ 211117 string characters out of 6178633
+ 270800 words of memory out of 5000000
+ 18422 multiletter control sequences out of 15000+600000
+ 99442 words of font info for 85 fonts, out of 8000000 for 9000
  24 hyphenation exceptions out of 8191
- 38i,19n,35p,490b,2256s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,35p,490b,2256s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
 ips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share
 /texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ma
-thsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/f
-onts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmex10.pfb></usr/share/texmf/fonts
-/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb><
-/usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/
-public/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/s
-hare/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public
-/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texm
-f/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmri
-12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fon
-ts/type1/public/lm/lmsso12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.p
-fb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/ty
-pe1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on prace.pdf (24 pages, 776417 bytes).
+thsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/f
+onts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi12
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share/texmf/fonts/
+type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></u
+sr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/
+texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt1
+0.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on prace.pdf (22 pages, 731690 bytes).
 PDF statistics:
- 487 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
- 193 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 441 PDF objects out of 1000 (max. 8388607)
+ 61 named destinations out of 1000 (max. 500000)
+ 201 words of extra memory for PDF output out of 10000 (max. 10000000)
 
