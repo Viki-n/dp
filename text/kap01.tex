@@ -1,17 +1,88 @@
 \chapter{Teoretický úvod}
 
-V této kapitole zavedeme formální definici binárního vyhledávacího stromu. Poté
-se podíváme na třídu rankově vyvážených stromů a jejich speciální případ Weak
-AVL strom. Potom představíme několik mezí optimality, vlastností, které musí
-mít optimální binární vyhledávací strom. Nakonec se podíváme na Tango stromy a
-Multisplay stromy a dokážeme, že tyto meze splňují (nebo, v případě tango
-stromu, že je téměř splňují).
+V této kapitole zavedeme formální definici binárního vyhledávacího stromu a
+pojednáme o jeho výhodách oproti jiným způsobům uložení dat. Dále přiblížíme
+(staticky) optimální strom. Pro dynamické stromy připomeneme některé běžné
+vyvažovací strategie a také představíme jiné, novější přístupy například třídu
+rankově vyvážených stromů a jejich speciální případ Weak AVL strom. Potom
+představíme několik mezí optimality, vlastností, které musí mít optimální
+binární vyhledávací strom. Nakonec se podíváme na Tango stromy a Multisplay
+stromy a dokážeme, že tyto meze splňují (nebo, v případě tango stromu, že je
+téměř splňují).
+
+\section{Binární vyhledávací strom}
+\def\U\{\mathcal U}
+\def\o\{\mathcal O}
+
+Častým úkolem datové struktury je udržovat informaci o množině prvků. Formálně mějme univerzum\footnote{Ve skutečnosti často stačí jakákoli množina $\mathcal U$, pro některé aplikace jakákoli uspořádaná množina $\mathcal U$.} $\mathcal U \subseteq \mathbb N$ a jeho podmonožinu $M$, a budeme chtít datovou strukturu, která nám bude umět o každé prvku $\mathcal U$ říct, jestli náleží množině $M$. Po takových strukturách často chceme nějaké z následujících operací:
+\begin{itemize}
+\item pro prvek $x \in \U$ rozhodnout, zda $x\in M$,
+\item přidat prvek $x \in \U$ do množiny $M$,
+\item odstranit prvek $x\in M$ z $M$,
+\item vyjmenovat všechny prvky $M$,
+\item pro daný prvek $x\in \U \setminus M$ najít nejbližší větší případně menší prvek $M$,
+\item pro daný prvek $x\in M$ najít předchůdce, případně následovníka,
+\item pro dané dva prvky $x,y\in\U$ takové, že $x<y$, vyjmenovat všechny prvky $z\in M$ takové, že $x \leq z \leq y$.
+\end{itemize}
+
+Volba struktury v každém konkrétním případě závisí na tom, které z těchto operací potřebujeme v naší konkrétní aplikaci podporovat. Pokud nám například stačí umět prvky vyjmenovat, postačí nám obyčejné pole. Pokud chceme umět vyhledávat, přidávat i mazat v konstantním čase, je nejlepší volbou nějaká varianta hashovací tabulky. Zejména poslední tři zmíněné operace ale hashovací tabulka umí pouze v čase $\Theta(|M|)$. Pokud tedy tento typ dotazů potřebujeme struktuře pokládat, můžeme využít nějakou ze stromových datových struktur, které v této práci popíšeme.
+
+\begin{definice}
+Mějme datovou strukturu, která se skládá z vrcholů. Každý vrchol může mít až
+dva následníky, kterým budeme říkat \emph{levý} a \emph{pravý syn}. Jeden
+vrchol nazveme \emph{kořen}. Všechny ostatní vrcholy pak budou mít právě
+jednoho \emph{rodiče} (tak, že pokud vrchol $u$ je rodičem vrcholu $v$, pak
+vrchol $v$ je pravým nebo levý synem vrcholu $u$)\footnote{V některých implementacích si vrcholy nemusí pamatovat ukazatele na své rodiče, my budeme však prozatím předpokládat, že si je pamatují.}. Pro vrchol $v$ nazveme
+\emph{podstrom vrcholu $v$} množinu vrcholů, do nichž se dá dostat z z vrcholu
+$v$ libovolnou\footnote{Posloupnost může být i prázdná.} posloupností operací \uv{přejdi do
+pravého syna} a \uv{přejdi do levého syna}.
+
+V každém vrcholu bude pak právě jedna hodnota, a navíc bude pro vrchol $v$ platit, že hodnoty ve všech vrcholech v podstromu levého syna $v$ jsou ostře menší než hodnota ve $v$, a hodnoty v podstromu pravého syna naopak ostře větší.
+
+Nakonec si zapamatujeme ukazatel na kořen tak, abychom ho kdykoli v konstantním čase nalezli.
+
+Této datové struktuře budeme říkat \emph{Binární vyhledávací strom}
+\end{definice}
+
+Při práci se stromem budeme předpokládat, že následující operace umíme v konstantním čase:
+\begin{itemize}
+\item Nalezni kořen,
+\item přejdi do pravého, případně levého syna aktuálního vrcholu,
+\item přejdi do rodiče aktuálního vrcholu,
+\item přečti či zapiš hodnotu v aktuálním vrcholu,
+\item Pokud aktuální vrchol nemá pravého či levého syna, vytvoř na jeho místě nový vrchol s danou hodnotou.
+\end{itemize}
+Vyhledávání hodnoty $x$ ve stromu pak můžeme provést podle následujícího algoritmu:
+\begin{enumerate}
+\item Nalezni kořen,
+\item podívej se, zda je hodnota $x$ rovna hodnotě v aktuálním vrcholu, a pokud ano, nahlaš nález,
+\item je-li hodnota $x$ větší než hodnota v aktuálním vrcholu, podívej se, zda existuje pravý syn aktuálního vrcholu. Pokud ano, přejdi do něj a vrať se ke 2. kroku algoritmu, jinak ohlaš, že  $x$ ve stromu není.
+\item je-li hodnota $x$ menší než hodnota v aktuálním vrcholu, podívej se, zda existuje levý syn aktuálního vrcholu. Pokud ano, přejdi do něj a vrať se ke 2. kroku algoritmu, jinak ohlaš, že  $x$ ve stromu není.
+\end{enumerate}
+
+Podobným algoritmem budeme prvky přidávat, pouze místo nahlášení neexistence na místě chybějícího syna založíme nový vrchol. Mazání prvkku provedeme následovně:
+\begin{itemize}
+\item Je-li mazaný prvek list, prostě ho smažeme,
+\item má-li mazaný prvek právě jednoho syna, prvek smažeme a jeho syna připojíme pod rodiče mazaného prvku na na místo mazaného prvku,
+\item má-li mazaný prvek dva syny, najdeme ve stromě prvek nejblíže větší, jeho
+hodnotu zapíšeme na místo odstraňovaného prvku a odstraníme tento nejblíže větší
+prvek, kterému nutně chybí přinejmenším levý syn (kdyby existoval, hodnota v
+něm by byla menší než hodnota jeho rodiče, ale větší než hodnota odstraňovaného
+vrcholu -- tedy jeho rodič by nemohl být nejblíže větší).  
+\end{itemize} 
+
+\section{vyvažované stromy}
+
+Tady budou AVL, RB a WAVL stromy.
+
 
 \section{Výpočetní model}
 Chceme-li mluvit o optimálním stromu, musíme nejprve specifikovat, co přesně
 budeme za binární vyhledávací strom považovat. Definici, kterou zde
 představíme, používali implicitně už \citet{splay}, formalizoval ji však až
 \citet{tango}.
+
+
 
 \begin{definice}
 Mějme statické \emph{univerzum} klíčů $\mathcal U = \{1,2,\dots,n\}$. Dále
