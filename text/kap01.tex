@@ -11,10 +11,10 @@ stromy a dokážeme, že tyto meze splňují (nebo, v případě tango stromu, �
 téměř splňují).
 
 \section{Binární vyhledávací strom}
-\def\U\{\mathcal U}
-\def\o\{\mathcal O}
+\def\U{\mathcal U}
+\def\o{\mathcal O}
 
-Častým úkolem datové struktury je udržovat informaci o množině prvků. Formálně mějme univerzum\footnote{Ve skutečnosti často stačí jakákoli množina $\mathcal U$, pro některé aplikace jakákoli uspořádaná množina $\mathcal U$.} $\mathcal U \subseteq \mathbb N$ a jeho podmonožinu $M$, a budeme chtít datovou strukturu, která nám bude umět o každé prvku $\mathcal U$ říct, jestli náleží množině $M$. Po takových strukturách často chceme nějaké z následujících operací:
+Častým úkolem datové struktury je udržovat informaci o množině prvků. Formálně mějme univerzum $\mathcal U$, lineární uspořádání na tomto univerzu $\geq$, a jeho podmonožinu $M$. Budeme chtít datovou strukturu, která nám bude umět o každé prvku $\mathcal U$ říct, jestli náleží množině $M$. Po takových strukturách často chceme nějaké z následujících operací:
 \begin{itemize}
 \item pro prvek $x \in \U$ rozhodnout, zda $x\in M$,
 \item přidat prvek $x \in \U$ do množiny $M$,
@@ -60,7 +60,7 @@ Vyhledávání hodnoty $x$ ve stromu pak můžeme provést podle následujícíh
 \item je-li hodnota $x$ menší než hodnota v aktuálním vrcholu, podívej se, zda existuje levý syn aktuálního vrcholu. Pokud ano, přejdi do něj a vrať se ke 2. kroku algoritmu, jinak ohlaš, že  $x$ ve stromu není.
 \end{enumerate}
 
-Podobným algoritmem budeme prvky přidávat, pouze místo nahlášení neexistence na místě chybějícího syna založíme nový vrchol. Mazání prvkku provedeme následovně:
+Podobným algoritmem budeme prvky přidávat, pouze místo nahlášení neexistence na místě chybějícího syna založíme nový vrchol. Mazání prvku provedeme následovně:
 \begin{itemize}
 \item Je-li mazaný prvek list, prostě ho smažeme,
 \item má-li mazaný prvek právě jednoho syna, prvek smažeme a jeho syna připojíme pod rodiče mazaného prvku na na místo mazaného prvku,
@@ -71,9 +71,194 @@ něm by byla menší než hodnota jeho rodiče, ale větší než hodnota odstra
 vrcholu -- tedy jeho rodič by nemohl být nejblíže větší).  
 \end{itemize} 
 
-\section{vyvažované stromy}
+\section{Statická optimalita}
 
-Tady budou AVL, RB a WAVL stromy.
+Přirozená otázka zní, jak vypadá binární vyhledávací strom, který pro danou
+posloupnost přístupů vykoná nejméně operací. Pro začátek se omezíme na statické
+stromy. To znamená stromy, které vybudujeme nad předem danou množinou klíčů, a
+za běhu už nebudeme podporovat vkládání a mazání, ani neumožníme měnit
+strukturu stromu. Na druhou stranu budeme předpokládat, že předem známe četnost
+přístupů k jednotlivým prvkům. V tomto modelu se počet operací přesně rovná
+počtu navštívených vrcholů.
+
+Problém konstrukce optimálního stromu v tomto modelu vyřešil dynamickým
+programováním \citet{staticoptimality}. Jeho algoritmus zde představíme.
+
+Mějme množinu klíčů, pro jednoduchost {\tt [n]}\footnote{Tímto značení myslíme
+množinu přirozených čísel od 1 do $n$ včetně.} a pole vah {\tt w}. Váha vrcholu
+{\tt i} {\tt w[i]} může být buď pravděpodobnost, že daný přístup bude mít za
+cíl naleznout vrchol {\tt i}, nebo počet výskytů {\tt i} v přístupové
+posloupnosti. V prvním případě dostaneme jako váhu výsledného stromu střední
+hodnotu počtu operací při přístupu, v druhém případě součet počtu operací přes
+celou přístupovou posloupnost.
+
+\code{
+\l GetStaticallyOptimalTreeWeight(1, n, w):
+\block
+\l TreeWeights = Array[n + 1, n + 1]
+\l \# V buňce i, j bude váha optimálního stromu 
+\l \# na vrcholech i až i+j-1
+\l WeightSums = Array[n + 1, n + 1]
+\l \# V buňce i, j bude součet vah i-tého až j-1. vrcholu
+\l for i in range(1, n + 2)
+\block
+\l for j in range(1, n + 2)
+\block
+\l WeightSums[i, j] = sum(w[i:j])
+\endblock
+\endblock
+\l for Size in range(1, n + 1)
+\block
+\l for Start in range(1, n + 2 - Size)
+\l End = Start + Size - 1
+\block
+\l Weight = $\infty$
+\l for Root in range(start, start + size)
+\block
+\l LeftSubtreeWeight = \b TreeWeights[Start, Root - 1 - Start] \b + WeightSums[Start, Root]
+\l RightSubtreeWeight = \b TreeWeights[Root + 1, End - Root] \b + WeightSums[Root + 1, End + 1]
+\l Weight = min(Weight, w[Root] + LeftSubtreeWeight \b + RightSubtreeWeight) \refline{prirazovanivah}
+\endblock
+\l TreeWeights[Start, Size] = Weight
+\endblock
+\endblock
+\l return TreeWeights[1, n]
+\endblock
+}
+
+Kdyby nás zajímala nejen váha optimálního stromu, ale chtěli bychom ho skutečně
+zkonstruovat, bylo by nutné na řádku \codelineref{prirazovanivah} a
+následujícím ukládat nejen minimum, ale i tvar stromu na vrcholech {\tt Start}
+až {\tt End}jako tvar optimálního levého a pravého podstromu s vrcholem {\tt
+Root} jako kořenem. Výpočet obsahu pole {\tt WeightSums} by samozřejmě šel
+udělat i kvadraticky s využitím prefixových součtů, nebo bychom ho vůbec
+nemuseli počítat a mohli bychom si nechat pouze pole prefixových součtů.
+Protože ale algoritmus má tak jako tak kvadratickou prostorovou a kubickou
+časovou složitost, není z asymptotického pohledu nutné tuto část algoritmu
+optimalizovat. Důkaz korektnosti algoritmu je založený na myšlence, že je-li v
+optimálním stromě podstrom na vrcholech {\tt i} až {\tt j}, musí být tento
+podstrom sám o sobě optimálním stromem na příslušných vrcholech. Potom tedy
+stačí vyzkoušet všechny možné pozice kořene a rekurzivně spočítat jeho
+optimální pravý a levý podstrom. Protože přímočaré aplikování tohoto postupu by
+vedlo k tomu, že bychom cenu každého konkrétního podstromu počítali mnohokrát a
+výsledný algoritmus by byl exponenciální, použijeme princip dynamického
+programování a strom rekurze budeme procházet \uv{ze spoda}, což nám umožní
+mezivýsledky ukládat a každý počítat pouze jednou.   
+
+\section{Vyvažované stromy}
+
+Co když však potřebujeme umět do struktury i vkládat? Můžeme pokračovat naivně
+podle algoritmu uvedeného výše v této kapitole. \citet{searchingsorting}
+ukázal, že pokud budeme prvky do stromu vkládat v náhodném pořadí\footnote{Bez
+újmy na obecnosti předpokládáme, že do struktury postupně vložíme všechny prvky
+z množiny $[n]$ pro vhodně zvolené $n$. Potom náhodné pořadí znamená pořadí
+určené rovnoměrně náhodně zvolenou permutací z množiny $S_n$}, s vysokou
+pravděpodobností dostaneme strom, v němž bude průměrná hloubka vrcholu $2 \ln n$.
+\citet{Robson} dále ukázal, že pokud $H(n)$ střední hodnota hloubky nejhlubšího 
+vrcholu ve stromě o $n$ vrcholech, pak $$\lim_{m\rightarrow
+\infty}\frac{H(n)}{\ln(n)}\leq\alpha,$$ kde $\alpha$ je přibližně
+$4{,}31107\dots$, přesně se jedná o největší kořen rovnice $$\alpha\cdot \ln
+\frac{2e}{\alpha} = 1.$$ \citet{devroye} později dokázal, že výše uvedená
+nerovnost je ve skutečnosti rovnost.
+
+V praxi však často klíče potřebujeme vkládat i v pořadí, které není náhodné,
+ale obsahuje nějaký vzorec. Například pokud bychom do (na počátku prázdného)
+nevyvažovaného binárního stromu vložili čísla z množiny $[n]$ vzestupně, strom
+zdegeneruje v jednu jedinou cestu, na níž bude njhlubší vrchol v hloubce $n$ a
+průměrná hloubka vrcholu bude $(n+1)/2$. Takovýmto případům bychom se rádi
+vyhnuli, proto prozkoumáme vyvažované stromy. Protože však všechny stromy,
+které budeme zkoumat, budou vyvažované pomocí rotací hran, nejprve představíme,
+co taková rotace hrany je.
+
+\begin{definice}
+Mějme vrchol BVS $u$ a jeho (bez újmy na obecnosti levého) syna $v$. Dále si
+označíme $p$ rodiče vrcholu $u$, $A$ a $B$ popořadě levý a pravý podstrom $v$ a
+$C$ pravý podstrom $u$. Pak \emph{(jednoduchá) rotace hrany $uv$} je operace,
+při níž nastavíme vrchol $v$ jako syna $p$ (na stejné straně, kde byl původně
+vrchol $u$), vrchol $u$ jako pravého syna $v$ a podstrom $B$ jako levý podstrom
+$u$. Podstromy $A$ a $C$ zůstanou připojené k vrcholům $v$ a $u$ tak, jak byly.
+
+Dále mějme vrchol $u$, jeho (bez újmy na obecnosti levého) syna $v$ a syna
+vrcholu $v$, kterého si označíme $w$. Potom pokud $w$ je pravý syn, můžeme
+provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zigzag}, která probíhá tak,
+že nejprve zrotujeme hranu $wv$, a potom hranu $vu$. Pokud je $w$ levý syn,
+můžeme provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zigzig}, která
+probíhá tak, že nejprve zrotujeme hranu $vu$ a potom hranu $wv$.
+\end{definice}
+
+Dvojité rotace typu zigzig budeme potřebovat později v této kapitole. V této
+sekci si vystačíme s jednoduchými rotacemi a dvojitými rotacemi typu zigzag,
+proto budeme-li mluvit o dvojitých rotacích, budeme tím mít na mysli právě typ
+zigzag.
+
+\subsection{AVL stromy}
+
+AVL strom poprvé představili \citet{AVL}. Jedná se o typ vyvažovaného stromu. V
+AVL stromu platí, že hloubka pravého a levého podstromu každého vrcholu se liší
+nejvýše o jedna. To znamená, že pokud $D(n)$ označíme minimální počet vrcholů
+ve stromu hloubky $n$, dostáváme, že $D(0)=0$, $D(1)=1$ a
+$D(i)=1+D(i-1)+D(i-2)$ pro každé $i$ větší než jedna. Pokud vyřešíme tuto
+rekurenci, zjistíme, že $D(i)=\log_\varphi(i) + \o(1)$, kde $\varphi$ je zlatý
+řez.
+
+V každém vrcholu si budeme pamatovat navíc informaci o vyvážení tohoto vrcholu.
+Tato informac může nabývat tří možných hodnot -- daný vrchol může být buď
+\emph{vyvážený} (oba jeho podstromy jsou stejně hluboké), nebo \emph{nakloněný
+doprava}, (jeho pravý podstrom je o jedna hlubší než levý), nebo
+\emph{nakloněný doleva}\footnote{Vystačili bychom si i s jediným bitem, který by udával, zda je podstrom daného vrcholu hlubší než podstrom jeho souseda.}.
+
+Vyhledání prvku probíhá stejně, jako v nevyvažovaném binárním vyhledávacím stromě. 
+Vkládání je ale trochu komplikovanější. Následující pseudokód předpokládá neprázdný
+AVL strom -- pro prázdný strom stačí vytvořit nový vrchol, nastavit ho jako vyvážený,
+
+
+\code{
+\l AVLinsert(Root, Element)
+\block
+\l Current = Root
+\l Next = Current.value > Element ? Current.leftSon : Current.rightSon
+\l while Next != NULL
+\block
+\l Current = Next
+\l Next = Current.value > Element ? Current.leftSon : Current.rightSon
+\endblock
+\l New = Node(Element)
+\l New.balance = VYVÁŽENÝ
+\l New.parent = Current
+\l if Current.value > Element
+\block
+\l Current.leftSon = New
+\endblock
+\l else
+\block
+\l Current.rightSon = New
+\endblock
+\l
+\l Current = New
+\l Next = Current.parent
+\l while Next != NULL
+\block
+\l ComingFromRight = Current == Next.rightSon
+\l if Next.balance == VYVÁŽENÝ
+\block
+\l Next.balance = ComingFromRight ? NAKLONĚNÝ DOPRAVA : NAKLONĚNÝ DOLEVA
+\endblock
+\l else if (Next.balance == NAKLONĚNÝ DOLEVA) == ComingFromRight
+\block
+\l Next.balance = VYVÁŽENÝ
+\l return
+\endblock
+\l else
+\block
+\l
+\l TADY JEŠTĚ KUS CHYBÍ
+\l
+\endblock
+\l Current = Next
+\l Next = Cureent.parent
+}
+
+
 
 
 \section{Výpočetní model}

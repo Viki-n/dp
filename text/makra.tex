@@ -84,7 +84,29 @@
 \newcommand{\abs}[1]{\left|{#1}\right|}
 \newcommand{\dint}{\int_0^\tau\!\!\int_0^\tau}
 \newcommand{\isqr}[1]{\frac{1}{\sqrt{#1}}}
+\def\ln{\operatorname{ln}}
 
 %%% Vychytávky pro tabulky
 \newcommand{\pulrad}[1]{\raisebox{1.5ex}[0pt]{#1}}
 \newcommand{\mc}[1]{\multicolumn{1}{c}{#1}}
+
+\newdimen\hole
+\hole=1.5em
+\newcount\linecount
+\linecount=1
+
+\long\def\code#1{{
+\tt
+\bigskip
+\parskip=0pt
+\parindent=0pt
+\def\l{\par\noindent\advance \linecount by 1 \hbox to 0pt{\the\linecount.\hss} \hskip\hole}
+\def\b{\par\noindent\hskip\hole\hskip 2em}
+\def\block{\advance \hole by 2em}
+\def\endblock{\advance\hole by -2em}
+\def\refline##1{\expandafter\global\expandafter\edef\csname !cisloradku##1\endcsname{\the\linecount}}
+#1
+\bigskip
+
+}}
+\def\codelineref#1{{\tt \csname !cisloradku#1\endcsname}}
