@@ -3,7 +3,7 @@
 V této kapitole zavedeme formální definici binárního vyhledávacího stromu a
 pojednáme o jeho výhodách oproti jiným způsobům uložení dat. Dále přiblížíme
 (staticky) optimální strom. Pro dynamické stromy připomeneme některé běžné
-vyvažovací strategie a také představíme jiné, novější přístupy například třídu
+vyvažovací strategie a také představíme jiné, novější přístupy, například třídu
 rankově vyvážených stromů a jejich speciální případ Weak AVL strom. Potom
 představíme několik mezí optimality, vlastností, které musí mít optimální
 binární vyhledávací strom. Nakonec se podíváme na Tango stromy a Multisplay
@@ -14,7 +14,12 @@ téměř splňují).
 \def\U{\mathcal U}
 \def\o{\mathcal O}
 
-Častým úkolem datové struktury je udržovat informaci o množině prvků. Formálně mějme univerzum $\mathcal U$, lineární uspořádání na tomto univerzu $\geq$, a jeho podmonožinu $M$. Budeme chtít datovou strukturu, která nám bude umět o každé prvku $\mathcal U$ říct, jestli náleží množině $M$. Po takových strukturách často chceme nějaké z následujících operací:
+Častým úkolem datové struktury je udržovat informaci o množině prvků. Formálně
+mějme univerzum $\mathcal U$, lineární uspořádání na tomto univerzu $\leq$, a
+konečnou podmnožinu tohoto univerza $M$. Budeme chtít vybudovat datovou strukturu, která bude umět o
+každém prvku $\mathcal U$ říct, jestli náleží množině $M$. Po takových
+strukturách často chceme nějaké z následujících operací:
+
 \begin{itemize}
 \item pro prvek $x \in \U$ rozhodnout, zda $x\in M$,
 \item přidat prvek $x \in \U$ do množiny $M$,
@@ -22,75 +27,104 @@ téměř splňují).
 \item vyjmenovat všechny prvky $M$,
 \item pro daný prvek $x\in \U \setminus M$ najít nejbližší větší případně menší prvek $M$,
 \item pro daný prvek $x\in M$ najít předchůdce, případně následovníka,
-\item pro dané dva prvky $x,y\in\U$ takové, že $x<y$, vyjmenovat všechny prvky $z\in M$ takové, že $x \leq z \leq y$.
+\item pro dané dva prvky $x,y\in\U$ takové, že $x<y$, spočítat nebo vyjmenovat všechny prvky $z\in M$ takové, že $x \leq z \leq y$.
 \end{itemize}
 
-Volba struktury v každém konkrétním případě závisí na tom, které z těchto operací potřebujeme v naší konkrétní aplikaci podporovat. Pokud nám například stačí umět prvky vyjmenovat, postačí nám obyčejné pole. Pokud chceme umět vyhledávat, přidávat i mazat v konstantním čase, je nejlepší volbou nějaká varianta hashovací tabulky. Zejména poslední tři zmíněné operace ale hashovací tabulka umí pouze v čase $\Theta(|M|)$. Pokud tedy tento typ dotazů potřebujeme struktuře pokládat, můžeme využít nějakou ze stromových datových struktur, které v této práci popíšeme.
+Volba struktury v každém konkrétním případě závisí na tom, které z těchto
+operací potřebujeme v naší konkrétní aplikaci podporovat. Pokud nám například
+stačí umět prvky vyjmenovat, postačí nám obyčejné pole. Pokud chceme umět
+vyhledávat, přidávat i mazat v průměru v konstantním čase, je nejlepší volbou nějaká
+varianta hashovací tabulky. Zejména poslední tři zmíněné operace ale hashovací
+tabulka umí pouze v čase $\Theta(|M|)$. Pokud tedy tento typ dotazů potřebujeme
+struktuře pokládat, můžeme využít nějakou ze stromových datových struktur,
+které v této práci popíšeme.
 
 \begin{definice}
 Mějme datovou strukturu, která se skládá z vrcholů. Každý vrchol může mít až
 dva následníky, kterým budeme říkat \emph{levý} a \emph{pravý syn}. Jeden
 vrchol nazveme \emph{kořen}. Všechny ostatní vrcholy pak budou mít právě
 jednoho \emph{rodiče} (tak, že pokud vrchol $u$ je rodičem vrcholu $v$, pak
-vrchol $v$ je pravým nebo levý synem vrcholu $u$)\footnote{V některých implementacích si vrcholy nemusí pamatovat ukazatele na své rodiče, my budeme však prozatím předpokládat, že si je pamatují.}. Pro vrchol $v$ nazveme
+vrchol $v$ je pravým nebo levý synem vrcholu $u$)\footnote{V některých
+implementacích si vrcholy nemusí pamatovat ukazatele na své rodiče, my budeme
+však prozatím předpokládat, že si je pamatují.}. Pro vrchol $v$ nazveme
 \emph{podstrom vrcholu $v$} množinu vrcholů, do nichž se dá dostat z z vrcholu
-$v$ libovolnou\footnote{Posloupnost může být i prázdná.} posloupností operací \uv{přejdi do
-pravého syna} a \uv{přejdi do levého syna}.
+$v$ libovolnou\footnote{Posloupnost může být i prázdná.} posloupností kroků 
+\uv{přejdi do pravého syna} a \uv{přejdi do levého syna}.
 
-V každém vrcholu bude pak právě jedna hodnota, a navíc bude pro vrchol $v$ platit, že hodnoty ve všech vrcholech v podstromu levého syna $v$ jsou ostře menší než hodnota ve $v$, a hodnoty v podstromu pravého syna naopak ostře větší.
+V každém vrcholu bude pak právě jedna hodnota, a navíc bude pro každý vrchol $v$ platit, že hodnoty ve všech vrcholech v podstromu levého syna $v$ jsou ostře menší než hodnota ve $v$, a hodnoty v podstromu pravého syna naopak ostře větší.
 
 Nakonec si zapamatujeme ukazatel na kořen tak, abychom ho kdykoli v konstantním čase nalezli.
 
-Této datové struktuře budeme říkat \emph{Binární vyhledávací strom}
+Této datové struktuře budeme říkat \emph{binární vyhledávací strom}
 \end{definice}
 
-Při práci se stromem budeme předpokládat, že následující operace umíme v konstantním čase:
+Při práci se stromem budeme předpokládat, že následující kroky umíme v konstantním čase:
 \begin{itemize}
 \item Nalezni kořen,
 \item přejdi do pravého, případně levého syna aktuálního vrcholu,
 \item přejdi do rodiče aktuálního vrcholu,
 \item přečti či zapiš hodnotu v aktuálním vrcholu,
-\item Pokud aktuální vrchol nemá pravého či levého syna, vytvoř na jeho místě nový vrchol s danou hodnotou.
+\item pokud aktuální vrchol nemá pravého či levého syna, vytvoř na jeho místě nový vrchol s danou hodnotou.
 \end{itemize}
 Vyhledávání hodnoty $x$ ve stromu pak můžeme provést podle následujícího algoritmu:
 \begin{enumerate}
-\item Nalezni kořen,
-\item podívej se, zda je hodnota $x$ rovna hodnotě v aktuálním vrcholu, a pokud ano, nahlaš nález,
-\item je-li hodnota $x$ větší než hodnota v aktuálním vrcholu, podívej se, zda existuje pravý syn aktuálního vrcholu. Pokud ano, přejdi do něj a vrať se ke 2. kroku algoritmu, jinak ohlaš, že  $x$ ve stromu není.
-\item je-li hodnota $x$ menší než hodnota v aktuálním vrcholu, podívej se, zda existuje levý syn aktuálního vrcholu. Pokud ano, přejdi do něj a vrať se ke 2. kroku algoritmu, jinak ohlaš, že  $x$ ve stromu není.
+\item Nalezni kořen.
+\item Podívej se, zda je hodnota $x$ rovna hodnotě v aktuálním vrcholu, a pokud ano, nahlaš nález.
+\item Je-li hodnota $x$ větší než hodnota v aktuálním vrcholu, podívej se, zda existuje pravý syn aktuálního vrcholu. Pokud ano, přejdi do něj a vrať se ke 2. kroku algoritmu, jinak ohlaš, že  $x$ ve stromu není.
+\item Je-li hodnota $x$ menší než hodnota v aktuálním vrcholu, podívej se, zda existuje levý syn aktuálního vrcholu. Pokud ano, přejdi do něj a vrať se ke 2. kroku algoritmu, jinak ohlaš, že  $x$ ve stromu není.
 \end{enumerate}
 
 Podobným algoritmem budeme prvky přidávat, pouze místo nahlášení neexistence na místě chybějícího syna založíme nový vrchol. Mazání prvku provedeme následovně:
+
 \begin{itemize}
-\item Je-li mazaný prvek list, prostě ho smažeme,
-\item má-li mazaný prvek právě jednoho syna, prvek smažeme a jeho syna připojíme pod rodiče mazaného prvku na na místo mazaného prvku,
-\item má-li mazaný prvek dva syny, najdeme ve stromě prvek nejblíže větší, jeho
-hodnotu zapíšeme na místo odstraňovaného prvku a odstraníme tento nejblíže větší
+\item Je-li vrchol obsahující mazaný prvek list, prostě ho smažeme.
+\item Má-li vrchol obsahující mazaný prvek právě jednoho syna, prvek smažeme a jeho syna připojíme pod rodiče mazaného prvku na místo mazaného prvku.
+\item Má-li vrchol obsahující mazaný prvek dva syny, najdeme ve stromě prvek nejblíže větší, jeho
+hodnotu zapíšeme na místo odstraňovaného prvku a odstraníme vrchol, v němž byl tento nejblíže větší
 prvek, kterému nutně chybí přinejmenším levý syn (kdyby existoval, hodnota v
 něm by byla menší než hodnota jeho rodiče, ale větší než hodnota odstraňovaného
-vrcholu -- tedy jeho rodič by nemohl být nejblíže větší).  
+vrcholu -- tedy jeho rodič by nemohl být nejbližší větší).  
 \end{itemize} 
 
 \section{Statická optimalita}
 
+Podívejme se na životní cyklus binárního vyhledávacího stromu. Takový strom
+nejprve vybudujeme s (ne nutně neprázdnou) počáteční množinou klíčů
+a potom na na něm vykonáme nějakou posloupnost operací. My se prozatím omezíme
+pouze na případ, kdy strom vybudujeme nad neprázdnou množinou klíčů, a jediná
+operace, kterou budeme vykonávat, bude operace vyhledání. Navíc budeme
+požadovat, aby všechny klíče, které ve stromě hledáme, skutečně ve stromě byly.
+Potom je posloupnost operací jednoznačně dána pouze hodnotami, na které se
+dotazujeme (a jejich pořadím; hodnoty nemusí být různé). Posloupnost těchto
+hodnot budeme nazývat \emph{přístupová posloupnost}, budeme ji značit $S$ a
+její délku budeme značit $m$.
+
 Přirozená otázka zní, jak vypadá binární vyhledávací strom, který pro danou
-posloupnost přístupů vykoná nejméně operací. Pro začátek se omezíme na statické
+posloupnost přístupů vykoná nejméně operací. V plné obecnosti budeme tuto otázku řešit v pozdějších částech této kapitoly. Pro tuto sekci se omezíme na statické
 stromy. To znamená stromy, které vybudujeme nad předem danou množinou klíčů, a
 za běhu už nebudeme podporovat vkládání a mazání, ani neumožníme měnit
-strukturu stromu. Na druhou stranu budeme předpokládat, že předem známe četnost
-přístupů k jednotlivým prvkům. V tomto modelu se počet operací přesně rovná
-počtu navštívených vrcholů.
+strukturu stromu. Na druhou stranu budeme předpokládat, že přístupovou posloupnost, nebo alespoň četnost jednotlivých prvků v ní, předem známe. V tomto modelu se počet operací přesně rovná
+počtu navštívených vrcholů (včetně násobnosti).
 
 Problém konstrukce optimálního stromu v tomto modelu vyřešil dynamickým
-programováním \citet{staticoptimality}. Jeho algoritmus zde představíme.
+programováním \citet{staticoptimality}. Myšlenku jeho algoritmu zde představíme.
 
 Mějme množinu klíčů, pro jednoduchost {\tt [n]}\footnote{Tímto značení myslíme
 množinu přirozených čísel od 1 do $n$ včetně.} a pole vah {\tt w}. Váha vrcholu
 {\tt i} {\tt w[i]} může být buď pravděpodobnost, že daný přístup bude mít za
 cíl naleznout vrchol {\tt i}, nebo počet výskytů {\tt i} v přístupové
 posloupnosti. V prvním případě dostaneme jako váhu výsledného stromu střední
-hodnotu počtu operací při přístupu, v druhém případě součet počtu operací přes
+hodnotu počtu navštívených vrcholů při přístupu, v druhém případě součet počtu operací přes
 celou přístupovou posloupnost.
+
+Algoritmus je založený na myšlence, že podstrom libovolného vrcholu v
+optimálním stromu je sám o sobě optimální strom nad příslušnými prvky. Proto
+stačí pro všechny možné volby kořene rekurzivně spočítat optimální strom pro
+prvky menší než kořen a větší než kořen, a z takto spočítaných stromů vybrat
+ten s nejmenší váhou. Protože přímočará implementace tohoto postupu by běžela v
+exponenciálním čase, budeme si váhy (a případně kořeny) dílčích optimálních
+stromů ukládat. Naivní (a suboptimální) implementace tohoto postupu vypadá
+takto:
 
 \code{
 \l GetStaticallyOptimalTreeWeight(1, n, w):
@@ -117,7 +151,7 @@ celou přístupovou posloupnost.
 \block
 \l LeftSubtreeWeight = \b TreeWeights[Start, Root - 1 - Start] \b + WeightSums[Start, Root]
 \l RightSubtreeWeight = \b TreeWeights[Root + 1, End - Root] \b + WeightSums[Root + 1, End + 1]
-\l Weight = min(Weight, w[Root] + LeftSubtreeWeight \b + RightSubtreeWeight) \refline{prirazovanivah}
+\l Weight = min(Weight, w[Root] \b + LeftSubtreeWeight \b + RightSubtreeWeight) \refline{prirazovanivah}
 \endblock
 \l TreeWeights[Start, Size] = Weight
 \endblock
@@ -133,17 +167,10 @@ až {\tt End}jako tvar optimálního levého a pravého podstromu s vrcholem {\t
 Root} jako kořenem. Výpočet obsahu pole {\tt WeightSums} by samozřejmě šel
 udělat i kvadraticky s využitím prefixových součtů, nebo bychom ho vůbec
 nemuseli počítat a mohli bychom si nechat pouze pole prefixových součtů.
-Protože ale algoritmus má tak jako tak kvadratickou prostorovou a kubickou
+Protože ale algoritmus tak, jak jsme ho představili, má tak jako tak kvadratickou prostorovou a kubickou
 časovou složitost, není z asymptotického pohledu nutné tuto část algoritmu
-optimalizovat. Důkaz korektnosti algoritmu je založený na myšlence, že je-li v
-optimálním stromě podstrom na vrcholech {\tt i} až {\tt j}, musí být tento
-podstrom sám o sobě optimálním stromem na příslušných vrcholech. Potom tedy
-stačí vyzkoušet všechny možné pozice kořene a rekurzivně spočítat jeho
-optimální pravý a levý podstrom. Protože přímočaré aplikování tohoto postupu by
-vedlo k tomu, že bychom cenu každého konkrétního podstromu počítali mnohokrát a
-výsledný algoritmus by byl exponenciální, použijeme princip dynamického
-programování a strom rekurze budeme procházet \uv{ze spoda}, což nám umožní
-mezivýsledky ukládat a každý počítat pouze jednou.   
+optimalizovat. Algoritmus však lze upravit tak, aby jeho časová složitost byla pouze kvadratická.
+
 
 \section{Vyvažované stromy}
 
@@ -157,7 +184,7 @@ pravděpodobností dostaneme strom, v němž bude průměrná hloubka vrcholu $2
 \citet{Robson} dále ukázal, že pokud $H(n)$ střední hodnota hloubky nejhlubšího 
 vrcholu ve stromě o $n$ vrcholech, pak $$\lim_{m\rightarrow
 \infty}\frac{H(n)}{\ln(n)}\leq\alpha,$$ kde $\alpha$ je přibližně
-$4{,}31107\dots$, přesně se jedná o největší kořen rovnice $$\alpha\cdot \ln
+$4.311\dots$, přesně se jedná o největší kořen rovnice $$\alpha\cdot \ln
 \frac{2e}{\alpha} = 1.$$ \citet{devroye} později dokázal, že výše uvedená
 nerovnost je ve skutečnosti rovnost.
 
@@ -173,7 +200,7 @@ co taková rotace hrany je.
 \begin{definice}
 Mějme vrchol BVS $u$ a jeho (bez újmy na obecnosti levého) syna $v$. Dále si
 označíme $p$ rodiče vrcholu $u$, $A$ a $B$ popořadě levý a pravý podstrom $v$ a
-$C$ pravý podstrom $u$. Pak \emph{(jednoduchá) rotace hrany $uv$} je operace,
+$C$ pravý podstrom $u$. Pak \emph{(jednoduchá) rotace hrany $uv$} je krok,
 při níž nastavíme vrchol $v$ jako syna $p$ (na stejné straně, kde byl původně
 vrchol $u$), vrchol $u$ jako pravého syna $v$ a podstrom $B$ jako levý podstrom
 $u$. Podstromy $A$ a $C$ zůstanou připojené k vrcholům $v$ a $u$ tak, jak byly.
@@ -194,11 +221,11 @@ zigzag.
 \subsection{AVL stromy}
 
 AVL strom poprvé představili \citet{AVL}. Jedná se o typ vyvažovaného stromu. V
-AVL stromu platí, že hloubka pravého a levého podstromu každého vrcholu se liší
+AVL stromu platí, že hloubka pravého a levého podstromu\footnote{Pravým, resp. levým podstromem vrcholu myslíme podstrom pravého, resp. levého syna tohoto vrcholu} každého vrcholu se liší
 nejvýše o jedna. To znamená, že pokud $D(n)$ označíme minimální počet vrcholů
 ve stromu hloubky $n$, dostáváme, že $D(0)=0$, $D(1)=1$ a
 $D(i)=1+D(i-1)+D(i-2)$ pro každé $i$ větší než jedna. Pokud vyřešíme tuto
-rekurenci, zjistíme, že $D(i)=\log_\varphi(i) + \o(1)$, kde $\varphi$ je zlatý
+rekurenci, zjistíme, že $D(i)=\log_\varphi(i) + \o(1)$, kde $\varphi = 1.618\dots$ je zlatý
 řez.
 
 V každém vrcholu si budeme pamatovat navíc informaci o vyvážení tohoto vrcholu.
@@ -281,7 +308,7 @@ ke vrcholům s klíči $x_1, x_2,\dots,x_m$.
 
 Přístup probíhá tak, že algoritmus smí mít vždy právě jeden ukazatel na vrchol
 stromu, který na počátku každého přístupu ukazuje na kořen stromu. Dále v
-každém kroku smí provést právě jednu z následujících operací: 
+každém kroku smí provést právě jeden z následujících kroků: 
 \begin{itemize}
 \item Přesunout ukazatel na levého syna aktuálního vrcholu,
 \item přesunout ukazatel na pravého syna aktuálního vrcholu,
@@ -289,7 +316,7 @@ každém kroku smí provést právě jednu z následujících operací:
 \item provést rotaci hrany mezi aktuálním vrcholem a jeho rodičem.
 \end{itemize}
 
-Řekneme, že čas běhu algoritmu je počet těchto operací, které za sekvenci
+Řekneme, že čas běhu algoritmu je počet těchto kroků, které za sekvenci
 přístupů provede, plus jedna. O vrcholu stromu řekneme, že jsme se ho při daném
 přístupu \emph{dotkli}, pokud na něj někdy během tohoto přístupu ukazoval
 ukazatel algoritmu.  \end{definice}
@@ -311,7 +338,7 @@ jediný bit informace, splay strom se obejde zcela bez dalších informací.
 
 Pro danou přístupovou sekvenci $X$ existuje přístupový algoritmus, který ji
 vykoná optimálně, tedy v nejkratším čase ze všech možných algoritmů. Tento
-počet operací označíme $\opt(X)$. Zde předpokládáme, že je strom na začátku v
+počet kroků označíme $\opt(X)$. Zde předpokládáme, že je strom na začátku v
 nejlepší možné konfiguraci. Tím však nesnížíme potřebný čas na přístupy o více
 než aditivní $\mathcal O(n)$, protože z libovolného BVS je možné pomocí
 $\mathcal O(n)$ rotací vytvořit libovolný jiný (nad tou samou množinou klíčů).
