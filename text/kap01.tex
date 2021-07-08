@@ -13,6 +13,7 @@ téměř splňují).
 \section{Binární vyhledávací strom}
 \def\U{\mathcal U}
 \def\o{\mathcal O}
+\let\op\operatorname
 
 Častým úkolem datové struktury je udržovat informaci o množině prvků. Formálně
 mějme univerzum $\mathcal U$, lineární uspořádání na tomto univerzu $\leq$, a
@@ -21,13 +22,12 @@ každém prvku $\mathcal U$ říct, jestli náleží množině $M$. Po takových
 strukturách často chceme nějaké z následujících operací:
 
 \begin{itemize}
-\item pro prvek $x \in \U$ rozhodnout, zda $x\in M$,
-\item přidat prvek $x \in \U$ do množiny $M$,
-\item odstranit prvek $x\in M$ z $M$,
-\item vyjmenovat všechny prvky $M$,
-\item pro daný prvek $x\in \U \setminus M$ najít nejbližší větší případně menší prvek $M$,
-\item pro daný prvek $x\in M$ najít předchůdce, případně následovníka,
-\item pro dané dva prvky $x,y\in\U$ takové, že $x<y$, spočítat nebo vyjmenovat všechny prvky $z\in M$ takové, že $x \leq z \leq y$.
+\item $\op{Find}(x)$: pro prvek $x \in \U$ rozhodnout, zda $x\in M$,
+\item $\op{Insert}(x)$: přidat prvek $x \in \U$ do množiny $M$,
+\item $\op{Delete}(x)$: odstranit prvek $x\in M$ z $M$,
+\item $\op{Enumerate}()$: vyjmenovat všechny prvky $M$,
+\item $\op{Succ}(x)$, resp $\op{Pred}(x)$: pro daný prvek $x\in \U $ najít nejbližší (ostře) větší, resp. menší prvek $M$,
+\item $\op{RangeQuery}(x,y)$: pro dané dva prvky $x,y\in\U$ takové, že $x<y$, spočítat nebo vyjmenovat všechny prvky $z\in M$ takové, že $x \leq z \leq y$.
 \end{itemize}
 
 Volba struktury v každém konkrétním případě závisí na tom, které z těchto
@@ -235,8 +235,22 @@ doprava}, (jeho pravý podstrom je o jedna hlubší než levý), nebo
 \emph{nakloněný doleva}\footnote{Vystačili bychom si i s jediným bitem, který by udával, zda je podstrom daného vrcholu hlubší než podstrom jeho souseda.}.
 
 Vyhledání prvku probíhá stejně, jako v nevyvažovaném binárním vyhledávacím stromě. 
-Vkládání je ale trochu komplikovanější. Následující pseudokód předpokládá neprázdný
-AVL strom -- pro prázdný strom stačí vytvořit nový vrchol, nastavit ho jako vyvážený,
+Vkládání je ale trochu komplikovanější. Při připojení nového listu je potřeba
+jeho rodiči změnit vyvážení. Byl-li vyvážený (tj. byl to list), nově bude
+nakloněný za novým vrcholem. Byl-li nakloněný od nového vrcholu, bude nově
+vyvážený. V prvním případě navíc vzrostla celková hloubka podstromu tohoto
+vrcholu, je tedy potřeba změnu vyvážení propagovat výše do stromu. Kromě
+předchozích dvou případů  může při další propagaci nastat ještě jeden jiný,
+totiž že byl vrchol už původně nakloněný směrem ze kterého propagujeme. To
+znamená, že po přidání nového vrcholu již neplatí invariant AVL stromu a musíme
+provést (v závislosti na konkrétní situaci buď jednoduchou nebo dvojitou, viz
+obrázek TADY BUDE REFERENCE) rotaci hrany, abychom situaci napravili.
+Provedením rotace však zařídíme, že se celý podstrom rotovaného vrcholu o jedna
+sníží. To znamená, že bude mít stejnou výšku jako před insertem a změnu tedy
+není potřeba dále propagovat.   
+
+Následující pseudokód předpokládá neprázdný
+AVL strom -- pro prázdný strom stačí vytvořit nový vrchol, nastavit ho jako vyvážený a namířit na něj ukazatel kořene.
 
 
 \code{
@@ -282,10 +296,59 @@ AVL strom -- pro prázdný strom stačí vytvořit nový vrchol, nastavit ho jak
 \l
 \endblock
 \l Current = Next
-\l Next = Cureent.parent
+\l Next = Current.parent
 }
 
+Operaci delete zde podobně detailně probírat nebudeme, podotkneme ale, že na rozdíl od operace insert může být nutné až řádově logaritmicky mnoho rotací vůči vůči počtu vrcholů ve stromě (tj. lineárně mnoho vůči hloubce stromu).
 
+
+
+\subsection{Červenočerný strom}
+
+Červenočerný strom odvodili z 2-4 stromů \citet{redblack}. Pro popis
+červenočerného stromu se nám bude hodit alternativní pohlad na binární stromy.
+Představíme si, že v binárním stromu bude každý vrchol mít buď právě dva, nebo
+žádného potomka. Vrcholy, které nemají žádného potomka, neobsahují žádný klíč
+ani jiná data. V programu tedy mohou být reprezentovány například nulovými
+ukazateli. Těmto vrcholům budeme říkat \emph{vnější} nebo také \emph{externí}
+vrcholy.
+
+Červenočerný strom je vyvažovaný binární strom, který dále splňuje následující invarianty:
+
+\begin{enumerate}
+\item Každý vrchol má buď červenou, nebo černou barvu.
+\item Všechny externí vrcholy považujeme za černé.
+\item Na každé cestě z kořene do externího listu musí být stejný počet černých vrcholů.
+\item Každý červený vrchol má oba potomky černé.
+\end{enumerate}
+
+Některé zdroje dále uvádí, že kořen musí být černý, to však není problém kdykoli zařídit -- máme-li korektní červenočerný strom s červeným kořenem, můžeme kořen přebarvit na černo a všechny invarianty zůstanou splněny. Pokud však budeme černou barvu kořene požadovat, bude ve stromě lépe vidět souvislost s původními 2-4 stromy. V takovém případě si můžeme všimnout, že pokud zkontrahujeme všechny hrany mezi červeným synem černého otce, dostaneme strom, ve kterém má každý vrchol kromě listů mezi dvěma a čtyřmi potomky, a ve kterém jsou všechny cesty z kořene do listu stejně dlouhé.
+
+Nyní se pokusíme odhadnout minimální počet vrcholů $D(n)$ ve stromu hloubky $n$. Strom s minimálním počtem vrcholů při dané hloubce vypadaá tak, že obsahuje jednu cestu, na níž se střídají červené a černé vrcholy, a na každý její vrchol dále pověsíme dokonale vyvážený strom tvořený pouze černými vrcholy o hloubce určené tak, aby byly splněny invarianty. To znamená, že jeden z podstromů kořene je strom s minimálním počtem vrcholů při hloubce o jedna menší, a druhý je dokonale vyvážený strom. Kdybychom se pokusili $D(n)$ vyjádřit pouze pomocí $D(n-1)$, muselo by se nám ve vzorci objevit zaokrouhlování ve formě dolní celé části. Abychom se zaokrouhlování vyhnuli, vyjádříme $D(n)$ pomocí $D(n-2)$.
+
+$D(n)$ můžeme vyjádřit\footnote{V následujícím výpočtu nebereme v úvahu externí vrcholy. Kdybychom je v úvahu brali, přesné vzorce by vypadaly trochu jinak, ale v závěru by se změna schovala v $\o$-notaci.} jako $D(1)=1$, $D(2) = 2$, $D(2i) = D(2i-2) + 2 \cdot
+(2^{i - 1} - 1) + 2$, $D(2i + 1) = D(2i - 1) + 2^{i-1}-1 + 2^i-1 + 2$. Z toho
+po zjednodušení a vyřešení dostáváme, že $D(i)=\Theta(2^{i/2})$, tedy nejvyšší
+možná hloubka s daným počtem vrcholů je $H(n) = \log_{\sqrt 2} n + \o(1)$.
+Protože  $\sqrt 2 < \varphi$, je hloubka červenočerného stromu v nejhorším
+případě větší než hloubka AVL stromu v nejhorším případě při stejném počtu
+vrcholů.
+
+Průběh operací insert a delete zde nebudeme probírat, protože obsahují velké
+množství speciálních případů, které by bylo potřeba zdiskutovat. Připojíme ale
+dvě poznámky. První z nich je, že výhodou červenočerných stromů oproti AVL
+stromům je vždy pouze konstantně mnoho změn struktury stromu při operaci. Druhá
+věc, kterou je zde vhodné zmínit, je velice příbuzná struktura, tzv.
+\emph{right-leaning červenočerný strom}, který představil \citet{rightleaning}.
+V tomto stromu navíc platí, že pokud má vrchol právě jednoho červeného syna,
+musí to být pravý syn. Tím sice může mírně vzrůst celkový počet rotací k
+vyvážení struktury, ale výrazně se sníží počet případů, které je třeba při
+vyvažování řešit a strom se tak stane implementačně výrazně jednodušší. V této
+práci dále pokračoval \citet{leftleaning}, který dále zakázal vrcholy, jejichž
+oba synové by byli červení. V této úpravě pak lze naimplementovat operaci
+insert na pouhých 33 řádcích kódu v jazyce Java.    
+
+Červenočerné stromy ale dále umí dvě operace, které zde představíme, protože jich využívají datové struktury, které představíme později v této práci.
 
 
 \section{Výpočetní model}
