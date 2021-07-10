@@ -175,7 +175,7 @@ optimalizovat. Algoritmus však lze upravit tak, aby jeho časová složitost by
 \section{Vyvažované stromy}
 
 Co když však potřebujeme umět do struktury i vkládat? Můžeme pokračovat naivně
-podle algoritmu uvedeného výše v této kapitole. \citet{searchingsorting}
+podle algoritmu uvedeného výše v této kapitole. \citet{sortingsearching}
 ukázal, že pokud budeme prvky do stromu vkládat v náhodném pořadí\footnote{Bez
 újmy na obecnosti předpokládáme, že do struktury postupně vložíme všechny prvky
 z množiny $[n]$ pro vhodně zvolené $n$. Potom náhodné pořadí znamená pořadí
@@ -191,14 +191,14 @@ nerovnost je ve skutečnosti rovnost.
 V praxi však často klíče potřebujeme vkládat i v pořadí, které není náhodné,
 ale obsahuje nějaký vzorec. Například pokud bychom do (na počátku prázdného)
 nevyvažovaného binárního stromu vložili čísla z množiny $[n]$ vzestupně, strom
-zdegeneruje v jednu jedinou cestu, na níž bude njhlubší vrchol v hloubce $n$ a
+zdegeneruje v jednu jedinou cestu, na níž bude nejhlubší vrchol v hloubce $n$ a
 průměrná hloubka vrcholu bude $(n+1)/2$. Takovýmto případům bychom se rádi
 vyhnuli, proto prozkoumáme vyvažované stromy. Protože však všechny stromy,
 které budeme zkoumat, budou vyvažované pomocí rotací hran, nejprve představíme,
 co taková rotace hrany je.
 
 \begin{definice}
-Mějme vrchol BVS $u$ a jeho (bez újmy na obecnosti levého) syna $v$. Dále si
+Mějme vrchol binárního vyhledávacího stromu $u$ a jeho (bez újmy na obecnosti levého) syna $v$. Dále si
 označíme $p$ rodiče vrcholu $u$, $A$ a $B$ popořadě levý a pravý podstrom $v$ a
 $C$ pravý podstrom $u$. Pak \emph{(jednoduchá) rotace hrany $uv$} je krok,
 při níž nastavíme vrchol $v$ jako syna $p$ (na stejné straně, kde byl původně
@@ -207,14 +207,16 @@ $u$. Podstromy $A$ a $C$ zůstanou připojené k vrcholům $v$ a $u$ tak, jak by
 
 Dále mějme vrchol $u$, jeho (bez újmy na obecnosti levého) syna $v$ a syna
 vrcholu $v$, kterého si označíme $w$. Potom pokud $w$ je pravý syn, můžeme
-provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zigzag}, která probíhá tak,
+provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zig-zag}, která probíhá tak,
 že nejprve zrotujeme hranu $wv$, a potom hranu $vu$. Pokud je $w$ levý syn,
-můžeme provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zigzig}, která
+můžeme provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zig-zig}, která
 probíhá tak, že nejprve zrotujeme hranu $vu$ a potom hranu $wv$.
 \end{definice}
 
+Rotace hrany se může zdát jako zvláštní operace. Téměř všechny vyvažovací algoritmy (a úplně všechny, o kterých zde budeme mluvit) ale využívají k vyvažování právě rotace, protože se jedná o poměrně jednoduchou a překvapivě silnou operaci, která zachovává uspořádání.
+
 Dvojité rotace typu zigzig budeme potřebovat později v této kapitole. V této
-sekci si vystačíme s jednoduchými rotacemi a dvojitými rotacemi typu zigzag,
+sekci si vystačíme s jednoduchými rotacemi a dvojitými rotacemi typu zig-zag,
 proto budeme-li mluvit o dvojitých rotacích, budeme tím mít na mysli právě typ
 zigzag.
 
@@ -229,7 +231,7 @@ rekurenci, zjistíme, že $D(i)=\log_\varphi(i) + \o(1)$, kde $\varphi = 1.618\d
 řez.
 
 V každém vrcholu si budeme pamatovat navíc informaci o vyvážení tohoto vrcholu.
-Tato informac může nabývat tří možných hodnot -- daný vrchol může být buď
+Tato informace může nabývat tří možných hodnot -- daný vrchol může být buď
 \emph{vyvážený} (oba jeho podstromy jsou stejně hluboké), nebo \emph{nakloněný
 doprava}, (jeho pravý podstrom je o jedna hlubší než levý), nebo
 \emph{nakloněný doleva}\footnote{Vystačili bychom si i s jediným bitem, který by udával, zda je podstrom daného vrcholu hlubší než podstrom jeho souseda.}.
@@ -306,7 +308,7 @@ Operaci delete zde podobně detailně probírat nebudeme, podotkneme ale, že na
 \subsection{Červenočerný strom}
 
 Červenočerný strom odvodili z 2-4 stromů \citet{redblack}. Pro popis
-červenočerného stromu se nám bude hodit alternativní pohlad na binární stromy.
+červenočerného stromu se nám bude hodit alternativní pohled na binární stromy.
 Představíme si, že v binárním stromu bude každý vrchol mít buď právě dva, nebo
 žádného potomka. Vrcholy, které nemají žádného potomka, neobsahují žádný klíč
 ani jiná data. V programu tedy mohou být reprezentovány například nulovými
@@ -324,7 +326,7 @@ vrcholy.
 
 Některé zdroje dále uvádí, že kořen musí být černý, to však není problém kdykoli zařídit -- máme-li korektní červenočerný strom s červeným kořenem, můžeme kořen přebarvit na černo a všechny invarianty zůstanou splněny. Pokud však budeme černou barvu kořene požadovat, bude ve stromě lépe vidět souvislost s původními 2-4 stromy. V takovém případě si můžeme všimnout, že pokud zkontrahujeme všechny hrany mezi červeným synem černého otce, dostaneme strom, ve kterém má každý vrchol kromě listů mezi dvěma a čtyřmi potomky, a ve kterém jsou všechny cesty z kořene do listu stejně dlouhé.
 
-Nyní se pokusíme odhadnout minimální počet vrcholů $D(n)$ ve stromu hloubky $n$. Strom s minimálním počtem vrcholů při dané hloubce vypadaá tak, že obsahuje jednu cestu, na níž se střídají červené a černé vrcholy, a na každý její vrchol dále pověsíme dokonale vyvážený strom tvořený pouze černými vrcholy o hloubce určené tak, aby byly splněny invarianty. To znamená, že jeden z podstromů kořene je strom s minimálním počtem vrcholů při hloubce o jedna menší, a druhý je dokonale vyvážený strom. Kdybychom se pokusili $D(n)$ vyjádřit pouze pomocí $D(n-1)$, muselo by se nám ve vzorci objevit zaokrouhlování ve formě dolní celé části. Abychom se zaokrouhlování vyhnuli, vyjádříme $D(n)$ pomocí $D(n-2)$.
+Nyní se pokusíme odhadnout minimální počet vrcholů $D(n)$ ve stromu hloubky $n$. Strom s minimálním počtem vrcholů při dané hloubce vypadá tak, že obsahuje jednu cestu, na níž se střídají červené a černé vrcholy, a na každý její vrchol dále pověsíme dokonale vyvážený strom tvořený pouze černými vrcholy o hloubce určené tak, aby byly splněny invarianty. To znamená, že jeden z podstromů kořene je strom s minimálním počtem vrcholů při hloubce o jedna menší, a druhý je dokonale vyvážený strom. Kdybychom se pokusili $D(n)$ vyjádřit pouze pomocí $D(n-1)$, muselo by se nám ve vzorci objevit zaokrouhlování ve formě dolní celé části. Abychom se zaokrouhlování vyhnuli, vyjádříme $D(n)$ pomocí $D(n-2)$.
 
 $D(n)$ můžeme vyjádřit\footnote{V následujícím výpočtu nebereme v úvahu externí vrcholy. Kdybychom je v úvahu brali, přesné vzorce by vypadaly trochu jinak, ale v závěru by se změna schovala v $\o$-notaci.} jako $D(1)=1$, $D(2) = 2$, $D(2i) = D(2i-2) + 2 \cdot
 (2^{i - 1} - 1) + 2$, $D(2i + 1) = D(2i - 1) + 2^{i-1}-1 + 2^i-1 + 2$. Z toho
@@ -335,7 +337,7 @@ případě větší než hloubka AVL stromu v nejhorším případě při stejn�
 vrcholů.
 
 Průběh operací insert a delete zde nebudeme probírat, protože obsahují velké
-množství speciálních případů, které by bylo potřeba zdiskutovat. Připojíme ale
+množství speciálních případů, které by bylo potřeba popsat. Připojíme ale
 dvě poznámky. První z nich je, že výhodou červenočerných stromů oproti AVL
 stromům je vždy pouze konstantně mnoho změn struktury stromu při operaci. Druhá
 věc, kterou je zde vhodné zmínit, je velice příbuzná struktura, tzv.
@@ -348,7 +350,76 @@ práci dále pokračoval \citet{leftleaning}, který dále zakázal vrcholy, jej
 oba synové by byli červení. V této úpravě pak lze naimplementovat operaci
 insert na pouhých 33 řádcích kódu v jazyce Java.    
 
-Červenočerné stromy ale dále umí dvě operace, které zde představíme, protože jich využívají datové struktury, které představíme později v této práci.
+Červenočerné stromy ale dále umí dvě operace, které zde představíme, protože
+jich využívají datové struktury, které představíme později v této práci. Bude se jednat o operace \emph{join} a \emph{split}.
+Před jejich popisem budeme ale potřebovat zavést ještě dva nové pojmy.
+
+\begin{definice}
+Mějme červenočerný strom $S$. Pak počet černých vrcholů na cestě mezi kořenem a (libovolným) externím vrcholem $S$ nazveme \emph{černou výškou} stromu $S$. Značit ji budeme $H'(S)$.
+\end{definice}
+
+
+\begin{definice}
+Mějme libovolný neprázdný binární vyhledávací strom $S$ a jeho vrchol $u$, resp. $v$, odpovídající minimálnímu, resp. maximálnímu prvku v něm. Pak cestu z kořene do $u$, resp. $v$ nazveme \emph{levou}, resp. \emph{pravou páteří} stromu $S$.
+\end{definice}
+
+Operace join má na vstupu dva červenočerné
+stromy $A$, $B$ a jeden další prvek univerza $x$. Pro tyto stromy musí platit,
+že hodnoty všech prvků ve stromu $A$ jsou menší než $x$ a hodnoty všech prvků
+ve stromu $B$ jsou větší než $x$. Na výstupu operace join máme jeden strom
+obsahující všechny prvky, které obsahoval strom $A$, strom $B$, a prvek $x$. Za
+předpokladu, že předem známe černou výšku stromů $A$
+a $B$ $H'(A)$ a $H'(B)$, operaci join zvládneme v čase $\Theta(1+|H'(A) -
+H'(B)|)$.
+
+Při provádění operace join budeme postupovat následovně:
+
+\begin{enumerate}
+\item Pokud $H'(A) = H'(B)$, pak můžeme vytvořit nový černý vrchol s hodnotou $x$, jako jeho levého a pravého syna nastavit kořeny stromů $A$ a $B$ a vrátit ho jako kořen nového stromu.
+\item Jinak bez újmy na obecnosti předpokládejme, že $H'(A)<H'(B)$. Potom můžeme jít po pravé páteři stromu $A$, dokud nenalezneme vrchol $v$ takový, že černá výška jeho podstromu je $H'(B)$. Vytvoříme nový červený vrchol $u$ s hodnotou $x$ a vložíme ho do stromu na místo vrcholu $v$. Vrchol $v$ připojíme pod $u$ jako levého syna a kořen stromu $B$ jako pravého syna. Mohlo se stát, že jsme právě rozbili invariant červenočerného stromu. Jeho platnost tedy obnovíme podobným postupem jako při normálním insertu.
+\end{enumerate}
+
+Druhá operace je operace split. Operace split dostane na vstupu strom\footnote{Z popisu operace split vyplyne, že není specifická pro červenočerné stromy. Tuto operaci můžeme provést pro libovolný typ binárního vyhledávacího stromu, který podporuje operace find a join. Pouze analýza časové složitosti bude specifická pro červenočerné stromy.} $S$ a $x\in \mathcal U$. Na výstupu má dva stromy $A$, $B$ takové, že všechny prvky ve stromu $A$ budou menší než $x$, a prvky ve stromu $B$ jsou větší než $x$. Stromy $A$ a $B$ navíc obsahují dohromady ty samé prvky, jako strom $S$ (kromě prvku $x$, pokud tento prvek byl ve stromě $S$). Operaci split zvládneme na červenočerném stromu v čase $\o(\log n)$. Postup bude následující:
+
+\begin{enumerate}
+
+\item Vyhledáme ve stromě $S$ prvek $x$. Pokud si v naší implementaci
+červenočerného stromu nepamatujeme u každého vrcholu černou výšku jeho
+podstromu, při cestě dolů budeme tyto černé výšky počítat. To můžeme udělat
+například tak, že si ke každému vrcholu poznamenáme, kolik je černých vrcholů
+na cestě mezi ním a kořenem (kořen včetně, vrchol sám nevčetně). Poté spočítáme
+černou výšku celého stromu (pokud $x$ ve stromě není, stačí spočítat počet
+černých vrcholů na cestě mezi kořenem a externím vrcholem, na jehož místo
+bychom $x$ vkládali. Jinak pokračujeme stromem dolů až k libovolnému externímu
+listu). Černá výška podstromů jednotlivých vrcholů je pak rozdíl mezi číslem,
+které jsme si k nim poznamenali, a černou výškou původního
+stromu\footnote{Černou výšku celého stromu ve skutečnosti ani počítat nemusíme.
+Pro join ve skutečnosti nepotřebujeme znát černé výšky, stačí nám pouze umět v
+konstantním čase určit rozdíl černých výšek dvou stromů, což lze již ze
+zapamatovaných čísel.}.
+
+\item Na cestě, kterou jsme při vyhledání prošli, odstraníme všechny hrany.
+Vrcholy si roztřídíme do dvou seznamů podle toho, zda jsou větší nebo menší než
+$x$. V seznamech udržujeme pořadí, v jakém jsme vrcholy na cestě našli --
+seznamy jsou setříděné podle černých výšek podstromů, které zůstaly viset na
+vrcholech. Pokud $x$ byl ve stromu, odstraníme ho a na konec našich seznamů
+připojíme vždy příslušného syna $x$.
+
+\item Nyní tedy máme dva seznamy vrcholů, kde na každém z těchto vrcholů visí
+právě jeden syn. Podstrom tohoto syna je vždy validní červenočerný strom, a
+navíc známe jeho černou výšku. Výjimkou může být vždy poslední vrchol v seznamu
+-- ten může mít oba syny, ve kterémžto případě již on sám je kořen korektního
+červenočerného stromu. Navíc platí, že oba seznamy jsou setříděny podle černých výšek stromů (tyto černé výšky nemusí být po dvou různé). Dále platí, že v seznamu prvků větších než $x$ je vždy hodnota vrcholu menší, než hodnota všech prvků v jeho zbývajícím (pravém) podstromu, ale větší, než hodnota všech prvků (a jejich zbývajících podstromů), které jsou v seznamu dále než oni (protože se původně jednalo o části jejich levého podstromu). Nyní tedy pro každý seznam zvlášť:
+
+\item Pokud poslední prvek seznamu není kořen korektního červenočerného stromu, udělej z něj korektní červenočerný strom. To znamená, že vezmeme červenočerný strom, který visí na prvku seznamu, a prvek, na kterém původně visel, do něj vložíme standardní operací insert.
+
+\item Všechny prvky seznamu spojíme operací join. Budeme postupovat od konce, a to vždy tak, že vezmeme poslední prvek seznamu, což je validní červenočerný strom, syna předposledního prvku, což je také červenočerný strom, a předposlední prvek seznamu sám (či přesněji jeho hodnotu), což je prvek univerza hodnotou mezi dvěma zmíněnými stromy, a aplikujeme na tyto dva stromy a tento prvek operaci join. Výsledný strom opět připojíme na konec seznamu. 
+
+\end{enumerate}
+
+Úvodní nalezení $x$ zvládneme v čase $\o(\log n)$. Při slučování využijeme toho, že stromy byly původně seřazeny podle černé výšky a spojování tuto výšku změnilo nejvýše o konstantu (uvědomíme si, že vždy nejvýše dva po sobě jdoucí stromy mohly mít původně stejnou černou výšku, černé výšky tedy nemohou růst příliš), tedy součet všech rozdílů černých výšek spojovaných stromů je nejvýše výška původního stromu plus jejich počet krát konstanta. Oba sčítance jsou nejvýše $\o(\log n)$, celá operace split tedy proběhne v čase $\o(\log n)$.
+
+\subsection{Rank-balanced trees}
 
 
 \section{Výpočetní model}
@@ -358,29 +429,18 @@ představíme, používali implicitně už \citet{splay}, formalizoval ji však 
 \citet{tango}.
 
 
-
 \begin{definice}
-Mějme statické \emph{univerzum} klíčů $\mathcal U = \{1,2,\dots,n\}$. Dále
-mějme binární strom nad těmito klíči takový, že pro každé dva vrcholy $v_1$,
-$v_2$ platí, že je-li vrchol $v_1$ v podstromu vrcholu $v_2$, pak je v jeho
-levém podstromu, právě když je jeho klíč menší než líč vrcholu $v_2$. Nakonec
-mějme \emph{přístupovou posloupnost} $x_1,x_2,\dots,x_m$, kde $\forall i \in
-\mathbb N, i\leq m$ platí $x_i\in \mathcal U$. Pak \emph{přístupový algoritmus
+Mějme \emph{přístupovou posloupnost} $S$ $x_1$,$x_2$,\dots,$x_m$, kde $\forall i \in
+\mathbb N, i\leq m$ platí $x_i\in M$. Pak \emph{přístupový algoritmus
 binárního vyhledávacího stromu} je algoritmus, který postupně provede přístupy
 ke vrcholům s klíči $x_1, x_2,\dots,x_m$.
 
 Přístup probíhá tak, že algoritmus smí mít vždy právě jeden ukazatel na vrchol
 stromu, který na počátku každého přístupu ukazuje na kořen stromu. Dále v
-každém kroku smí provést právě jeden z následujících kroků: 
-\begin{itemize}
-\item Přesunout ukazatel na levého syna aktuálního vrcholu,
-\item přesunout ukazatel na pravého syna aktuálního vrcholu,
-\item přesunout ukazatel na rodiče aktuálního vrcholu,
-\item provést rotaci hrany mezi aktuálním vrcholem a jeho rodičem.
-\end{itemize}
+každém kroku smí provést právě jeden z kroků tak, jak byly popsány v úvodu této kapitoly, případně rotaci hrany mezi aktuálním vrcholem a jeho rodičem. 
 
 Řekneme, že čas běhu algoritmu je počet těchto kroků, které za sekvenci
-přístupů provede, plus jedna. O vrcholu stromu řekneme, že jsme se ho při daném
+přístupů provede, plus jedna\footnote{Čas strávený výpočtem toho, jaký krok se má provést, zanedbáme.}. O vrcholu stromu řekneme, že jsme se ho při daném
 přístupu \emph{dotkli}, pokud na něj někdy během tohoto přístupu ukazoval
 ukazatel algoritmu.  \end{definice}
 
@@ -388,11 +448,11 @@ Takovému přístupovému algoritmu se někdy také říká \emph{offline přís
 algoritmus}. V praxi ale potřebujeme přístupy provádět online.
 
 \begin{definice}
-\emph{Online přístupový algoritmus} je tekový přístupový algoritmus, jehož
+\emph{Online přístupový algoritmus} je takový přístupový algoritmus, jehož
 rozhodnutí během $i$-tého přístupu nijak neovlivňují hodnoty $x_j$ z přístupové
 posloupnosti pro $j>i$. Na druhou stranu si tento algoritmus smí v každém
 vrcholu uložit až $\mathcal O(1)$ slov paměti informací (nikoli však ukazatele
-na vrcholy).  
+na vrcholy).
 \end{definice}
 
 Všimneme si, že běžné algoritmy binárních vyhledávacích stromů tuto definici
@@ -405,9 +465,9 @@ počet kroků označíme $\opt(X)$. Zde předpokládáme, že je strom na začá
 nejlepší možné konfiguraci. Tím však nesnížíme potřebný čas na přístupy o více
 než aditivní $\mathcal O(n)$, protože z libovolného BVS je možné pomocí
 $\mathcal O(n)$ rotací vytvořit libovolný jiný (nad tou samou množinou klíčů).
-Proto budeme dále zkoumat pouze přístupové posloupnosti $X$ takové, že $|X| \in
-\Omega(n)$. Vzhledem k tomu, že nahlédneme, že $\opt(x)\geq |X|$, je tento
-faktor asymptoticky zandebatelný. 
+Proto budeme dále zkoumat pouze přístupové posloupnosti $S$ takové, že $|S| \in
+\Omega(n)$. Vzhledem k tomu, že nahlédneme, že $\opt(x)\geq |S|$, je tento
+faktor asymptoticky zanedbatelný. 
 
 
 \begin{definice}
@@ -422,10 +482,13 @@ existence dynamicky optimálního algoritmu je otevřeným problémem. Na druhou
 stranu například o splay stromech vyslovili \citet{splay} hypotézu, že jsou
 dynamicky optimální.
 
-\section{Rankově vyvážené stromy}
 
 \section{Meze optimality}
+
+\section{Splay stromy}
 
 \section{Tango stromy}
 
 \section{Multisplay stromy}
+
+\section{Geometrický náhled na stromové operace}
