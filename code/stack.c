@@ -1,8 +1,3 @@
-typedef struct {
-    ARRAYTYPE *array;
-    size_t used;
-    size_t size;
-} ARRAYNAME;
 
 void INIT(ARRAYNAME *a, size_t initialSize) {
     a->array = malloc(initialSize * sizeof(ARRAYTYPE));

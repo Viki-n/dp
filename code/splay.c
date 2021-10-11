@@ -1,4 +1,6 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 #define VALUE int
 #define VALUE_FORMAT "%d/n"
@@ -27,7 +29,7 @@ void rotateLeft(node** Node){
 } 
 
 
-void rotateRight(NODE ** Node){
+void rotateRight(node ** Node){
     node* father = *Node;
     node* lson = father->left;
     node* lrson = lson->right;
@@ -45,15 +47,15 @@ VALUE splay(VALUE value, node** root, bool insert){
             new->right = NULL;
             new->left = NULL;
             new->value = value;
-            root* = new
-            return value
+            *root = new;
+            return value;
         } else {
-            return 0
+            return 0;
         }
     }
 
     node_stack stack;
-    init_node_stack(&stack);
+    init_node_stack(&stack, 8);
     node* currentnode = *root;
 
     while(currentnode && currentnode->value != value){
@@ -66,7 +68,7 @@ VALUE splay(VALUE value, node** root, bool insert){
     }
 
     if (!currentnode){
-        currentnode = node_pop(&stack)
+        currentnode = node_pop(&stack);
         if (insert){
             node* new = malloc(sizeof(node));
             new->right = NULL;
@@ -78,30 +80,30 @@ VALUE splay(VALUE value, node** root, bool insert){
                 currentnode->right = new;
             }
             node_push(&stack, currentnode);
-            currentnode = new
+            currentnode = new;
         }
     }
 
     //TODO actual splaying
 
-    return (*root)->value
+    return (*root)->value;
 
 }
 
 void _print_tree(node* root, int depth){
     
-    if(!node){
+    if(!root){
         return;
     }
     
-    _print_tree(node->left, depth+1);
+    _print_tree(root->left, depth+1);
     
     for(int i = 0; i<depth; i++){
         printf("  ");
     }
-    printf(VALUE_FORMAT, node -> value);
+    printf(VALUE_FORMAT, root->value);
     
-    _print_tree(node->right, depth+1);
+    _print_tree(root->right, depth+1);
 }
 
 void print_tree(node* root){
@@ -113,7 +115,8 @@ void print_tree(node* root){
 
 int main(int argc, char ** argv)
 {
-    *node root = NULL;
+    node* root = NULL;
+
     for(int i = 0; i<10; i++){
         splay(i, &root, true);
     }
