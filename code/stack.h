@@ -1,8 +1,10 @@
-typedef struct {
+struct STACKNAME {
     STACKTYPE *array;
     size_t used;
     size_t size;
-} STACKNAME;
+};
+
+typedef struct STACKNAME STACKNAME;
 
 
 void PUSH(STACKNAME* stack, STACKTYPE value);

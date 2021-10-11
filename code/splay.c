@@ -1,23 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-
-#define VALUE int
-#define VALUE_FORMAT "%d/n"
-
-typedef struct {
-    VALUE value;
-    struct node * left;
-    struct node * right;
-} node;
-
-// Include stacks
-#define STACKTYPE node*
-#define STACKNAME node_stack
-#define PUSH node_push
-#define POP node_pop
-#define INIT init_node_stack
-#include<stack.h>
+#include "splay.h"
+#include "stack.h"
 
 void rotateLeft(node** Node){
     node* father = *Node;

@@ -1,14 +1,18 @@
+#include <stdlib.h>
+#include <stddef.h>
+#include "splay.h"
+#include "stack.h"
 
-void INIT(ARRAYNAME *a, size_t initialSize) {
-    a->array = malloc(initialSize * sizeof(ARRAYTYPE));
+void INIT(STACKNAME *a, size_t initialSize) {
+    a->array = malloc(initialSize * sizeof(STACKTYPE));
     a->used = 0;
     a->size = initialSize;
 }
 
-void PUSH(STACKNAME stack, STACKTYPE value){
+void PUSH(STACKNAME* stack, STACKTYPE value){
     if (stack->used == stack->size) {
         stack->size *= 2;
-        stack->array = realloc(a->array, a->size * sizeof(ARRAYTYPE));
+        stack->array = realloc(stack->array, stack->size * sizeof(STACKTYPE));
     }
     stack->array[stack->used++] = value;
 }
