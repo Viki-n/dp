@@ -1,48 +1,66 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
-#include "splay.h"
+
+#define VALUE int
+#define VALUE_FORMAT "%d"
+
+struct Node{
+    VALUE value;
+    struct Node * left;
+    struct Node * right;
+};
+
+typedef struct Node Node;
+
+// Include stack
+#define STACKTYPE Node*
+#define STACKNAME node_stack
+#define PUSH node_push
+#define POP node_pop
+#define INIT init_node_stack
+
 #include "stack.h"
 
-void rotateLeft(node** Node){
+void rotate_left(Node** n){
 
-    node* father = *Node;
-    node* rson = father->right;
-    node* rlson = rson->left;
+    Node* father = *n;
+    Node* rson = father->right;
+    Node* rlson = rson->left;
     father->right = rlson;
     rson->left = father;
-    *Node = rson;
+    *n = rson;
 } 
 
 
-void rotateRight(node ** Node){
+void rotate_right(Node ** n){
 
-    node* father = *Node;
-    node* lson = father->left;
-    node* lrson = lson->right;
+    Node* father = *n;
+    Node* lson = father->left;
+    Node* lrson = lson->right;
     father->left = lrson;
     lson->right = father;
-    *Node = lson;
+    *n = lson;
 }
 
 
-void rotate_up(node** parent, node* son){
+void rotate_up(Node** parent, Node* son){
 
     if ((*parent)->right == son){
-        rotateLeft(parent);
+        rotate_left(parent);
     } else {
-        rotateRight(parent);
+        rotate_right(parent);
     }
 }
 
 
-VALUE splay(VALUE value, node** root, bool insert){
+VALUE splay(VALUE value, Node** root, bool insert){
     // if insert, insert if not found (silently just splay if found either way)
 
     // Handle empty tree separately
     if (!*root){
         if (insert){
-            node* new = malloc(sizeof(node));
+            Node* new = malloc(sizeof(Node));
             new->right = NULL;
             new->left = NULL;
             new->value = value;
@@ -55,84 +73,84 @@ VALUE splay(VALUE value, node** root, bool insert){
 
     node_stack stack;
     init_node_stack(&stack, 8);
-    node* currentnode = *root;
+    Node* current_node = *root;
 
     // find
-    while(currentnode && currentnode->value != value){
-        node_push(&stack, currentnode);
-        if (currentnode->value > value){
-            currentnode = currentnode->left;
+    while(current_node && current_node->value != value){
+        node_push(&stack, current_node);
+        if (current_node->value > value){
+            current_node = current_node->left;
         } else {
-            currentnode = currentnode->right;
+            current_node = current_node->right;
         }
     }
 
     // handle insertion
-    if (!currentnode){
-        currentnode = node_pop(&stack);
+    if (!current_node){
+        current_node = node_pop(&stack);
         if (insert){
-            node* new = malloc(sizeof(node));
+            Node* new = malloc(sizeof(Node));
             new->right = NULL;
             new->left = NULL;
             new->value = value;
-            if (currentnode->value > value){
-                currentnode->left = new;
+            if (current_node->value > value){
+                current_node->left = new;
             } else {
-                currentnode->right = new;
+                current_node->right = new;
             }
-            node_push(&stack, currentnode);
-            currentnode = new;
+            node_push(&stack, current_node);
+            current_node = new;
         }
     }
 
     // actual splay
     while (stack.used){
-        if(stack.used == 1){
-            node* prev = currentnode;
-            currentnode = node_pop(&stack);
-            rotate_up(&currentnode, prev);
+        if (stack.used == 1){
+            Node* prev = current_node;
+            current_node = node_pop(&stack);
+            rotate_up(&current_node, prev);
         } else {
-            node* grandson = currentnode;
-            node* son = node_pop(&stack);
-            currentnode = node_pop(&stack);
-            node* original = currentnode;
+            Node* grandson = current_node;
+            Node* son = node_pop(&stack);
+            current_node = node_pop(&stack);
+            Node* original = current_node;
 
-            bool first_left = (currentnode->left == son);
+            bool first_left = (current_node->left == son);
             bool second_left = (son->left == grandson);
 
             if (first_left == second_left){
                 // Need to do zigzig rotation
-                rotate_up(&currentnode, son);
-                rotate_up(&currentnode, grandson);
+                rotate_up(&current_node, son);
+                rotate_up(&current_node, grandson);
             } else {
                 // Perform zigzag rotation
-                node** first_target = first_left ? &currentnode->left : &currentnode->right;
+                Node** first_target = first_left ? &current_node->left : &current_node->right;
                 rotate_up(first_target, grandson);
-                rotate_up(&currentnode, grandson);
+                rotate_up(&current_node, grandson);
             }
 
-            if(stack.used){
-                node* father = node_pop(&stack);
+            if (stack.used){
+                Node* father = node_pop(&stack);
                 node_push(&stack, father);
                 if (father->left == original){
-                    father->left = currentnode;
+                    father->left = current_node;
                 } else {
-                    father->right = currentnode;
+                    father->right = current_node;
                 }
             }
         }
 
     }
 
-    *root = currentnode;
+    *root = current_node;
 
     return (*root)->value;
 
 }
 
-void _print_tree(node* root, int depth){
+void _print_tree(Node* root, int depth){
 
-    if(!root){
+    if (!root){
         return;
     }
 
@@ -142,18 +160,19 @@ void _print_tree(node* root, int depth){
         printf("  ");
     }
     printf(VALUE_FORMAT, root->value);
+    printf("\n");
 
     _print_tree(root->right, depth+1);
 }
 
-void print_tree(node* root){
+void print_tree(Node* root){
     _print_tree(root, 0);
 }
 
 
 int main(int argc, char ** argv){
 
-    node* root = NULL;
+    Node* root = NULL;
 
     for(int i = 0; i<10; i++){
         splay(i, &root, true);
