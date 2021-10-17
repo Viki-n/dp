@@ -260,13 +260,13 @@ AVL strom -- pro prázdný strom stačí vytvořit nový vrchol, nastavit ho jak
 \block
 \l Current = Root
 \l Next = Current.value > Element ? Current.leftSon : Current.rightSon
-\l while Next != NULL
+\l while Next != Null
 \block
 \l Current = Next
 \l Next = Current.value > Element ? Current.leftSon : Current.rightSon
 \endblock
 \l New = Node(Element)
-\l New.balance = VYVÁŽENÝ
+\l New.balance = Vyvážený
 \l New.parent = Current
 \l if Current.value > Element
 \block
@@ -279,16 +279,16 @@ AVL strom -- pro prázdný strom stačí vytvořit nový vrchol, nastavit ho jak
 \l
 \l Current = New
 \l Next = Current.parent
-\l while Next != NULL
+\l while Next != Null
 \block
 \l ComingFromRight = Current == Next.rightSon
-\l if Next.balance == VYVÁŽENÝ
+\l if Next.balance == Vyvážený
 \block
-\l Next.balance = ComingFromRight ? NAKLONĚNÝ DOPRAVA : NAKLONĚNÝ DOLEVA
+\l Next.balance = ComingFromRight ? Nakloněný doprava : Nakloněný doleva
 \endblock
-\l else if (Next.balance == NAKLONĚNÝ DOLEVA) == ComingFromRight
+\l else if (Next.balance == Nakloněný doleva) == ComingFromRight
 \block
-\l Next.balance = VYVÁŽENÝ
+\l Next.balance = Vyvážený
 \l return
 \endblock
 \l else
@@ -309,18 +309,19 @@ Operaci delete zde podobně detailně probírat nebudeme, podotkneme ale, že na
 
 Červenočerný strom odvodili z 2-4 stromů \citet{redblack}. Pro popis
 červenočerného stromu se nám bude hodit alternativní pohled na binární stromy.
-Představíme si, že v binárním stromu bude každý vrchol mít buď právě dva, nebo
+Představíme si, že na každé míso ve stromě, kde nějakému vrcholu chybí pravý nebo levý syn, přidáme jeden list.
+Tím dostaneme strom, v němž bude každý vrchol mít buď právě dva, nebo
 žádného potomka. Vrcholy, které nemají žádného potomka, neobsahují žádný klíč
 ani jiná data. V programu tedy mohou být reprezentovány například nulovými
 ukazateli. Těmto vrcholům budeme říkat \emph{vnější} nebo také \emph{externí}
-vrcholy.
+vrcholy. Rozmyslíme si, že externích vrcholů je ve stromě s $n$ neexterními vrcholy $n+1$, a každý z nich odpovídá jednomu intervalu mezi dvěma po sobě jdoucími hodnotami ve stromu (nebo intervalu mezi jednou z krajních hodnota  plus nebo mínus nekonečnem).
 
-Červenočerný strom je vyvažovaný binární strom, který dále splňuje následující invarianty:
+Nyní již máme veškerou terminologii potřebnou k tomu, abychom mohli přistoupit k definici. Červenočerný strom je vyvažovaný binární strom, který dále splňuje následující invarianty:
 
 \begin{enumerate}
 \item Každý vrchol má buď červenou, nebo černou barvu.
 \item Všechny externí vrcholy považujeme za černé.
-\item Na každé cestě z kořene do externího listu musí být stejný počet černých vrcholů.
+\item Na každé cestě z kořene do externího vrcholu musí být stejný počet černých vrcholů.
 \item Každý červený vrchol má oba potomky černé.
 \end{enumerate}
 
@@ -355,7 +356,7 @@ jich využívají datové struktury, které představíme později v této prác
 Před jejich popisem budeme ale potřebovat zavést ještě dva nové pojmy.
 
 \begin{definice}
-Mějme červenočerný strom $S$. Pak počet černých vrcholů na cestě mezi kořenem a (libovolným) externím vrcholem $S$ nazveme \emph{černou výškou} stromu $S$. Značit ji budeme $H'(S)$.
+Mějme červenočerný strom $S$. Pak počet černých vrcholů na cestě mezi kořenem a (libovolným) externím vrcholem $S$ (nepočítaje koncové vrcholy této cesty) nazveme \emph{černou výškou} stromu $S$. Značit ji budeme $H'(S)$.
 \end{definice}
 
 
@@ -419,12 +420,56 @@ navíc známe jeho černou výšku. Výjimkou může být vždy poslední vrchol
 
 Úvodní nalezení $x$ zvládneme v čase $\o(\log n)$. Při slučování využijeme toho, že stromy byly původně seřazeny podle černé výšky a spojování tuto výšku změnilo nejvýše o konstantu (uvědomíme si, že vždy nejvýše dva po sobě jdoucí stromy mohly mít původně stejnou černou výšku, černé výšky tedy nemohou růst příliš), tedy součet všech rozdílů černých výšek spojovaných stromů je nejvýše výška původního stromu plus jejich počet krát konstanta. Oba sčítance jsou nejvýše $\o(\log n)$, celá operace split tedy proběhne v čase $\o(\log n)$.
 
-\subsection{Rank-balanced trees}
+\subsection{Rankově vyvažované stromy}
+
+\citet{rankbalanced} vyšli z myšlenek \citet{dichromatic}, kteří zobecnili
+myšlenku červenočerných stromů, a představili nový způsob uvažování o
+vyvažovaných stromech. Každému vrcholu přiřadili celočíselný rank, přičemž
+externí vrcholy mají rank $-1$ a rank ostatních vrcholů je nezáporný. Různým
+nastavením pravidel pro rozdíly ranků mezi vrcholem a jeho syny potom dostali
+různé datové struktury. Abychom však o těchto strukturách mohli snadno mluvit,
+musíme nejprve zavést několik pojmů.
+
+\begin{definice}
+Řekneme, že vrchol binárního vyhledávacího stromu je \emph{$a$-syn}, pokud rozdíl jeho ranku a ranku jeho rodiče je právě $a$. O vrcholu řekneme, že je \emph{$(a,b)$-vrcholem}, pokud jeho potomci jsou (ne nutně v tomto pořadí) $a$-syn a $b$-syn.
+\end{definice}
+
+Všimneme si, že pokud si jako pravidlo zvolíme, že každý vrchol bude $(1,1)$
+nebo $(1,2)$-vrchol, bude rank každého vrcholu roven právě délce nejdelší cesty
+(počítané počtem hran) z něj do listu v jeho podstromu, a výsledný strom bude
+AVL strom\footnote{Všimneme si, že v tomto myšlenkovém rámci dává smysl, aby si každý vrchol pamatoval, zda je $1$-synem či $2$-synem. Pak dostáváme přesně AVL strom s jediným bitem vyvažovací informace na vrchol, který jsme popsali v poznámce pod čarou výše.}. Pokud si jako pravidlo zvolíme, že každý vrchol kromě kořene je
+$1$-syn nebo $0$-syn a žádný $0$-syn není synem $0$-syna, dostaneme
+červenočerný strom, v němž $1$-synové odpovídají černým vrcholům (požadavek na
+nezápornost ranků vrcholů zajišťuje, že všechny externí vrcholy jsou
+$1$-synové).
+
+Existuje ale ještě jiné pravidlo, kterým dostaneme červenočerné stromy. Pokud povolíme $1$-syny a $2$-syny, dostáváme také červenočerné stromy. Nyní ovšem černým vrcholům odpovídají nejen $2$-synové, ale i $1$-synové s lichým rankem. Takový strom určitě invariant červenočerného stromu splňuje -- máme-li dva vrcholy spojené hranou se sudým rankem, je (minimálně) spodní z nich 2-syn. Naopak pokud mám libovolný červenočerný strom, můžu každému vrcholu $v$, jehož podstrom si označím $S$, přiřadit rank $2\cdot H'(S)$, pokud je $v$ červený a $2\cdot H'(S) + 1$ pokud je černý.
+
+Toto pravidlo lze také formulovat tak, že každý vrchol je buď $(1,1)$, $(1,2)$ nebo $(2,2)$-vrchol. Toto pravido vypadá podobně jako AVL pravido. Mohli bychom se tedy ptát, zda neexistuje nějaké pravidlo, které by bylo restriktivnější než pravidlo červenočerných stromů, ale volnější než pravidlo AVL stromů, které by nám umožnilo spojit výhody obou těchto stromů. Připomeneme, že výhodou AVL stromu je o něco menší hloubka nejhlubšího vrcholu v nejhorším případě, výhodou červenočerných stromů je garance nejvýše $\o(1)$ změn struktury na operaci. 
+
+Toho skutečně lze dosáhnout, a to pomocí následujících dvou pravidel:
+\begin{enumerate}
+\item Všechny listy (tj. vrcholy, jejichž oba synové jsou externí) jsou $(1,1)$-vrcholy.
+\item Všechny ostatní vrcholy jsou buď $(1,1)$, $(1,2)$ nebo $(2,2)$-vrcholy.
+\end{enumerate}
+
+S touto sadou pravidel navíc s (přímočarými) Insert a Delete algoritmy, které \citet{rankbalanced} popsali, dostáváme \emph{Weak AVL} strom, který má následující vlastnosti:
+
+\begin{itemize}
+\item Při Insertech nevznikají $(2,2)$-vrcholy -- pokud pouze vkládáme, máme AVL strom.
+\item Pouze $\o(1)$ změn struktury stromu na operaci v nejhorším případě.
+\item Pouze $\o(1)$ změn ranku na operaci amortizovaně. Navíc počet změn ranku vrcholu ranku $k$ je amortizovaně $\o(\varphi^{-k})$ na operaci.
+\item Pokud $n$ je počet vrcholů stromu a $m$ je počet operací Insert za celou dobu života struktury, pak hloubka stromu je nejvýše $\min(\log_{\varphi} m, \log_{\sqrt2} n) + \o(1).$ Z toho vyplývá, že pokud $m=\Theta(n)$, tj. ve stromu máme alespoň řádově stejně prvků. kolik jsme jich smazali, bude hloubka Weak AVL stromu v nejhorším případě až na aditivní konstantu stejná, jako hloubka AVL stromu v nejhorším případě na stejném počtu prvků.
+\item Weak AVL strom lze rebalancovat nejen odspoda nahoru, ale i preventivně shora dolů, což může být výhodné při paralelní práci se stromem. Pak ale ostatní zde uvedené body neplatí.
+\end{itemize}
+
 
 
 \section{Výpočetní model}
 Chceme-li mluvit o optimálním stromu, musíme nejprve specifikovat, co přesně
-budeme za binární vyhledávací strom považovat. Definici, kterou zde
+budeme za binární vyhledávací strom považovat. Pro zjednodušení se opět vrátíme
+ke stromům nad pevnou množinou klíčů. Nebudeme tedy podporovat operace Insert a Delete\footnote{Budeme předpokládat, že strom již stavíme nad neprázdnou množinou klíčů.}.
+Definici, kterou zde
 představíme, používali implicitně už \citet{splay}, formalizoval ji však až
 \citet{tango}.
 
@@ -459,21 +504,21 @@ Všimneme si, že běžné algoritmy binárních vyhledávacích stromů tuto de
 splňují -- Například červenočerné a AVL stromy potřebují v každém vrcholu
 jediný bit informace, splay strom se obejde zcela bez dalších informací.
 
-Pro danou přístupovou sekvenci $X$ existuje přístupový algoritmus, který ji
+Pro danou přístupovou sekvenci $S$ existuje přístupový algoritmus, který ji
 vykoná optimálně, tedy v nejkratším čase ze všech možných algoritmů. Tento
-počet kroků označíme $\opt(X)$. Zde předpokládáme, že je strom na začátku v
+počet kroků označíme $\opt(S)$. Zde předpokládáme, že je strom na začátku v
 nejlepší možné konfiguraci. Tím však nesnížíme potřebný čas na přístupy o více
 než aditivní $\mathcal O(n)$, protože z libovolného BVS je možné pomocí
 $\mathcal O(n)$ rotací vytvořit libovolný jiný (nad tou samou množinou klíčů).
-Proto budeme dále zkoumat pouze přístupové posloupnosti $S$ takové, že $|S| \in
-\Omega(n)$. Vzhledem k tomu, že nahlédneme, že $\opt(x)\geq |S|$, je tento
-faktor asymptoticky zanedbatelný. 
+Proto budeme dále zkoumat pouze přístupové posloupnosti $S$ takové, že $m \in
+\Omega(n)$. Vzhledem k tomu, že nahlédneme, že $\opt(S)\geq m$, je aditivní
+faktor $\o(n)$ asymptoticky zanedbatelný. 
 
 
 \begin{definice}
 O přístupovém algoritmu řekneme, že je \emph{$f(n)$-kompetitivní}, pokud každou
-posloupnost přístupů $X$ nad univerzem velikosti $n$ vykoná v čase $\mathcal
-f(n)\cdot\opt(X)$. O online přístupovém algoritmu řekneme, že je
+posloupnost přístupů $X$ nad univerzem velikosti $n$ vykoná v čase $
+\o(f(n))\cdot\opt(X)$. O online přístupovém algoritmu řekneme, že je
 \emph{dynamicky optimální}, pokud je $\mathcal O(1)$-kompetitivní.
 \end{definice}
 
@@ -482,8 +527,25 @@ existence dynamicky optimálního algoritmu je otevřeným problémem. Na druhou
 stranu například o splay stromech vyslovili \citet{splay} hypotézu, že jsou
 dynamicky optimální.
 
-
 \section{Meze optimality}
+
+Výše uvedená definice optimality bohužel není příliš užitečná, protože není znám algoritmus, který by efektivně spočítal chování optimálního binárního vyhledávacího stromu. Proto různí autoři přišli s různými odhady na $\opt(S)$. My zde předvedeme několik horních odhadů a jeden dolní odhad. Začneme třemi odhady, které představili \citet{splay}. Ti ve svém článku rovnou ukázali, že všechny tři meze (až na aditivní člen závisející pouze na $n$) splňuje splay strom, který si představíme v následující sekci. Proto musí platit i pro optimální strom.
+
+\begin{veta}[Static Optimality Theorem]
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$, a nechť $q:[n]\rightarrow \mathbb N_0$ určuje počet výskytů každého prvku $[n]$ v $S$. Potom $$\opt(S) = \o\left(m + \sum_{i\in [n]}q(i)\log\frac m{q(i)}\right).$$
+\end{veta}
+
+\begin{veta}[Static Finger Theorem]
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Potom pro libovolné $f\in [m]$ platí $$\opt(S) = \o\left(m + \sum_{j\in [m]} \log(1 + |f-i_j|) \right).$$
+\end{veta}
+
+\begin{veta}[Working Set Theorem]
+
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Dále mějme funkci $t: [m]\rightarrow \mathbb N_0$, kde $t(j)$ je počet různých prvků v posloupnosti $S$ mezi $j$-tým prvkem a předchozím výskytem prvku $i_j$ (nebo od začátku, pokud se jedná o první výskyt prvku $i_j$). Potom platí $$\opt(S) = \o\left(m + \sum_{j\in [m]}\log (t(j)+1) \right).$$
+\end{veta}
+
+
+
 
 \section{Splay stromy}
 
