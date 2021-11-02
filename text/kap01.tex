@@ -606,9 +606,30 @@ Nyní se podíváme na jediný dolní odhad, který nás v této kapitole čeká
 Mějme přístupovou posloupnost $S$ nad množinou $[n]$. Dále mějme libovolný (statický) strom $T$ nad toutéž množinou klíčů. Každý vrchol $T$ má svůj preferovaný směr. Vždy, když projdeme vrcholem $v$, nastavíme preferovaný směr $v$ na syna $v$, do nějž jsme z vrcholu $v$ pokračovali. $\ib_T(S)$ označíme celkový počet změn preferovaných směrů\footnote{Protože nás zajímají pouze posloupnosti $S$ takové, že jejich délka $m$ je větší nebo rovna $n$, počáteční nastavení preferovaných směrů ovlivní $\ib_T(S)$ nejvýše o multiplikativní konstantu.} ve stromě $T$ při vykonání posloupnosti přístupů $S$. Pak pro libovolný strom $T$ platí $$\opt(S) = \Omega(\ib_T(S)).$$
 \end{veta}
 
-Interleave bound představili a dokázali v tomto znění \citet{tango}. Až na multiplikativní konstantu stejnou mez ale představil už \citet{interleave}. Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že $\opt(S)=\Theta(m\log n)$. Pokud jako strom $T$ zvolíme perfektně vyvážený binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí, abychom vždy v každém procházeném vrcholu změnili preferovaný směr. Takovým posloupnostem se také říká \emph{bit reversal posloupnosti}.
+Interleave bound představili a dokázali v tomto znění \citet{tango}. Až na multiplikativní konstantu stejnou mez ale představil už \citet{interleave}. Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že $\opt(S)=\Theta(m\log n)$. Pokud jako strom $T$ zvolíme perfektně vyvážený binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí, abychom vždy v každém procházeném vrcholu změnili preferovaný směr. Takovým posloupnostem se také říká \emph{bit reversal posloupnosti}. Na druhou stranu ZDROJ ukázal, že pro žádný pevný strom $T$ nedává Interleave bound těsný odhad pro ksždou přístupovou posloupnost $S$. Zda pro každou posloupnost $S$ existuje strom $T$ takový, aby $\ib_T(S)=\opt(S)$, není známo.  
 
 \section{Tango stromy}\label{sec:tango}
+
+\citet{tango} představili Tango strom. Tango strom je (spolu s výše uvedeným splay stromem, a v následující kapitole popsaným multisplay stromem) jedna z hlavních struktur, které budeme chtít v dalších kapitolách této práce zkoumat, proto ho popíšeme detailněji.
+
+Tango strom je strom, který podporuje pouze operaci vyhledání. Udržuje si
+pomyslný statický perfektně vyvážený\footnote{Algoritmu ve skutečnosti stačí,
+aby měl referenční strom logaritmickou hloubku.} referenční binární vyhledávací
+strom $P$ nad těmi samými klíči, které sám obsahuje. Každou přístupovou
+posloupnost pak vykoná v čase $\o(\log\log(n)\cdot \ib_P(S))$, tedy je
+$\log\log(n)$-kompetitivní. Na druhou stranu není optimální -- z konstrukce
+bude zřejmé, jak sestrojit přístupovou posloupnost, kterou optimální strom
+ vykoná v čase $\o(m)$, ale tango strom bude potřebovat
+$\o(m\cdot\log\log(n))$.
+
+Této časové složitosti dosáhne tak, že si bude vnitřně udržovat rozdělení na
+pomocné podstromy, které odpovídají cestám z preferovaných hran\footnote{Daných
+preferovanými směry tak, jak byly nadefinovány ve znění Interleave Bound.} v
+$P$. Tyto pomocné stromy budou červenočerné stromy. Protože všechny cesty v $P$
+jsou nejvýše logaritmicky dlouhé, bude každá operace (ať už search, nebo split
+či join) s pomocnými stromy trvat $\o(\log\log(n))$ času, a pomocných stromů
+navštívíme (včetně násobnosti) za celé vykonávání přístupové sekvence právě
+$\ib_P(S)$.
 
 \section{Multisplay stromy}
 
