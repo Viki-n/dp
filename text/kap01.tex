@@ -86,7 +86,7 @@ něm by byla menší než hodnota jeho rodiče, ale větší než hodnota odstra
 vrcholu -- tedy jeho rodič by nemohl být nejbližší větší).  
 \end{itemize} 
 
-\section{Statická optimalita}
+\section{Statická optimalita}\label{sec:staticoptimality}
 
 Podívejme se na životní cyklus binárního vyhledávacího stromu. Takový strom
 nejprve vybudujeme s (ne nutně neprázdnou) počáteční množinou klíčů
@@ -531,25 +531,61 @@ dynamicky optimální.
 
 Výše uvedená definice optimality bohužel není příliš užitečná, protože není znám algoritmus, který by efektivně spočítal chování optimálního binárního vyhledávacího stromu. Proto různí autoři přišli s různými odhady na $\opt(S)$. My zde předvedeme několik horních odhadů a jeden dolní odhad. Začneme třemi odhady, které představili \citet{splay}. Ti ve svém článku rovnou ukázali, že všechny tři meze (až na aditivní člen závisející pouze na $n$) splňuje splay strom, který si představíme v následující sekci. Proto musí platit i pro optimální strom.
 
-\begin{veta}[Static Optimality Theorem]
+\begin{veta}[Static Optimality Bound]
 Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$, a nechť $q:[n]\rightarrow \mathbb N_0$ určuje počet výskytů každého prvku $[n]$ v $S$. Potom $$\opt(S) = \o\left(m + \sum_{i\in [n]}q(i)\log\frac m{q(i)}\right).$$
 \end{veta}
 
-\begin{veta}[Static Finger Theorem]
+Tuto mezi splňuje i statický optimální strom popsaný v sekci \nameref{sec:staticoptimality}. Proto také všem stromům, které tuto mezi splňují, říkáme staticky optimální.  
+
+\begin{veta}[Static Finger Bound]
 Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Potom pro libovolné $f\in [m]$ platí $$\opt(S) = \o\left(m + \sum_{j\in [m]} \log(1 + |f-i_j|) \right).$$
 \end{veta}
 
-\begin{veta}[Working Set Theorem]
+Tato meze jinými slovy říká, že strom musí umět rychle odpovídat na dotazy na
+prvky blízko libovolného fixního prvku. Tuto mez původně představili v silnější
+verzi \citet{fingersearchtree} ve článku o \emph{prstovém vyhledávacím stromu}. To je
+struktura, která umožňuje udržovat nějaké množství \emph{prstů}, z nichž kadý
+ukazuje na nějaký vrchol. Tato struktura umožňuje přidávat a odstraňovat prsty
+v čase $\o(\log n)$. Vyhledání pak trvá $\o(f+\log(d))$, kde $f$ je počet prstů
+a $d$ je počet prvků mezi vyhledávaným prvkem a nejbližším prstem.
+\citet{splay} však nicméně ukázali, že tato mez platí pro jeden nepohyblivý
+prst (až ma jednorázovou aditivní konstantu nezávisející na počtu přístupů) i
+pro splay stromy. Jak se splay strom chová, když se rozhodneme prst přesouvat,
+představíme později v této sekci. 
+
+
+\begin{veta}[Working Set bound]
 
 Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Dále mějme funkci $t: [m]\rightarrow \mathbb N_0$, kde $t(j)$ je počet různých prvků v posloupnosti $S$ mezi $j$-tým prvkem a předchozím výskytem prvku $i_j$ (nebo od začátku, pokud se jedná o první výskyt prvku $i_j$). Potom platí $$\opt(S) = \o\left(m + \sum_{j\in [m]}\log (t(j)+1) \right).$$
 \end{veta}
 
+Jinými slovy, pokud pracujeme pouze s malou podmnožinou prvků ve stromě, amortizovaná cena přístupů musí být logaritmická pouze ve velikosti této podmnožiny.
 
+\begin{veta}[Dynamic Finger Bound]
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Potom pro platí $$\opt(S) = \o\left(m + \sum_{j=2}^m \log(1 + |i_{j}-i_{j-1}|) \right).$$
+\end{veta}
 
+Tato mez nám umožňuje prst v každém kroku přesunout na právě navštívený prvek. Pro splay stromy ji dokázal \citet{dynamicfinger}.
+
+\begin{veta}[Preorder Access Bound]
+Mějme libovolný binární vyhledávací strom $T$ nad množinou klíčů $[n]$. Mějme posloupnost $S$ délky $n$, která prochází strom $T$ v preorder pořadí. To znamená že první prvek $S$ je kořen $T$, poté následují prvky levého podstromu kořene v preorder pořadí a nakonec prvky pravého podstromu kořene v preorder pořadí. Pak $$\opt(S)= \o(n).$$
+\end{veta}
+
+Pro porozumnění věě je nutné si uvědomit, že strom $T$ použijeme pouze k generování přístupové posloupnosti -- se stromem, který používá optimální nebo jakýkoli jiný vyhledávací algoritmus obecně nemusí mít nic společného. Preorder access bound není v plné obecnosti pro splay stromy dokázána. \citet{preordertarjan} tuto mez představil a pro splay stromy dokázal její speciální případ, kde strom $T$ je celý roven své pravé páteři. Tomu odpovídá $S$, která obsahuje všechny prvky $[n]$ v rostoucím pořadí. \citet{preordersplay} ukázali, že splay strom dokáže v lineárním čase provést sekvenci přístupů odpovídající preorder pořadí jeho vlastního stavu před prvním přístupem. Z toho vyplývá, že Preorder access bound skutečně pro dynamicky optimální strom platí\footnote{Nejedná se o první důkaz tohoto tvrzení v literatuře.} -- může se nejprve v lineárním čase rotacemi přestavět na strom, kterému odpovídá konkrétní přístupová sekvence, a dále se chovat jako splay strom. 
+
+Nyní se podíváme na jediný dolní odhad, který nás v této kapitole čeká, a ze kterého budeme vycházet v kapitole \nameref{sec:tango} a pozdějších.
+
+\def\ib{\operatorname{IB}}
+
+\begin{veta}[Interleave Bound]
+Mějme přístupovou posloupnost $S$ nad množinou $[n]$. Dále mějme libovolný (statický) strom $T$ nad toutéž množinou klíčů. Každý vrchol $T$ má svůj preferovaný směr. Vždy, když projdeme vrcholem $v$, nastavíme preferovaný směr $v$ na syna $v$, do nějž jsme z vrcholu $v$ pokračovali. $\ib_T(S)$ označíme celkový počet změn preferovaných směrů\footnote{Protože nás zajímají pouze posloupnosti $S$ takové, že jejich délka $m$ je větší nebo rovna $n$, počáteční nastavení preferovaných směrů ovlivní $\ib_T(S)$ nejvýše o multiplikativní konstantu.} ve stromě $T$ při vykonání posloupnosti přístupů $S$. Pak pro libovolný strom $T$ platí $$\opt(S) = \Omega(\ib_T(S)).$$
+\end{veta}
+
+Interleave bound představili a dokázali v tomto znění \citet{tango}. Až na multiplikativní konstantu stejnou mez ale představil už \citet{interleave}. Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že $\opt(S)=\Theta(m\log n)$. Pokud jako strom $T$ zvolíme perfektně vyvážený binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí, abychom vždy v každém procházeném vrcholu změnili preferovaný směr. Takovým posloupnostem se také říká \emph{bit reversal posloupnosti}.
 
 \section{Splay stromy}
 
-\section{Tango stromy}
+\section{Tango stromy}\label{sec:tango}
 
 \section{Multisplay stromy}
 
