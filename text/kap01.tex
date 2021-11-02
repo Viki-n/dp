@@ -305,7 +305,7 @@ Operaci delete zde podobně detailně probírat nebudeme, podotkneme ale, že na
 
 
 
-\subsection{Červenočerný strom}
+\subsection{Červenočerný strom}\label{sec:RB}
 
 Červenočerný strom odvodili z 2-4 stromů \citet{redblack}. Pro popis
 červenočerného stromu se nám bude hodit alternativní pohled na binární stromy.
@@ -527,9 +527,34 @@ existence dynamicky optimálního algoritmu je otevřeným problémem. Na druhou
 stranu například o splay stromech vyslovili \citet{splay} hypotézu, že jsou
 dynamicky optimální.
 
+\section{Splay stromy}
+
+Splay strom představili \citet{splay}. Jedná se o strom, který modifikuje svou strukturu nejen při operacích Insert a Delete, ale i při vyhledávání\footnote{Přestože splay strom vkládání i mazání podporuje, my se nyní zabýváme modelem, kde stromy umí pouze vyhledávat. Proto budeme předpokládat, že operaci Delete nikdy nevykonáme, a všechny operace Insert vykonáme před začátkem měření v rámci inicializace struktury.}. Splay strom podporuje operaci $Splay(x)$, a všechny ostatní stromové operace implementuje pomocí $\o(1)$ volání této operace.
+
+Samotná operace $Splay(x)$ se sestává ze dvou fází: Nejprve standardním způsobe
+vyhledáme vrchol stromu obsahující klíč $x$, a poté tento vrchol pomocí rotací
+hran přesuneme do kořene. V případě neúspěšného hledání přesuneme do kořene poslední navštívený vrchol. Při přesouvání vrcholu do kořene postupujeme tak, že
+pokud je vzdálenost aktuálního vrcholu od kořene stromu alespoň dva, použijeme
+vždy dvojitou rotaci (v závislosti na tom, zda jsou splayovaný vrchol a jeho
+rodič syni na téže či různé straně použijeme buď zig-zig rotaci, nebo zig-zag
+rotaci). Pouze ve chvíli, kdy je splayovaný vrchol synem kořene, použijeme
+jednoduchou rotaci. Tento postup má za následek, že hloubka splayovaného vrcholu se sníží na nulu, hloubka všech ostatních vrcholů, kterých se během splayování dotkneme, se sníží přinejmenším o polovinu (až na aditivní konstantu) a hloubka vrcholů, kterých jsme se nedotkli, se zvýší maximálně o konstantu.
+
+Pomocí operace $Splay(x)$ naimplementujeme ostatní stromové operace. Při operaci Insert vložíme prvek do stromu standardním způsobem, a poté na něj aplikujeme $Splay$. Při operaci Delete opět prvek odstraníme standardním způsobem, a potom na nejhlubší prvek, kterého jsme se dotkli a který ve stromě zůstal, aplikujeme $Splay$. Operaci join tak, jak byla popsána v kapitole \nameref{sec:RB}, můžeme provést tak, že ve stromu, který bez újmy na obecnosti obsahuje menší prvky ze dvou spojovaných stromů, zavoláme $Splay(\infty)$. Tím dostaneme nejvyšší prvek do kořene. Kořeni proto bude chybět pravý syn. Na jeho místo tedy můžeme připojit druhý strom. Pokud máme v rámci spojování prvek mezi hodnotami obou stromů do stromu vložit, stačí ho prohlásit za nový kořen a jako syny mu připojit kořeny původních stromů. Split provedeme následovně:
+
+\begin{enumerate}
+\item $Split(x)$ v našem případě rozdělí strom na stromy s hodnotou klíče větší než $x$, menší než $x$, a případně nechá samostatně vrchol s hodnotou $x$, pokud ve stromě byl. Začneme tedy zavoláním $Splay(x)$.
+\item Pokud byl vrchol s klíčem $x$ nalezen, máme hotovo -- vrátíme samostatně kořen stromu a jeho jednotlivé podstromy jako výstup.
+\item Jinak bez újmy na obecnosti nechť máme v kořeni vrchol s klíčem větším než $x$. Jedná se ale o nejblíže větší, proto můžeme odpojit jeho levého syna a oba takto vzniklé stromy vrátit jako výstup.
+\end{enumerate}
+
+Splay strom nám garantuje logaritmickou amortizovanou složitost operace $Splay$. V některých situacích může však být i lineárně hluboký. Pokud například přistoupíme ke všem prvkům v rostoucím pořadí, bude mít strom tvar cesty, kde každý vrchol (krom jediného listu) bude mít pouze levého syna. Pokud poté zavoláme $Splay$ na nejmenší prvek ve stromě, bude trvat lineárně dlouho, avšak hloubku stromu zmenší o polovinu.
+
+Jak už jsme napsali výše, o splay stromu byla vyslovena hypotéza, že je dynamicky optimální, avšak pro obecnou přístupovou posloupnost pro něj nebylo dokázáno nic silnějšího, než triviální $\log(n)$-kompetitivita. Pro některé konkrétní přístupové sekvence byly však pro splay strom dokázány zajímavé výsledky, které si představíme v další kapitole.
+
 \section{Meze optimality}
 
-Výše uvedená definice optimality bohužel není příliš užitečná, protože není znám algoritmus, který by efektivně spočítal chování optimálního binárního vyhledávacího stromu. Proto různí autoři přišli s různými odhady na $\opt(S)$. My zde předvedeme několik horních odhadů a jeden dolní odhad. Začneme třemi odhady, které představili \citet{splay}. Ti ve svém článku rovnou ukázali, že všechny tři meze (až na aditivní člen závisející pouze na $n$) splňuje splay strom, který si představíme v následující sekci. Proto musí platit i pro optimální strom.
+Výše uvedená definice optimality bohužel není příliš užitečná, protože není znám algoritmus, který by efektivně spočítal chování optimálního binárního vyhledávacího stromu. Proto různí autoři přišli s různými odhady na $\opt(S)$. My zde předvedeme několik horních odhadů a jeden dolní odhad. Začneme třemi odhady, které představili \citet{splay}. Ti ve svém článku rovnou ukázali, že všechny tři meze (až na aditivní člen závisející pouze na $n$) splay strom splňuje. Proto musí platit i pro optimální strom.
 
 \begin{veta}[Static Optimality Bound]
 Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$, a nechť $q:[n]\rightarrow \mathbb N_0$ určuje počet výskytů každého prvku $[n]$ v $S$. Potom $$\opt(S) = \o\left(m + \sum_{i\in [n]}q(i)\log\frac m{q(i)}\right).$$
@@ -549,7 +574,7 @@ ukazuje na nějaký vrchol. Tato struktura umožňuje přidávat a odstraňovat 
 v čase $\o(\log n)$. Vyhledání pak trvá $\o(f+\log(d))$, kde $f$ je počet prstů
 a $d$ je počet prvků mezi vyhledávaným prvkem a nejbližším prstem.
 \citet{splay} však nicméně ukázali, že tato mez platí pro jeden nepohyblivý
-prst (až ma jednorázovou aditivní konstantu nezávisející na počtu přístupů) i
+prst (až na jednorázovou aditivní konstantu nezávisející na počtu přístupů) i
 pro splay stromy. Jak se splay strom chová, když se rozhodneme prst přesouvat,
 představíme později v této sekci. 
 
@@ -571,7 +596,7 @@ Tato mez nám umožňuje prst v každém kroku přesunout na právě navštíven
 Mějme libovolný binární vyhledávací strom $T$ nad množinou klíčů $[n]$. Mějme posloupnost $S$ délky $n$, která prochází strom $T$ v preorder pořadí. To znamená že první prvek $S$ je kořen $T$, poté následují prvky levého podstromu kořene v preorder pořadí a nakonec prvky pravého podstromu kořene v preorder pořadí. Pak $$\opt(S)= \o(n).$$
 \end{veta}
 
-Pro porozumnění věě je nutné si uvědomit, že strom $T$ použijeme pouze k generování přístupové posloupnosti -- se stromem, který používá optimální nebo jakýkoli jiný vyhledávací algoritmus obecně nemusí mít nic společného. Preorder access bound není v plné obecnosti pro splay stromy dokázána. \citet{preordertarjan} tuto mez představil a pro splay stromy dokázal její speciální případ, kde strom $T$ je celý roven své pravé páteři. Tomu odpovídá $S$, která obsahuje všechny prvky $[n]$ v rostoucím pořadí. \citet{preordersplay} ukázali, že splay strom dokáže v lineárním čase provést sekvenci přístupů odpovídající preorder pořadí jeho vlastního stavu před prvním přístupem. Z toho vyplývá, že Preorder access bound skutečně pro dynamicky optimální strom platí\footnote{Nejedná se o první důkaz tohoto tvrzení v literatuře.} -- může se nejprve v lineárním čase rotacemi přestavět na strom, kterému odpovídá konkrétní přístupová sekvence, a dále se chovat jako splay strom. 
+Pro porozumnění větě je nutné si uvědomit, že strom $T$ použijeme pouze k generování přístupové posloupnosti -- se stromem, který používá optimální nebo jakýkoli jiný vyhledávací algoritmus obecně nemusí mít nic společného. Preorder access bound není v plné obecnosti pro splay stromy dokázána. \citet{preordertarjan} tuto mez představil a pro splay stromy dokázal její speciální případ, kde strom $T$ je celý roven své pravé páteři. Tomu odpovídá $S$, která obsahuje všechny prvky $[n]$ v rostoucím pořadí. \citet{preordersplay} ukázali, že splay strom dokáže v lineárním čase provést sekvenci přístupů odpovídající preorder pořadí jeho vlastního stavu před prvním přístupem. Z toho vyplývá, že Preorder access bound skutečně pro dynamicky optimální strom platí\footnote{Nejedná se o první důkaz tohoto tvrzení v literatuře.} -- může se nejprve v lineárním čase rotacemi přestavět na strom, kterému odpovídá konkrétní přístupová sekvence, a dále se chovat jako splay strom. 
 
 Nyní se podíváme na jediný dolní odhad, který nás v této kapitole čeká, a ze kterého budeme vycházet v kapitole \nameref{sec:tango} a pozdějších.
 
@@ -582,8 +607,6 @@ Mějme přístupovou posloupnost $S$ nad množinou $[n]$. Dále mějme libovoln�
 \end{veta}
 
 Interleave bound představili a dokázali v tomto znění \citet{tango}. Až na multiplikativní konstantu stejnou mez ale představil už \citet{interleave}. Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že $\opt(S)=\Theta(m\log n)$. Pokud jako strom $T$ zvolíme perfektně vyvážený binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí, abychom vždy v každém procházeném vrcholu změnili preferovaný směr. Takovým posloupnostem se také říká \emph{bit reversal posloupnosti}.
-
-\section{Splay stromy}
 
 \section{Tango stromy}\label{sec:tango}
 
