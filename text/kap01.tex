@@ -331,7 +331,7 @@ Nyní se pokusíme odhadnout minimální počet vrcholů $D(n)$ ve stromu hloubk
 
 $D(n)$ můžeme vyjádřit\footnote{V následujícím výpočtu nebereme v úvahu externí vrcholy. Kdybychom je v úvahu brali, přesné vzorce by vypadaly trochu jinak, ale v závěru by se změna schovala v $\o$-notaci.} jako $D(1)=1$, $D(2) = 2$, $D(2i) = D(2i-2) + 2 \cdot
 (2^{i - 1} - 1) + 2$, $D(2i + 1) = D(2i - 1) + 2^{i-1}-1 + 2^i-1 + 2$. Z toho
-po zjednodušení a vyřešení dostáváme, že $D(i)=\Theta(2^{i/2})$, tedy nejvyšší
+po zjednodušení a vyřešení dostáváme, že $D(i)\in\Theta(2^{i/2})$, tedy nejvyšší
 možná hloubka s daným počtem vrcholů je $H(n) = \log_{\sqrt 2} n + \o(1)$.
 Protože  $\sqrt 2 < \varphi$, je hloubka červenočerného stromu v nejhorším
 případě větší než hloubka AVL stromu v nejhorším případě při stejném počtu
@@ -459,7 +459,7 @@ S touto sadou pravidel navíc s (přímočarými) Insert a Delete algoritmy, kte
 \item Při Insertech nevznikají $(2,2)$-vrcholy -- pokud pouze vkládáme, máme AVL strom.
 \item Pouze $\o(1)$ změn struktury stromu na operaci v nejhorším případě.
 \item Pouze $\o(1)$ změn ranku na operaci amortizovaně. Navíc počet změn ranku vrcholu ranku $k$ je amortizovaně $\o(\varphi^{-k})$ na operaci.
-\item Pokud $n$ je počet vrcholů stromu a $m$ je počet operací Insert za celou dobu života struktury, pak hloubka stromu je nejvýše $\min(\log_{\varphi} m, \log_{\sqrt2} n) + \o(1).$ Z toho vyplývá, že pokud $m=\Theta(n)$, tj. ve stromu máme alespoň řádově stejně prvků. kolik jsme jich smazali, bude hloubka Weak AVL stromu v nejhorším případě až na aditivní konstantu stejná, jako hloubka AVL stromu v nejhorším případě na stejném počtu prvků.
+\item Pokud $n$ je počet vrcholů stromu a $m$ je počet operací Insert za celou dobu života struktury, pak hloubka stromu je nejvýše $\min(\log_{\varphi} m, \log_{\sqrt2} n) + \o(1).$ Z toho vyplývá, že pokud $m\in\Theta(n)$, tj. ve stromu máme alespoň řádově stejně prvků. kolik jsme jich smazali, bude hloubka Weak AVL stromu v nejhorším případě až na aditivní konstantu stejná, jako hloubka AVL stromu v nejhorším případě na stejném počtu prvků.
 \item Weak AVL strom lze rebalancovat nejen odspoda nahoru, ale i preventivně shora dolů, což může být výhodné při paralelní práci se stromem. Pak ale ostatní zde uvedené body neplatí.
 \end{itemize}
 
@@ -540,7 +540,7 @@ rodič syni na téže či různé straně použijeme buď zig-zig rotaci, nebo z
 rotaci). Pouze ve chvíli, kdy je splayovaný vrchol synem kořene, použijeme
 jednoduchou rotaci. Tento postup má za následek, že hloubka splayovaného vrcholu se sníží na nulu, hloubka všech ostatních vrcholů, kterých se během splayování dotkneme, se sníží přinejmenším o polovinu (až na aditivní konstantu) a hloubka vrcholů, kterých jsme se nedotkli, se zvýší maximálně o konstantu.
 
-Pomocí operace $Splay(x)$ naimplementujeme ostatní stromové operace. Při operaci Insert vložíme prvek do stromu standardním způsobem, a poté na něj aplikujeme $Splay$. Při operaci Delete opět prvek odstraníme standardním způsobem, a potom na nejhlubší prvek, kterého jsme se dotkli a který ve stromě zůstal, aplikujeme $Splay$. Operaci join tak, jak byla popsána v kapitole \nameref{sec:RB}, můžeme provést tak, že ve stromu, který bez újmy na obecnosti obsahuje menší prvky ze dvou spojovaných stromů, zavoláme $Splay(\infty)$. Tím dostaneme nejvyšší prvek do kořene. Kořeni proto bude chybět pravý syn. Na jeho místo tedy můžeme připojit druhý strom. Pokud máme v rámci spojování prvek mezi hodnotami obou stromů do stromu vložit, stačí ho prohlásit za nový kořen a jako syny mu připojit kořeny původních stromů. Split provedeme následovně:
+Pomocí operace $Splay(x)$ naimplementujeme ostatní stromové operace. Při operaci Insert(x) nejprve zavoláme $Splay(x)$. Tím se dostane následník nebo předchůdce $x$ do kořene. Potom můžeme vložit nový vrchol obsahující $x$ mezi jeho pravého nebo levého syna. Při operaci Delete na prvek zavoláme $splay$, poté ze stromu odstraníme kořen a dva vzniklé stromy (jsou-li oba neprázdné)  spojíme dále popsanou operací join. Operaci join tak, jak byla popsána v kapitole \nameref{sec:RB}, můžeme provést tak, že ve stromu, který bez újmy na obecnosti obsahuje menší prvky ze dvou spojovaných stromů, zavoláme $Splay(\infty)$. Tím dostaneme nejvyšší prvek do kořene. Kořeni proto bude chybět pravý syn. Na jeho místo tedy můžeme připojit druhý strom. Pokud máme v rámci spojování prvek mezi hodnotami obou stromů do stromu vložit, stačí ho prohlásit za nový kořen a jako syny mu připojit kořeny původních stromů. Split provedeme následovně:
 
 \begin{enumerate}
 \item $Split(x)$ v našem případě rozdělí strom na stromy s hodnotou klíče větší než $x$, menší než $x$, a případně nechá samostatně vrchol s hodnotou $x$, pokud ve stromě byl. Začneme tedy zavoláním $Splay(x)$.
@@ -554,16 +554,23 @@ Jak už jsme napsali výše, o splay stromu byla vyslovena hypotéza, že je dyn
 
 \section{Meze optimality}
 
-Výše uvedená definice optimality bohužel není příliš užitečná, protože není znám algoritmus, který by efektivně spočítal chování optimálního binárního vyhledávacího stromu. Proto různí autoři přišli s různými odhady na $\opt(S)$. My zde předvedeme několik horních odhadů a jeden dolní odhad. Začneme třemi odhady, které představili \citet{splay}. Ti ve svém článku rovnou ukázali, že všechny tři meze (až na aditivní člen závisející pouze na $n$) splay strom splňuje. Proto musí platit i pro optimální strom.
+Výše uvedená definice optimality bohužel není příliš užitečná, protože není
+znám algoritmus, který by efektivně spočítal chování optimálního binárního
+vyhledávacího stromu. Proto různí autoři přišli s různými odhady na $\opt(S)$.
+My zde předvedeme několik horních odhadů a jeden dolní odhad. Začneme třemi
+odhady, které představili \citet{splay}. Ti ve svém článku rovnou ukázali, že
+všechny tři meze (až na aditivní člen závisející pouze na $n$) splay strom
+splňuje. Proto musí platit i pro optimální strom. Proč můžeme pro optimální
+stromy aditivní členy závisející pouze na $n$ vypustit, vysvětlíme později v této sekci.
 
 \begin{veta}[Static Optimality Bound]
-Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$, a nechť $q:[n]\rightarrow \mathbb N_0$ určuje počet výskytů každého prvku $[n]$ v $S$. Potom $$\opt(S) = \o\left(m + \sum_{i\in [n]}q(i)\log\frac m{q(i)}\right).$$
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$, a nechť $q:[n]\rightarrow \mathbb N_0$ určuje počet výskytů každého prvku $[n]$ v $S$. Potom $$\opt(S) \in \o\left(m + \sum_{i\in [n]}q(i)\log\frac m{q(i)}\right).$$
 \end{veta}
 
 Tuto mezi splňuje i statický optimální strom popsaný v sekci \nameref{sec:staticoptimality}. Proto také všem stromům, které tuto mezi splňují, říkáme staticky optimální.  
 
 \begin{veta}[Static Finger Bound]
-Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Potom pro libovolné $f\in [m]$ platí $$\opt(S) = \o\left(m + \sum_{j\in [m]} \log(1 + |f-i_j|) \right).$$
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $i$-tý prvek si označíme $s_i$. Potom pro libovolné $f\in [m]$ platí $$\opt(S) \in \o\left(m + \sum_{i\in [m]} \log(1 + |f-s_i|) \right).$$
 \end{veta}
 
 Tato meze jinými slovy říká, že strom musí umět rychle odpovídat na dotazy na
@@ -579,21 +586,73 @@ pro splay stromy. Jak se splay strom chová, když se rozhodneme prst přesouvat
 představíme později v této sekci. 
 
 
-\begin{veta}[Working Set bound]
+\begin{veta}[Working Set Bound]
 
-Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Dále mějme funkci $t: [m]\rightarrow \mathbb N_0$, kde $t(j)$ je počet různých prvků v posloupnosti $S$ mezi $j$-tým prvkem a předchozím výskytem prvku $i_j$ (nebo od začátku, pokud se jedná o první výskyt prvku $i_j$). Potom platí $$\opt(S) = \o\left(m + \sum_{j\in [m]}\log (t(j)+1) \right).$$
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $i$-tý prvek si označíme $s_i$. Dále mějme funkci $t: [m]\rightarrow \mathbb N_0$, kde $t(i)$ je počet různých prvků v posloupnosti $S$ mezi $i$-tým prvkem a předchozím výskytem prvku $s_i$ (nebo od začátku, pokud se jedná o první výskyt prvku $s_i$). Potom platí $$\opt(S) \in \o\left(m + \sum_{i\in [m]}\log (t(i)+1) \right).$$
 \end{veta}
 
 Jinými slovy, pokud pracujeme pouze s malou podmnožinou prvků ve stromě, amortizovaná cena přístupů musí být logaritmická pouze ve velikosti této podmnožiny.
 
 \begin{veta}[Dynamic Finger Bound]
-Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $j$-tý prvek si označíme $i_j$. Potom pro platí $$\opt(S) = \o\left(m + \sum_{j=2}^m \log(1 + |i_{j}-i_{j-1}|) \right).$$
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $i$-tý prvek si označíme $s_i$. Potom pro platí $$\opt(S) \in \o\left(m + \sum_{i=2}^m \log(1 + |s_{i}-s_{i-1}|) \right).$$
 \end{veta}
 
 Tato mez nám umožňuje prst v každém kroku přesunout na právě navštívený prvek. Pro splay stromy ji dokázal \citet{dynamicfinger}.
 
+Před posledními dvěma mezemi uděláme slibovanou odbočku. U všech předchozích
+vět v této kapitole jsme postupovali tak, že jsme vzali tvrzení, že splay strom
+dovede libovolnou přístupovou posloupnost $S$ vykonat v čase $\o(f(n)+g(S))$
+pro vhodné funkce $f$ a $g$, a z toho jsme vyvodili, že optimální strom tu
+samou posloupnost vykoná v čase $\o(g(S))$. Toto tvrzení teď dokážeme. Dokážeme
+ho sice pro libovolnou funkci $f$, ale pouze pro funkce $g$, které jsou nejvýše
+lineární vzhledem k zřetězení. Jinýmy slovy, budeme požadovat, aby pro každé dvě přístupové posloupnosti $S$, $T$ $g(S) + g(T)\geq
+g(ST)$, kde $ST$ je posloupnost $S$ zřetězená s posloupností $T$\footnote{Tedy
+posloupnost o $|S|+|T|$ prvcích, kde pro každé $i\leq |S|$ platí $S_i = ST_i$ a pro každé $i\leq|T|$ platí $T_i = ST_{i+|S|}$.}.
+
+\begin{tvrz}\label{tvrz:konstantypryc}
+Mějme libovolnou funkci $f:\mathbb N \rightarrow \mathbb N$ a funkci $g$ z množiny všech konečných posloupností přirozených čísel do $\mathbb N$ 
+takovou, že pro každé dvě posloupnosti $S$, $T$ platí $g(ST)\leq g(S)+g(T)$. Dále nechť splay strom (nebo jakýkoli jiný
+konkrétní strom) umí vykonat libovolnou posloupnost o délce alespoň $n$ pomocí nejvýše
+$f(n) + g(S)$ kroků. Pak optimální strom umí tu samou posloupnost vykonat pomocí nejvýše $g(S)$ kroků.
+\end{tvrz}
+
+\begin{dukaz}
+Mějme nějakou pevnou posloupnost $S$. Dále mějme posloupnost $S'$, která je
+posloupnost $S$ $f(n)+1$-krát zřetězená sama za sebe. Tu umí splay strom
+vykonat v čase nejvýše $$f(n) + g(S') \geq f(n) + (f(n)+1) \cdot g(S).$$ Tato
+nerovnost platí z podmínek na funkci $g$ popsaných v minulém odstavci. Nyní
+tedy víme, že splay strom vykoná posloupnost $S'$ v čase nejvýše
+$f(n)+(f(n)+1)\cdot g(S))$. Vykonání posloupnosti $S'$ je ale pouze $f(n)$ po
+sobě jdoucích vykonání posloupnosti $S$. Během vykonávání $S'$ tedy vykonáme
+$S$ v průměru v čase nejvýše $$\frac{f(n)}{f(n)+1}+g(S).$$ To znamená, že
+alespoň jedno z vykonání $S$ trvalo nejvýše právě tento průměr. Protože ale
+operací musí být celočíselný počet, $g(S)$ je celé číslo a zlomek ve výrazu
+výše je menší než jedna, muselo nejkratší vykonání $S$ trvat nejvýše $g(S)$.
+Optimální strom si ale při svém běhu může vybrat svůj počáteční stav. Může si
+tedy rozhodně vybrat počáteční stav takový, v jakém byl splay strom na začátku
+vykonávání tohoto nalezeného nejkratšího vykonání $S$, a dále se chovat jako
+splay strom.
+\end{dukaz}
+
+Toto tvrzení můžeme přímočaře aplikovat na Static Optimality Bound a Static Finger Bound. Dynamic Finger Bound bohužel nesplňuje předpoklad věty, jednoduše ale nahlédneme, že pro $m\geq n$ nebude relaxování příslušné funkce $g$ přidáním aditivního $\log(1+|s_{m} - s{1}|)$ asymptoticky zajímavé a poté již můžeme tvrzení aplikovat. Working Set Bound ale tak jednoduše nevyřešíme, budeme potřebovat ještě jedno zdánlivě nesouvisející lemma:
+
+\begin{lemma}
+Mějme přístupovou posloupnost $S$ a její zrcadlení\footnote{Zrcadlení posloupnosti $S$ je polsoupnost $\overline S$ stejné délky taková, že pro každé $i\in [m]$ platí $S_i = \overline S_{m-i+1}$} $\overline S$. Pak $\opt(\overline S) \in \Theta(\opt(S))$, a to i v případě, že budeme požadovat, aby optimální strom při vykonávání posloupnosti $\overline{S}$ začal se stromem ve stejném stavu, v jakém byl optimální strom na konci vykonávání $S$, a na konci vykonávání $\overline S$ ve stejném stavu, v jakém optimální strom při vykonávání $S$ začal.
+\end{lemma}
+
+\begin{dukaz}
+Nahlédneme, že nám stačí ukázat, že pokud máme binární vyhledávací strom $T$ a
+algoritmus $A$, který ho při vyhledání hodnoty $x$ převede ze stavu $T_1$ do stavu
+$T_2$ během $k$ kroků, pak existuje i algoritmus $B$, který při vyhledání hodnoty
+$x$ převede strom ze stavu $T_2$ do stavu $T_1$ pomocí $\o(k)$ kroků.
+
+To ale platí -- Všechny kroky, které algoritmus $A$ udělá, může algoritmus $B$ udělat v opačném pořadí a opačným směrem. Jediný problém nastane, pokud algoritmus $A$ využije krok \uv{najdi kořen}, a stejný problém nastane na začátku běhu algoritmu $B$, kdy je nutné vrátit se na místo ve stromě, kde byl aktuální vrchol algoritmu $A$ před voláním tohoto kroku, případně před koncem. Rozmyslíme si ale, že to dokážeme v tolika krocích, jak hluboko příslušný vrchol je, a minimálně tolik kroků musel algoritmus $A$ udělat, aby se předtím do této hloubky dostal. Tyto hledání tedy zpomalí běh algoritmu $B$ nejvýše dvojnásobně. Protože při tomto postupu sáhneme na všechny vrcholy, na které sáhl algoritmus $A$, tak pokud algoritmus $A$ nalezl vrchol $x$, nalezl ho algoritmus $B$ také\footnote{Neúspěšná hledání nebudeme brát v potaz}.
+\end{dukaz}
+
+Nyní už si pouze rozmyslíme, že důkaz pro Working Set Bound můžeme vést podobně, jako pro \ref{tvrz:konstantypryc}, ale místo posloupnosti $S$ za sebe $f(n)+1$-krát zřetězit posloupnost $S\overline S$. Tím bychom měli odbočku úspěšně za sebou a můžeme se vrátit k mezím. 
+
 \begin{veta}[Preorder Access Bound]
-Mějme libovolný binární vyhledávací strom $T$ nad množinou klíčů $[n]$. Mějme posloupnost $S$ délky $n$, která prochází strom $T$ v preorder pořadí. To znamená že první prvek $S$ je kořen $T$, poté následují prvky levého podstromu kořene v preorder pořadí a nakonec prvky pravého podstromu kořene v preorder pořadí. Pak $$\opt(S)= \o(n).$$
+Mějme libovolný binární vyhledávací strom $T$ nad množinou klíčů $[n]$. Mějme posloupnost $S$ délky $n$, která prochází strom $T$ v preorder pořadí. To znamená že první prvek $S$ je kořen $T$, poté následují prvky levého podstromu kořene v preorder pořadí a nakonec prvky pravého podstromu kořene v preorder pořadí. Pak $$\opt(S)\in \o(n).$$
 \end{veta}
 
 Pro porozumnění větě je nutné si uvědomit, že strom $T$ použijeme pouze k generování přístupové posloupnosti -- se stromem, který používá optimální nebo jakýkoli jiný vyhledávací algoritmus obecně nemusí mít nic společného. Preorder access bound není v plné obecnosti pro splay stromy dokázána. \citet{preordertarjan} tuto mez představil a pro splay stromy dokázal její speciální případ, kde strom $T$ je celý roven své pravé páteři. Tomu odpovídá $S$, která obsahuje všechny prvky $[n]$ v rostoucím pořadí. \citet{preordersplay} ukázali, že splay strom dokáže v lineárním čase provést sekvenci přístupů odpovídající preorder pořadí jeho vlastního stavu před prvním přístupem. Z toho vyplývá, že Preorder access bound skutečně pro dynamicky optimální strom platí\footnote{Nejedná se o první důkaz tohoto tvrzení v literatuře.} -- může se nejprve v lineárním čase rotacemi přestavět na strom, kterému odpovídá konkrétní přístupová sekvence, a dále se chovat jako splay strom. 
@@ -603,10 +662,19 @@ Nyní se podíváme na jediný dolní odhad, který nás v této kapitole čeká
 \def\ib{\operatorname{IB}}
 
 \begin{veta}[Interleave Bound]
-Mějme přístupovou posloupnost $S$ nad množinou $[n]$. Dále mějme libovolný (statický) strom $T$ nad toutéž množinou klíčů. Každý vrchol $T$ má svůj preferovaný směr. Vždy, když projdeme vrcholem $v$, nastavíme preferovaný směr $v$ na syna $v$, do nějž jsme z vrcholu $v$ pokračovali. $\ib_T(S)$ označíme celkový počet změn preferovaných směrů\footnote{Protože nás zajímají pouze posloupnosti $S$ takové, že jejich délka $m$ je větší nebo rovna $n$, počáteční nastavení preferovaných směrů ovlivní $\ib_T(S)$ nejvýše o multiplikativní konstantu.} ve stromě $T$ při vykonání posloupnosti přístupů $S$. Pak pro libovolný strom $T$ platí $$\opt(S) = \Omega(\ib_T(S)).$$
+Mějme přístupovou posloupnost $S$ nad množinou $[n]$. Dále mějme libovolný (statický) strom $T$ nad toutéž množinou klíčů. Každý vrchol $T$ má svůj preferovaný směr. Vždy, když projdeme vrcholem $v$, nastavíme preferovaný směr $v$ na syna $v$, do nějž jsme z vrcholu $v$ pokračovali. $\ib_T(S)$ označíme celkový počet změn preferovaných směrů\footnote{Protože nás zajímají pouze posloupnosti $S$ takové, že jejich délka $m$ je větší nebo rovna $n$, počáteční nastavení preferovaných směrů ovlivní $\ib_T(S)$ nejvýše o multiplikativní konstantu.} ve stromě $T$ při vykonání posloupnosti přístupů $S$. Pak pro libovolný strom $T$ platí $$\opt(S) \in \Omega(\ib_T(S)).$$
 \end{veta}
 
-Interleave bound představili a dokázali v tomto znění \citet{tango}. Až na multiplikativní konstantu stejnou mez ale představil už \citet{interleave}. Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že $\opt(S)=\Theta(m\log n)$. Pokud jako strom $T$ zvolíme perfektně vyvážený binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí, abychom vždy v každém procházeném vrcholu změnili preferovaný směr. Takovým posloupnostem se také říká \emph{bit reversal posloupnosti}. Na druhou stranu ZDROJ ukázal, že pro žádný pevný strom $T$ nedává Interleave bound těsný odhad pro ksždou přístupovou posloupnost $S$. Zda pro každou posloupnost $S$ existuje strom $T$ takový, aby $\ib_T(S)=\opt(S)$, není známo.  
+Interleave bound představili a dokázali v tomto znění \citet{tango}. Až na
+multiplikativní konstantu stejnou mez ale představil už \citet{interleave}.
+Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že
+$\opt(S)\in\Theta(m\log n)$. Pokud jako strom $T$ zvolíme perfektně vyvážený
+binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí,
+abychom vždy v každém procházeném vrcholu změnili preferovaný směr. Takovým
+posloupnostem se také říká \emph{bit reversal posloupnosti}. Na druhou stranu
+ZDROJ ukázal, že pro žádný pevný strom $T$ nedává Interleave bound těsný odhad
+pro ksždou přístupovou posloupnost $S$. Zda pro každou posloupnost $S$ existuje
+strom $T$ takový, aby $\opt(S)\in\o(\ib_T(S))$, není známo.  
 
 \section{Tango stromy}\label{sec:tango}
 
