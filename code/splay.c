@@ -19,6 +19,7 @@ typedef struct Node Node;
 #define PUSH node_push
 #define POP node_pop
 #define INIT init_node_stack
+#define DESTROY free_node_stack
 
 #include "stack.h"
 
@@ -143,7 +144,7 @@ VALUE splay(VALUE value, Node** root, bool insert){
     }
 
     *root = current_node;
-
+    free_node_stack(&stack);
     return (*root)->value;
 
 }

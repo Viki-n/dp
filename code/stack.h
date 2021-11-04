@@ -18,6 +18,11 @@ void INIT(STACKNAME *a, size_t initialSize) {
     a->size = initialSize;
 }
 
+void DESTROY(STACKNAME *a) {
+    free(a->array);
+}
+
+
 void PUSH(STACKNAME* stack, STACKTYPE value){
     if (stack->used == stack->size) {
         stack->size *= 2;
