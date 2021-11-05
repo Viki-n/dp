@@ -689,9 +689,9 @@ aby měl referenční strom logaritmickou hloubku.} referenční binární vyhle
 strom $P$ nad těmi samými klíči, které sám obsahuje. Každou přístupovou
 posloupnost pak vykoná v čase $\o(\log\log(n)\cdot \ib_P(S))$, tedy je
 $\log\log(n)$-kompetitivní. Na druhou stranu není optimální -- z konstrukce
-bude zřejmé, jak sestrojit přístupovou posloupnost, kterou optimální strom
- vykoná v čase $\o(m)$, ale tango strom bude potřebovat
-$\o(m\cdot\log\log(n))$.
+bude zřejmé, že pokud budeme přistupovat stále k tomu samému prvku, dostaneme polsoupnost, kterou optimální strom
+ vykoná v čase $\o(m)$, ale tango strom může potřebovat až
+$\Theta(m\cdot\log\log(n))$. Co hůře, bit reversal posloupnost tango strom vykoná v čase $\Theta(m\cdot\log(n)\cdot \log\log(n))$.
 
 Této časové složitosti dosáhne tak, že si bude vnitřně udržovat rozdělení na
 pomocné podstromy, které odpovídají cestám z preferovaných hran\footnote{Daných
