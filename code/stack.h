@@ -36,3 +36,10 @@ STACKTYPE POP(STACKNAME* stack){
     return stack->array[--(stack->used)];
 }
 
+#ifdef PEEK
+STACKTYPE PEEK(STACKNAME* stack){
+    return stack->array[stack->used - 1];
+}
+
+#endif
+
