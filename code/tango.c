@@ -20,6 +20,12 @@ struct Node{
     struct Node * right;
 };
 
+struct Tuple {
+    VALUE first;
+    VALUE second;
+};
+
+typedef struct Node Node;
 bool is_external(Node* v){
     return v == NULL || v->root;
 }
@@ -31,16 +37,16 @@ void fix_max_min_depth(Node* v){
     int mindepth = v->depth;
     int maxdepth = v->depth;
     if(!is_external(v->left)){
-        maxdepth = MAX(maxdepth, left->maxdepth);
-        mindepth = MIN(mindepth, left->mindepth);
+        maxdepth = MAX(maxdepth, v->left->maxdepth);
+        mindepth = MIN(mindepth, v->left->mindepth);
     }
     if(!is_external(v->right)){
-        maxdepth = MAX(maxdepth, right->maxdepth);
-        mindepth = MIN(mindepth, right->mindepth);
+        maxdepth = MAX(maxdepth, v->right->maxdepth);
+        mindepth = MIN(mindepth, v->right->mindepth);
     }
 }
 
-typedef struct Node Node;
+typedef struct Tuple Tuple;
 
 // Include stack
 #define STACKTYPE Node*
@@ -120,6 +126,7 @@ void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
 // Expects caller to handle freeing up stack
     while (stack.used){
         current_node = node_pop(&stack);
+        fix_max_min_depth(current_node);
         if (current_node->blackness==1){
             return;
         }
@@ -129,6 +136,7 @@ void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
         }
         Node* parent = current_node;
         current_node = node_pop(&stack);
+        fix_max_min_depth(current_node);
         Node* uncle = sibling(parent,current_node);
         if (!is_external(uncle) && uncle->blackness == 0){
             push_blackness(current_node);
@@ -150,6 +158,8 @@ void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
             parent->blackness = 1;
             parent->black_height++;
             rotate_up(currentpointer, parent);
+            fix_max_min_depth(current_node);
+            fix_max_min_depth(parent);
             return;
         }
     }
@@ -161,8 +171,8 @@ void join(Node** rootpointer){
 
     Node* root = *rootpointer;
     //handle case when nothing needs to be done
-    int leftdepth = root->left==NULL? 0 : root->left->black_height;
-    int rightdepth = root->left==NULL? 0 : root->right->black_height;
+    int leftdepth = is_external(root->left) ? 0 : root->left->black_height;
+    int rightdepth = is_external(root->right) ? 0 : root->right->black_height;
     if (rightdepth == leftdepth){
         root->blackness = 1;
         root->black_height = leftdepth +1;
@@ -172,14 +182,14 @@ void join(Node** rootpointer){
     Node* right = root->right;
 
     //check if roots are black, and if not, restart procedure
-    if (left != NULL && left->blackness == 0){
+    if (!is_external(left) && left->blackness == 0){
         left->blackness = 1;
         left->black_height++;
         join(rootpointer);
         return;
     }
 
-    if (right != NULL && right->blackness == 0){
+    if (!is_external(right) && right->blackness == 0){
         right->blackness = 1;
         right->black_height++;
         join(rootpointer);
@@ -230,9 +240,11 @@ void join(Node** rootpointer){
     
     }
 
-    node_push(&stack, root);
-    if(current_node != NULL && current_node->blackness == 0){
-        rebalance_after_insert(stack, current_node, rootpointer);
+    if(!is_external(current_node) && current_node->blackness == 0){
+        rebalance_after_insert(stack, root, rootpointer);
+    }
+    while (stack.used){
+        fix_max_min_depth(node_pop(&stack));
     }
     free_node_stack(&stack);
 }
@@ -283,6 +295,164 @@ void split(Node** root, VALUE value){
 }
 
 
+VALUE find_l(Node* root, int depth){
+    
+    // finds value of a element that has depth < than input, but its successor has depth >= than input. If such doesnt exist, return -1. 
+    // Comments are switched!
+
+    int left_maxdepth = depth-1;
+    if(!is_external(root->left)){
+        left_maxdepth = root->left->maxdepth;
+    }
+
+    // the target is either in right subtree or somewhere up the path to root
+    if(left_maxdepth >= depth){
+        return find_l(root->left, depth); 
+    }
+    
+    // current node is the rightmost deep node
+    if(root->depth >= depth){
+        if(is_external(root->left)){
+            // target is somewhere along the path upwards
+            return -1;
+        } else {
+            // target is the minimum of right subtree
+            return find_l(root->left, depth);
+        }
+    }
+
+    // left subtree is missing, but I am not deep and anything to right isnt either -- I am target
+    if(is_external(root->left)){
+        return root->value;
+    }
+    
+    // target is either me, or in the left subtree
+    
+    VALUE result = find_l(root->right, depth);
+    return result == -1 ? root->value : result;
+    
+}
+
+
+
+VALUE find_r(Node* root, int depth){
+    
+    // finds value of a element that has depth < than input, but its predcessor has depth >= than input. If such doesnt exist, return -1. 
+    
+
+    int right_maxdepth = depth-1;
+    if(!is_external(root->right)){
+        right_maxdepth = root->right->maxdepth;
+    }
+
+    // the target is either in right subtree or somewhere up the path to root
+    if(right_maxdepth >= depth){
+        return find_r(root->right, depth); 
+    }
+    
+    // current node is the rightmost deep node
+    if(root->depth >= depth){
+        if(is_external(root->right)){
+            // target is somewhere along the path upwards
+            return -1;
+        } else {
+            // target is the minimum of right subtree
+            return find_r(root->right, depth);
+        }
+    }
+
+    // left subtree is missing, but I am not deep and anything to right isnt either -- I am target
+    if(is_external(root->left)){
+        return root->value;
+    }
+    
+    // target is either me, or in the left subtree
+    
+    VALUE result = find_r(root->left, depth);
+    return result == -1 ? root->value : result;
+    
+}
+
+Tuple neighbors(Node* root, VALUE value){
+    Tuple result;
+    result.first = -1;
+    result.second = -1;
+
+    Node* current_node = root;
+    while (current_node == root || !is_external(current_node)){
+        if (current_node->value < value){
+            result.first = current_node->value;
+            current_node = current_node->right;
+        } else {
+            result.second = current_node->value;
+            current_node = current_node->left; 
+        }
+    }
+
+    return result;
+}
+
+void rebuild_current_subtree(Node** root, Node* new_part){
+    
+    Node* rootpointer = *root;
+    
+    VALUE r;
+    VALUE l;
+    
+    // check if cutting is needed
+    if(rootpointer->maxdepth >= new_part->maxdepth){
+        r = find_r(rootpointer, new_part->mindepth);
+        l = find_l(rootpointer, new_part->mindepth);
+        
+        if (r == -1){
+            split(&rootpointer, l);
+            rootpointer->right->root = true;
+            fix_max_min_depth(rootpointer);
+            join(&rootpointer);
+        } else if (l == -1){
+            split(&rootpointer, r);
+            rootpointer->left->root = true;
+            fix_max_min_depth(rootpointer);
+            join(&rootpointer);
+        } else {
+            split(&rootpointer, r);
+            split(&(rootpointer->left), l);
+            rootpointer->left->right->root = true;
+            fix_max_min_depth(rootpointer->left);
+            fix_max_min_depth(rootpointer);
+            join(&(rootpointer->left));
+            join(&rootpointer);
+        }
+    }
+
+    Tuple n = neighbors(rootpointer, new_part->value);
+    l = n.first;
+    r = n.second;
+
+    if (r == -1){
+        split(&rootpointer, l);
+        rootpointer->right->root = false;
+        fix_max_min_depth(rootpointer);
+        join(&rootpointer);
+    } else if (l == -1){
+        split(&rootpointer, r);
+        rootpointer->left->root = false;
+        fix_max_min_depth(rootpointer);
+        join(&rootpointer);
+    } else {
+        split(&rootpointer, r);
+        split(&(rootpointer->left), l);
+        rootpointer->left->right->root = false;
+        fix_max_min_depth(rootpointer->left);
+        fix_max_min_depth(rootpointer);
+        join(&(rootpointer->left));
+        join(&rootpointer);
+    }
+    
+    *root = rootpointer;
+}
+
+
 VALUE find(VALUE value, Node** root){
 
     // Handle empty tree separately
@@ -290,94 +460,60 @@ VALUE find(VALUE value, Node** root){
         return 0;
     }
 
-    node_stack stack;
-    init_node_stack(&stack, 8);
     Node* current_node = *root;
+    Node* prev = *root;
 
     // find
     while(current_node && current_node->value != value){
-        node_push(&stack, current_node);
+        prev = current_node;
         if (current_node->value > value){
             current_node = current_node->left;
         } else {
             current_node = current_node->right;
         }
-    }
-
-    VALUE result = value;
-
-    // handle insertion
-    if (!current_node){
-        current_node = node_pop(&stack);
-        if (insert){
-            Node* new = malloc(sizeof(Node));
-            new->right = NULL;
-            new->left = NULL;
-            new->value = value;
-            new->blackness = 0;
-            new->black_height = 0;
-            if (current_node->value > value){
-                current_node->left = new;
-            } else {
-                current_node->right = new;
-            }
-            node_push(&stack, current_node);
-            current_node = new;
-        } else {
-            result = current_node->value;
-            goto cleanup;
+        
+        if (current_node && current_node->root){
+            rebuild_current_subtree(root, current_node);
         }
-    } else {
-        goto cleanup;
     }
 
-    rebalance_after_insert(stack, current_node, root);
-
-    cleanup:
-    free_node_stack(&stack);
-    return result;
-
+    return current_node ? current_node->value : prev->value;
 }
 
-VALUE find_r(Node* root, int depth){
-    int left_mindepth = depth+1;
-    if(!is_external(root->left)){
-        left_mindepth = root->left->mindepth;
+Node* build_(int lo, int hi, int depth){
+    int diff = hi-lo;
+    if (diff < 0){
+        return NULL;
     }
-    int right_maxdepth = depth-1;
-    if(!is_external(root->right)){
-        right_maxdepth = root->right->maxdepth;
-    }
-
-    if(right_maxdepth >= depth){
-        return find_r(root->right, depth);
-    }
-    if(left_mindepth < depth){
-        result = find_r(root->left, depth);
-        if (result == -1){
-            return root->value;
-        } else {
-            return result;
-        }
-    }
-    if(root->depth < depth){
-        return root->value;
-    } else {
-        if (is_external(root->right)){
-            return -1;
-        } else {
-            return find_r(root->right);
-        }
-    }
+    int center = lo + diff/2;
+    Node* result = malloc(sizeof(Node));
     
+    result->value = center;
+    result->blackness = 1;
+    result->root = true;
+    result->black_height = 1;
+    result->depth = depth;
+    result->mindepth = depth;
+    result->maxdepth = depth;
+    result->left = build_(lo, center-1, depth + 1);
+    result->right = build_(center+1, hi, depth + 1);
+
+    return result;
 }
 
+Node* build(int hi){
+    return build_(0, hi, 0);
+}
 
 
 void _print_tree(Node* root, int depth){
 
     if (!root){
         return;
+    }
+
+    if (root->root) {
+        depth += 10;
     }
 
     _print_tree(root->left, depth+1);
@@ -398,11 +534,12 @@ void print_tree(Node* root){
 
 int main(int argc, char ** argv){
 
-    Node* root = NULL;
+    Node* root = build(100);
+    print_tree(root);
 
-    for(int i = 0; i<100; i++){
-        find(i, &root, true);
-        printf("--------------------------------------\n");
+    for(int i = 1; i<101; i++){
+        find(i, &root);
+        printf("--------------------------------------  %d\n", i);
         print_tree(root);
     }
 
