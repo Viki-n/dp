@@ -44,6 +44,8 @@ void fix_max_min_depth(Node* v){
         maxdepth = MAX(maxdepth, v->right->maxdepth);
         mindepth = MIN(mindepth, v->right->mindepth);
     }
+    v->maxdepth = maxdepth;
+    v->mindepth = mindepth;
 }
 
 typedef struct Tuple Tuple;
@@ -196,6 +198,9 @@ void join(Node** rootpointer){
         return;
     }
 
+    bool is_root_root = root->root;
+    root->root = false;
+
     node_stack stack;
     init_node_stack(&stack, 8);
     root->blackness = 0;
@@ -240,6 +245,8 @@ void join(Node** rootpointer){
     
     }
 
+    node_push(&stack, root);
+
     if(!is_external(current_node) && current_node->blackness == 0){
         rebalance_after_insert(stack, root, rootpointer);
     }
@@ -247,6 +254,7 @@ void join(Node** rootpointer){
         fix_max_min_depth(node_pop(&stack));
     }
     free_node_stack(&stack);
+    (**rootpointer).root = is_root_root;
 }
 
 void split(Node** root, VALUE value){
@@ -257,6 +265,9 @@ void split(Node** root, VALUE value){
     init_node_stack(&leftstack, 8);
     node_stack rightstack;
     init_node_stack(&rightstack, 8);
+
+    bool is_root_root = current_node->root;
+    current_node->root = false;
     
     while(current_node->value != value){
         if (current_node->value > value){
@@ -289,6 +300,7 @@ void split(Node** root, VALUE value){
     current_node->left = left;
     current_node->right = right;
     *root = current_node;
+    current_node->root = is_root_root;
 
     free_node_stack(&rightstack);
     free_node_stack(&leftstack);
@@ -322,7 +334,7 @@ VALUE find_l(Node* root, int depth){
     }
 
     // left subtree is missing, but I am not deep and anything to right isnt either -- I am target
-    if(is_external(root->left)){
+    if(is_external(root->right)){
         return root->value;
     }
     
@@ -393,7 +405,7 @@ Tuple neighbors(Node* root, VALUE value){
 }
 
 void rebuild_current_subtree(Node** root, Node* new_part){
-    
+
     Node* rootpointer = *root;
     
     VALUE r;
@@ -403,7 +415,7 @@ void rebuild_current_subtree(Node** root, Node* new_part){
     if(rootpointer->maxdepth >= new_part->maxdepth){
         r = find_r(rootpointer, new_part->mindepth);
         l = find_l(rootpointer, new_part->mindepth);
-        
+
         if (r == -1){
             split(&rootpointer, l);
             rootpointer->right->root = true;
@@ -424,6 +436,7 @@ void rebuild_current_subtree(Node** root, Node* new_part){
             join(&rootpointer);
         }
     }
+
 
     Tuple n = neighbors(rootpointer, new_part->value);
     l = n.first;
@@ -450,6 +463,7 @@ void rebuild_current_subtree(Node** root, Node* new_part){
     }
     
     *root = rootpointer;
+
 }
 
 
@@ -513,7 +527,7 @@ void _print_tree(Node* root, int depth){
     }
 
     if (root->root) {
-        depth += 10;
+        depth += 8;
     }
 
     _print_tree(root->left, depth+1);
@@ -522,22 +536,22 @@ void _print_tree(Node* root, int depth){
         printf("  ");
     }
     printf(VALUE_FORMAT, root->value);
-    printf(" %d %d\n", root->blackness, root->black_height);
+    printf(" %d %d%s %d %d %d\n", root->blackness, root->black_height, root->root ? " +": "", root->depth, root->mindepth, root->maxdepth);
 
     _print_tree(root->right, depth+1);
 }
 
 void print_tree(Node* root){
-    _print_tree(root, 0);
+    _print_tree(root, -8);
 }
 
 
 int main(int argc, char ** argv){
 
-    Node* root = build(100);
+    Node* root = build(126);
     print_tree(root);
 
-    for(int i = 1; i<101; i++){
+    for(int i = 0; i<=126; i++){
         find(i, &root);
         printf("--------------------------------------  %d\n", i);
         print_tree(root);
