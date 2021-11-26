@@ -674,9 +674,19 @@ Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových
 $\opt(S)\in\Theta(m\log n)$. Pokud jako strom $T$ zvolíme perfektně vyvážený
 binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí,
 abychom vždy v každém procházeném vrcholu změnili preferovaný směr. Takovým
-posloupnostem se také říká \emph{bit reversal posloupnosti}. Na druhou stranu
-ZDROJ ukázal, že pro žádný pevný strom $T$ nedává Interleave bound těsný odhad
-pro každou přístupovou posloupnost $S$. Zda pro každou posloupnost $S$ existuje
+posloupnostem se také říká \emph{bit reversal posloupnosti}.
+
+Na druhou stranu však ukážeme, že pro žádný pevný strom $T$ není Interleave bound těsná:
+\begin{tvrz}
+Pro každý strom strom $T$ na $n$ vrcholech a pro každé přirozené číslo $m>n$ existuje posloupnost $S$ délky $m$ taková, že $\ib_T(S) \in \o(m)$, ale $\opt(S) \in \Theta(m\cdot\log\log n).$ 
+\end{tvrz}
+
+\begin{dukaz}
+Mějme tedy strom $T$. Nechť $P$ je nejdelší cesta z kořene do listu v $T$. Poté mějme strom $T'$ na stejných vrcholech jako $T$, který vznikne tak, že nejprve postavíme perfektně vyvážený strom nad vrcholy $P$, a poté do něj vložíme zbylé vrcholy z $T$ v libovolném pořadí standardním algoritmem binárního vyhledávacího stromu. Nyní nad vrcholy z $P$ uplatníme myšlenku bit reversal posloupnosti. Tím dostaneme posloupnost $S$ požadované délky, v níž jsou pouze vrcholy z $P$. $P$ byla nejdelší cesta v $T$, tedy $|P|\in \Omega(\log n)$. Proto $\opt(S)\geq \ib_{T'}(S) \in \Omega (\log\log n)$, ale protože v $T$ jsou všechny vrcholy z $S$ na jedné cestě, tak $\ib_T(S) \in \o(n) \subseteq \o(m)$. 
+\end{dukaz}
+
+Například pro dokonale vyvážený strom $T$ ale pro každou posloupnost $S$ platí $$\opt(S) \in \Omega(\ib_T(S)) \cap \o(\ib_T(S)\cdot\log\log n).$$ Této složitosti totiž v dosahuje v následující kapitole popsaný tango strom.
+Zda pro každou posloupnost $S$ existuje
 strom $T$ takový, aby $\opt(S)\in\o(\ib_T(S))$, není známo.  
 
 \section{Tango stromy}\label{sec:tango}
@@ -748,8 +758,48 @@ trvají $\o(log(|A|))\subseteq \o(\log\log n)$, celé rozdělení tedy trvalo
 $\o(\log\log(n))$.
 
 
-
-
 \section{Multisplay stromy}
+
+\citet{multisplay} představili multisplay strom -- datovou strukturu, která se
+snaží spojit dobré vlastnosti splay stromů a tango stromů. Tato struktura je
+stále $\log\log n$-kompetitivní, ale na rozdíl od tango stromu dosahuje
+amortizovaně $\o(\log n)$ na přístup (s worst-case $\Theta(\log^2 n)$ na
+přístup). Také dokáže vykonat průchod všemi prvky v jejich pořadí v čase
+$\Theta(n)$ (na což tango strom potřebuje $\Theta(\log\log n)$). Také na rozdíl
+od tango stromu bude podporovat operace Insert a Delete\footnote{Úpravu modelu,
+kterou potřebujeme k tomu, abychom mohli mluvit o optimalitě a kompetitivitě
+struktury, která podporuje tyto operace, popíšeme později.}.
+
+Myšlenka multisplay stromu je podobná, jako myšlenka tango stromu, pouze jako
+pomocné stromy nepoužívá červenočerné stromy, ale splay stromy. Vzhledem k
+tomu, že jediné operace červenočerných stromů, které tango strom využívá, jsou
+\ope{Split} a \ope{Join}, lze v tango stromech nahradit červenočerné stromy
+splay stromy přímočaře, protože splay stromy tyto operace také implementují.
+Samotný postup vyhledání se od tango stromu nepatrně liší. Při vyhledání
+hodnoty v multisplay stromu nejprve najdeme odpovídající vrchol $v$ bez
+jakýchkoli úprav struktury stromu, a až při cestě zpět do kořene postupně
+odspoda nahoru měníme preferované směry vrcholů. Po změně všech preferovaných
+směrů nakonec ještě změníme preferovaný směr vrcholu $v$.
+
+Samotné měnění preferovaných směrů je o poznání jednodušší než v tango stromu.
+Mějme vrchol $v$ ve stromě $T$, kterému chceme změnit preferovaný směr bez újmy
+na obecnost zleva doprava. Potom nám stačí nejprve zavolat \ope{Splay$(v)$}.
+Potom v levém podstromu $v$ najít pomocí informace o minimální hloubce v
+podstromu daného vrcholu vrchol $\ell$, který je vrcholem s nejvyšší hodnotou v
+tomto stromě s hloubkou menší než $v$, a zavolat \ope{Splay$\ell$} na levý
+podstrom $v$ (tedy tak, aby $v$ zůstal kořenem pomocného podstromu a $\ell$ se
+stal jeho levým synem). Dále v rámci pravého podstromu $v$ zavoláme \ope{Splay}
+na následníka $v$. Tím se část stromu, kterou chceme z pomocného stromu
+odstranit, stala pravým podstromem levého syna kořene, a pomocný strom, který
+chceme nově připojit, se stal levým podstromem pravého syna kořene. Stačí tedy
+upravit příznak kořene pomocného stromu v kořenech těchto podstromů a máme
+hotovo. Rozmyslíme si, že dokonce ani není potřeba upravovat hodnoty minimální
+hloubky vrcholu v podstromu kořene či jeho synů (kvůli změně příznaků; samy
+předchozí operace \ope{Splay} mohou vést k nutnosti úpravy pomocných dat).
+Maximální hloubky by sice mohlo být potřeba upravit, ale ty pro algoritmus
+multisplay stromu vůbec nepotřebujeme -- nebudeme je tedy ve vrcholech
+udržovat.
+
+
 
 \section{Geometrický náhled na stromové operace}
