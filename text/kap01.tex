@@ -800,6 +800,80 @@ Maximální hloubky by sice mohlo být potřeba upravit, ale ty pro algoritmus
 multisplay stromu vůbec nepotřebujeme -- nebudeme je tedy ve vrcholech
 udržovat.
 
+Nyní představíme úpravy struktury, které je potřeba udělat, aby bylo možné do
+struktury vkládat prvky.  Pokud do multisplay stromu $T$ vložíme prvek $p$, je
+nutné ho vložit i do stromu $P$. Pokud v binárním vyhledávacím stromě vyhledáme
+prvek, který v něm není, projdeme po cestě obsahující oba jeho sousedy, přičemž
+jednomu z nich bude chybět na příslušné straně syn. To znamená, že do
+multisplay stromu můžeme vložit prvek tak, že použijeme standardní algoritmus
+pro vkládání do binárního vyhledávacího stromu. Vkládaný prvek nejprve označíme
+za kořen (jeho vlastního jednoprvkového) pomocného stromu. Při vkládání prošli
+jak jeho předchůdce, tak následníka. Na hlubším z nich musí ale vrchol $v$ s
+hodnotou $p$ viset i ve stromě $P$. Vrchol $v$ má tedy v $P$ hloubku o jedna vyšší,
+než hlubší z těchto dvou vrcholů. Minimální hloubky v podstromech se tím
+žádnému vrcholu (krom $v$) nezměnily, není je tedy potřeba opravovat. Nakonec
+ve stromě popřepínáme preferované syny stejně jako při operaci \ope{Find}.
 
+Tento postup má však jednu vadu -- časové odhady výše všechny závisí na tom, že
+$P$ má hloubku $\Theta(\log n)$. Protože o $P$ jsme doteď mluvili jako o
+nevyvažovaném stromu, mohli bychom tuto vlastnost operací \ope{Insert} rozbít.
+Proto je potřeba z $P$ udělat vyvažovaný strom. Konkrétně zvolíme červenočerný
+strom, protože se nám bude hodit, že má amortizovaně $\o(1)$ změn barev a
+worst-case $\o(1)$ rotací na operaci. V každém vrcholu si budeme nově pamatovat
+jeho barvu v $P$ a hodnoty\footnote{Bylo by lepší, kdybychom si mohli pamatovat
+přímo ukazatele na příslušné vrcholy v $T$ (byť amortizovaná i worst-case složitost zůstane zachována). Tím bychom ale
+porušili pravidla modelu, která povolují v každém vrcholu pouze dva ukazatele,
+a to na syny daného vrcholu.} jeho rodiče a synů v $P$. 
+
+Nyní potřebujeme umět v $T$ provádět úpravy nutné při vyvažování $P$. To
+znamená, že musíme umět v $T$ najít potomka a rodiče vrcholu v $P$ a provádět
+rotaci hran. Hledání rodiče a potomka vrcholu je snadné -- rozmyslíme si, že
+cesta mezi libovolným vrcholem a jeho libovolným potomkem vždy navštíví nejvýše
+dva různé pomocné stromy. Protože známe hodnotu uloženou v hledaném rodiči či
+potomkovi, najdeme ho vždy pomocí nejvýše dvou operací \ope{Find} v pomocných
+stromech. Jedno nalezení potomka či následníka tedy trvá amortizovaně
+$\o(\log\log n)$ (včetně změny preferovaného vrcholu, pokud příslušná cesta
+vedla napříč dvěma pomocnými stromy).
+
+Při rotaci nás čeká několik problémů. První z nich je, že musíme zachovat
+invariant, že každý vrchol má právě jeden preferovaný směr. To vyřešíme změnou
+preferovaných směrů. Pokud chceme například provést rotaci hrany ve vrcholu
+$v$, který je v $P$ pravým synem vrcholu $w$, musíme nastavit preferovaný směr
+vrcholu $v$ doleva a preferovaný směr vrcholu $w$ doprava. Tím dosáhneme toho,
+že se při rotaci nezmění, které vrcholy náleží které preferované cestě, pouze
+se může změnit jejich pořadí na ní.
+
+Další změny struktury $P$ už se projeví pouze změnami pomocných informací v
+$T$, nikoli však změnou struktury. Tím nemáme na mysli, že bychom neprováděli
+žádné rotace hran, protože nás ještě čeká několik vyhledání, během nich
+provádíme v pomocných stromech standardně operace \ope{Splay}. Již se nezmění
+rozložení vrcholů mezi pomocnými stromy.
+
+Samu rotaci pak provedem úpravou hodnot rodičů a dětí v dotčených vrcholech
+(konkrétně je potřeba opravit vrchol, v němž provádíme rotaci, jeho rodiče,
+prarodiče a jednoho z potomků). Dále ve vrcholech na koncích rotované hrany
+jednoduše opravíme jejich hloubku. Problém je ale v tom, že nyní bychom
+potřebovali opravit hloubku ve velké části stromu (například v příkladu výše
+zvýšit hloubku v celém podstromu levého syna $\ell$ vrcholu $w$ a snížit v
+podstromu pravého syna $p$ vrcholu $v$). Všimneme si ale, že vzhledem k
+nastavení preferovaných směrů ve vrcholech $v$ a $w$ tvoří podstrom vrcholu
+$\ell$ v $P$ ty samé vrcholy jako podstrom kořene $r$ pomocného stromu
+obsahujícího $\ell$ v $T$. Podobně podstrom vrcholu $p$ v $P$ je podstromem
+kořene nějakého pomocného stromu v $T$. Tyto kořeny najdeme tak, že budeme z
+kořene pomocného stromu obsahujícího $v$ a $w$ postupně hledat hodnoty
+vrcholů $p$ a $\ell$, ale vždy vrátíme první vrchol s příznakem kořene, který
+najdeme (krom vrcholu, z nějž hledat začínáme).
+
+Nyní nahlédneme, že již umíme změny hloubek vyřešit v konstantním čase pomocí nějaké
+z běžných technik, jako například líná propagace změn směrem dolů, nebo, jak si
+vybrali autoři mustliplay stromu, diferenčním kódováním hloubky. To znamená, že
+pouze kořen celého multisplay stromu zná svou hloubku. Ostatní vrcholy znají
+rozdíl své hloubky v $P$ a hloubky v $P$ svého rodiče v $T$. Stejným trikem
+vyřešíme informaci o minimální hloubce v podstromu -- všimneme si, že v
+pomocném stromu obsahujícím $v$ a $w$ změnily hloubku pouze tyto dva vrcholy.
+Proto stačí informaci přepočítat v týchž vrcholech, jako v případě hloubky, a
+dále na cestě mezi $v$ a $w$.
+
+Protože jsme popsali obecně jak vykonat změnu barvy vrcholu a rotaci hrany ve stromě, máme i vše pro implementaci operace \ope{Delete} nad multisplay stromy.
 
 \section{Geometrický náhled na stromové operace}
