@@ -699,7 +699,7 @@ aby měl referenční strom logaritmickou hloubku.} referenční binární vyhle
 strom $P$ nad těmi samými klíči, které sám obsahuje. Každou přístupovou
 posloupnost pak vykoná v čase $\o(\log\log(n)\cdot \ib_P(S))$, tedy je
 $\log\log(n)$-kompetitivní. Na druhou stranu není optimální -- z konstrukce
-bude zřejmé, že pokud budeme přistupovat stále k tomu samému prvku, dostaneme polsoupnost, kterou optimální strom
+bude zřejmé, že pokud budeme přistupovat stále k tomu samému prvku, dostaneme posloupnost, kterou optimální strom
  vykoná v čase $\o(m)$, ale tango strom může potřebovat až
 $\Theta(m\cdot\log\log(n))$. Co hůře, bit reversal posloupnost tango strom vykoná v čase $\Theta(m\cdot\log(n)\cdot \log\log(n))$.
 
@@ -849,7 +849,7 @@ $T$, nikoli však změnou struktury. Tím nemáme na mysli, že bychom neprovád
 provádíme v pomocných stromech standardně operace \ope{Splay}. Již se nezmění
 rozložení vrcholů mezi pomocnými stromy.
 
-Samu rotaci pak provedem úpravou hodnot rodičů a dětí v dotčených vrcholech
+Samu rotaci pak provedeme úpravou hodnot rodičů a dětí v dotčených vrcholech
 (konkrétně je potřeba opravit vrchol, v němž provádíme rotaci, jeho rodiče,
 prarodiče a jednoho z potomků). Dále ve vrcholech na koncích rotované hrany
 jednoduše opravíme jejich hloubku. Problém je ale v tom, že nyní bychom
@@ -866,7 +866,7 @@ najdeme (krom vrcholu, z nějž hledat začínáme).
 
 Nyní nahlédneme, že již umíme změny hloubek vyřešit v konstantním čase pomocí nějaké
 z běžných technik, jako například líná propagace změn směrem dolů, nebo, jak si
-vybrali autoři mustliplay stromu, diferenčním kódováním hloubky. To znamená, že
+vybrali autoři multisplay stromu, diferenčním kódováním hloubky. To znamená, že
 pouze kořen celého multisplay stromu zná svou hloubku. Ostatní vrcholy znají
 rozdíl své hloubky v $P$ a hloubky v $P$ svého rodiče v $T$. Stejným trikem
 vyřešíme informaci o minimální hloubce v podstromu -- všimneme si, že v
@@ -874,7 +874,42 @@ pomocném stromu obsahujícím $v$ a $w$ změnily hloubku pouze tyto dva vrcholy
 Proto stačí informaci přepočítat v týchž vrcholech, jako v případě hloubky, a
 dále na cestě mezi $v$ a $w$.
 
-Protože jsme popsali obecně jak vykonat změnu barvy vrcholu a rotaci hrany ve stromě, máme i vše pro implementaci operace \ope{Delete} nad multisplay stromy.
+Protože jsme popsali obecně jak vykonat změnu barvy vrcholu a rotaci hrany ve stromě, máme i vše pro implementaci operace \ope{Delete} nad multisplay stromy\footnote{Pokud se chceme co nejpřesněji držet modelu, který jsme zavedli, přesouvání hodnot při mazání vnitřních vrcholů tak, jak je v binárním vyhledávacím stromu obvyklé, není možné. Proto musíme \ope{Delete} vrcholu, který má nějaké potomky, implementovat tak, že nejprve provedeme rotace tak, aby se tento vrchol stal listem, až potom ho smažeme.}. Nyní bychom rádi řekli, že i tyto úpravy jsou staticky optimální. To je ale problematické -- náš model nepočítal s vkládáním a mazáním. Proto ho musíme nadefinovat znovu.
 
-TODO model
+Nyní již tedy přístupová posloupnost $S$ není pouze posloupností prvků
+univerza, ale posloupností operací $\ope{Find}(x)$, $\ope{Delete}(x)$ a
+$\ope{Insert}(x)$, kde $x$ musí náležet univerzu. Modelu nově dovolíme dvě
+nové operace, a to vložení listu na místo chybějícího syna aktuálního vrcholu,
+a odstranění listu (a označení jeho rodiče za aktuální vrchol). Po každém
+stromě budeme vyžadovat, aby se při vykonávání operace \ope{Find} dotkl daného
+vrcholu. Dále aby při operaci \ope{Insert} navštívil (v tomto pořadí, byť na
+asymptotické chování tento požadavek nebude mít vliv) vrcholy obsahující
+předchůdce a následníka vkládaného prvku a nakonec skutečně vytvořil list s
+příslušnou hodnotou. Tento požadavek je adekvátní, protože každý binární
+vyhledávací strom musí oběma těmito prvky projít při vkládání. Nakonec budeme
+požadovat, aby strom při operaci \ope{Delete} navštívil předchůdce mazaného
+vrcholu, mazaný vrchol a nakonec následníka mazaného vrcholu. Vzhledem k tomu,
+že mazat umíme pouze listy, musíme vždy odstraňovaný vrchol rotacemi přesunout
+do listu, což opět znamená, že stejně musíme předchůdce i následníka navštívit.
+Tento model je již dobře nadefinovaný, proto v něm dává smysl nadefinovat optimální strom stejně, jako v modelu předchozím.
+Pro tento model \citet{multisplay} dokázali následující větu:
+
+\begin{veta}[Dynamic Interelave Bound]
+\def\dib{\operatorname{DIB}}
+Mějme referenční strom $P$. V tomto stromě má každý vrchol svůj preferovaný
+směr, buď doprav nebo doleva. Vždy, když z vrcholu při vyhledání prvku vyrazíme
+jiným než preferovaným směrem, změníme preferovaný směr tohoto vrcholu. Strom
+$P$ také podporuje rotace hran a operace \ope{Delete} a \ope{Insert} (které
+probíhá standardním algoritmem binárního vyhledávacího stromu\footnote{Platí,
+že standardní algoritmus na mazání nezapadá do nadefinovaného modelu. To
+znamená, že celý náš referenční strom nebude zapadat do modelu dynamického
+binárního vyhledávacího stromu. To nevadí, strom $P$ je pouze pomyslný a strom
+$T$, který skutečně stavíme, jeho chování pouze simuluje.}). Nechť $\dib(S)_P$ je
+počet změn preferovaných směrů všech vrcholů v $P$ při vykonávání posloupnosti
+operací $S$, přičemž mezi některými operacemi mohly proběhnout rotace některých
+hran. Potom $$\opt(S) \in \Omega(\dib_P(S)/2 - n - 2k + cm),$$ kde $P$ je pomocný strom včetně popisu rotací, které provádíme mezi přístupy a změn díky vkládání a mazání, $n$ je počet vrcholů $P$ po poslední operaci, $k$ je počet rotací hran v popisu $P$, $c$ je vhodně zvolená kladná konstanta a $m$ je délka posloupnosti $S$. 
+\end{veta}
+
+Nahlédneme, že vzhledem k výše uvedenému popisu mazání a vkládání je multisplay strom i v dynamickém modelu stále $\log\log(n)$-kompetitivní. 
+
 \section{Geometrický náhled na stromové operace}
