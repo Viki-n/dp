@@ -8,6 +8,8 @@
 #define MIN(x,y) ((x)>(y)?(y):(x))
 #define MAX(x,y) ((x)>(y)?(x):(y))
 
+#define DEEPER(x,y) (((y) == NULL) || (((x) != NULL) && (x->depth))>(y->depth)?(x):(y))
+
 struct Node{
     VALUE value;
     bool root;
@@ -61,6 +63,16 @@ typedef struct Tuple Tuple;
 #define INIT init_handle_stack
 #define DESTROY free_handle_stack
 #undef PEEK
+
+#include "stack.h"
+
+
+#define STACKTYPE node_stack*
+#define STACKNAME stack_stack
+#define PUSH stack_push
+#define POP stack_pop
+#define INIT init_stack_stack
+#define DESTROY free_stack_stack
 
 #include "stack.h"
 
@@ -251,20 +263,97 @@ VALUE find(VALUE value, Node** root){
 
     Node* current_node = *root;
     Node* prev = *root;
+    
+    stack_stack metastack;
+    init_stack_stack(&metastack)
 
-    // find
-    while(current_node && current_node->value != value){
-        prev = current_node;
+    handle_stack rootpointers;
+    init_handle_stack(&rootpointers)
+
+    node_stack* stack = NULL;
+
+    node_stack* parents;
+    init_node_stack(&parents);
+
+    Node** way = root;
+    Node* current_node = *root;
+    
+    Node* right;
+    Node* left;
+
+    while(current_node){
+        
+        if(current_node->root){
+            node_stack = malloc(sizeof(node_stack));
+            init_node_stack(node_stack);
+            stack_push(&metastack, node_stack);
+            handle_push(&rootpointers, way);
+            node_push(&parents, DEEPER(right, left));
+            right = NULL;
+            left = NULL;
+        }
+
+        node_push(stack, current_node);
+        
+        if (current_node->value == value){
+            break;
+        }
+        
         if (current_node->value > value){
+            way = &current_node->left;
+            right = current_node;
+        } else {
+            way = &current_node->right;
+            left = current_node;
+        }
+        current_node = *way;
+
+    }
+
+    value = node_pop(stack)->value;
+
+    free_node_stack(stack);
+    free(stack);
+    stack_pop(&metastack);
+    handle_pop(&rootpointers)
+    
+    while(rootpointers.used){
+    
+        stack = stack_pop(&metastack);
+        current_node = node_pop(stack);
+        Node* parent = node_pop(&parents);
+        Node** rootpointer = handle_pop(&rootpointers);
+
+        while(current_node != parent){
+            current_node = node_pop(stack);
+        }
+
+        switch_direction(rootpointer, parent, stack);
+
+        free_node_stack(stack);
+        free(stack);
+    }
+
+    node_pop(&parents);
+
+    current_node = *root;
+    while (current_node->value != value){
+        //recycle parents stack for final switch
+        node_push(&parents, current_node);
+         if (current_node->value > value){
             current_node = current_node->left;
         } else {
             current_node = current_node->right;
         }
-
-        if (is_external)
     }
 
-    return current_node ? current_node->value : prev->value;
+    switch_direction(root, current_node, &parents);
+
+    free_node_stack(&parents)
+    free_handle_stack(&rootpointers);
+    free_stack_stack(&metastack);
+
+    return value;
 }
 
 Node* build_(int lo, int hi, int depth){
