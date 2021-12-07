@@ -40,6 +40,13 @@ STACKTYPE POP(STACKNAME* stack){
 STACKTYPE PEEK(STACKNAME* stack){
     return stack->array[stack->used - 1];
 }
-
+#undef PEEK
 #endif
+
+#undef STACKNAME
+#undef STACKTYPE
+#undef INIT
+#undef DESTROY
+#undef PUSH
+#undef POP
 

@@ -62,7 +62,6 @@ typedef struct Tuple Tuple;
 #define POP handle_pop
 #define INIT init_handle_stack
 #define DESTROY free_handle_stack
-#undef PEEK
 
 #include "stack.h"
 
@@ -125,15 +124,15 @@ Node* sibling(Node* v, Node* parent){
 VALUE splay(Node* current_node, Node** root, node_stack* stack){
     
     // actual splay
-    while (stack.used){
-        if (stack.used == 1){
+    while (stack->used){
+        if (stack->used == 1){
             Node* prev = current_node;
-            current_node = node_pop(&stack);
+            current_node = node_pop(stack);
             rotate_up(&current_node, prev);
         } else {
             Node* grandson = current_node;
-            Node* son = node_pop(&stack);
-            current_node = node_pop(&stack);
+            Node* son = node_pop(stack);
+            current_node = node_pop(stack);
             Node* original = current_node;
 
             bool first_left = (current_node->left == son);
@@ -151,8 +150,8 @@ VALUE splay(Node* current_node, Node** root, node_stack* stack){
             }
             
             // fix parents pointer
-            if (stack.used){
-                Node* father = node_peek(&stack);
+            if (stack->used){
+                Node* father = node_peek(stack);
                 if (father->left == original){
                     father->left = current_node;
                 } else {
@@ -164,7 +163,6 @@ VALUE splay(Node* current_node, Node** root, node_stack* stack){
     }
 
     *root = current_node;
-    free_node_stack(&stack);
     return (*root)->value;
 
 }
@@ -208,21 +206,18 @@ void find_by_depth(Node* root, node_stack* stack, int depth, bool directionisrig
         if(!is_external(first_son) && first_son->mindepth < depth){
             current_node = first_son;
         } else if (current_node->depth < depth){ 
-            return
+            return;
         } else {
             current_node = second_son;
-        }
-        if(value > current_node->value){
-            current_node = current_node->right;
-        } else {
-            current_node = current_node->left
         }
     }
 
 }
 
-void switch_direction(Node** root, node* n, node_stack* stack){
+void switch_direction(Node** root, Node* n, node_stack* stack){
     //assumes stack is filled by path from root to n including root excluding n. Returns empty stack.
+    
+    (**root).root = false;
 
     splay(n, root, stack);
     Node* rootpointer = *root;
@@ -251,8 +246,8 @@ void switch_direction(Node** root, node* n, node_stack* stack){
         }
     }
 
+    (**root).root = true;
 }
-
 
 VALUE find(VALUE value, Node** root){
 
@@ -261,19 +256,16 @@ VALUE find(VALUE value, Node** root){
         return 0;
     }
 
-    Node* current_node = *root;
-    Node* prev = *root;
-    
     stack_stack metastack;
-    init_stack_stack(&metastack)
+    init_stack_stack(&metastack, 8);
 
     handle_stack rootpointers;
-    init_handle_stack(&rootpointers)
+    init_handle_stack(&rootpointers, 8);
 
     node_stack* stack = NULL;
 
-    node_stack* parents;
-    init_node_stack(&parents);
+    node_stack parents;
+    init_node_stack(&parents, 8);
 
     Node** way = root;
     Node* current_node = *root;
@@ -284,9 +276,9 @@ VALUE find(VALUE value, Node** root){
     while(current_node){
         
         if(current_node->root){
-            node_stack = malloc(sizeof(node_stack));
-            init_node_stack(node_stack);
-            stack_push(&metastack, node_stack);
+            stack = malloc(sizeof(node_stack));
+            init_node_stack(stack, 8);
+            stack_push(&metastack, stack);
             handle_push(&rootpointers, way);
             node_push(&parents, DEEPER(right, left));
             right = NULL;
@@ -315,7 +307,7 @@ VALUE find(VALUE value, Node** root){
     free_node_stack(stack);
     free(stack);
     stack_pop(&metastack);
-    handle_pop(&rootpointers)
+    handle_pop(&rootpointers);
     
     while(rootpointers.used){
     
@@ -349,14 +341,14 @@ VALUE find(VALUE value, Node** root){
 
     switch_direction(root, current_node, &parents);
 
-    free_node_stack(&parents)
+    free_node_stack(&parents);
     free_handle_stack(&rootpointers);
     free_stack_stack(&metastack);
 
     return value;
 }
 
-Node* build_(int lo, int hi, int depth){
+Node* build_(int lo, int hi, int depth, bool root){
     int diff = hi-lo;
     if (diff < 0){
         return NULL;
@@ -365,17 +357,19 @@ Node* build_(int lo, int hi, int depth){
     Node* result = malloc(sizeof(Node));
     
     result->value = center;
-    result->root = true;
+    result->root = root;
     result->depth = depth;
     result->mindepth = depth;
-    result->left = build_(lo, center-1, depth + 1);
-    result->right = build_(center+1, hi, depth + 1);
+    result->left = build_(lo, center-1, depth + 1, true);
+    result->right = build_(center+1, hi, depth + 1, false);
+
+    fix_min_depth(result);
 
     return result;
 }
 
 Node* build(int hi){
-    return build_(0, hi, 0);
+    return build_(0, hi, 0, true);
 }
 
 
@@ -395,7 +389,7 @@ void _print_tree(Node* root, int depth){
         printf("  ");
     }
     printf(VALUE_FORMAT, root->value);
-    printf(" %d %d%s %d %d %d\n", root->blackness, root->black_height, root->root ? " +": "", root->depth, root->mindepth, root->maxdepth);
+    printf("%s %d %d\n", root->root ? " +": "", root->depth, root->mindepth);
 
     _print_tree(root->right, depth+1);
 }
