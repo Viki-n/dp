@@ -8,7 +8,7 @@
 #define MIN(x,y) ((x)>(y)?(y):(x))
 #define MAX(x,y) ((x)>(y)?(x):(y))
 
-#define DEEPER(x,y) (((y) == NULL) || (((x) != NULL) && (x->depth))>(y->depth)?(x):(y))
+#define DEEPER(x,y) (((y) == NULL) || (((x) != NULL) && ((x)->depth > (y)->depth))?(x):(y))
 
 struct Node{
     VALUE value;
@@ -217,20 +217,25 @@ void find_by_depth(Node* root, node_stack* stack, int depth, bool directionisrig
 void switch_direction(Node** root, Node* n, node_stack* stack){
     //assumes stack is filled by path from root to n including root excluding n. Returns empty stack.
     
+    printf("%d ", n->value);
     (**root).root = false;
-
     splay(n, root, stack);
     Node* rootpointer = *root;
+    int depth = rootpointer -> depth;
 
     if(is_external(rootpointer->right)){
         if(rootpointer->right){
             rootpointer->right->root = false;
         }
+    } else if (rootpointer->right->mindepth > depth){
+        rootpointer->right->root = true;
     } else {
         find_by_depth(rootpointer->right, stack, rootpointer->depth, false);
+        printf("%d ", node_peek(stack)->value);
         splay(node_pop(stack), &(rootpointer->right), stack);
         if(rootpointer->right->left){
-            rootpointer->right->left->root ^= 1;
+            rootpointer->right->left->root = !rootpointer->right->left->root;
+            fix_min_depth(rootpointer->right);
         }
     }
 
@@ -238,15 +243,22 @@ void switch_direction(Node** root, Node* n, node_stack* stack){
         if(rootpointer->left){
             rootpointer->left->root = false;
         }
+    } else if (rootpointer->left->mindepth > depth){
+        rootpointer->left->root = true;
     } else {
         find_by_depth(rootpointer->left, stack, rootpointer->depth, true);
+        printf("%d ", node_peek(stack)->value);
         splay(node_pop(stack), &(rootpointer->left), stack);
         if(rootpointer->left->right){
-            rootpointer->left->right->root ^= true;
+            rootpointer->left->right->root = !rootpointer->left->right->root;
+            fix_min_depth(rootpointer->left);
         }
     }
-
+    
+    fix_min_depth(rootpointer);
     (**root).root = true;
+    
+    printf("\n");
 }
 
 VALUE find(VALUE value, Node** root){
