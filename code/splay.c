@@ -2,58 +2,12 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#define SPLAY
+
 #define VALUE int
 #define VALUE_FORMAT "%d"
 
-struct Node{
-    VALUE value;
-    struct Node * left;
-    struct Node * right;
-};
-
-typedef struct Node Node;
-
-// Include stack
-#define STACKTYPE Node*
-#define STACKNAME node_stack
-#define PUSH node_push
-#define POP node_pop
-#define INIT init_node_stack
-#define DESTROY free_node_stack
-
-#include "stack.h"
-
-void rotate_left(Node** n){
-
-    Node* father = *n;
-    Node* rson = father->right;
-    Node* rlson = rson->left;
-    father->right = rlson;
-    rson->left = father;
-    *n = rson;
-} 
-
-
-void rotate_right(Node ** n){
-
-    Node* father = *n;
-    Node* lson = father->left;
-    Node* lrson = lson->right;
-    father->left = lrson;
-    lson->right = father;
-    *n = lson;
-}
-
-
-void rotate_up(Node** parent, Node* son){
-
-    if ((*parent)->right == son){
-        rotate_left(parent);
-    } else {
-        rotate_right(parent);
-    }
-}
-
+#include "common.c"
 
 VALUE splay(VALUE value, Node** root, bool insert){
     // if insert, insert if not found (silently just splay if found either way)

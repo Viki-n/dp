@@ -1,3 +1,3 @@
-%: %.c *.h
+%: %.c *.h common.c
 	gcc -Wall -Wextra -o $@ $<
 

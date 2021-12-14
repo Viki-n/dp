@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#define MULTISPLAY
+
 #define VALUE int
 #define VALUE_FORMAT "%d"
 
@@ -10,116 +12,7 @@
 
 #define DEEPER(x,y) (((y) == NULL) || (((x) != NULL) && ((x)->depth > (y)->depth))?(x):(y))
 
-struct Node{
-    VALUE value;
-    bool root;
-    int depth;
-    int mindepth;
-    struct Node * left;
-    struct Node * right;
-};
-
-struct Tuple {
-    VALUE first;
-    VALUE second;
-};
-
-typedef struct Node Node;
-bool is_external(Node* v){
-    return v == NULL || v->root;
-}
-
-void fix_min_depth(Node* v){
-    if(v == NULL){
-        return;
-    }
-    int mindepth = v->depth;
-    if(!is_external(v->left)){
-        mindepth = MIN(mindepth, v->left->mindepth);
-    }
-    if(!is_external(v->right)){
-        mindepth = MIN(mindepth, v->right->mindepth);
-    }
-    v->mindepth = mindepth;
-}
-
-typedef struct Tuple Tuple;
-
-// Include stacks
-#define STACKTYPE Node*
-#define STACKNAME node_stack
-#define PUSH node_push
-#define POP node_pop
-#define INIT init_node_stack
-#define DESTROY free_node_stack
-#define PEEK node_peek
-
-#include "stack.h"
-
-#define STACKTYPE Node**
-#define STACKNAME handle_stack
-#define PUSH handle_push
-#define POP handle_pop
-#define INIT init_handle_stack
-#define DESTROY free_handle_stack
-
-#include "stack.h"
-
-
-#define STACKTYPE node_stack*
-#define STACKNAME stack_stack
-#define PUSH stack_push
-#define POP stack_pop
-#define INIT init_stack_stack
-#define DESTROY free_stack_stack
-
-#include "stack.h"
-
-
-void rotate_left(Node** n){
-
-    Node* father = *n;
-    Node* rson = father->right;
-    Node* rlson = rson->left;
-    father->right = rlson;
-    rson->left = father;
-    *n = rson;
-} 
-
-
-void rotate_right(Node ** n){
-
-    Node* father = *n;
-    Node* lson = father->left;
-    Node* lrson = lson->right;
-    father->left = lrson;
-    lson->right = father;
-    *n = lson;
-}
-
-
-void rotate_up(Node** parent, Node* son){
-
-    Node* oldparent = *parent;
-
-    if ((*parent)->right == son){
-        rotate_left(parent);
-    } else {
-        rotate_right(parent);
-    }
-
-    fix_min_depth(oldparent);
-    fix_min_depth(son);
-}
-
-
-Node* sibling(Node* v, Node* parent){
-    if (v == parent->left){
-        return parent->right;
-    } else { 
-        return parent->left;
-    }
-}
+#include "common.c"
 
 VALUE splay(Node* current_node, Node** root, node_stack* stack){
     
@@ -167,25 +60,6 @@ VALUE splay(Node* current_node, Node** root, node_stack* stack){
 
 }
 
-
-Tuple neighbors(Node* root, VALUE value){
-    Tuple result;
-    result.first = -1;
-    result.second = -1;
-
-    Node* current_node = root;
-    while (current_node == root || !is_external(current_node)){
-        if (current_node->value < value){
-            result.first = current_node->value;
-            current_node = current_node->right;
-        } else {
-            result.second = current_node->value;
-            current_node = current_node->left; 
-        }
-    }
-
-    return result;
-}
 
 void find_by_depth(Node* root, node_stack* stack, int depth, bool directionisright){
     // if direction is right, returns rightmost element with depth < depth. Otherwisel, leftmost.
@@ -235,7 +109,7 @@ void switch_direction(Node** root, Node* n, node_stack* stack){
         splay(node_pop(stack), &(rootpointer->right), stack);
         if(rootpointer->right->left){
             rootpointer->right->left->root = !rootpointer->right->left->root;
-            fix_min_depth(rootpointer->right);
+            FIX(rootpointer->right);
         }
     }
 
@@ -251,11 +125,11 @@ void switch_direction(Node** root, Node* n, node_stack* stack){
         splay(node_pop(stack), &(rootpointer->left), stack);
         if(rootpointer->left->right){
             rootpointer->left->right->root = !rootpointer->left->right->root;
-            fix_min_depth(rootpointer->left);
+            FIX(rootpointer->left);
         }
     }
     
-    fix_min_depth(rootpointer);
+    FIX(rootpointer);
     (**root).root = true;
     
     printf("\n");
@@ -375,7 +249,7 @@ Node* build_(int lo, int hi, int depth, bool root){
     result->left = build_(lo, center-1, depth + 1, true);
     result->right = build_(center+1, hi, depth + 1, false);
 
-    fix_min_depth(result);
+    FIX(result);
 
     return result;
 }
