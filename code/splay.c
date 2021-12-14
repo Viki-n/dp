@@ -2,7 +2,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#ifndef SPLAY
 #define SPLAY
+#define TOPLEVEL
+#endif
 
 #define VALUE int
 #define VALUE_FORMAT "%d"
@@ -16,6 +19,9 @@ VALUE splay(VALUE value, Node** root, bool insert){
     if (!*root){
         if (insert){
             Node* new = malloc(sizeof(Node));
+#ifdef _TOUCH
+            new->version = 0;
+#endif
             new->right = NULL;
             new->left = NULL;
             new->value = value;
@@ -31,12 +37,12 @@ VALUE splay(VALUE value, Node** root, bool insert){
     Node* current_node = *root;
 
     // find
-    while(current_node && current_node->value != value){
+    while(current_node && TOUCH(current_node)->value != value){
         node_push(&stack, current_node);
-        if (current_node->value > value){
-            current_node = current_node->left;
+        if (TOUCH(current_node)->value > value){
+            current_node = TOUCH(current_node)->left;
         } else {
-            current_node = current_node->right;
+            current_node = TOUCH(current_node)->right;
         }
     }
 
@@ -45,13 +51,16 @@ VALUE splay(VALUE value, Node** root, bool insert){
         current_node = node_pop(&stack);
         if (insert){
             Node* new = malloc(sizeof(Node));
-            new->right = NULL;
-            new->left = NULL;
-            new->value = value;
-            if (current_node->value > value){
-                current_node->left = new;
+#ifdef _TOUCH
+            new->version = 0;
+#endif
+            TOUCH(new)->right = NULL;
+            TOUCH(new)->left = NULL;
+            TOUCH(new)->value = value;
+            if (TOUCH(current_node)->value > value){
+                TOUCH(current_node)->left = new;
             } else {
-                current_node->right = new;
+                TOUCH(current_node)->right = new;
             }
             node_push(&stack, current_node);
             current_node = new;
@@ -70,8 +79,8 @@ VALUE splay(VALUE value, Node** root, bool insert){
             current_node = node_pop(&stack);
             Node* original = current_node;
 
-            bool first_left = (current_node->left == son);
-            bool second_left = (son->left == grandson);
+            bool first_left = (TOUCH(current_node)->left == son);
+            bool second_left = (TOUCH(son)->left == grandson);
 
             if (first_left == second_left){
                 // Need to do zigzig rotation
@@ -79,7 +88,7 @@ VALUE splay(VALUE value, Node** root, bool insert){
                 rotate_up(&current_node, grandson);
             } else {
                 // Perform zigzag rotation
-                Node** first_target = first_left ? &current_node->left : &current_node->right;
+                Node** first_target = first_left ? &TOUCH(current_node)->left : &TOUCH(current_node)->right;
                 rotate_up(first_target, grandson);
                 rotate_up(&current_node, grandson);
             }
@@ -87,10 +96,10 @@ VALUE splay(VALUE value, Node** root, bool insert){
             if (stack.used){
                 Node* father = node_pop(&stack);
                 node_push(&stack, father);
-                if (father->left == original){
-                    father->left = current_node;
+                if (TOUCH(father)->left == original){
+                    TOUCH(father)->left = current_node;
                 } else {
-                    father->right = current_node;
+                    TOUCH(father)->right = current_node;
                 }
             }
         }
@@ -124,7 +133,7 @@ void print_tree(Node* root){
     _print_tree(root, 0);
 }
 
-
+#ifdef TOPLEVEL
 int main(int argc, char ** argv){
 
     Node* root = NULL;
@@ -142,3 +151,4 @@ int main(int argc, char ** argv){
 
 
 }
+#endif

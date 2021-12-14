@@ -2,7 +2,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#ifndef MULTISPLAY
 #define MULTISPLAY
+#define TOPLEVEL
+#endif
 
 #define VALUE int
 #define VALUE_FORMAT "%d"
@@ -28,8 +31,8 @@ VALUE splay(Node* current_node, Node** root, node_stack* stack){
             current_node = node_pop(stack);
             Node* original = current_node;
 
-            bool first_left = (current_node->left == son);
-            bool second_left = (son->left == grandson);
+            bool first_left = (TOUCH(current_node)->left == son);
+            bool second_left = (TOUCH(son)->left == grandson);
 
             if (first_left == second_left){
                 // Need to do zigzig rotation
@@ -37,7 +40,7 @@ VALUE splay(Node* current_node, Node** root, node_stack* stack){
                 rotate_up(&current_node, grandson);
             } else {
                 // Perform zigzag rotation
-                Node** first_target = first_left ? &current_node->left : &current_node->right;
+                Node** first_target = first_left ? &TOUCH(current_node)->left : &TOUCH(current_node)->right;
                 rotate_up(first_target, grandson);
                 rotate_up(&current_node, grandson);
             }
@@ -45,10 +48,10 @@ VALUE splay(Node* current_node, Node** root, node_stack* stack){
             // fix parents pointer
             if (stack->used){
                 Node* father = node_peek(stack);
-                if (father->left == original){
-                    father->left = current_node;
+                if (TOUCH(father)->left == original){
+                    TOUCH(father)->left = current_node;
                 } else {
-                    father->right = current_node;
+                    TOUCH(father)->right = current_node;
                 }
             }
         }
@@ -69,17 +72,17 @@ void find_by_depth(Node* root, node_stack* stack, int depth, bool directionisrig
         Node* second_son;
         
         if (directionisright){
-            first_son = current_node->right;
-            second_son = current_node->left;
+            first_son = TOUCH(current_node)->right;
+            second_son = TOUCH(current_node)->left;
         } else {
-            first_son = current_node->left; 
-            second_son = current_node->right;
+            first_son = TOUCH(current_node)->left; 
+            second_son = TOUCH(current_node)->right;
         }
 
         node_push(stack, current_node);
-        if(!is_external(first_son) && first_son->mindepth < depth){
+        if(!is_external(first_son) && TOUCH(first_son)->mindepth < depth){
             current_node = first_son;
-        } else if (current_node->depth < depth){ 
+        } else if (TOUCH(current_node)->depth < depth){ 
             return;
         } else {
             current_node = second_son;
@@ -91,48 +94,43 @@ void find_by_depth(Node* root, node_stack* stack, int depth, bool directionisrig
 void switch_direction(Node** root, Node* n, node_stack* stack){
     //assumes stack is filled by path from root to n including root excluding n. Returns empty stack.
     
-    printf("%d ", n->value);
     (**root).root = false;
     splay(n, root, stack);
     Node* rootpointer = *root;
     int depth = rootpointer -> depth;
 
-    if(is_external(rootpointer->right)){
-        if(rootpointer->right){
-            rootpointer->right->root = false;
+    if(is_external(TOUCH(rootpointer)->right)){
+        if(TOUCH(rootpointer)->right){
+            TOUCH(TOUCH(rootpointer)->right)->root = false;
         }
-    } else if (rootpointer->right->mindepth > depth){
-        rootpointer->right->root = true;
+    } else if (TOUCH(TOUCH(rootpointer)->right)->mindepth > depth){
+        TOUCH(TOUCH(rootpointer)->right)->root = true;
     } else {
-        find_by_depth(rootpointer->right, stack, rootpointer->depth, false);
-        printf("%d ", node_peek(stack)->value);
-        splay(node_pop(stack), &(rootpointer->right), stack);
-        if(rootpointer->right->left){
-            rootpointer->right->left->root = !rootpointer->right->left->root;
+        find_by_depth(TOUCH(rootpointer)->right, stack, TOUCH(rootpointer)->depth, false);
+        splay(node_pop(stack), &(TOUCH(rootpointer)->right), stack);
+        if(TOUCH(TOUCH(rootpointer)->right)->left){
+            TOUCH(TOUCH(TOUCH(rootpointer)->right)->left)->root = !TOUCH(TOUCH(rootpointer)->right)->left->root;
             FIX(rootpointer->right);
         }
     }
 
-    if(is_external(rootpointer->left)){
-        if(rootpointer->left){
-            rootpointer->left->root = false;
+    if(is_external(TOUCH(rootpointer)->left)){
+        if(TOUCH(rootpointer)->left){
+            TOUCH(TOUCH(rootpointer)->left)->root = false;
         }
-    } else if (rootpointer->left->mindepth > depth){
-        rootpointer->left->root = true;
+    } else if (TOUCH(TOUCH(rootpointer)->left)->mindepth > depth){
+        TOUCH(TOUCH(rootpointer)->left)->root = true;
     } else {
-        find_by_depth(rootpointer->left, stack, rootpointer->depth, true);
-        printf("%d ", node_peek(stack)->value);
-        splay(node_pop(stack), &(rootpointer->left), stack);
-        if(rootpointer->left->right){
-            rootpointer->left->right->root = !rootpointer->left->right->root;
-            FIX(rootpointer->left);
+        find_by_depth(TOUCH(rootpointer)->left, stack, TOUCH(rootpointer)->depth, true);
+        splay(node_pop(stack), &(TOUCH(rootpointer)->left), stack);
+        if(TOUCH(TOUCH(rootpointer)->left)->right){
+            TOUCH(TOUCH(TOUCH(rootpointer)->left)->right)->root = !TOUCH(TOUCH(rootpointer)->left)->right->root;
+            FIX(TOUCH(rootpointer)->left);
         }
     }
     
     FIX(rootpointer);
     (**root).root = true;
-    
-    printf("\n");
 }
 
 VALUE find(VALUE value, Node** root){
@@ -161,7 +159,7 @@ VALUE find(VALUE value, Node** root){
 
     while(current_node){
         
-        if(current_node->root){
+        if(TOUCH(current_node)->root){
             stack = malloc(sizeof(node_stack));
             init_node_stack(stack, 8);
             stack_push(&metastack, stack);
@@ -173,15 +171,15 @@ VALUE find(VALUE value, Node** root){
 
         node_push(stack, current_node);
         
-        if (current_node->value == value){
+        if (TOUCH(current_node)->value == value){
             break;
         }
         
-        if (current_node->value > value){
-            way = &current_node->left;
+        if (TOUCH(current_node)->value > value){
+            way = &TOUCH(current_node)->left;
             right = current_node;
         } else {
-            way = &current_node->right;
+            way = &TOUCH(current_node)->right;
             left = current_node;
         }
         current_node = *way;
@@ -215,13 +213,13 @@ VALUE find(VALUE value, Node** root){
     node_pop(&parents);
 
     current_node = *root;
-    while (current_node->value != value){
+    while (TOUCH(current_node)->value != value){
         //recycle parents stack for final switch
         node_push(&parents, current_node);
-         if (current_node->value > value){
-            current_node = current_node->left;
+         if (TOUCH(current_node)->value > value){
+            current_node = TOUCH(current_node)->left;
         } else {
-            current_node = current_node->right;
+            current_node = TOUCH(current_node)->right;
         }
     }
 
@@ -241,7 +239,10 @@ Node* build_(int lo, int hi, int depth, bool root){
     }
     int center = lo + diff/2;
     Node* result = malloc(sizeof(Node));
-    
+
+#ifdef _TOUCH
+    result->version = 0;
+#endif    
     result->value = center;
     result->root = root;
     result->depth = depth;
@@ -284,7 +285,7 @@ void print_tree(Node* root){
     _print_tree(root, -8);
 }
 
-
+#ifdef TOPLEVEL
 int main(int argc, char ** argv){
 
     Node* root = build(126);
@@ -298,3 +299,4 @@ int main(int argc, char ** argv){
 
 
 }
+#endif

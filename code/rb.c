@@ -2,7 +2,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#ifndef REDBLACK
 #define REDBLACK
+#define TOPLEVEL
+#endif
 
 #define VALUE int
 #define VALUE_FORMAT "%d"
@@ -16,6 +19,9 @@ VALUE find(VALUE value, Node** root, bool insert){
     if (!*root){
         if (insert){
             Node* new = malloc(sizeof(Node));
+#ifdef _TOUCH
+            new->version = 0;
+#endif
             new->right = NULL;
             new->left = NULL;
             new->value = value;
@@ -34,12 +40,12 @@ VALUE find(VALUE value, Node** root, bool insert){
     Node* current_node = *root;
 
     // find
-    while(current_node && current_node->value != value){
+    while(current_node && TOUCH(current_node)->value != value){
         node_push(&stack, current_node);
-        if (current_node->value > value){
-            current_node = current_node->left;
+        if (TOUCH(current_node)->value > value){
+            current_node = TOUCH(current_node)->left;
         } else {
-            current_node = current_node->right;
+            current_node = TOUCH(current_node)->right;
         }
     }
 
@@ -50,20 +56,23 @@ VALUE find(VALUE value, Node** root, bool insert){
         current_node = node_pop(&stack);
         if (insert){
             Node* new = malloc(sizeof(Node));
+#ifdef _TOUCH
+            new->version = 0;
+#endif
             new->right = NULL;
             new->left = NULL;
             new->value = value;
             new->blackness = 0;
             new->black_height = 0;
-            if (current_node->value > value){
-                current_node->left = new;
+            if (TOUCH(current_node)->value > value){
+                TOUCH(current_node)->left = new;
             } else {
-                current_node->right = new;
+                TOUCH(current_node)->right = new;
             }
             node_push(&stack, current_node);
             current_node = new;
         } else {
-            result = current_node->value;
+            result = TOUCH(current_node)->value;
             goto cleanup;
         }
     } else {
@@ -99,7 +108,7 @@ void print_tree(Node* root){
     _print_tree(root, 0);
 }
 
-
+#ifdef TOPLEVEL
 int main(int argc, char ** argv){
 
     Node* root = NULL;
@@ -112,3 +121,4 @@ int main(int argc, char ** argv){
 
 
 }
+#endif

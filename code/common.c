@@ -15,13 +15,35 @@ struct Node{
 #endif
     struct Node * left;
     struct Node * right;
+#ifdef TOUCH
+    int version;
+#endif
 };
 
 typedef struct Node Node;
 
-bool is_external(Node* v){
+#ifdef TOUCH
+
+int touches = 0;
+int opId = 1;
+
+static Node* touch(Node* n){
+    if (n->version != opId){
+        n->version = opId;
+        touches++;
+    }
+    return n;
+}
+#undef TOUCH
+#define TOUCH(x) touch(x)
+#define _TOUCH
+#else
+#define TOUCH(x) (x)
+#endif
+
+static bool is_external(Node* v){
 #if defined(TANGO) || defined(MULTISPLAY)
-    return v == NULL || v->root;
+    return v == NULL || TOUCH(v)->root;
 #else
     return v == NULL;
 #endif
@@ -60,27 +82,27 @@ bool is_external(Node* v){
 #endif
 
 #if defined(TANGO) || defined(MULTISPLAY)
-void fix_depth(Node* v){
+static void fix_depth(Node* v){
     if(v == NULL){
         return;
     }
-    int mindepth = v->depth;
-    if(!is_external(v->left)){
-        mindepth = MIN(mindepth, v->left->mindepth);
+    int mindepth = TOUCH(v)->depth;
+    if(!is_external(TOUCH(v)->left)){
+        mindepth = MIN(mindepth, TOUCH(TOUCH(v)->left)->mindepth);
     }
-    if(!is_external(v->right)){
-        mindepth = MIN(mindepth, v->right->mindepth);
+    if(!is_external(TOUCH(v)->right)){
+        mindepth = MIN(mindepth, TOUCH(TOUCH(v)->right)->mindepth);
     }
-    v->mindepth = mindepth;
+    TOUCH(v)->mindepth = mindepth;
 #ifdef TANGO
-    int maxdepth = v->depth;
-    if(!is_external(v->left)){
-        maxdepth = MAX(maxdepth, v->left->maxdepth);
+    int maxdepth = TOUCH(v)->depth;
+    if(!is_external(TOUCH(v)->left)){
+        maxdepth = MAX(maxdepth, TOUCH(TOUCH(v)->left)->maxdepth);
     }
-    if(!is_external(v->right)){
-        maxdepth = MAX(maxdepth, v->right->maxdepth);
+    if(!is_external(TOUCH(v)->right)){
+        maxdepth = MAX(maxdepth, TOUCH(TOUCH(v)->right)->maxdepth);
     }
-    v->maxdepth = maxdepth;
+    TOUCH(v)->maxdepth = maxdepth;
 #endif
 }
 #define FIX(x) fix_depth(x)
@@ -88,13 +110,13 @@ void fix_depth(Node* v){
 #define FIX(x)
 #endif
 
-void rotate_left(Node** n){
+static void rotate_left(Node** n){
 
     Node* father = *n;
-    Node* rson = father->right;
-    Node* rlson = rson->left;
-    father->right = rlson;
-    rson->left = father;
+    Node* rson = TOUCH(father)->right;
+    Node* rlson = TOUCH(rson)->left;
+    TOUCH(father)->right = rlson;
+    TOUCH(rson)->left = father;
     *n = rson;
 } 
 
@@ -102,10 +124,10 @@ void rotate_left(Node** n){
 void rotate_right(Node ** n){
 
     Node* father = *n;
-    Node* lson = father->left;
-    Node* lrson = lson->right;
-    father->left = lrson;
-    lson->right = father;
+    Node* lson = TOUCH(father)->left;
+    Node* lrson = TOUCH(lson)->right;
+    TOUCH(father)->left = lrson;
+    TOUCH(lson)->right = father;
     *n = lson;
 }
 
@@ -114,7 +136,7 @@ void rotate_up(Node** parent, Node* son){
 
     Node* oldparent = *parent;
 
-    if ((*parent)->right == son){
+    if (TOUCH(*parent)->right == son){
         rotate_left(parent);
     } else {
         rotate_right(parent);
@@ -126,10 +148,10 @@ void rotate_up(Node** parent, Node* son){
 
 
 Node* sibling(Node* v, Node* parent){
-    if (v == parent->left){
-        return parent->right;
+    if (v == TOUCH(parent)->left){
+        return TOUCH(parent)->right;
     } else { 
-        return parent->left;
+        return TOUCH(parent)->left;
     }
 }
 
@@ -137,18 +159,18 @@ Node* sibling(Node* v, Node* parent){
 #if defined(REDBLACK) || defined(TANGO)
 
 void push_blackness(Node* v){
-    v->blackness--;
-    v->left->blackness++;
+    TOUCH(v)->blackness--;
+    TOUCH(v->left)->blackness++;
     v->left->black_height++;
-    v->right->blackness++;
+    TOUCH(v->right)->blackness++;
     v->right->black_height++;
 }
 
 void suck_blackness(Node* v){
-    v->blackness++;
-    v->left->blackness--;
+    TOUCH(v)->blackness++;
+    TOUCH(v->left)->blackness--;
     v->left->black_height--;
-    v->right->blackness--;
+    TOUCH(v->right)->blackness--;
     v->right->black_height--;
 }
 
@@ -159,18 +181,18 @@ void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
     while (stack.used){
         current_node = node_pop(&stack);
         FIX(current_node);
-        if (current_node->blackness==1){
+        if (TOUCH(current_node)->blackness==1){
             return;
         }
         if (current_node == *root){
-            current_node->blackness = 1;
+            TOUCH(current_node)->blackness = 1;
             return;
         }
         Node* parent = current_node;
         current_node = node_pop(&stack);
         FIX(current_node);
         Node* uncle = sibling(parent,current_node);
-        if (!is_external(uncle) && uncle->blackness == 0){
+        if (!is_external(uncle) && TOUCH(uncle)->blackness == 0){
             push_blackness(current_node);
             continue;
         } else {
@@ -179,16 +201,16 @@ void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
                 currentpointer = root;
             } else {
                 Node* grandgrandparent = node_peek(&stack);
-                if (grandgrandparent->left == current_node){
-                    currentpointer = &(grandgrandparent->left);
+                if (TOUCH(grandgrandparent)->left == current_node){
+                    currentpointer = &(TOUCH(grandgrandparent)->left);
                 } else {
-                    currentpointer = &(grandgrandparent->right); 
+                    currentpointer = &(TOUCH(grandgrandparent)->right); 
                 }
             }
-            current_node->blackness = 0;
-            current_node->black_height--;
-            parent->blackness = 1;
-            parent->black_height++;
+            TOUCH(current_node)->blackness = 0;
+            TOUCH(current_node)->black_height--;
+            TOUCH(parent)->blackness = 1;
+            TOUCH(parent)->black_height++;
             rotate_up(currentpointer, parent);
             FIX(current_node);
             FIX(parent);
@@ -204,37 +226,37 @@ void join(Node** rootpointer){
 
     Node* root = *rootpointer;
     //handle case when nothing needs to be done
-    int leftdepth = is_external(root->left) ? 0 : root->left->black_height;
-    int rightdepth = is_external(root->right) ? 0 : root->right->black_height;
+    int leftdepth = is_external(TOUCH(root)->left) ? 0 : TOUCH(TOUCH(root)->left)->black_height;
+    int rightdepth = is_external(TOUCH(root)->right) ? 0 : TOUCH(TOUCH(root)->right)->black_height;
     if (rightdepth == leftdepth){
-        root->blackness = 1;
-        root->black_height = leftdepth +1;
+        TOUCH(root)->blackness = 1;
+        TOUCH(root)->black_height = leftdepth +1;
         return;
     }
-    Node* left = root->left;
-    Node* right = root->right;
+    Node* left = TOUCH(root)->left;
+    Node* right = TOUCH(root)->right;
 
     //check if roots are black, and if not, restart procedure
-    if (!is_external(left) && left->blackness == 0){
-        left->blackness = 1;
-        left->black_height++;
+    if (!is_external(left) && TOUCH(left)->blackness == 0){
+        TOUCH(left)->blackness = 1;
+        TOUCH(left)->black_height++;
         join(rootpointer);
         return;
     }
 
-    if (!is_external(right) && right->blackness == 0){
-        right->blackness = 1;
-        right->black_height++;
+    if (!is_external(right) && TOUCH(right)->blackness == 0){
+        TOUCH(right)->blackness = 1;
+        TOUCH(right)->black_height++;
         join(rootpointer);
         return;
     }
 #ifdef TANGO
-    bool is_root_root = root->root;
-    root->root = false;
+    bool is_root_root = TOUCH(root)->root;
+    TOUCH(root)->root = false;
 #endif
     node_stack stack;
     init_node_stack(&stack, 8);
-    root->blackness = 0;
+    TOUCH(root)->blackness = 0;
 
     Node* current_node = NULL;
 
@@ -242,43 +264,43 @@ void join(Node** rootpointer){
 
         *rootpointer = right;
         current_node = right;
-        root->black_height = leftdepth;
+        TOUCH(root)->black_height = leftdepth;
     
         while(rightdepth > leftdepth){
-            if(current_node->blackness){
+            if(TOUCH(current_node)->blackness){
                 rightdepth--;
             }
             node_push(&stack, current_node);
-            current_node = current_node->left;
+            current_node = TOUCH(current_node)->left;
         }
 
-        root->right = current_node;
+        TOUCH(root)->right = current_node;
         Node* parent = node_peek(&stack);
-        parent->left = root;
+        TOUCH(parent)->left = root;
     
     } else {
  
         *rootpointer = left;
         current_node = left;
-        root->black_height = rightdepth;
+        TOUCH(root)->black_height = rightdepth;
     
         while(rightdepth < leftdepth){
-            if(current_node->blackness){
+            if(TOUCH(current_node)->blackness){
                 leftdepth--;
             }
             node_push(&stack, current_node);
-            current_node = current_node->right;
+            current_node = TOUCH(current_node)->right;
         }
 
-        root->left = current_node;
+        TOUCH(root)->left = current_node;
         Node* parent = node_peek(&stack);
-        parent->right = root;
+        TOUCH(parent)->right = root;
     
     }
 
     node_push(&stack, root);
 
-    if(!is_external(current_node) && current_node->blackness == 0){
+    if(!is_external(current_node) && TOUCH(current_node)->blackness == 0){
         rebalance_after_insert(stack, root, rootpointer);
     }
 #ifdef TANGO
@@ -299,42 +321,42 @@ void split(Node** root, VALUE value){
     node_stack rightstack;
     init_node_stack(&rightstack, 8);
 #ifdef TANGO
-    bool is_root_root = current_node->root;
-    current_node->root = false;
+    bool is_root_root = TOUCH(current_node)->root;
+    TOUCH(current_node)->root = false;
 #endif
-    while(current_node->value != value){
-        if (current_node->value > value){
+    while(TOUCH(current_node)->value != value){
+        if (TOUCH(current_node)->value > value){
             node_push(&rightstack, current_node);
-            current_node = current_node->left;
+            current_node = TOUCH(current_node)->left;
         } else {
             node_push(&leftstack, current_node);
-            current_node = current_node->right;        
+            current_node = TOUCH(current_node)->right;        
         }
     }
         
-    Node* left = current_node->left;
+    Node* left = TOUCH(current_node)->left;
      
     while (leftstack.used){
         Node* tmp = node_pop(&leftstack);
-        tmp->right = left;
+        TOUCH(tmp)->right = left;
         left = tmp;
         join(&left);
     }
 
-    Node* right = current_node->right;
+    Node* right = TOUCH(current_node)->right;
 
     while (rightstack.used){
         Node* tmp = node_pop(&rightstack);
-        tmp->left = right;
+        TOUCH(tmp)->left = right;
         right = tmp;
         join(&right);
     }
 
-    current_node->left = left;
-    current_node->right = right;
+    TOUCH(current_node)->left = left;
+    TOUCH(current_node)->right = right;
     *root = current_node;
 #ifdef TANGO
-    current_node->root = is_root_root;
+    TOUCH(current_node)->root = is_root_root;
 #endif
     free_node_stack(&rightstack);
     free_node_stack(&leftstack);

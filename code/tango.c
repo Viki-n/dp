@@ -2,7 +2,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#ifndef TANGO
 #define TANGO
+#define TOPLEVEL
+#endif
 
 #define VALUE int
 #define VALUE_FORMAT "%d"
@@ -27,35 +30,35 @@ VALUE find_l(Node* root, int depth){
     // Comments are switched!
 
     int left_maxdepth = depth-1;
-    if(!is_external(root->left)){
-        left_maxdepth = root->left->maxdepth;
+    if(!is_external(TOUCH(root)->left)){
+        left_maxdepth = TOUCH(TOUCH(root)->left)->maxdepth;
     }
 
     // the target is either in right subtree or somewhere up the path to root
     if(left_maxdepth >= depth){
-        return find_l(root->left, depth); 
+        return find_l(TOUCH(root)->left, depth); 
     }
     
     // current node is the rightmost deep node
-    if(root->depth >= depth){
-        if(is_external(root->left)){
+    if(TOUCH(root)->depth >= depth){
+        if(is_external(TOUCH(root)->left)){
             // target is somewhere along the path upwards
             return -1;
         } else {
             // target is the minimum of right subtree
-            return find_l(root->left, depth);
+            return find_l(TOUCH(root)->left, depth);
         }
     }
 
     // left subtree is missing, but I am not deep and anything to right isnt either -- I am target
-    if(is_external(root->right)){
-        return root->value;
+    if(is_external(TOUCH(root)->right)){
+        return TOUCH(root)->value;
     }
     
     // target is either me, or in the left subtree
     
-    VALUE result = find_l(root->right, depth);
-    return result == -1 ? root->value : result;
+    VALUE result = find_l(TOUCH(root)->right, depth);
+    return result == -1 ? TOUCH(root)->value : result;
     
 }
 
@@ -67,35 +70,35 @@ VALUE find_r(Node* root, int depth){
     
 
     int right_maxdepth = depth-1;
-    if(!is_external(root->right)){
-        right_maxdepth = root->right->maxdepth;
+    if(!is_external(TOUCH(root)->right)){
+        right_maxdepth = TOUCH(TOUCH(root)->right)->maxdepth;
     }
 
     // the target is either in right subtree or somewhere up the path to root
     if(right_maxdepth >= depth){
-        return find_r(root->right, depth); 
+        return find_r(TOUCH(root)->right, depth); 
     }
     
     // current node is the rightmost deep node
-    if(root->depth >= depth){
-        if(is_external(root->right)){
+    if(TOUCH(root)->depth >= depth){
+        if(is_external(TOUCH(root)->right)){
             // target is somewhere along the path upwards
             return -1;
         } else {
             // target is the minimum of right subtree
-            return find_r(root->right, depth);
+            return find_r(TOUCH(root)->right, depth);
         }
     }
 
     // left subtree is missing, but I am not deep and anything to right isnt either -- I am target
-    if(is_external(root->left)){
-        return root->value;
+    if(is_external(TOUCH(root)->left)){
+        return TOUCH(root)->value;
     }
     
     // target is either me, or in the left subtree
     
-    VALUE result = find_r(root->left, depth);
-    return result == -1 ? root->value : result;
+    VALUE result = find_r(TOUCH(root)->left, depth);
+    return result == -1 ? TOUCH(root)->value : result;
     
 }
 
@@ -106,12 +109,12 @@ Tuple neighbors(Node* root, VALUE value){
 
     Node* current_node = root;
     while (current_node == root || !is_external(current_node)){
-        if (current_node->value < value){
-            result.first = current_node->value;
-            current_node = current_node->right;
+        if (TOUCH(current_node)->value < value){
+            result.first = TOUCH(current_node)->value;
+            current_node = TOUCH(current_node)->right;
         } else {
-            result.second = current_node->value;
-            current_node = current_node->left; 
+            result.second = TOUCH(current_node)->value;
+            current_node = TOUCH(current_node)->left; 
         }
     }
 
@@ -126,53 +129,53 @@ void rebuild_current_subtree(Node** root, Node* new_part){
     VALUE l;
     
     // check if cutting is needed
-    if(rootpointer->maxdepth >= new_part->maxdepth){
-        r = find_r(rootpointer, new_part->mindepth);
-        l = find_l(rootpointer, new_part->mindepth);
+    if(TOUCH(rootpointer)->maxdepth >= TOUCH(new_part)->maxdepth){
+        r = find_r(rootpointer, TOUCH(new_part)->mindepth);
+        l = find_l(rootpointer, TOUCH(new_part)->mindepth);
 
         if (r == -1){
             split(&rootpointer, l);
-            rootpointer->right->root = true;
+            TOUCH(TOUCH(rootpointer)->right)->root = true;
             FIX(rootpointer);
             join(&rootpointer);
         } else if (l == -1){
             split(&rootpointer, r);
-            rootpointer->left->root = true;
+            TOUCH(TOUCH(rootpointer)->left)->root = true;
             FIX(rootpointer);
             join(&rootpointer);
         } else {
             split(&rootpointer, r);
-            split(&(rootpointer->left), l);
-            rootpointer->left->right->root = true;
-            FIX(rootpointer->left);
+            split(&(TOUCH(rootpointer)->left), l);
+            TOUCH(TOUCH(TOUCH(rootpointer)->left)->right)->root = true;
+            FIX(TOUCH(rootpointer)->left);
             FIX(rootpointer);
-            join(&(rootpointer->left));
+            join(&(TOUCH(rootpointer)->left));
             join(&rootpointer);
         }
     }
 
 
-    Tuple n = neighbors(rootpointer, new_part->value);
+    Tuple n = neighbors(rootpointer, TOUCH(new_part)->value);
     l = n.first;
     r = n.second;
 
     if (r == -1){
         split(&rootpointer, l);
-        rootpointer->right->root = false;
+        TOUCH(TOUCH(rootpointer)->right)->root = false;
         FIX(rootpointer);
         join(&rootpointer);
     } else if (l == -1){
         split(&rootpointer, r);
-        rootpointer->left->root = false;
+        TOUCH(TOUCH(rootpointer)->left)->root = false;
         FIX(rootpointer);
         join(&rootpointer);
     } else {
         split(&rootpointer, r);
-        split(&(rootpointer->left), l);
-        rootpointer->left->right->root = false;
-        FIX(rootpointer->left);
+        split(&(TOUCH(rootpointer)->left), l);
+        TOUCH(TOUCH(TOUCH(rootpointer)->left)->right)->root = false;
+        FIX(TOUCH(rootpointer)->left);
         FIX(rootpointer);
-        join(&(rootpointer->left));
+        join(&(TOUCH(rootpointer)->left));
         join(&rootpointer);
     }
     
@@ -192,20 +195,20 @@ VALUE find(VALUE value, Node** root){
     Node* prev = *root;
 
     // find
-    while(current_node && current_node->value != value){
+    while(current_node && TOUCH(current_node)->value != value){
         prev = current_node;
-        if (current_node->value > value){
-            current_node = current_node->left;
+        if (TOUCH(current_node)->value > value){
+            current_node = TOUCH(current_node)->left;
         } else {
-            current_node = current_node->right;
+            current_node = TOUCH(current_node)->right;
         }
         
-        if (current_node && current_node->root){
+        if (current_node && TOUCH(current_node)->root){
             rebuild_current_subtree(root, current_node);
         }
     }
 
-    return current_node ? current_node->value : prev->value;
+    return current_node ? TOUCH(current_node)->value : TOUCH(prev)->value;
 }
 
 Node* build_(int lo, int hi, int depth){
@@ -216,6 +219,9 @@ Node* build_(int lo, int hi, int depth){
     int center = lo + diff/2;
     Node* result = malloc(sizeof(Node));
     
+#ifdef _TOUCH
+    result->version = 0;
+#endif
     result->value = center;
     result->blackness = 1;
     result->root = true;
@@ -259,7 +265,7 @@ void print_tree(Node* root){
     _print_tree(root, -8);
 }
 
-
+#ifdef TOPLEVEL
 int main(int argc, char ** argv){
 
     Node* root = build(126);
@@ -273,3 +279,4 @@ int main(int argc, char ** argv){
 
 
 }
+#endif
