@@ -34,33 +34,58 @@ Node* build(int size){
 #ifdef SPLAY
 #define FIND(x,y) splay(x, y, false);
 #else
-#define FIND(x,y) find(x, y, false);
+#define FIND(x,y) find(x, y, true);
 #endif
 #else
 #define FIND(x,y) find(x, y)
 #endif
 
 int main(int argc, char ** argv){
+    int* buffer = malloc(sizeof(int)*10000000);
+    bool more_input = true;
+
     int size;
     scanf("%d", &size);
     Node* tree = build(size);
 #ifdef _TOUCH
     touches = 0;
     opId++;
+    
 #else
-    clock_t t_start = clock(); 
+    clock_t time = 0;  
 #endif
-    int query;
-    while (scanf("%d", &query) == 1){
-        FIND(query, &tree);
+    while (more_input){
+        int buffer_len = 0;
+        int buffer_capacity=10000000;
+        while (buffer_len < buffer_capacity){
+            int query;
+            if(scanf("%d", &query) == 1){
+                buffer[buffer_len] = query;
+                buffer_len++;
+            } else {
+                more_input = false;
+                break;
+            }
+        }
+        #ifndef _TOUCH
+            clock_t t_start = clock();
+        #endif
+        for (int i=0; i<buffer_len; i++){
+            FIND(buffer[i], &tree);
 #ifdef _TOUCH
-        opId++;
+            opId++;
 #endif
+        }
+        #ifndef _TOUCH
+            time += clock() - t_start;
+        #endif
     }
 #ifdef _TOUCH
     printf("Touches: %d\n", touches);
 #else
-    clock_t time = clock() - t_start;
-    printf("Total time elapsed: %lf\n", (double)(time/(CLOCKS_PER_SEC / (double) 1000.0)));
+    printf("Total time elapsed: %lf ms\n", (double)(time/(CLOCKS_PER_SEC / (double) 1000.0)));
+#endif
+#if defined(TANGO) && defined(_TOUCH)
+    check_tree(tree);
 #endif
 }

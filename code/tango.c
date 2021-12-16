@@ -121,17 +121,19 @@ Tuple neighbors(Node* root, VALUE value){
     return result;
 }
 
-void rebuild_current_subtree(Node** root, Node* new_part){
+static void rebuild_current_subtree(Node** root, Node* new_part){
 
     Node* rootpointer = *root;
-    
+
+
     VALUE r;
     VALUE l;
     
     // check if cutting is needed
-    if(TOUCH(rootpointer)->maxdepth >= TOUCH(new_part)->maxdepth){
+    if(TOUCH(rootpointer)->maxdepth >= TOUCH(new_part)->mindepth){
         r = find_r(rootpointer, TOUCH(new_part)->mindepth);
         l = find_l(rootpointer, TOUCH(new_part)->mindepth);
+
 
         if (r == -1){
             split(&rootpointer, l);
@@ -153,8 +155,6 @@ void rebuild_current_subtree(Node** root, Node* new_part){
             join(&rootpointer);
         }
     }
-
-
     Tuple n = neighbors(rootpointer, TOUCH(new_part)->value);
     l = n.first;
     r = n.second;
@@ -178,6 +178,7 @@ void rebuild_current_subtree(Node** root, Node* new_part){
         join(&(TOUCH(rootpointer)->left));
         join(&rootpointer);
     }
+
     
     *root = rootpointer;
 
@@ -205,6 +206,7 @@ VALUE find(VALUE value, Node** root){
         
         if (current_node && TOUCH(current_node)->root){
             rebuild_current_subtree(root, current_node);
+            current_node = *root;
         }
     }
 
@@ -264,6 +266,74 @@ void _print_tree(Node* root, int depth){
 void print_tree(Node* root){
     _print_tree(root, -8);
 }
+
+
+void push_tree(node_stack* s, Node* r, bool is_top){
+    if(!is_top && is_external(r)){
+        return;
+    }
+    node_push(s, r);
+    push_tree(s,r->left,false);
+    push_tree(s,r->right,false);
+}
+
+bool check_tree(Node* v){
+    if (v == NULL){
+        return true;
+    }
+        int mindepth = (v)->depth;
+    if(!is_external((v)->left)){
+        mindepth = MIN(mindepth, ((v)->left)->mindepth);
+    }
+    if(!is_external((v)->right)){
+        mindepth = MIN(mindepth, ((v)->right)->mindepth);
+    }
+    if (v->mindepth != mindepth){
+        printf("Wrong mindepth at %d!\n", v->value);
+        return false;
+    }
+    int maxdepth = (v)->depth;
+    if(!is_external((v)->left)){
+        maxdepth = MAX(maxdepth, ((v)->left)->maxdepth);
+    }
+    if(!is_external((v)->right)){
+        maxdepth = MAX(maxdepth, ((v)->right)->maxdepth);
+    }
+    if (v->maxdepth != maxdepth){
+        printf("Wrong maxdepth at %d!\n", v->value);
+        return false;
+    }
+    if (v->root){
+        node_stack stack;
+        init_node_stack(&stack, 8);
+        push_tree(&stack, v, true);
+        for (int i=0; i<stack.used; i++){
+            for (int j=i+1; j<stack.used; j++){
+                if(stack.array[i]->depth == stack.array[j]->depth){
+                    printf("Wrong division in %d!\n", v->value);
+                    return false;
+                }
+            }
+        }
+    }
+    if(v->blackness == 0){
+        if(!is_external(v->left)&& v->left->blackness==0){
+            printf("Wrong color in %d!\n", v->value);
+            return false; 
+        }
+        if(!is_external(v->right)&& v->right->blackness==0){
+            printf("Wrong color in %d!\n", v->value);
+            return false; 
+        }
+        if((is_external(v->left) || is_external(v->right)) && v->black_height!=0){
+            printf("Wrong color in %d!\n", v->value);
+            return false; 
+        }
+    }
+
+    return check_tree(v->left) && check_tree(v->right);
+}
+
 
 #ifdef TOPLEVEL
 int main(int argc, char ** argv){

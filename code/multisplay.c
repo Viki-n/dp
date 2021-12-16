@@ -154,8 +154,8 @@ VALUE find(VALUE value, Node** root){
     Node** way = root;
     Node* current_node = *root;
     
-    Node* right;
-    Node* left;
+    Node* right = NULL;
+    Node* left = NULL;
 
     while(current_node){
         

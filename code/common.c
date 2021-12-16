@@ -166,7 +166,7 @@ void push_blackness(Node* v){
     v->right->black_height++;
 }
 
-void suck_blackness(Node* v){
+static void suck_blackness(Node* v){
     TOUCH(v)->blackness++;
     TOUCH(v->left)->blackness--;
     v->left->black_height--;
@@ -174,11 +174,20 @@ void suck_blackness(Node* v){
     v->right->black_height--;
 }
 
+static Node** get_self_pointer(Node* n, Node* p){
+    if (TOUCH(p)->left == n){
+        return &(TOUCH(p)->left);
+    } else {
+        return &(TOUCH(p)->right); 
+    }
+}
+
 void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
 // Expects current_node pointing to a vertex that is red, both children black (or missing) and its parent may or may not be red too
 // Expects that whole path between current_node and root is on the stack, including root, not including current_node
 // Expects caller to handle freeing up stack
     while (stack.used){
+        Node* prev = current_node;
         current_node = node_pop(&stack);
         FIX(current_node);
         if (TOUCH(current_node)->blackness==1){
@@ -186,6 +195,7 @@ void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
         }
         if (current_node == *root){
             TOUCH(current_node)->blackness = 1;
+            current_node->black_height += 1;
             return;
         }
         Node* parent = current_node;
@@ -207,6 +217,12 @@ void rebalance_after_insert(node_stack stack, Node* current_node, Node** root){
                     currentpointer = &(TOUCH(grandgrandparent)->right); 
                 }
             }
+
+            if((prev == parent->left) != (parent == current_node->left)){
+                rotate_up(get_self_pointer(parent, current_node), prev);
+                parent = prev;
+            }
+
             TOUCH(current_node)->blackness = 0;
             TOUCH(current_node)->black_height--;
             TOUCH(parent)->blackness = 1;
@@ -231,6 +247,7 @@ void join(Node** rootpointer){
     if (rightdepth == leftdepth){
         TOUCH(root)->blackness = 1;
         TOUCH(root)->black_height = leftdepth +1;
+        FIX(root);
         return;
     }
     Node* left = TOUCH(root)->left;
@@ -265,7 +282,6 @@ void join(Node** rootpointer){
         *rootpointer = right;
         current_node = right;
         TOUCH(root)->black_height = leftdepth;
-    
         while(rightdepth > leftdepth){
             if(TOUCH(current_node)->blackness){
                 rightdepth--;
@@ -297,11 +313,16 @@ void join(Node** rootpointer){
         TOUCH(parent)->right = root;
     
     }
-
+    FIX(root);
     node_push(&stack, root);
 
+#ifdef TANGO
+    for (int i=0; i<stack.used; i++){
+        FIX((stack.array)[i]);
+    }
+#endif
     if(!is_external(current_node) && TOUCH(current_node)->blackness == 0){
-        rebalance_after_insert(stack, root, rootpointer);
+        rebalance_after_insert(stack, current_node, rootpointer);
     }
 #ifdef TANGO
     while (stack.used){
