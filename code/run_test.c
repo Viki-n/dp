@@ -81,7 +81,7 @@ int main(int argc, char ** argv){
         #endif
     }
 #ifdef _TOUCH
-    printf("Touches: %li\n", touches);
+    printf("Touches: %lli\n", touches);
 #else
     printf("Total time elapsed: %lf ms\n", (double)(time/(CLOCKS_PER_SEC / (double) 1000.0)));
 #endif
