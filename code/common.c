@@ -24,7 +24,7 @@ typedef struct Node Node;
 
 #ifdef TOUCH
 
-int touches = 0;
+long long touches = 0;
 int opId = 1;
 
 static Node* touch(Node* n){
