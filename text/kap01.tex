@@ -154,7 +154,43 @@ zdegeneruje v jednu jedinou cestu, na níž bude nejhlubší vrchol v hloubce $n
 průměrná hloubka vrcholu bude $(n+1)/2$. Takovýmto případům bychom se rádi
 vyhnuli, proto prozkoumáme vyvažované stromy. Protože však všechny stromy,
 které budeme zkoumat, budou vyvažované pomocí rotací hran, nejprve představíme,
-co taková rotace hrany je.
+co taková rotace hrany je, a to jak obrázkem \ref{obr:rotace}, tak formální definicí.
+
+
+\begin{figure}[h!]
+\begin{tabular}{cc}
+
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.99\linewidth]{../img/single_rotation}
+\end{subfigure}&
+
+\begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=.99\linewidth]{../img/zigzig_rotation}
+\end{subfigure}\\
+
+\noalign{\bigskip}
+(a) Jednoduchá rotace hrany $xy$. 
+&
+(b) Zig-zig rotace.\\
+\noalign{\bigskip}
+
+\multicolumn{2}{c}{
+\begin{subfigure}{0.9\textwidth}
+  \centering
+  \includegraphics[width=.65\linewidth]{../img/zigzag_rotation}
+\end{subfigure}}\\
+\noalign{\bigskip}
+\multicolumn{2}{c}{
+  (c) Zig-zag rotace. Tato rotace jako jediná není symetrická.
+}
+\end{tabular} 
+\caption{Jednoduchá, zig-zag a zig-zig rotace.} 
+
+\label{obr:rotace} 
+ 
+\end{figure}
 
 \begin{definice}
 Mějme vrchol binárního vyhledávacího stromu $u$ a jeho (bez újmy na obecnosti levého) syna $v$. Dále si
