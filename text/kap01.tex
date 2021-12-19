@@ -231,6 +231,26 @@ Tato informace může nabývat tří možných hodnot -- daný vrchol může bý
 doprava}, (jeho pravý podstrom je o jedna hlubší než levý), nebo
 \emph{nakloněný doleva}\footnote{Vystačili bychom si i s jediným bitem, který by udával, zda je podstrom daného vrcholu hlubší než podstrom jeho souseda.}.
 
+
+\begin{figure}[h!]
+
+\begin{subfigure}{0.9\textwidth}
+  \centering
+  \includegraphics[width=.65\linewidth]{../img/single_rotation_avl}
+\end{subfigure}
+\vskip 1cm
+\begin{subfigure}{0.9\textwidth}
+  \centering
+  \includegraphics[width=.65\linewidth]{../img/zigzag_rotation_avl}
+\end{subfigure}
+\caption{Použití jednoduché a zig-zag rotace k vyvážení AVL stromu.} 
+
+\label{obr:rotace_avl} 
+ 
+\end{figure}
+
+
+
 Vyhledání prvku probíhá stejně, jako v nevyvažovaném binárním vyhledávacím stromě. 
 Vkládání je ale trochu komplikovanější. Při připojení nového listu je potřeba
 jeho rodiči změnit vyvážení. Byl-li vyvážený (tj. byl to list), nově bude
@@ -240,11 +260,21 @@ vrcholu, je tedy potřeba změnu vyvážení propagovat výše do stromu. Kromě
 předchozích dvou případů  může při další propagaci nastat ještě jeden jiný,
 totiž že byl vrchol už původně nakloněný směrem ze kterého propagujeme. To
 znamená, že po přidání nového vrcholu již neplatí invariant AVL stromu a musíme
-provést (v závislosti na konkrétní situaci buď jednoduchou nebo dvojitou, viz
-obrázek TADY BUDE REFERENCE) rotaci hrany, abychom situaci napravili.
+provést buď jednoduchou nebo dvojitou rotaci hrany, abychom situaci napravili.
+
+Nechť $x$ je nejhlubší vrchol ve stromu, který nesplňuje AVL invariant. Hloubku jeho podstromu před vložením posledního vrcholu si označíme $k$. Nechť byl bez újmy na obecnosti vložen vrchol do podstromu jeho pravého syna $y$. Pak je nutné rozebrat následující případy:
+\begin{itemize}
+\item Nový vrchol byl vložen do pravého podstromu vrcholu $y$ (první případ na obrázku \ref{obr:rotace_avl}). Potom lze jednoznačně dopočítat hloubky ostatních relevantních vrcholů (na obrázku pod podstromy, vždy počítáno vůči vrcholu $x$) na základě toho, že víme, že vrchol $x$ musí porušovat AVL invariant, ostatní vrcholy ho musí splňovat, před vložením nového vrcholu musely AVL invariant splňovat všechny vrcholy a hloubka podstromu $x$ musela být $k$. Pak můžeme AVL invariant opravit jednoduchou rotací.
+\item Nový vrchol byl vložen do levého podstromu $y$. Potom musíme provést
+dvojitou rotaci. Jednu z možností hloubek jednotlivých podstromů v takovém případě zobrazuje
+druhý případ naobrázku \ref{obr:rotace_avl}. Další možnost, kterou však není potřeba v kódu
+rozlišovat a vyřešíme ji úplně stejně, spočívá v prohození hloubek podstromů
+$B$ a $C$ z obrázku.  
+\end{itemize}
+
 Provedením rotace však zařídíme, že se celý podstrom rotovaného vrcholu o jedna
 sníží. To znamená, že bude mít stejnou výšku jako před \ope{Insert}em a změnu tedy
-není potřeba dále propagovat.   
+není potřeba dále propagovat. Přirozená otázka může být, když vyvažováním vždy zajistíme, že se hloubka stromu nezmění, jak je možné, že do něj můžeme postupně vložit libovolně mnoho vrcholů? To je tím, že celková hloubka stromu se může změnit právě při takových \ope{Insert}ech, které nezpůsobí žádnou rotaci hrany.
 
 Operaci \ope{Delete} zde podobně detailně probírat nebudeme, podotkneme ale, že na rozdíl od operace \ope{Insert} může být nutné až řádově logaritmicky mnoho rotací vůči vůči počtu vrcholů ve stromě (tj. lineárně mnoho vůči hloubce stromu). Kdybychom strom nejprve postavili posloupností operací \ope{Insert} a poté vymazali všechny vrcholy posloupností operací \ope{Delete}, mohli bychom ukázat, že provedeme amortizovaně konstantně mnoho rotací na operaci. Pokud však operace \ope{Insert} a \ope{Delete} dostatečně nevhodně proložíme, může se stát, že budeme potřebovat až logaritmicky mnoho rotací na operaci.
 
