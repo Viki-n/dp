@@ -767,7 +767,7 @@ Hledání zahájíme stejně jako v normálním binárním vyhledávacím strom�
 když ale najdeme vrchol $v$, který je kořenem svého pomocného stromu (krom
 kořene celého tango stromu), znamená to, že jsme sešli z preferované cesty ve
 stromě $P$. Musíme tedy změnit preferovaný směr příslušného vrcholu v $P$, a
-tedy přestavět příslušné pomocné stromy. Zde popíšeme, jak odpojit část původní
+tedy přestavět příslušné pomocné stromy. Zde popíšeme (jak slovně, tak obrázkem \ref{obr:cut_tango}), jak odpojit část původní
 preferované cesty z pomocného stromu, připojování nové preferované cesty bude
 probíhat podobně.
 
@@ -779,6 +779,17 @@ Mějme tedy pomocný strom $A$ a vrchol $v$ mimo něj, jehož podstrom budeme po
 \item Pokud minimální hloubka v podstromu pravého syna je menší než $d$, přejdeme do pravého syna a vrátíme se na předchozí bod.
 \item Vrátíme aktuální vrchol.
 \end{enumerate}
+
+\begin{figure}[h!]
+
+  \centering
+  \includegraphics[width=.9\linewidth]{../img/cut_tango}
+\caption{Rozdělení pomocných stromů} 
+
+\label{obr:cut_tango} 
+ 
+\end{figure}
+
 
 Přitom vrcholy označené jako kořeny pomocných stromů považujeme za externí.
 Dále najdeme předchůdce $\ell'$ vrcholu $\ell$ a následníka $r'$ vrcholu $r$. Poté zavoláme
