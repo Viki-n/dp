@@ -398,6 +398,7 @@ void init_memory(int size){
 }
 
 Node* get_node(){
-    return &(_allocated_memory[++_allocated_memory_index]);
+
+    return &(_allocated_memory[_allocated_memory_index++]);
 }
 
