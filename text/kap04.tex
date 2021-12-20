@@ -1,40 +1,33 @@
-%%% Fiktivní kapitola s instrukcemi k PDF/A
+\chapter{Výsledky}
 
-\chapter{Formát PDF/A}
+V této kapitole popíšeme chování naší implementace stromů na několika třídách přístupových posloupností.
 
-Opatření rektora č. 13/2017 určuje, že elektronická podoba závěrečných
-prací musí být odevzdávána ve formátu PDF/A úrovně 1a nebo 2u. To jsou
-profily formátu PDF určující, jaké vlastnosti PDF je povoleno používat,
-aby byly dokumenty vhodné k~dlouhodobé archivaci a dalšímu automatickému
-zpracování. Dále se budeme zabývat úrovní 2u, kterou sázíme \TeX{}em.
+\section{Náhodná přístupová posloupnost}
 
-Mezi nejdůležitější požadavky PDF/A-2u patří:
+Třída náhodných přístupových posloupností vypadá tak, že pro danou velikost stromu pomocí funkce {\tt rand} z hlavičkového souboru {\tt stdlib.h} vyrobíme náhodnou posloupnost přirozených čísel z intervalu $[0,n)$. Pro měření jsme zvolili velikosti stromů od $10$ do $1\cdot 10^8$, kde každá další testovaná velikost byla $\sqrt[7]{10}$. Takovýto krok jsme zvolili proto, že s ním v celém rozsahu měříme celkem 50 různých velikostí stromu, tedy dosáhneme rozumného kompromisu mez počtem data pointů a celkovou dobou měření. Délka posloupnosti byla vždy $\max(1\cdot10^7, 10\cdot n)$. Takové číslo jsme zvolili proto, abychom snížili pravděpodobnost, že dostaneme náhodnou posloupnost, jejíž čas běhu a počet dotyků na operaci budou daleko od příslušné střední hodnoty, abychom i pro větší $n$ alespoň jednou navštívili téměř všechny prvky, a aby byla posloupnost i pro malá $n$ dost dlouhá, aby nepřesnost měření času (která může dosahovat až řádově desítek milisekund) nehrála významnou roli. 
 
-\begin{itemize}
+\def\graphfigure#1#2{
+\begin{figure}[h!]
+\centering
+ \makebox[\textwidth][c]{\includegraphics{graphs/#1}}
+\caption{#2}
+\label{obr:#1}
+\end{figure}
+}
 
-\item Všechny fonty musí být zabudovány uvnitř dokumentu. Nejsou přípustné
-odkazy na externí fonty (ani na \uv{systémové}, jako je Helvetica nebo Times).
+\graphfigure{touch_r}{Doteky vrcholů -- náhodná přístupová posloupnost.}
 
-\item Fonty musí obsahovat tabulku ToUnicode, která definuje převod z~kódování
-znaků použitého uvnitř fontu to Unicode. Díky tomu je možné z~dokumentu
-spolehlivě extrahovat text.
 
-\item Dokument musí obsahovat metadata ve formátu XMP a je-li barevný,
-pak také formální specifikaci barevného prostoru.
+Při vlastním měření jsme ale neměřili dvě nejvyšší hodnoty $n$ pro tango strom kvůli vysoké časové náročnosti testů.
 
-\end{itemize}
+Na základě teorie bychom čekali, že počet doteků na operaci u multisplay, splay a červenočerného stromu poroste logaritmicky, u tango stromu navíc ještě s faktorem $\log\log$ navíc, což měření podporují, viz \ref{obr:touch_r}.
+\let\oldlog\log
+\def\log{\oldlog_2}
 
-Tato šablona používá balíček {\tt pdfx,} který umí \LaTeX{} nastavit tak,
-aby požadavky PDF/A splňoval. Metadata v~XMP se generují automaticky podle
-informací v~souboru {\tt prace.xmpdata} (na vygenerovaný soubor se můžete
-podívat v~{\tt pdfa.xmpi}).
+Na grafu vidíme, že červenočerný strom potřebuje konzistentně o zhruba
+půl doteku na operaci méně než $\log n$, které jsme do grafu přidali pro
+porovnání. Splay strom potom potřebuje zhruba $1.28\cdot \log n$ doteku,
+multisplay strom dokonce $3.35\cdot \log n$. U tango stromu jsme na našem vzorku naměřili v průměru $4.88\cdot \log n$ doteků, což ale není příliš zajímavé -- u ostatních stromů očekáváme, že bude počet doteků na operaci dělený logaritmem konvergovat k nějaké konstantě, u tango stromu toto očekávání nemáme. Nejvyšší zaznamenaný počet dotyků pro tango strom byl v testu pro $n \cong 5.18\cdot 10^7$. V tomto testu jsme naměřili asi $6.81\cdot \log n$ doteků na operaci. Pro srovnání, $\log\log 5.18\cdot 10^7 \cong 4.68$. 
 
-Validitu PDF/A můžete zkontrolovat pomocí nástroje VeraPDF, který je
-k~dispozici na \url{http://verapdf.org/}.
+Dále si všimneme mírného rozvlnění křivky tango stromu kolem $n=5\cdot 10^3$ a znovu kolem $n=1\cdot 10^6$. Tento efekt se ale výrazněji projeví při sekvenčních přstupech, které budeme diskutovat v následující sekci, s jeho vysvětlením tedy počkáme tam. 
 
-Pokud soubor nebude validní, mezi obvyklé příčiny patří používání méně
-obvyklých fontů (které se vkládají pouze v~bitmapové podobě a/nebo bez
-unicodových tabulek) a vkládání obrázků v~PDF, které samy o~sobě standard
-PDF/A nesplňují.
-
-Další postřehy o~práci s~PDF/A najdete na \url{http://mj.ucw.cz/vyuka/bc/pdfaq.html}.
