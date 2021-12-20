@@ -18,7 +18,7 @@ VALUE find(VALUE value, Node** root, bool insert){
     // Handle empty tree separately
     if (!*root){
         if (insert){
-            Node* new = malloc(sizeof(Node));
+            Node* new = _allocated_memory ? get_node() : malloc(sizeof(Node));
 #ifdef _TOUCH
             new->version = 0;
 #endif
@@ -55,7 +55,7 @@ VALUE find(VALUE value, Node** root, bool insert){
     if (!current_node){
         current_node = node_pop(&stack);
         if (insert){
-            Node* new = malloc(sizeof(Node));
+            Node* new = _allocated_memory ? get_node() : malloc(sizeof(Node));
 #ifdef _TOUCH
             new->version = 0;
 #endif
@@ -119,6 +119,7 @@ int main(int argc, char ** argv){
         print_tree(root);
     }
 
+    printf("%d\n", sizeof(Node));
 
 }
 #endif

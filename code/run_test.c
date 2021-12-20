@@ -21,6 +21,7 @@
 #if defined(REDBLACK) || defined(SPLAY)
 //Splay and red-blask tree do not have build function, but they can insert on find
 Node* build(int size){
+    init_memory(size+1);
     Node* tree = NULL;
     for(int i=0; i<=size; i++){
 #ifdef SPLAY

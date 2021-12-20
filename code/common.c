@@ -3,14 +3,14 @@ struct Node{
     VALUE value;
 #if defined(REDBLACK) || defined(TANGO)
     short blackness;    // during rebalance, it may make sense to have more than 2 possible values
-    int black_height;
+    short black_height;
 #endif
 #if defined(TANGO) || defined(MULTISPLAY)
     bool root;
-    int depth;
-    int mindepth;
+    short depth;
+    short mindepth;
 #ifdef TANGO
-    int maxdepth;
+    short maxdepth;
 #endif
 #endif
     struct Node * left;
@@ -387,4 +387,17 @@ void split(Node** root, VALUE value){
 
 #endif
 
+Node* _allocated_memory = NULL;
+int _allocated_memory_index = 0;
+int _memory_alignment = 1 << 12;
+
+void init_memory(int size){
+    void* target = NULL;
+    posix_memalign(&target, _memory_alignment, size*sizeof(Node));
+    _allocated_memory = target;
+}
+
+Node* get_node(){
+    return &(_allocated_memory[++_allocated_memory_index]);
+}
 

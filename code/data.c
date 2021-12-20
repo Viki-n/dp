@@ -2,19 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include "random.c"
 
 int rd(int max){
-    if (INT_MAX <= RAND_MAX){
-        return rand() % max;
-    }
-    int result = 0;
-    int max_obtainable = 1;
-    while (max > max_obtainable){
-        result *= RAND_MAX + 1;
-        result += rand();
-        max_obtainable *= RAND_MAX + 1;
-    }
-    return result % max;
+        return (int)(next() % max);
 }
 
 int* subset(int max,int size){
@@ -50,6 +41,12 @@ int main(int argc, char** argv) {
     }
     int size = atoi(argv[1]);
     int length = atoi(argv[2]);
+
+    // we will not need to use many different seeds, but more than one might be nice
+    for (int i=0; i<atoi(argv[3]); i++){
+        jump();
+    }
+
     srand(atoi(argv[3]));
     char mode = argv[4][0];
     printf("%d\n", size - 1);

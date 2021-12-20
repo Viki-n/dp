@@ -238,7 +238,7 @@ Node* build_(int lo, int hi, int depth, bool root){
         return NULL;
     }
     int center = lo + diff/2;
-    Node* result = malloc(sizeof(Node));
+    Node* result = get_node();
 
 #ifdef _TOUCH
     result->version = 0;
@@ -256,6 +256,7 @@ Node* build_(int lo, int hi, int depth, bool root){
 }
 
 Node* build(int hi){
+    init_memory(hi+1);
     return build_(0, hi, 0, true);
 }
 
@@ -296,7 +297,8 @@ int main(int argc, char ** argv){
         printf("--------------------------------------  %d\n", i);
         print_tree(root);
     }
-
+    
+    printf("%d\n", sizeof(Node));
 
 }
 #endif
