@@ -4,7 +4,20 @@ V této kapitole popíšeme chování naší implementace stromů na několika t
 
 \section{Náhodná přístupová posloupnost}
 
-Třída náhodných přístupových posloupností vypadá tak, že pro danou velikost stromu pomocí funkce {\tt rand} z hlavičkového souboru {\tt stdlib.h} vyrobíme náhodnou posloupnost přirozených čísel z intervalu $[0,n)$. Pro měření jsme zvolili velikosti stromů od $10$ do $1\cdot 10^8$, kde každá další testovaná velikost byla $\sqrt[7]{10}$. Takovýto krok jsme zvolili proto, že s ním v celém rozsahu měříme celkem 50 různých velikostí stromu, tedy dosáhneme rozumného kompromisu mez počtem data pointů a celkovou dobou měření. Délka posloupnosti byla vždy $\max(1\cdot10^7, 10\cdot n)$. Takové číslo jsme zvolili proto, abychom snížili pravděpodobnost, že dostaneme náhodnou posloupnost, jejíž čas běhu a počet dotyků na operaci budou daleko od příslušné střední hodnoty, abychom i pro větší $n$ alespoň jednou navštívili téměř všechny prvky, a aby byla posloupnost i pro malá $n$ dost dlouhá, aby nepřesnost měření času (která může dosahovat až řádově desítek milisekund) nehrála významnou roli. 
+Třída náhodných přístupových posloupností vypadá tak, že pro danou velikost
+strom vyrobíme náhodnou posloupnost přirozených čísel z intervalu $[0,n)$.
+Náhodná čísl agenerujeme pomocí pseudonáhodného generátoru {\tt xoshiro256++},
+který představili \citet{xoshiro}. Pro měření jsme zvolili velikosti stromů od $10$ do $1\cdot
+10^8$, kde každá další testovaná velikost byla $\sqrt[7]{10}$. Takovýto krok
+jsme zvolili proto, že s ním v celém rozsahu měříme celkem 50 různých velikostí
+stromu, tedy dosáhneme rozumného kompromisu mez počtem data pointů a celkovou
+dobou měření. Délka posloupnosti byla vždy $\max(1\cdot10^7, 10\cdot n)$.
+Takové číslo jsme zvolili proto, abychom snížili pravděpodobnost, že dostaneme
+náhodnou posloupnost, jejíž čas běhu a počet dotyků na operaci budou daleko od
+příslušné střední hodnoty, abychom i pro větší $n$ alespoň jednou navštívili
+téměř všechny prvky, a aby byla posloupnost i pro malá $n$ dost dlouhá, aby
+nepřesnost měření času (která může dosahovat až řádově desítek milisekund)
+nehrála významnou roli. 
 
 \def\graphfigure#1#2{
 \begin{figure}[h!]
@@ -31,3 +44,65 @@ multisplay strom dokonce $3.35\cdot \log n$. U tango stromu jsme na našem vzork
 
 Dále si všimneme mírného rozvlnění křivky tango stromu kolem $n=5\cdot 10^3$ a znovu kolem $n=1\cdot 10^6$. Tento efekt se ale výrazněji projeví při sekvenčních přstupech, které budeme diskutovat v následující sekci, s jeho vysvětlením tedy počkáme tam. 
 
+\section{Sekvenční přístupová posloupnost}
+
+V této třídě zvolíme velikosti stromů i délky posloupností stejně jako v třídě náhodných přístupových posloupností, ale místo náhodných dat budeme stále kolem dokola přistupovat postupně ke všem vrcholům ve stromě v rostoucím pořadí.
+
+Na základě teorie bychom čekali, že počet dotyků na operaci splay a multisplay
+stromu bude v $n$ konstantní. Pro tango strom očekáváme $\Theta(\oldlog\oldlog
+n)$ doteků na operaci. Vzhledem k tomu, že pro červenočerný strom byla tato
+posloupnost implementována (stejně jako u ostatních stromů) jako posloupnost
+individuálních operací \ope{Find}, očekáváme stejné chování jako u náhodné
+přístupové posloupnosti, přestože v libovolném statickém stromě obecně lze
+implementovat průchod v pořadí v čase $\Theta(n)$.
+
+\graphfigure{touch_s}{Doteky vrcholů -- náhodná přístupová posloupnost.}
+
+Tyto předpoklady víceméně naplňuje graf na obrázku \ref{obr:touch_s}. Vidíme, že splay strom se ustálil kolem $5.42$ dotyků na operaci, multisplay strom kolem $8.49$ s větším rozptylem, kdežto počet dotyků tango stromu a červenočerného stromu napříč celým grafem stále roste. počínaje $n\cong 1000$ se červenočerný strom dotkne nejvíce vrcholů ze všech (přesnou hodnotu nelze určit kvůli velkému rozptylu tango stromu). Nejlepšíšho výsledku doshuje pro stromy o 26 prvcích a menší červenočerný strom, počínaje $n=37$ se nejméně vrcholů dotkne splay strom. I počet dotyků multisplay stromu má určitý rozptyl, proto nelze přesně určit, pro jakou hodnotu $n$ začne mít tango strom méně dotyků na operaci než červenočerný strom, nicméně pro $n$ mezi $1000$ a $2500$ vychází počet dotyků oběma stromům podobně, pro vyšší hodnoty má tango strom méně dotyků.
+
+\graphfigure{time_s}{Průměrný čas na operaci -- náhodná přístupová posloupnost.}
+
+Budeme-li se však koukat na čas běhu, který je zachycený v obrázku
+\ref{obr:time_s}, zjistíme, že pro $n<100$ je v praxi nejrychlejší červenočerný
+strom. To jednoduše zdůvodníme tím, že červenočerný strom při každém přístupu
+každý dotčený vrchol skutečně bez modifikací navštíví. Splay strom oproti tomu
+navštívenými vrcholy prochází dvakrát (jednou při hledání, jednou při cestě
+zpět ke kořeni), přičemž při cestě zpět ke kořeni navíc navštívené vrcholy
+modifikuje.  Pro vyšší hodnoty $n$ je ale konzistentních $40\,\operatorname{ns}$ na operaci, čehož dosahuje splay strom, výhodnější.
+
+
+Multisplay strom může jedním vrcholem projít i vícekrát a dokonce
+ho i vícekrát modifikovat (první modifikaci vrcholu provede při změnách
+prefervaných cest tak aby byl hledaný vrchol v pomocném stromě s kořenem,
+druhou poté při závěrečné změně preferovaného syna hledaného vrcholu). Proto
+také potřebuje přibližně $250\,\operatorname{ns}$ na operaci a rychlejší než
+červenočerný strom je až pro $n>1\cdot 10^7$. Tango strom má v jistém smyslu
+současně všechny nevýhody červenočerného stromu a multisplay stromu -- stejně
+jako červenočerný strom neslibuje asymptoticky konstantní čas na operaci (byť
+jeho asymptotická složitost je lepší než složitost červenočerného stromu),
+stejně jako multisplay strom může vrcholy při přepojování preferovaných cest i
+opakovaně modifikovat. Proto není divu, že i pro největší měřená data je
+dvojnásobně až trojnásobně pomalejší než červenočerný strom.
+
+Nyní se konečně dostáváme k nejpřekvapivějšímu z naměřených jevů. Musíme vysvětlit, proč to vypadá, že má tango strom a v menší míře multisplay strom výrazný rozptyl, a proč se tento rozptyl neprojevuje pro $n\cong 1\cdot 10^4$ a $n\cong 5\cdot10^6$. Pro osvětlení této otázky jsme provedli ještě jedno měření. Opět jsme měřili počet dotyků na operaci pro sekvenční přístupovou posloupnost, ale zvolili jsme $m=2n$, a navíc jsem doteky počítali pouze během druhého průchodu. Na druhou stranu jsme něřili všechna možná $n$ z intervalu $[10, 1\cdot10^4]$. Výsledky měření jsou vidět na obrázku \ref{obr:one_by_one_seq}.
+
+\graphfigure{one_by_one_seq}{Doteky vrcholů -- náhodná přístupová posloupnost.}
+
+Lokální maxima křivky tango i multisplay stromu jsou v hodnotách ve tvaru $2^k \pm \o(1)$ pro nějaké $k$, minima v $3\cdot 2^k\pm \o(1)$ pro nějaké $k$. Abychom toto chování vysvětlili, musíme si rozmyslet, jak přesně probíhá sekvenční přístup v tango stromu. Na konci prvního sekvenčního průchodu mají všechny vrcholy nastavený preferovaný směr doprava. My musíme během průchodu nastavit každému vrcholu preferovaný směr nejprve doleva, a poté zase zpět doprava. Tedy každému vrcholu jeho preferovaný směr změníme celkem dvakrát.
+
+Je ale důležité si uvědomit, že v tango stromu se změny preferovaných směrů
+týkají pouze vrcholů. které mají v referenčním stromě $P$ oba syny. My v naší
+implementaci však stavíme $P$ tak, aby se pro každý jeho vrchol $v$ lišila
+velikost pravého a levého vrcholu $v$ nejvýše o jedna. To veke k tomu, že pro
+$n=3\cdot2^k-1$ pro nějaké $k$ vypadá strom tak, že na jeho předposlední
+hladině mají všechny vrcholy právě jednoho syna, a tedy v nich nelze změny
+preferovaných směrů provádět. Proto pro každé $k$ platí, že při sekvenčním
+průchodu stromem libovolné velikosti mezi $2^k-1$ a $3\cdot 2^{k-1}-1$ je vždy
+potřeba udělat přesně ten samý počet změn preferovaných směrů (konkrétně
+dvakrát tolik, kolik má strom vrcholů s oběma syny, tedy $2\cdot(2^{k-1} -1)$).
+Tyto změny preferovaných směrů se ale pro vyšší hodnoty $n$ při výpočtu
+průměrného počtu dotyků či průměrného času rozpočítají mezi více operací,
+průměr (ať už času nebo počtu dotyků) na operaci tedy bude nižší. Pro $n$
+ mezi $3\cdot 2^{k-1}-1$ a $2^{k+1}-1$ naopak přidání každého dalšího listu $P$ způsobí potřebu dvou nových změn preferovaných směrů (v rodiči tohoto listu v $P$) při sekvenčním průchodu tango stromem.
+
+U multisplay stromu to samé zcela neplatí -- změnu preferovaného směru provádíme i pro vrcholy, které mají jednoho syna, jsou-li cílem hledání (preferovaný směr pak může mířit k externímu vrcholu). Přesto ale takové změny preferovaných směrů způsobí doteky méně vrcholů, než kdyby tyto vrcholy měly oba syny.

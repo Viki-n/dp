@@ -686,7 +686,7 @@ libovolný strom $T$ platí $$\opt(S) \in \Omega(\ib_T(S)).$$
 Interleave bound představili a dokázali v tomto znění \citet{tango}. Podobný odhad (lišící se pouze multiplikativní konstantou) ale představil už \citet{interleave}.
 
 Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že
-$\opt(S)\in\Theta(m\log n)$: Pokud jako strom $T$ zvolíme perfektně vyvážený
+$\opt(S)\in\Theta(m\log n)$: Pokud jako strom $T$ zvolíme dokonale vyvážený
 binární strom, můžeme přistupovat k prvkům v jeho listech v takovém pořadí,
 abychom vždy v každém procházeném vrcholu změnili preferovaný směr.
 
@@ -726,7 +726,7 @@ hlavních struktur, které budeme chtít v dalších kapitolách této práce zk
 proto ho popíšeme detailněji.
 
 Tango strom je strom, který podporuje pouze operaci vyhledání. Udržuje si
-pomyslný statický perfektně vyvážený\footnote{Algoritmu ve skutečnosti stačí,
+pomyslný statický dokonale vyvážený\footnote{Algoritmu ve skutečnosti stačí,
 aby měl referenční strom logaritmickou hloubku.} referenční binární vyhledávací
 strom $P$ nad těmi samými klíči, které sám obsahuje. Každou přístupovou
 posloupnost pak vykoná v čase $\o(\log\log n\cdot \ib_P(S))$, tedy je

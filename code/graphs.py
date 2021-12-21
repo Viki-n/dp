@@ -37,7 +37,7 @@ def load_data(path):
     return df
 
 
-def by_one_seq_graphs():
+def by_one_seq_graphs(prints=False):
     df = load_data('data_by_one')
 
     df['ratio'] = df.sequence_length / df.tree_size
@@ -53,18 +53,19 @@ def by_one_seq_graphs():
         plt.semilogx()
         for st, aux in df1_.groupby('structure'):
             plt.plot(aux['tree_size'], aux['value'], label=LABELS[st])
-            mins = []
-            maxes = []
-            for i in range(1, len(aux)-1):
+            if prints:
+                mins = []
+                maxes = []
+                for i in range(1, len(aux)-1):
 
-                if aux['value'].iloc[i] > aux['value'].iloc[i+1] and aux['value'].iloc[i] > aux['value'].iloc[i-1]:
-                    maxes.append(aux['tree_size'].iloc[i])
-                if aux['value'].iloc[i] < aux['value'].iloc[i + 1] and aux['value'].iloc[i] < aux['value'].iloc[i - 1]:
-                    mins.append(aux['tree_size'].iloc[i])
+                    if aux['value'].iloc[i] > aux['value'].iloc[i+1] and aux['value'].iloc[i] > aux['value'].iloc[i-1]:
+                        maxes.append(aux['tree_size'].iloc[i])
+                    if aux['value'].iloc[i] < aux['value'].iloc[i + 1] and aux['value'].iloc[i] < aux['value'].iloc[i - 1]:
+                        mins.append(aux['tree_size'].iloc[i])
 
-            print(st)
-            print('mins:', mins)
-            print('maxes:', maxes)
+                print(st)
+                print('mins:', mins)
+                print('maxes:', maxes)
         plt.xlabel('Počet vrcholů stromu')
         plt.ylabel(label)
         plt.legend()
@@ -72,7 +73,7 @@ def by_one_seq_graphs():
         plt.figure()
 
 
-def simple_graphs(seq_type):
+def simple_graphs(seq_type, prints=False):
     df = load_data('data')
     df['value'] /= df['sequence_length']
     df = df.loc[df['sequence_type'] == seq_type].copy()
@@ -91,15 +92,23 @@ def simple_graphs(seq_type):
             data[st] = aux['value'].values
             sizes = sizes or list(aux['tree_size'])
 
+        if prints:
+            if type_ == 'touch' and seq_type == 'r':
+                logs = np.array(list(map(log2, sizes)))
+                plt.plot(sizes, logs, color='gray', label='log(n)')
 
-        if type_ == 'touch' and seq_type == 'r':
-            logs = np.array(list(map(log2, sizes)))
-            plt.plot(sizes, logs, color='gray', label='log(n)')
+                for d in data:
+                    print(d)
+                    print(np.mean(data[d] - logs[:len(data[d])]))
+                    print(data[d] / logs[:len(data[d])])
 
-            for d in data:
-                print(d)
-                print(np.mean(data[d] - logs[:len(data[d])]))
-                print(data[d] / logs[:len(data[d])])
+            if type_ == 'touch' and seq_type == 's':
+                logs = np.array(list(map(log2, sizes)))
+                plt.plot(sizes, logs, color='gray', label='log(n)')
+
+                for d in data:
+                    print(d)
+                    print(np.mean(data[d]), np.mean(data[d][len(data[d])//2:]))
 
         plt.xlabel('Počet vrcholů stromu')
         plt.ylabel(label)
@@ -110,6 +119,6 @@ def simple_graphs(seq_type):
 
 if __name__ == '__main__':
     by_one_seq_graphs()
-    simple_graphs('s')
+    simple_graphs('s', True)
     simple_graphs('r')
 

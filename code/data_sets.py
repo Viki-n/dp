@@ -1,6 +1,6 @@
 import numpy as np
 
-SEED = 42
+seed = range(10000000).__iter__()
 
 for size in np.logspace(1, 8):
     size = int(size)
@@ -12,6 +12,6 @@ for size in np.logspace(1, 8):
             for subset_size in np.logspace(1,8, 8):
                 subset_size = int(subset_size)
                 if subset_size<size:
-                    print(size, length, SEED, type_, subset_size)
+                    print(size, length, seed.__next__(), type_, subset_size)
         else:
-            print(size, length, SEED, type_)
+            print(size, length, seed.__next__(), type_)
