@@ -289,15 +289,15 @@ void print_tree(Node* root){
 #ifdef TOPLEVEL
 int main(int argc, char ** argv){
 
-    Node* root = build(126);
+    Node* root = build(4);
     print_tree(root);
-
-    for(int i = 0; i<=126; i++){
+    for (int j =0; j<3; j++){
+    for(int i = 0; i<=4; i++){
         find(i, &root);
         printf("--------------------------------------  %d\n", i);
         print_tree(root);
     }
-    
+    }
     printf("%d\n", sizeof(Node));
 
 }

@@ -12,6 +12,13 @@ LABELS = {
     'tango': 'Tango'
 }
 
+COLORS = {
+'rb': 'tab:orange',
+    'splay': 'tab:green',
+    'multisplay': 'tab:blue',
+    'tango': 'tab:red'
+}
+
 def load_data(path):
     line_data = None
     data = []
@@ -52,7 +59,7 @@ def by_one_seq_graphs(prints=False):
 
         plt.semilogx()
         for st, aux in df1_.groupby('structure'):
-            plt.plot(aux['tree_size'], aux['value'], label=LABELS[st])
+            plt.plot(aux['tree_size'], aux['value'], label=LABELS[st], color=COLORS[st])
             if prints:
                 mins = []
                 maxes = []
@@ -88,7 +95,7 @@ def simple_graphs(seq_type, prints=False):
         sizes = []
         data = {}
         for st, aux in df_.groupby('structure'):
-            plt.plot(aux['tree_size'], aux['value'], label=LABELS[st])
+            plt.plot(aux['tree_size'], aux['value'], label=LABELS[st], color=COLORS[st])
             data[st] = aux['value'].values
             sizes = sizes or list(aux['tree_size'])
 
@@ -102,13 +109,13 @@ def simple_graphs(seq_type, prints=False):
                     print(np.mean(data[d] - logs[:len(data[d])]))
                     print(data[d] / logs[:len(data[d])])
 
-            if type_ == 'touch' and seq_type == 's':
-                logs = np.array(list(map(log2, sizes)))
-                plt.plot(sizes, logs, color='gray', label='log(n)')
-
                 for d in data:
                     print(d)
                     print(np.mean(data[d]), np.mean(data[d][len(data[d])//2:]))
+
+        if type_ == 'touch' and seq_type == 'r':
+            logs = np.array(list(map(log2, sizes)))
+            plt.plot(sizes, logs, color='gray', label='log(n)')
 
         plt.xlabel('Počet vrcholů stromu')
         plt.ylabel(label)
