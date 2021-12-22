@@ -38,8 +38,11 @@ Na základě teorie bychom čekali, že počet doteků na operaci u multisplay, 
 \def\log{\oldlog_2}
 
 Na grafu vidíme, že červenočerný strom potřebuje konzistentně o zhruba
-půl doteku na operaci méně než $\log n$, které jsme do grafu přidali pro
-porovnání. Splay strom potom potřebuje zhruba $1.28\cdot \log n$ doteku,
+půl doteku na operaci méně než $\log n$, který jsme do grafu přidali pro
+porovnání. Vzhledem k tomu, že jsem uvedli, že kvůli %TODO
+
+
+Splay strom potom potřebuje zhruba $1.28\cdot \log n$ doteku,
 multisplay strom dokonce $3.35\cdot \log n$. U tango stromu jsme na našem vzorku naměřili v průměru $4.88\cdot \log n$ doteků, což ale není příliš zajímavé -- u ostatních stromů očekáváme, že bude počet doteků na operaci dělený logaritmem konvergovat k nějaké konstantě, u tango stromu toto očekávání nemáme. Nejvyšší zaznamenaný počet dotyků pro tango strom byl v testu pro $n \cong 5.18\cdot 10^7$. V tomto testu jsme naměřili asi $6.81\cdot \log n$ doteků na operaci. Pro srovnání, $\log\log 5.18\cdot 10^7 \cong 4.68$. 
 
 Dále si všimneme mírného rozvlnění křivky tango stromu kolem $n=5\cdot 10^3$ a znovu kolem $n=1\cdot 10^6$. Tento efekt se ale výrazněji projeví při sekvenčních přstupech, které budeme diskutovat v následující sekci, s jeho vysvětlením tedy počkáme tam. 
@@ -88,21 +91,58 @@ Nyní se konečně dostáváme k nejpřekvapivějšímu z naměřených jevů. M
 
 \graphfigure{one_by_one_seq}{Doteky vrcholů -- náhodná přístupová posloupnost.}
 
-Lokální maxima křivky tango i multisplay stromu jsou v hodnotách ve tvaru $2^k \pm \o(1)$ pro nějaké $k$, minima v $3\cdot 2^k\pm \o(1)$ pro nějaké $k$. Abychom toto chování vysvětlili, musíme si rozmyslet, jak přesně probíhá sekvenční přístup v tango stromu. Na konci prvního sekvenčního průchodu mají všechny vrcholy nastavený preferovaný směr doprava. My musíme během průchodu nastavit každému vrcholu preferovaný směr nejprve doleva, a poté zase zpět doprava. Tedy každému vrcholu jeho preferovaný směr změníme celkem dvakrát.
+Lokální maxima křivky tango i multisplay stromu jsou v hodnotách ve tvaru $2^k \pm \o(1)$ pro nějaké $k$, minima v $3\cdot 2^k\pm \o(1)$ pro nějaké $k$. 
+
+Abychom toto chování vysvětlili, musíme si rozmyslet, jak přesně probíhá sekvenční přístup v tango stromu. Na konci prvního sekvenčního průchodu mají všechny vrcholy nastavený preferovaný směr doprava. My musíme během průchodu nastavit každému vrcholu preferovaný směr nejprve doleva, a poté zase zpět doprava. Tedy každému vrcholu jeho preferovaný směr změníme celkem dvakrát.
 
 Je ale důležité si uvědomit, že v tango stromu se změny preferovaných směrů
 týkají pouze vrcholů. které mají v referenčním stromě $P$ oba syny. My v naší
 implementaci však stavíme $P$ tak, aby se pro každý jeho vrchol $v$ lišila
-velikost pravého a levého vrcholu $v$ nejvýše o jedna. To veke k tomu, že pro
-$n=3\cdot2^k-1$ pro nějaké $k$ vypadá strom tak, že na jeho předposlední
+velikost pravého a levého podstromu vrcholu $v$ nejvýše o jedna. To vede k tomu, že pokud se
+$n$ rovná $3\cdot2^k-1$ pro nějaké $k$, $P$ vypadá tak, že na jeho předposlední
 hladině mají všechny vrcholy právě jednoho syna, a tedy v nich nelze změny
 preferovaných směrů provádět. Proto pro každé $k$ platí, že při sekvenčním
 průchodu stromem libovolné velikosti mezi $2^k-1$ a $3\cdot 2^{k-1}-1$ je vždy
-potřeba udělat přesně ten samý počet změn preferovaných směrů (konkrétně
+potřeba udělat přesně ten samý počet změn preferovaných směrů. Těchto změn je přesně
 dvakrát tolik, kolik má strom vrcholů s oběma syny, tedy $2\cdot(2^{k-1} -1)$).
-Tyto změny preferovaných směrů se ale pro vyšší hodnoty $n$ při výpočtu
+
+Změny preferovaných směrů se ale pro vyšší hodnoty $n$ při výpočtu
 průměrného počtu dotyků či průměrného času rozpočítají mezi více operací,
 průměr (ať už času nebo počtu dotyků) na operaci tedy bude nižší. Pro $n$
  mezi $3\cdot 2^{k-1}-1$ a $2^{k+1}-1$ naopak přidání každého dalšího listu $P$ způsobí potřebu dvou nových změn preferovaných směrů (v rodiči tohoto listu v $P$) při sekvenčním průchodu tango stromem.
 
 U multisplay stromu to samé zcela neplatí -- změnu preferovaného směru provádíme i pro vrcholy, které mají jednoho syna, jsou-li cílem hledání (preferovaný směr pak může mířit k externímu vrcholu). Přesto ale takové změny preferovaných směrů způsobí doteky méně vrcholů, než kdyby tyto vrcholy měly oba syny.
+
+Zmenšení rozptylu křivek na obrázcích \ref{obr:touch_s} a \ref{obr:time_s} kolem $n=1\cdot 10^4$ a $n=5\cdot 10^6$ vysvětlíme snadno -- v relevantních částech křivky jsme se naším samplováním trefili někam mezi lokální maxima a minima. Vzhledem k tomu, že jak lokální minima a maxima, tak naše vzorky se exponenciálně vzdalují, ale jedná se o exponenciály o různých základech, není toto chování překvapivé.
+
+Nyní se vrátíme zpátky k chování tango stromu na náhodné přístupové
+posloupnosti.
+
+Pro jednoduchost se budeme zajímat pouze o dva extrémní případy --
+případy, kdy $n$ bude buď $2^k-1$, nebo $3\cdot 2^{k-1} - 1$ pro nějaké $k$. V obou
+případech platí, že každý vrchol, který má v $P$ oba syny, má také přesně
+stejný počet vrcholů ve svém pravém a levém podstromu. Proto pro každý přístup (bez ohledu na stav stromu před tímto přístupem) platí, že v každém vrcholu $P$, kterým hledání projde, ale neskončí v něm (krom vrcholů s jediným synem), nastane změna preferovaného směru s pravděpodobností $1/2$.
+
+V případě, že se tedy $n$ rovná $2^k-1$ pro nějaké $k$, bude bude střední
+hodnota počtu změn preferovaného směru na přístup přesně rovna jedné polovině
+průměrné hloubky vrcholu v $P$ (kde kořen má hloubku 0). Pokud se $n$ naopak rovná
+$3\cdot2^{k-1}-1$ pro nějaké $k$, bude tato hodnota sice také rovna průměrné
+hloubce vrcholu, ale s tím, že listům z poslední hladiny $P$ počítáme hloubku o jedna menší.
+
+Všimneme si, že na rozdíl od sekvenční přístupové posloupnosti na náhodné
+posloupnosti střední hodnota počtů změn preferovaných směrů na přístup v $n$
+monotééně rostoucí. To je nepřekvapivé -- i pro $n$ mezi $2^k-1$ a $3\cdot
+2^{k-1}-1$ stále přidáváme nové vrcholy do spodní vrstvy $P$ a tedy zvyšujeme
+pravděpodobnost, že daný dotaz povede hlouběji do stromu $P$, a to i přesto, že
+hloubku nejhlubších listů počítáme jako o jedna menší.
+
+\graphfigure{variance_tango_random}{Vliv vzdálenosti od mocniny dvou na počet dotyků vrcholu na přístup -- náhodná přístupová posloupnost.}
+
+Na závěr ještě ukážeme, jak výrazné rozdíly v praxi tento jev na počtu dotyků
+způsobí. Na grafu na obrozku \ref{touch_r} je jev velmi nezřetelný, to je ale
+částečně tím, že křivka tango stromu na tomto grafu asama o sobě poměrně prudce
+roste, v čemž se může leccos ztratit. Proto jsme tento jev alespoň částečně
+izolovali. Jednotlivé naměřené hodnoty pro tango strom v grafu na obrázku
+\ref{obr:touch_r} označíme jako $h_1, h_2, \dots, h_{50}$. Potom v grafu
+\ref{obr:variance_tango_random} zobrazíme hodnoty $$h'_i = \frac{\frac{h_{i-1}+h{i+1}}2-h_i}2.$$ Jinými slovy, podíváme se, jak daleko je $h_i$ od aritmetického průměru jeho sousedů. Protože pak ale odečítáme lokální maximum od průměru dvou lokálních minim nebo naopak, výslednou hodnotu ještě vydělíme dvěma. Tím dostaneme určitou představu o tom, jak daleko je daný vzorek od v nějakém smyslu vyhlazené křivky. V grafu vidíme maxima kolem $1/2$, což zhruba odpovídá očekávání. 
+

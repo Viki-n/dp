@@ -75,6 +75,7 @@ def by_one_seq_graphs(prints=False):
                 print('maxes:', maxes)
         plt.xlabel('Počet vrcholů stromu')
         plt.ylabel(label)
+        plt.grid()
         plt.legend()
         plt.savefig('../text/graphs/one_by_one_seq.pdf')
         plt.figure()
@@ -120,12 +121,35 @@ def simple_graphs(seq_type, prints=False):
         plt.xlabel('Počet vrcholů stromu')
         plt.ylabel(label)
         plt.legend()
+        plt.grid()
         plt.savefig(f'../text/graphs/{type_}_{seq_type}.pdf')
         plt.figure()
+
+
+def variance_random_tango_touch():
+    df = load_data('data')
+    df['value'] /= df['sequence_length']
+    df = df.loc[(df['sequence_type'] == 'r') & (df['value_type'] == 'touch') & (df['structure'] == 'tango')].reset_index().copy()
+
+    label = 'Rozdíl počtu doteků na operaci'
+    plt.semilogx()
+
+    df['value'] = (((df['value'].shift(1) + df['value'].shift(-1))/2)-df['value'])/2
+    df = df.dropna(subset=['value'])
+    plt.plot(df['tree_size'], df['value'], label=LABELS['tango'], color=COLORS['tango'])
+
+    plt.xlabel('Počet vrcholů stromu')
+    plt.ylabel(label)
+    plt.legend()
+    plt.grid()
+    plt.savefig(f'../text/graphs/variance_tango_random.pdf')
+    plt.figure()
+
 
 
 if __name__ == '__main__':
     by_one_seq_graphs()
     simple_graphs('s', True)
     simple_graphs('r')
+    variance_random_tango_touch()
 
