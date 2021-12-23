@@ -39,13 +39,32 @@ Na základě teorie bychom čekali, že počet doteků na operaci u multisplay, 
 
 Na grafu vidíme, že červenočerný strom potřebuje konzistentně o zhruba
 půl doteku na operaci méně než $\log n$, který jsme do grafu přidali pro
-porovnání. Vzhledem k tomu, že jsem uvedli, že kvůli %TODO
+porovnání. To zní podezřele -- pro červenočerný strom je střední hodnota počtu doteků na operaci z náhodné přístupové posloupnosti prostě průměrná hloubka vrcholu (kde kořen má hloubku 1). Dokonale vyvážený strom na $n$ vrcholech má průměrnou hloubku vrcholu vrcholu $\log n - 1 + o(1)$. My jsme ale v minulé kapitole řekli, že náš červenočerný strom je tak nevyvážený, jak je jen možné.
+
+Jak je tedy možné, že průměrná hloubka vrcholu ve velmi nevyváženém červenočerném stromu je jen o aditivní $1/2$ větší než v dokonale vyváženém stromu? Odpověď na tuto otázku je v nejasné definici velmi nevyváženého stromu. Náš strom vypadá tak, že cestě z kořene do maxima se střídají černé a červené vrcholy, ale celý zbytek stromu krom této cesty a vrcholů s ní bezprostředně sousedících je stále černý a tedy tak vyvážený, jak to jen jde. Náš strom je tedy extrémně nevyvážený v tom smyslu, že dosahuje co nejvyšší možné maximální hloubky při daném počtu vrcholů. Také je extrémně nevyvážený stran poměru velikosti pravého a levého podstromu kořene (v závislosti na přesné velikosti experimentálně určeného jako $2:5$ až $1:5$). Protože však současně jsou podstromy všech vrcholů krom těch ležících na cestě z kořene do maxima dokonale vyvážené, stran průměrné hloubky vrcholu je takto vybudovaný strom poměrně blízko dokonale vyváženému stromu.
 
 
 Splay strom potom potřebuje zhruba $1.28\cdot \log n$ doteku,
 multisplay strom dokonce $3.35\cdot \log n$. U tango stromu jsme na našem vzorku naměřili v průměru $4.88\cdot \log n$ doteků, což ale není příliš zajímavé -- u ostatních stromů očekáváme, že bude počet doteků na operaci dělený logaritmem konvergovat k nějaké konstantě, u tango stromu toto očekávání nemáme. Nejvyšší zaznamenaný počet dotyků pro tango strom byl v testu pro $n \cong 5.18\cdot 10^7$. V tomto testu jsme naměřili asi $6.81\cdot \log n$ doteků na operaci. Pro srovnání, $\log\log 5.18\cdot 10^7 \cong 4.68$. 
 
-Dále si všimneme mírného rozvlnění křivky tango stromu kolem $n=5\cdot 10^3$ a znovu kolem $n=1\cdot 10^6$. Tento efekt se ale výrazněji projeví při sekvenčních přstupech, které budeme diskutovat v následující sekci, s jeho vysvětlením tedy počkáme tam. 
+Dále si všimneme mírného rozvlnění křivky tango stromu kolem $n=5\cdot 10^3$ a znovu kolem $n=1\cdot 10^6$. Tento efekt se ale výrazněji projeví při sekvenčních přstupech, které budeme diskutovat v následující sekci, s jeho vysvětlením tedy počkáme tam.
+
+\graphfigure{time_r}{Průměrný čas na operaci -- náhodná přístupová posloupnost.}
+
+Na obrázku \ref{obr:time_r} vidíme naměřené časy. Proti obrázku \ref{touch_r}
+se křivka tango stromu ještě trochu vzdálila ostatním. Dále vidíme zlom všech
+křivek pro $n$ mezi $1\cdot10^6$ a $1\cdot 10^7$. Vzhledem k tomu, že použitý
+procesor má $128\,\operatorname{MB}$ L3 cache a jeden vrchol  červenočerného či
+splay stromu zabírá v paměti 24 bytů, přibližně při $3\cdot 10^6$ vrcholech se již
+strom nevejde do cache současně s $40\,\operatorname{MB}$, které zabírá načtená
+část přístupové posloupnosti. Přibližně při $5\cdot10^6$ vrcholech se pak již strom nevejde do cache ani sám.
+Jeden vrchol multisplay stromu a tango stromu pak zabírá 32 bytů a výše uvedené pro ně platí obdobně. 
+
+\graphfigure{ratio_r}{Průměrný čas na operaci -- náhodná přístupová posloupnost.}
+
+
+Překvapivé je, že kolem $n=2\cdot10^6$ se splay strom stává rychlejší než červenočerný strom. Ve skutečnosti se podle grafu na obrázku \ref{obr:ratio_r} průměrný čas na dotek červenočerného stromu propadá až téměř na úroveň tango stromu -- to je obzvláště překvapivé proto, že červenočerný strom vrcholy pouze prochází a nijak strom nemodifikuje, kdežto všechny ostatní stromy vrcholy modifikují a navíc jimi mohou projít během jedné operace i vícekrát, což my ovšem ale stále počítáme jako jeden dotyk.  
+
 
 \section{Sekvenční přístupová posloupnost}
 

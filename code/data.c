@@ -34,6 +34,38 @@ void help(char** argv){
  
 }
 
+int* reversal(){
+    int* result = malloc(256*sizeof(int));
+    for (int i=0; i<256; i++){
+        int r = 0; 
+        for(int b=0; b<8; b++){
+            int t = i & (1 << b);
+            t <<= 7;
+            t >>= b*2;
+            r |= t;
+        }
+        result[i] = r;
+    }
+    return result;
+}
+
+int* left_spine(int hi){
+    int* result = malloc(256*sizeof(int));
+    int index = 1;
+    int lo = 0;
+    result[0] = 0;
+    for (;;){
+        int diff = hi-lo;
+        if (diff < 0){
+            return result;
+        }
+        int center = lo + diff/2;
+        result[index++] = center;
+        hi = center-1;
+        result[0]++;
+    }
+}
+
 int main(int argc, char** argv) {
     if(argc<5) {
         help(argv);
@@ -57,6 +89,18 @@ int main(int argc, char** argv) {
     } else if (mode == 'r'){
         for (int i=0; i<length; i++){
             printf("%d\n", rd(size));
+        }
+    } else if (mode == 'i'){
+        int* spine = left_spine(size-1);
+        int spine_size = spine[0];
+        int* seq = reversal();
+        int index = 0;
+        for (int i = 0; i<length; index++){
+            int target = seq[index & 0xff];
+            if (target<spine_size){
+                printf("%d\n", spine[target+1]);
+                i++;
+            }
         }
     } else {
         if(argc==5) {

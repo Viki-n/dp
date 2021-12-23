@@ -6,6 +6,7 @@ from math import log2
 LABELS = {
     'touch': 'Dotčené vrcholy na operaci',
     'time': 'Průměrný čas na operaci [ms]',
+    'ratio': 'Průměrný čas na dotek [ms]',
     'rb': 'Červenočerný',
     'splay': 'Splay',
     'multisplay': 'Multisplay',
@@ -39,10 +40,14 @@ def load_data(path):
             data.append(line_data)
 
     df = pd.DataFrame(data)
-    print(df)
 
     return df
 
+def _transform(df):
+    df = df.set_index(
+        ['structure', 'tree_size', 'sequence_length', 'sequence_type', 'subset_size','value_type']
+    ).unstack().T.reset_index(level=0, drop=True).T.reset_index()
+    return df
 
 def by_one_seq_graphs(prints=False):
     df = load_data('data_by_one')
@@ -86,9 +91,13 @@ def simple_graphs(seq_type, prints=False):
     df['value'] /= df['sequence_length']
     df = df.loc[df['sequence_type'] == seq_type].copy()
 
-    for type_ in ['touch', 'time']:
+    for type_ in ['touch', 'time', 'ratio']:
 
-        df_ = df.loc[df['value_type'] == type_].copy()
+        if type_ == 'ratio':
+            df_ = _transform(df)
+            df_['value'] = df_['time']/df_['touch']
+        else:
+            df_ = df.loc[df['value_type'] == type_].copy()
 
         label = LABELS[type_]
         plt.semilogx()
