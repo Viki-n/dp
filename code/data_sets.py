@@ -15,3 +15,9 @@ for size in np.logspace(1, 8):
                     print(size, length, seed.__next__(), type_, subset_size)
         else:
             print(size, length, seed.__next__(), type_)
+
+for size in range(3,27):
+    size = 2**size
+    length = int(1e7)
+    type_ = 'i'
+    print(size, length, seed.__next__(), type_)
