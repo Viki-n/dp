@@ -5,7 +5,7 @@ seed = range(10000000).__iter__()
 for size in np.logspace(1, 8):
     size = int(size)
     length = max(int(1e7), size*10)
-    for type_ in 'srub':
+    for type_ in 'srbu':
         if type_ in 'ub':
             if size > 1e7:
                 continue
