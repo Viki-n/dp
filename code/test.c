@@ -91,7 +91,7 @@ int _main(int argc, char ** argv){
 #endif
 }
 
-def print_addr(int maxdepth, Node* n){
+void print_addr(int maxdepth, Node* n){
     if (n == NULL){
         return;
     }
