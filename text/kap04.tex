@@ -153,10 +153,38 @@ $\max\left(k, 2^{c+h-\ell - 3}\right).$
 Pokud do tohoto vzorce dosadíme náš hardware a náš největší měřený případ,
 dostaneme dostaneme následující informace: Naše L3 cache má $128
 \,\operatorname{MB}$. Jeden cachový řádek má 64 bytů. Naše cache má tedy
-$2^{27}$ bytů a $2^{21}$ řádků Proto bychom do ní rádi uložili prvních 21 hladin stromu. Náš
-největší měřený případ měl $1\cdot 10^8 > 2 ^ {26}$ vrcholů. Z těchto ale můžeme současně uložit jen $2^{27 + 21 - 26 - 3} = 2^{19}$, tedy jednu čtvrtinu toho, co bychom mohli s plně asociativní cachí. V tomto výpočtu jsme navíc zanedbali další faktory, které nám mohou škodit -- do cache se musí vejít i jiné věci, než prvních $h$ hladin stromu, jako třeba náš program, naše poslední cesty stromem mimo prvních $h$ hladin, nebo aktuální kus přístupové posloupnosti. Dále je potřeba si uvědomit, že podobný problém nastane na všech úrovních cache současně.
+$2^{27}$ bytů a $2^{21}$ řádků. Proto bychom do ní rádi uložili prvních 21 hladin stromu. Náš
+největší měřený případ měl $1\cdot 10^8 > 2 ^ {26}$ vrcholů. Z těchto ale
+můžeme současně uložit jen $2^{27 + 21 - 26 - 3} = 2^{19}$, tedy jednu čtvrtinu
+toho, co bychom mohli s plně asociativní cachí. Co hůře, všimneme si, že dokud
+$2^h \geq 4k$, poměr mezi částí stromu, kterou bychom chtěli  uložit, a částí,
+kterou se nám skutečně uložit povede, zůstává konstantní $1/4$. Jinými slovy,
+nemůžeme doufat, že do cache tedy uložíme prostě o 2 hladiny méně, než jsme
+doufali -- pokud bychom se pokusili uložit $2^{19}$ vrcholů z prvních 19
+hladin, podaří se nám ve skutečnosti uložit pouze $2^17$ vrcholů. To znamená,
+že z každé hladiny, která obsahuje více než $4k$ vrcholů, se nám podaří uložit
+pouze čtvrtinu (stále se jedná o optimistický odhad, předpokládáme, že hladiny
+mezi sebou třídy ekvivalence aliasování nesdílí, dostatečně blízko ke kořeni
+však tento předpoklad nemusí platit). 
 
-Tím bychom tedy měli vyřešené chování dokonale vyváženého stromu a můžeme se vrátit k červenočernému stromu.
+V našem případě se $k$ rovná $16$. To znamená, že můžeme plně uložit prvních pět hladin, z
+šesté uložíme polovinu, ze všech dalších pak už jen čtvrtinu až po 23., což je
+poslední hladina, z níž se jedna čtvrtina do cache vejde, i kdyby v ní nic
+jiného než tato hladina nebylo. Na dalších úrovních pak zeshora odhadneme
+pravděpodobnost přítomnosti daného vrcholu v cachi popořadě jako $1/8$, $1/16$
+a tak dále. To znamená, že střední hodnota počtu nenacachovaných řádků, které
+musíme načíst při přístupu k náhodnému listu stromu, je díky linearitě střední
+hodnoty $$\sum_{h=1}^{26} \operatorname{P}[\text{Vrchol na $h$-té hladině není v
+cachi}] > 5 \cdot 0 +  \frac 12 + 17\cdot \frac34 + \frac78 + \frac{15}{16} + \frac{31}{32} = 15\frac1{32},$$ což je výrazně horší než pět přístupů mimo cache, ve které bychom mohli doufat, kdyby naše cache byla plně asociativní.   
+
+V tomto výpočtu jsme navíc
+zanedbali další faktory, které nám mohou škodit -- do cache se musí vejít i
+jiné věci, než prvních $h$ hladin stromu, jako třeba náš program, naše poslední
+cesty stromem mimo prvních $h$ hladin, nebo aktuální kus přístupové
+posloupnosti. Dále je potřeba si uvědomit, že podobný problém nastane na všech
+úrovních cache.
+
+Tím bychom tedy měli vyřešené chování dokonale vyváženého stromu a můžeme se vrátit k červenočernému stromu. Experimentálně jsme ověřili, že naše implementace červenočerného stromu vede k tomu, že pro $n=1\cdot 10^7$ 
 
 \section{Sekvenční přístupová posloupnost}
 
