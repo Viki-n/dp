@@ -13,6 +13,8 @@ test_rb:
 	gcc -Wall -Wextra -O3 -D REDBLACK -o test_rb_time run_test.c
 	gcc -Wall -Wextra -O3 -D REDBLACK -D TOUCH -o test_rb_touch run_test.c
 
+test_rb_random:
+	gcc -Wall -Wextra -O3 -D REDBLACK -D RANDOM_ALLOCATION -o test_rbrandom_time run_test.c
 
 test_multisplay:
 	gcc -Wall -Wextra -O3 -D MULTISPLAY -o test_multisplay_time run_test.c

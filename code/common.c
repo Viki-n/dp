@@ -1,3 +1,6 @@
+#ifdef RANDOM_ALLOCATION
+#include "random.c"
+#endif
 
 struct Node{
     VALUE value;
@@ -387,6 +390,26 @@ void split(Node** root, VALUE value){
 
 #endif
 
+#ifdef RANDOM_ALLOCATION
+int* shuffled_array(int size){
+    int* result = malloc(size*sizeof(int));
+    for (int i=0; i<size; i++){
+        result[i] = i;
+    }
+    for (int i=0; i<size; i++){
+        int rd = next() % (size - i) + i;
+        int tmp = result[i];
+        result[i] = result[rd];
+        result[rd] = tmp;
+    }
+    return result;
+}
+int* order = NULL;
+#define SHUFFLE(x) order[x]
+#else
+#define SHUFFLE(x) x
+#endif
+
 Node* _allocated_memory = NULL;
 int _allocated_memory_index = 0;
 int _memory_alignment = 1 << 12;
@@ -395,10 +418,16 @@ void init_memory(int size){
     void* target = NULL;
     posix_memalign(&target, _memory_alignment, size*sizeof(Node));
     _allocated_memory = target;
+#ifdef RANDOM_ALLOCATION
+    for (int i=0; i<(size & 0x1ff); i++){
+        jump();
+    }
+    order = shuffled_array(size);
+#endif
 }
 
 Node* get_node(){
 
-    return &(_allocated_memory[_allocated_memory_index++]);
+    return &(_allocated_memory[SHUFFLE(_allocated_memory_index++)]);
 }
 

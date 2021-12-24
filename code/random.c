@@ -1,3 +1,5 @@
+#ifndef _RANDOM
+#define _RANDOM
 /*  Written in 2018 by David Blackman and Sebastiano Vigna (vigna@acm.org)
 
 To the extent possible under law, the author has dedicated all copyright
@@ -102,3 +104,4 @@ void long_jump(void) {
 	s[2] = s2;
 	s[3] = s3;
 }
+#endif
