@@ -4,7 +4,11 @@ V této kapitole popíšeme některé detaily implementací binárních vyhledá
 
 \section{Implementace}
 
-Všechny testované struktury jsme implementovali v jazyce C. Ten byl zvolen proto, že umožňuje kontrolovat, co přesně měříme -- měření nám nepokazí ani interní fungování interpreteru jako by hrozilo, kdybychom zvolili například Python, ani zásahy garbage collectoru, které by se nám nevyhnuly například v Javě.
+Všechny testované struktury jsme implementovali v jazyce C. Ten byl zvolen
+proto, že umožňuje kontrolovat, co přesně měříme -- měření nám nepokazí ani
+interní fungování interpreteru, jako by hrozilo, kdybychom zvolili například
+Python, ani zásahy garbage collectoru, které by se nám nevyhnuly například v
+Javě.
 
 Při implementaci testovaných struktur jsme pro každou strukturu
 naimplementovali operaci \ope{Find}. Dále jsme pro červenočerný strom a splay
@@ -28,7 +32,7 @@ přiřadili její pořadové číslo. V každém vrcholu jsme si zaznamenali po�
 operace, při které byl naposled navštíven. Poté jsme vždy, když jsme se dotkli daného
 vrcholu, kde dotykem myslíme dereferencování na něj mířícího ukazatele,
 zkontrolovali, zda jsme ho během této operace již viděli, a pokud ne, změnili jsme
-číslo poslední operace, které máme v tomto vrcholu zaznamenané, a zvýšili
+číslo poslední operace které máme v tomto vrcholu zaznamenané a zvýšili
 počítadlo dotčených vrcholů o jedna.
 
 Měření času jsme provedli pomocí jiného programu, než kterým počítáme doteky
@@ -50,8 +54,8 @@ se nedostaneme na konec posloupnosti.
 
 Procesorový čas jsme měřili pomocí funkce {\tt clock()} z hlavičkového souboru
 {\tt time.h}. K měření jsme použili procesor {\tt AMD EPYC 7301} s
-frekvencí  $2.7\, \operatorname{GHz}$. Tento procesor obsahuje 4 fyzická a tedy
-8 logických jader, naše měření však nebylo nijak paralelizováno. V systému bylo
+frekvencí  $2.7\, \operatorname{GHz}$. Tento procesor obsahuje 8 fyzických a tedy
+16 logických jader, naše měření však nebylo nijak paralelizováno. V systému bylo
 k dispozici $126\,\operatorname{GB}$ RAM. Vzhledem k tomu, že na pamětově
 nejnáročnější z navržených testů stačilo méně než $10\,\operatorname{GB}$
 paměti, nás tedy dostupná paměť nijak neomezila. Měření proběhlo pod operačním

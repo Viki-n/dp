@@ -99,8 +99,64 @@ průměrný čas na dotek vrcholu v červenočerném stromu propadá až témě�
 stromu -- to je obzvláště překvapivé proto, že červenočerný strom vrcholy pouze
 prochází a nijak strom nemodifikuje, kdežto všechny ostatní stromy vrcholy
 modifikují a navíc jimi mohou projít během jedné operace i vícekrát, což my
-ovšem ale stále počítáme jako jeden dotyk. TODO VYSVĚTLIT 
+ovšem ale stále počítáme jako jeden dotyk.
 
+Toto chování má své vysvětlení, předtím, než k němu přistoupíme ale musíme udělat krátkou odbočku, v níž vysvětlíme, jak funguje cache procesoru.
+
+\subsection{Červenočerný strom a cache}
+
+Procesor má obvykle tři úrovně cache, nejmenší L1, o něco větší L2 a největší
+L3. To pro nás ale teď nebude důležité -- omezíme se pouze na jednu úroveň.
+Cache je rozdělená na jednotlivé řádky, v dnešních procesorech typicky 64 bytů
+velké. Pokud procesor chce přistoupit na nějakou adresu, blok paměti o
+velikosti jednoho cachového řádku zarovnaný na velikost cachového
+řádku\footnote{To znamená, že adresa začátku tohoto bloku je dělitelná délkou
+cachového řádku.} obsahující tuto adresu je načten do cache. Může se ale stát,
+že v cachi už není volné místo. V ideálním světě by v takovém případě cache
+vybrala z řádků, které obsahuje, ten, ke kterému procesor nejdéle nepřistoupil,
+a ten by odstranila. Tomuto přístupu obecně říkáme \emph{LRU\footnote{Z
+anglického \emph{least recently used}.} cache}.
+
+Pro to bychom ale potřebovali, aby libovolný řádek cache mohl obsahovat
+libovolný blok paměti. Takovou cache bychom nazvali \emph{plně asociativní}.
+Potom by ale bylo velmi obtížné zjistit, kde v cachi je daný blok paměti
+uložený. Proto jsou v praxi cache \emph{$k$-cestně asociativní}. To znamená, že
+každý blok může být uložen pouze na $k$ různých místech v cachi. Která místa to
+budou je pak určeno několika nejnižšími bity adresy bloku. Konkrétně pokud máme
+cache o $C$ bytech, uložení bloku určuje $\log (C/k)$ nejnižších bitů jeho
+adresy.
+
+To znamená, že pokud jsou dva bloky paměti uložené na adresách, které dávají
+stejný zbytek po dělení dostatečně velkou mocninou dvojky, mají oba na výběr
+pouze $k$ míst v cachi, kam mohou být uloženy. Navíc se jedná o těch samých $k$
+míst. Tomu říkáme, že tyto bloky, případně adresy, \emph{aliasují}.
+
+Kdybychom potřebovali pracovat s větším počtem aliasujících bloků, přestává být
+podstatný celkový počet řádků, které se do cache vejdou -- o tom, jak úspěšná
+cache bude, rozhoduje pouze hdnota $k$.
+
+Nyní se vrátíme k červenočerným stromům. Již dříve jsme řekli, že náš postup stavby červenočerného stromu vede k tomu, že podstrom každého vrcholu krom vrcholů na cestě z kořene k maximu je dokonale vyvážený. Proto můžeme pro zjednodušení problém vysvětlit na dokonale vyváženém stromu. Pro strom, který dostaneme z naší konstrukce červenočerného stromu budou závěry, které uděláme, platit podobně. Jediná důležitá věc, které si ještě musíme všimnout, je, že náš způsob alokace paměti spolu s naším způsobem stavby stromu vede k tomu, že vrcholy jsou v paměti uloženy jeden za druhým v rostoucím pořadí.
+
+Mějme tedy dokonale vyvážený strom nad množinou klíčů $[2^k-1]$. Všimneme si že v listech jsou uložena právě lichá čísla. V jejich rodičích jsou uložena právě čísla, která dávají zbytek 2 po dělení 4. V jejich rodičích pak čísla, která dávají zbytek 4 po dělení 8. Takto bychom mohli pokračovat dál až k tomu, že v kořeni je právě číslo, které dává zbytek $2^{k-1}$ při dělení $2^k$ (mimo jiné proto, že v kořeni je přesně číslo $2^{k-1}$).
+
+Na to se můžeme ale podívat i opačně, shora dolů. Nahlédneme, že v kořeni je právě číslo dělitelné $2^{k-1}$. V kořeni a jeho synech jsou pak dohromady právě všechna čísla dělitelná $2^{k-2}$. Podobně můžeme pokračovat dál -- všimneme si, že v prvních $h$ hladinách jsou uložena právě všechna čísle, která jsou dělitelná $2^{k-h}$. A jsou-li tedy vrcholy uložené za sebou v rostoucím pořadí jejich klíčů, a navíc předpokládáme, že množství bytů v paměti, které jeden vrchol zabírá, je dělitelné 8 (tento předpoklad splňují všechny naše implementace stromů), potom adresy všech vrcholů z prvních $h$ hladin dávají po dělení $2^{k-h+3}$ stejný zbytek.
+
+Nyní se zamyslíme, jaké chování cache bychom si přáli při vykonávání náhodné přístupové posloupnosti nad dokonale vyváženým binárním vyhledávacím stromem. Pravděpodobnost návštěvy vrcholu $v$ při daném přístupu je přesně rovna velikosti jeho podstromu dělené počtem vrcholu ve stromu. To znamená, že tato pravděpodobnost je klesající funkce hloubky tohoto vrcholu. My bychom si přáli držet si v cachi (samozřejmě za podmínky, že máme příliš malou cache, než aby se nám do ní vešel celý strom) právě vrcholy, které mají pravděpodobnost přístupu alespoň $p$ pro vhodně zvolené $p$. Rozmyslíme si, že (opět pro dostatečně velký strom) není možné, že bychom do jednoho řádku cache uložili více zajímavých vrcholů (například v našem případě -- vrcholy stromu jsou 24 bytové, řádky cache 64 bytové. I kdybychom do jednoho řádku uložili 3 vrcholy, oba sousedi libovolného vrcholu $v$ s nízkou hloubkou jsou listy, a jejich sousedé různí od $v$ jsou jejich rodiče). Proto prostě chceme do cache uložit prvních $h$ hladin stromu pro vhodně zvolené $h$.
+
+Jak jsme ale již ukázali, pokud má strom celkem $\ell$ hladin, prvních $h$
+hladin obsahuje vrcholy, jejichž adresy jsou kongruentní modulo $2^{\ell - h}$.
+Pokud naše cache má kapacitu $2^c$ bytů a je $k$-asociativní, budou tyto adresy
+rozděleny pouze do $\max\left(1, 2^{c+h-\ell - 3}/k\right)$ tříd
+ekvivalence aliasování, a současně jich tedy bude moct být uloženo nejvýše
+$\max\left(k, 2^{c+h-\ell - 3}\right).$
+
+Pokud do tohoto vzorce dosadíme náš hardware a náš největší měřený případ,
+dostaneme dostaneme následující informace: Naše L3 cache má $128
+\,\operatorname{MB}$. Jeden cachový řádek má 64 bytů. Naše cache má tedy
+$2^{27}$ bytů a $2^{21}$ řádků Proto bychom do ní rádi uložili prvních 21 hladin stromu. Náš
+největší měřený případ měl $1\cdot 10^8 > 2 ^ {26}$ vrcholů. Z těchto ale můžeme současně uložit jen $2^{27 + 21 - 26 - 3} = 2^{19}$, tedy jednu čtvrtinu toho, co bychom mohli s plně asociativní cachí. V tomto výpočtu jsme navíc zanedbali další faktory, které nám mohou škodit -- do cache se musí vejít i jiné věci, než prvních $h$ hladin stromu, jako třeba náš program, naše poslední cesty stromem mimo prvních $h$ hladin, nebo aktuální kus přístupové posloupnosti. Dále je potřeba si uvědomit, že podobný problém nastane na všech úrovních cache současně.
+
+Tím bychom tedy měli vyřešené chování dokonale vyváženého stromu a můžeme se vrátit k červenočernému stromu.
 
 \section{Sekvenční přístupová posloupnost}
 
