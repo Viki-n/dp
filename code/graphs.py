@@ -135,6 +135,36 @@ def simple_graphs(seq_type, prints=False):
         plt.figure()
 
 
+def randomized_graphs():
+    df = load_data('data')
+    df['value'] /= df['sequence_length']
+    df1 = df.loc[(df['sequence_type'] == 'r') & (df['structure'] == 'rb')].copy()
+    df3 = df.loc[(df['sequence_type'] == 'r') & (df['structure'] == 'splay')].copy()
+
+    df2 = load_data('data_random')
+    df2['value'] /= df2['sequence_length']
+    #  df2['structure'] = 'rbrandom'
+
+    for df in [df1, df2, df3]:
+        type_='time'
+        df_ = df.loc[df['value_type'] == type_].copy()
+
+        label = LABELS[type_]
+        plt.semilogx()
+
+        for st, aux in df_.groupby('structure'):
+            label_ = 'Sekvenční alokace' if 'rb' == st else (LABELS[st] + ' strom' if st in LABELS else 'Náhodná alokace')
+            line_type = ':' if 'rbrandom' == st else '-'
+            plt.plot(aux['tree_size'], aux['value'], label=label_, linestyle=line_type, color=COLORS.get(st, COLORS['rb']))
+
+    plt.xlabel('Počet vrcholů stromu')
+    plt.ylabel(label)
+    plt.legend()
+    plt.grid()
+    plt.savefig(f'../text/graphs/randomized_rb.pdf')
+    plt.figure()
+
+
 def variance_random_tango_touch():
     df = load_data('data')
     df['value'] /= df['sequence_length']
@@ -161,4 +191,5 @@ if __name__ == '__main__':
     simple_graphs('s', True)
     simple_graphs('r')
     variance_random_tango_touch()
+    randomized_graphs()
 

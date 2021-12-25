@@ -50,9 +50,9 @@ vrcholu $(\log n) - 1 + o(1)$. My jsme ale v minulé kapitole řekli, že náš
 Jak je tedy možné, že průměrná hloubka vrcholu ve velmi nevyváženém
 červenočerném stromu je jen o aditivní $1/2$ větší než v dokonale vyváženém
 stromu? Odpověď na tuto otázku je v nejasné definici velmi nevyváženého stromu.
-Náš strom vypadá tak, že na cestě z kořene do maxima se střídají černé a červené
+Náš strom vypadá tak, že na jeho pravé páteři se střídají černé a červené
 vrcholy, ale celý zbytek stromu krom této cesty a vrcholů s ní bezprostředně
-sousedících je stále černý. Proto je i vyvážený, jak to jen jde -- kvůli
+sousedících je stále černý\footnote{Toto tvrzení dokážeme později.}. Proto je i vyvážený, jak to jen jde -- kvůli
 invariantu červenočerného stromu je každý čistě černý podstrom dokonale
 vyvážený.
 
@@ -61,7 +61,7 @@ tedy extrémně nevyvážený v tom smyslu, že dosahuje co nejvyšší možné 
 hloubky při daném počtu vrcholů. Také je extrémně nevyvážený stran poměru
 velikosti pravého a levého podstromu kořene (v závislosti na přesné velikosti
 experimentálně určeného jako $2:5$ až $1:5$). Protože však současně jsou
-podstromy všech vrcholů krom těch ležících na cestě z kořene do maxima dokonale
+podstromy všech vrcholů krom těch ležících na pravé páteři dokonale
 vyvážené, stran průměrné hloubky vrcholu je takto vybudovaný strom poměrně
 blízko dokonale vyváženému stromu.
 
@@ -93,6 +93,8 @@ Jeden vrchol multisplay stromu a tango stromu pak zabírá 32 bytů a výše uve
 
 \graphfigure{ratio_r}{Průměrný čas na dotyk -- náhodná přístupová posloupnost.}
 
+\subsection{Červenočerný strom a cache}
+
 Překvapivé je, že kolem $n=2\cdot10^6$ se splay strom stává rychlejší než
 červenočerný strom. Ve skutečnosti se podle grafu na obrázku \ref{obr:ratio_r}
 průměrný čas na dotek vrcholu v červenočerném stromu propadá až téměř na úroveň tango
@@ -101,9 +103,10 @@ prochází a nijak strom nemodifikuje, kdežto všechny ostatní stromy vrcholy
 modifikují a navíc jimi mohou projít během jedné operace i vícekrát, což my
 ovšem ale stále počítáme jako jeden dotyk.
 
-Toto chování má své vysvětlení, předtím, než k němu přistoupíme ale musíme udělat krátkou odbočku, v níž vysvětlíme, jak funguje cache procesoru.
+Toto chování má své vysvětlení, předtím, než k němu přistoupíme ale musíme
+udělat krátkou odbočku, v níž vysvětlíme, jak funguje cache procesoru.
 
-\subsection{Červenočerný strom a cache}
+\subsubsection{Chování cache}
 
 Procesor má obvykle tři úrovně cache, nejmenší L1, o něco větší L2 a největší
 L3. To pro nás ale teď nebude důležité -- omezíme se pouze na jednu úroveň.
@@ -135,7 +138,9 @@ Kdybychom potřebovali pracovat s větším počtem aliasujících bloků, přes
 podstatný celkový počet řádků, které se do cache vejdou -- o tom, jak úspěšná
 cache bude, rozhoduje pouze hdnota $k$.
 
-Nyní se vrátíme k červenočerným stromům. Již dříve jsme řekli, že náš postup stavby červenočerného stromu vede k tomu, že podstrom každého vrcholu krom vrcholů na cestě z kořene k maximu je dokonale vyvážený. Proto můžeme pro zjednodušení problém vysvětlit na dokonale vyváženém stromu. Pro strom, který dostaneme z naší konstrukce červenočerného stromu budou závěry, které uděláme, platit podobně. Jediná důležitá věc, které si ještě musíme všimnout, je, že náš způsob alokace paměti spolu s naším způsobem stavby stromu vede k tomu, že vrcholy jsou v paměti uloženy jeden za druhým v rostoucím pořadí.
+\subsubsection{Cache a dokonale vyvážené stromy}\label{sec:cache_and_balanced}
+
+Nyní se vrátíme k červenočerným stromům. Již dříve jsme řekli, že náš postup stavby červenočerného stromu vede k tomu, že podstrom každého vrcholu krom vrcholů na pravé páteři je dokonale vyvážený. Proto můžeme pro zjednodušení problém vysvětlit na dokonale vyváženém stromu. Pro strom, který dostaneme z naší konstrukce červenočerného stromu budou závěry, které uděláme, platit podobně. Jediná důležitá věc, které si ještě musíme všimnout, je, že náš způsob alokace paměti spolu s naším způsobem stavby stromu vede k tomu, že vrcholy jsou v paměti uloženy jeden za druhým v rostoucím pořadí.
 
 Mějme tedy dokonale vyvážený strom nad množinou klíčů $[2^k-1]$. Všimneme si že v listech jsou uložena právě lichá čísla. V jejich rodičích jsou uložena právě čísla, která dávají zbytek 2 po dělení 4. V jejich rodičích pak čísla, která dávají zbytek 4 po dělení 8. Takto bychom mohli pokračovat dál až k tomu, že v kořeni je právě číslo, které dává zbytek $2^{k-1}$ při dělení $2^k$ (mimo jiné proto, že v kořeni je přesně číslo $2^{k-1}$).
 
@@ -184,7 +189,125 @@ cesty stromem mimo prvních $h$ hladin, nebo aktuální kus přístupové
 posloupnosti. Dále je potřeba si uvědomit, že podobný problém nastane na všech
 úrovních cache.
 
-Tím bychom tedy měli vyřešené chování dokonale vyváženého stromu a můžeme se vrátit k červenočernému stromu. Experimentálně jsme ověřili, že naše implementace červenočerného stromu vede k tomu, že pro $n=1\cdot 10^7$ 
+\subsubsection{Praktické chování červenočerných stromů}
+
+Tím bychom tedy měli vyřešené chování dokonale vyváženého stromu a můžeme se
+vrátit k červenočernému stromu. Experimentálně jsme ověřili, že naší
+implementací červenočerného stromu mají pro $n=1\cdot 10^7$  adresy vrcholů v
+prvních 8 hladinách stromu, tedy 255 vrcholů nejblíže ke kořeni, všechny
+stejných 17 nejnižších bitů. Více než polovina z nich se shodne dokonce na 19
+bitech. Pro $n=1\cdot10^8$ mají adresy 255 nejvyšších vrcholů dokonce 21
+společných nejnižších bitů.   
+
+Dále jsem ověřili, zda problém skutečně nastává. Připomeneme, že naše struktury stavíme tak, že nejprve naalokujeme pole tak velké, aby se nám do něj vešel celý strom, jehož začátek je zarovnaný na začátek stránky paměti, a poté vždy, když potřebujeme nový vrchol, použijeme z tohoto pole první nepoužitý. Vzhledem k tomu, že jsme ani jedné ze struktur neimplementovali operaci \ope{Delete}, je tento postup poměrně přímočarý.
+
+Díky naší implemntaci operací \ope{Build} u jednotlivých stromů vede tento postup k tomu, že splay strom a červenočerný strom mají své vrcholy v paměti v rostoucím pořadí klíčů, tango strom a multisplay strom v preorder pořadí jejich referenčních stromů $P$. To znamená, že je nejprve uložen kořen $P$, pak rekurzivně stejně jeho levý podstrom, a nakonec pravý podstrom.
+
+Provedli jsme tedy experiment, kdy jsme opět naměřili čas běhu červenočerného stromu na náhodné přístupové posloupnosti. Upravili jsme ale alokaci paměti na nové vrcholy tak, že z pole nepřidělujeme adresy novým vrcholům sekvenčně, ale v náhodném pořadí. Tato úprava vedla k tomu, že průměrný čas na dotek mnohem lépe kopíruje chování splay stromu, jak je vidět na obrázku \ref{obr:randomized_rb}.
+
+\graphfigure{randomized_rb}{Průměrný čas na přístup -- náhodná přístupová posloupnost.}
+
+\subsubsection{Teoretické chování červenočerných stromů}
+
+Nyní se ale ještě na chvíli vrátíme k výpočtům. Již víme, že popisovaný problém
+skutečně v praxi nastává. V sekci \ref{sec:cache_and_balanced} jsme ukázali, že
+perfektně vyváženého stromu, jehož počet vrcholů je mocnina dvojky mínus jedna,
+se týká velmi výrazně. To má jednoduchý důvod -- takový strom je velmi
+pravidelný, a tyto pravidelnosti jsou založené na mocninách dvojky, které také
+figurují v ekvivalenčních třídách aliasování cache. Tango stromu, multisplay
+stromu a splay stromu se tento problém vyhne právě kvůli tomu, že jejich
+struktura je velmi nepravidelná (přestože u prvních dvou existuje dokonale
+vyvážený refenční strom $P$. Možná jim v našem měření pomohly také
+nepravidelnosti ve struktuře $P$ pramenící z toho, že žádná z měřených
+velikostí nebyla příliš blízko k mocnině dvojky.)
+
+Přirozená otázka pak ale je, nastávají tyto problémy stejnou měrou jako v
+dokonale vyváženém stromě? Ukážeme, že rozdíly mezi červenočerným a dokonale
+vyváženým stromem nám pomůžou zcela zanedbatelně -- téměř všechny vrcholy,
+kterými budeme s velkou pravděpodobností potřebovat projít, budou stále na
+adresách kongruentních modulo vysoká mocnina dvojky. 
+
+Připomeneme, že
+pravděpodobnost, že bude nutné projít daným vrcholem při vyhledání rovnoměrně náhodně vybraného klíče z tohoto stromu, je rovná velikosti
+podstromu tohoto vrcholu dělené velikostí celého stromu. Dále vzhledem k tomu,
+že uvažujeme sekvenční uložení vrcholů, nebudeme pracovat pro zjednodušení
+práce s adresami vrcholů, ale s klíči v nich -- snadno nahlédneme, že klíče
+dvou vrcholů jsou kongruentní modulo $2^h$, právě když jejich adresy jsou
+kongruentní modulo $2^{h+s}$, kde $2^s$ je nejvyšší mocnina dvojky, kterou je
+dělitelný počet bytů paměti, které zabírá jeden vrchol. Pak dokážeme
+následující tvrzení:
+
+\begin{tvrz}
+Mějme červenočerný strom $T$, který vznikl tak, že byly jeho klíče vloženy do na počátku prázdného stromu v rostoucím pořadí. Potom pro každé $h\in \mathbb N$ jsou vrcholy, jejichž podstrom obsahuje alespoň $2^h -1$ vrcholů, až na konstantně mnoho výjimek právě ty vrcholy, jejichž klíče jsou kongruentní s klíčem v kořeni modulo $2^{h-1}$.
+\end{tvrz}
+
+\begin{dukaz}
+Budeme předpokládat, že $T$ má alespoň $2^h-1$ vrcholů.
+
+Nejprve začneme s důkazem, který jsme slíbili již na začátku této sekce.
+
+\begin{lemma}
+Mějme červenočerný strom $T$, který vznikl tak, že byly jeho klíče v rostoucím pořadí vloženy do na počátku prázdného stromu. Pak všechny červené vrcholy z $T$ leží buď na pravé páteři $T$, nebo jsou syni vrcholu, který leží na pravé páteři $T$.
+\end{lemma}
+\begin{dukaz}
+Budeme postupovat indukcí podle počtu vrcholů $T$. Je zřejmé, že pro strom o jednom vrcholu tvrzení platí. Nyní ukážeme, že pokdu do takového stromu $T$ nad klíči $[n]$ vložíme klíč $n+1$, strom bude stále mít požadovanou vlastnost.
+
+Rozmyslíme si, jak by se mohlo stát, že nám vznikne červený vrchol mimo pravou páteř nebo její sousedství. Není možné, že bychom ho tam tak přímo vložili, protože vkládáme nové maximum a tedy na pravou páteř. Při vyvažování po operaci \ope{Insert} děláme 3 typy kroků: Přebarvení černého vrcholu na červený a obou jeho synů z červené na černou, rotace a dvojitá rotace.
+
+Při přebarvování se nám nemůže stát, že bychom přebarvili na červeno vrchol mimo pravou páteř, protože takto přebarvujeme vždy vrchol na cestě mezi vkládaným vrcholem a kořenem.
+
+Při vkládání nového maxima se nám nikdy nemůže stát, že bychom potřebovali provést dvojitou rotaci, protože tu provádíme pouze v situaci, kdy při cestě z vkládaného vrcholu do kořene střídáme směry, ze kterých se vracíme.
+
+Při vkládání nového maxima bychom mohli chtít provést jedině rotaci doleva.
+Mějme tedy vrchol $v$, jeho pravého syna $u$ a levého syna $w$. Dále mějme levého syna $x$ vrcholu $u$.
+rotovaná hrana vždy leží na cestě z nového vrcholu do kořene, víme, že $v$ a
+$u$ leží na pravé páteři. Kdyby se nám po rotaci stalo, že budeme mít červený vrchol mimo pravou páteř $T$ a její sousedství, musel by před rotací být červený alespoň jeden z vrcholů $w$ a $x$. To ale není možné. Víme, že v případě, že jsme přistoupili k vyvažování, musí být vrchol $v$ černý a vrchol $u$ i jeho pravý syn červený. To znamená, že vrchol $u$ musel být červený již před aktuální operací \ope{Insert}. Kdyby tedy byl vrchol $x$ červený, porušoval by již před aktuální operací \ope{Insert} spolu s vrcholem $u$ invariant červenočerného stromu. Kdyby byl červený vrchol $w$, nevyvažovali bychom strom rotací, ale přebarvením $u$ a $w$ na černo a $v$ na červeno. 
+\end{dukaz}
+
+Z invariantu červenočerného stromu vyplývá, že pokud v červenočerném stromu nejsou krom možná kořene žádné červené vrcholy, musí být všechny cesty z kořene do externího vrcholu stejně dlouhé, tedy tento strom musí být dokonale vyvážený a počet vrcholů v něm musí být bez jednoho mocnina dvojky. To samé platí i o podstromech jednotlivých vrcholů v červenočerném stromu.
+
+Před další částí důkazu nahlédneme, že v $T$ nikdy nemůže být pravý ani levý podstrom vrcholu menší, než pravý ani levý podstrom jeho syna, krom případu, kdy nějaké z těchto podstromů obsahují část pravé páteře $T$.
+
+Mějme dva vrcholy $u$, $v$ stromu $T$ takové, že $u$ je bez újmy na obecnosti v pravém
+podstromu $v$. Velikost levého podstromu $u$ si označíme jako $2^{h'}-1$. Rozmyslíme si, kde leží vrcholy, jejichž klíče leží mezi klíčem
+$u$ a $v$. Jedná se jednak o celý levý podstrom $v$, jednak o některé vrcholy
+na cestě mezi $u$ a $v$, a jednak o levé podstromy těchto vrcholů. Tyto vrcholy
+sice potenciálně mohou ležet i na pravé páteři, ale kořeny všech zmíněných podstromů nikoli -- buď se jedná o levé podstromy, nebo se vše odehrává v levém podstromu $v$. To znamená, že velikost každého z těchto podstromů je alespoň $2^{h'} - 1$, a tedy pokud k ní připočteme ještě samotný vrchol, na kterém tento podstrom visí, bude dělitelná $2^{h'}$. To tedy znamená, že rozdíl mezi hodnotami v $u$ a $v$ je dělitelný $2^{h'}$.
+
+\begin{pozorovani}\label{poz:1}
+Tím jsme ukázali, že pro všechny vrcholy platí, že rozdíl jejich hodnoty a hodnoty kořene je dělitelný hodnotou jedna plus velikost pravého či levého podstromu daného vrcholu (v závislosti na tom, zda je daný vrchol v levém či pravém podstromu kořene).
+\end{pozorovani}
+
+Nyní najdeme vrchol $v$, což bude vrchol s nejvyšším klíčem takový, že jeho levý
+podstrom má velikost alespoň $2^{h-1} -1$, nebo kořen, pokud žádný takový vrchol neexistuje. Rozmyslíme si, že $v$ leží na pravé páteři $T$. Strom si
+rozdělíme na dvě části: $T_2$, což bude pravý podstrom $v$, a $T_1$ což bude zbytek $T$ včetně $v$.
+
+Podmínky ze znění tvrzení si označíme jako $p_1$ a $p_2$. Vrchol tedy splňuje podmínku $p_1$, pokud jeho podstrom obsahuje alespoň $2^h-1$ vrcholů, a podmínku $p_2$, pokud je jeho hodnota kongruentní s hodnotou v kořeni modulo $2^{h-1}$.
+
+Nyní ukážeme, že v $T_1$ splňují obě podmínky přesně tytéž vrcholy, a v $T_2$ splňuje každou z podmínek nejvýše konstantně mnoho vrcholů.
+
+Pro $T_1$ tedy potřebujeme dokázat dvě implikace. První z nich, tedy že vrchol
+splňující $p_1$ splňuje i $p_2$, plyne z pozorování \ref{poz:1}. Naopak pokud
+máme vrchol $u$, který nesplňuje $p_1$, najdeme jeho nejbližšího předka $w$,
+který $p_1$ splňuje. Rozmyslíme si, že $w$ nemůže ležet na pravé páteři. Tento vrchol má podstrom velikosti právě $2^{h}-1$. Rozdíl
+jeho hodnoty a hodnoty libovolného vrcholu v jeho podstromě je tedy maximálně
+$2^{h-1}-1$. Protože dále už víme, že $w$ splňuje i $p_2$, $u$ splňovat $p_2$
+nemůže.
+
+Na poslední část důkazu potřebujeme ještě jedno lemma.
+
+\begin{lemma}
+Každý vrchol $T$, který má oba syny, má pravý strom nejvýše pětkrát větší než levý.
+\end{lemma}
+\begin{dukaz}
+TODO důkaz lematu
+\end{dukaz}
+
+Víme, že levý podstrom $v$ má velikost nejvýše $2^h-1$. Velikost $T_2$ je tedy nejvýše $5\cdot 2^h - 5$. To znamená, že v $T_2$ může být nejvýše 9 vrcholů splňujících $p_2$. Naopak díky volbě $v$ víme, že všechny vrcholy v $T_2$ splňující $p_1$ musí ležet na pravé páteři. Protože ale víme, že podstrom kořene $T_2$ je velký nejvýše $5\cdot 2^h-5$ a při přechodu z otce na pravého syna se vždy podstrom aktuálního vrcholu alespoň o šestinu zmenší, můžeme udělat nejvýše konstantně mnoho kroků, než bude podstrom aktuálního vrcholu menší než $2^h-1$. 
+\end{dukaz}
+
+Tím jsme tedy ukázali, že náš červenočerný strom trpí problémy s asociativitou cache téměř stejnou měrou, jako by byl dokonale vyvážený.
+
 
 \section{Sekvenční přístupová posloupnost}
 
