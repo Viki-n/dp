@@ -82,8 +82,8 @@ Podobným algoritmem budeme prvky přidávat, pouze místo nahlášení neexiste
 \begin{itemize}
 \item Je-li vrchol obsahující mazaný prvek list, prostě ho smažeme.
 \item Má-li vrchol obsahující mazaný prvek právě jednoho syna, prvek smažeme a jeho syna připojíme pod rodiče mazaného prvku na místo mazaného prvku.
-\item Má-li vrchol obsahující mazaný prvek dva syny, najdeme ve stromu prvek nejblíže větší, jeho
-hodnotu zapíšeme na místo odstraňovaného prvku a odstraníme vrchol, v~němž byl uložen tento nejblíže větší
+\item Má-li vrchol obsahující mazaný prvek dva syny, najdeme ve stromu nejblížší větší prvek, jeho
+hodnotu zapíšeme na místo odstraňovaného prvku a odstraníme vrchol, v~němž byl uložen tento nejbližší větší
 prvek. Tomuto vrcholu nutně chybí přinejmenším levý syn (kdyby existoval, hodnota
 v~něm by byla menší než hodnota jeho rodiče, ale větší než hodnota odstraňovaného
 vrcholu -- jeho rodič by tedy nemohl být nejbližší větší).  
@@ -328,8 +328,8 @@ zkontrahujeme všechny hrany mezi červeným synem černého otce, dostaneme str
 ve kterém má každý vrchol kromě listů mezi dvěma a čtyřmi potomky a ve kterém
 jsou všechny cesty z~kořene do listu stejně dlouhé.
 
-Nyní se pokusíme odhadnout minimální počet vrcholů $D(n)$ ve stromu hloubky
-$n$. Strom s~minimálním počtem vrcholů při dané hloubce vypadá tak, že obsahuje
+Nyní se pokusíme odhadnout minimální počet vrcholů ve stromu hloubky
+$n$. Tento minimální počet si označíme D(n). Strom s~minimálním počtem vrcholů při dané hloubce vypadá tak, že obsahuje
 jednu cestu, na níž se střídají červené a černé vrcholy. Na každý její vrchol
 dále pověsíme dokonale vyvážený strom tvořený pouze černými vrcholy o~hloubce
 určené tak, aby byly splněny invarianty. To znamená, že jeden z~podstromů
@@ -602,7 +602,7 @@ Pomocí operace $\ope{Splay}(x)$ naimplementujeme ostatní stromové operace. P�
 \begin{enumerate}
 \item $\ope{Split}(x)$ v~našem případě rozdělí strom na stromy s~hodnotou klíče větší než $x$, menší než $x$, případně nechá samostatně vrchol s~hodnotou $x$, pokud ve stromu byl. Začneme tedy zavoláním $\ope{Splay}(x)$.
 \item Pokud byl vrchol s~klíčem $x$ nalezen, máme hotovo -- vrátíme samostatně kořen stromu a jeho jednotlivé podstromy jako výstup.
-\item Jinak bez újmy na obecnosti nechť máme v~kořeni vrchol s~klíčem větším než $x$. Jedná se ale o~nejblíže větší klíč, proto můžeme odpojit jeho levého syna a oba takto vzniklé stromy vrátit jako výstup.
+\item Jinak bez újmy na obecnosti nechť máme v~kořeni vrchol s~klíčem větším než $x$. Jedná se ale o~nejbližší větší klíč, proto můžeme odpojit jeho levého syna a oba takto vzniklé stromy vrátit jako výstup.
 \end{enumerate}
 
 Splay strom nám garantuje logaritmickou amortizovanou složitost operace
@@ -1028,8 +1028,8 @@ Proto stačí informaci přepočítat v~týchž vrcholech, jako v~případě hlo
 dále na cestě mezi $v$ a $w$.
 
 Protože jsme popsali obecně, jak vykonat změnu barvy vrcholu a rotaci hrany ve
-stromu, máme vše i pro implementaci operace \ope{Delete} nad multisplay
-stromy\footnote{Pokud se chceme co nejpřesněji držet modelu, který jsme
+stromu, máme vše i pro implementaci operace \ope{Delete} v multisplay
+stromech\footnote{Pokud se chceme co nejpřesněji držet modelu, který jsme
 zavedli, přesouvání hodnot při mazání vnitřních vrcholů tak, jak je v~binárním
 vyhledávacím stromu obvyklé, není možné. Proto musíme \ope{Delete} vrcholu,
 který má nějaké potomky, implementovat tak, že nejprve provedeme rotace tak,
@@ -1076,4 +1076,4 @@ je délka posloupnosti $S$.  \end{veta}
 
 Nahlédneme, že vzhledem k~výše uvedenému popisu mazání a vkládání je multisplay strom i v~dynamickém modelu stále $\log\log(n)$-kompetitivní. 
 
-\section{Geometrický náhled na stromové operace}
+%\section{Geometrický náhled na stromové operace}
