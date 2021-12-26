@@ -307,7 +307,6 @@ Víme, že levý podstrom $v$ je buď čistě černý strom hloubky $h-1$, nebo 
 Pravý podstrom $v$ chceme naopak co největší. Pravý syn $v_1$ vrcholu $v$ tedy musí být červený. Proto musí být levý podstrom $v_1$ čistě černý a tedy obsahuje také $2^{h-1} -1$ vrcholů. Pravý syn $v_2$ vrcholu $v_1$ musí být černý, jeho levý podstrom tedy může mít červený kořen, proto může mít také $2^{h-1} -1$ vrcholů. Pravý syn $v_3$ vrcholu $v_2$ bude červený, jeho levý podstrom tedy čistě černý a tedy bude mít $2^{h-2}-1$ vrcholů. Takto bychom mohli pokračovat dál. Dojdeme k tomu, že $v_i$ má levý podstrom velikosti $2^{h-\lceil i/2\rceil} -1$. První nepravidelnost nastane až u $v_{2h}$. $v_{2h-2}$ je černý vrchol, jehož levý i pravý podstrom už je tvořen jen jediným červeným vrcholem, a $v_h$ tedy neexistuje.
 
 To znamená, že počet vrcholů v pravém podstromu $v$ je $$\sum_{i=1}^{h-1}2^{h-\left\lceil \frac i2\right\rceil} -1 +1 = 2^{h+1}-3 = 4\cdot (2^{h-1}-1) +1 \leq 5\cdot(2^{h-1}-1).$$
-
 \end{dukaz}
 
 Víme, že levý podstrom $v$ má velikost nejvýše $2^h-1$. Velikost $T_2$ je tedy nejvýše $5\cdot 2^h - 5$. To znamená, že v $T_2$ může být nejvýše 9 vrcholů splňujících $p_2$. Naopak díky volbě $v$ víme, že všechny vrcholy v $T_2$ splňující $p_1$ musí ležet na pravé páteři. Protože ale víme, že podstrom kořene $T_2$ je velký nejvýše $5\cdot 2^h-5$ a při přechodu z otce na pravého syna se vždy podstrom aktuálního vrcholu alespoň o šestinu zmenší, můžeme udělat nejvýše konstantně mnoho kroků, než bude podstrom aktuálního vrcholu menší než $2^h-1$. 
