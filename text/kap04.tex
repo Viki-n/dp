@@ -93,7 +93,7 @@ Jeden vrchol multisplay stromu a tango stromu pak zabírá 32 bytů a výše uve
 
 \graphfigure{ratio_r}{Průměrný čas na dotyk -- náhodná přístupová posloupnost.}
 
-\subsection{Červenočerný strom a cache}
+\subsection{Červenočerný strom a cache}\label{sec:rb_and_cache}
 
 Překvapivé je, že kolem $n=2\cdot10^6$ se splay strom stává rychlejší než
 červenočerný strom. Ve skutečnosti se podle grafu na obrázku \ref{obr:ratio_r}
@@ -315,7 +315,7 @@ Víme, že levý podstrom $v$ má velikost nejvýše $2^h-1$. Velikost $T_2$ je 
 Tím jsme tedy ukázali, že náš červenočerný strom trpí problémy s asociativitou cache téměř stejnou měrou, jako by byl dokonale vyvážený.
 
 
-\section{Sekvenční přístupová posloupnost}
+\section{Sekvenční přístupová posloupnost}\label{sec:sequential_access_sequence}
 
 V této třídě zvolíme velikosti stromů i délky posloupností stejně jako v třídě
 náhodných přístupových posloupností, ale místo náhodných dat budeme stále kolem

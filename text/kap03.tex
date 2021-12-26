@@ -17,7 +17,7 @@ strom napsali operaci \ope{Insert}, pro zbylé dva stromy potom operaci
 červenočerný a splay strom struktury nejprve vybudujeme tím, že do nich
 postupně vložíme všechny klíče, které mají obsahovat, v rostoucím pořadí (tento postup jsme obzvláště u červenočerného stomu zvolili záměrně, abychom dostali na začátku pokud možno co nejhůře vyvážený červenočerný strom). 
 
-Od reálného použití (přinejmenším červenočerného a splay stromu) jsme se mírně odchýlili metodou alokace paměti na nové vrcholy -- abychom dosáhli co nejpředvídatelnějšího chování, alokujeme jedno pole vrcholů se začátkem zarovnaným na stránku paměti a vrcholy budeme mít uložené v něm.
+Od reálného použití (přinejmenším červenočerného a splay stromu) jsme se mírně odchýlili metodou alokace paměti na nové vrcholy -- abychom dosáhli co nejpředvídatelnějšího chování, alokujeme jedno pole vrcholů se začátkem zarovnaným na stránku paměti a vrcholy budeme mít uložené v něm. Adresy nových vrcholů v rámci tohoto pole jsme nejprve přiřazovali sekvenčně, ale po zjištěních ze sekce \ref{sec:rb_and_cache} jsme počínaje měřeními popsanými v sekci \ref{sec:sequential_access_sequence} přiřazovali pro červenočerný strom adresy v náhodném pořadí. 
 
 Dále jsme se odchýlili od modelu -- ve snaze minimalizovat množství paměti zabírané jednotlivými vrcholy jsme se rozhodli nemít ve vrcholech ukazatele na rodiče a místo toho si ukazatele na rodiče všech vrcholů mezi aktuálním vrcholem a kořenem držet na zásobníku. Čistě pro zjednodušení algoritmu jsem se také rozhodli operace \ope{Split} a \ope{Join} červenočerného stromu, které jsou interně využívány operací \ope{Find} tango stromu, neimplementovat pomocí rotací hran, ale přímo tak jak byly popsány v sekci o červenočerném stromu. 
 
