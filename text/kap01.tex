@@ -201,7 +201,7 @@ vrchol $u$), vrchol $u$ jako pravého syna $v$ a podstrom $B$ jako levý podstro
 $u$. Podstromy $A$ a $C$ zůstanou připojené k vrcholům $v$ a $u$ tak, jak byly.
 
 Dále mějme vrchol $u$, jeho (bez újmy na obecnosti levého) syna $v$ a syna
-vrcholu $v$, kterého si označíme $w$. Potom pokud $w$ je pravý syn, můžeme
+vrcholu $v$, kterého si označíme $w$. Potom, pokud $w$ je pravý syn, můžeme
 provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zig-zag}, která probíhá tak,
 že nejprve zrotujeme hranu $wv$, a potom hranu $vu$. Pokud je $w$ levý syn,
 můžeme provést \emph{dvojitou rotaci hran $wv$ a $vu$ typu zig-zig}, která
@@ -292,7 +292,7 @@ postupně vložit libovolně mnoho vrcholů? Je to tím, že celková hloubka st
 se může změnit právě při takových \ope{Insert}ech, které nezpůsobí žádnou
 rotaci hrany.
 
-Operaci \ope{Delete} zde podobně detailně probírat nebudeme, podotkneme ale, že na rozdíl od operace \ope{Insert} může být nutné až řádově logaritmicky mnoho rotací vůči vůči počtu vrcholů ve stromu (tj. lineárně mnoho vůči hloubce stromu). Kdybychom strom nejprve postavili posloupností operací \ope{Insert} a poté vymazali všechny vrcholy posloupností operací \ope{Delete}, mohli bychom ukázat, že provedeme amortizovaně konstantně mnoho rotací na operaci. Pokud však operace \ope{Insert} a \ope{Delete} dostatečně nevhodně proložíme, může se stát, že budeme potřebovat až logaritmicky mnoho rotací na operaci.
+Operaci \ope{Delete} zde podobně detailně probírat nebudeme, podotkneme ale, že na rozdíl od operace \ope{Insert} může být nutné až řádově logaritmicky mnoho rotací vůči vůči počtu vrcholů ve stromu (tj. lineárně mnoho vůči hloubce stromu). Kdybychom strom nejprve postavili posloupností operací \ope{Insert} a poté vymazali všechny vrcholy posloupností operací \ope{Delete}, mohli bychom ukázat, že provedeme amortizovaně konstantně mnoho rotací na operaci. Pokud však operace \ope{Insert} a \ope{Delete} nevhodně proložíme, může se stát, že budeme potřebovat až logaritmicky mnoho rotací na operaci.
 
 
 
@@ -391,7 +391,7 @@ Při provádění operace \ope{Join} budeme postupovat následovně:
 
 Druhou operací je operace \ope{Split}. Operace \ope{Split} dostane na vstupu
 strom\footnote{Z popisu operace \ope{Split} vyplyne, že není specifická pro
-červenočerné stromy. Tuto operaci můžeme provést pro libovolný typ binárního
+červenočerné stromy. Tuto operaci můžeme provést s libovolným typem binárního
 vyhledávacího stromu, který podporuje operace \ope{Delete} a \ope{Join}. Pouze
 analýza časové složitosti bude specifická pro červenočerné stromy.} $S$ a $x\in
 \mathcal U$. Na výstupu má dva stromy $A$, $B$ takové, že všechny prvky ve
@@ -627,7 +627,7 @@ My zde předvedeme několik horních odhadů a jeden dolní odhad. Začneme tře
 odhady, které představili \citet{splay}. Ti ve svém článku ukázali, že
 všechny tři meze (až na aditivní člen závisející pouze na $n$) splay strom
 splňuje. Proto musí platit i pro optimální strom. Proč můžeme pro optimální
-stromy aditivní členy závisející pouze na $n$ vypustit, vysvětlíme později v této sekci.
+stromy aditivní členy závisející pouze na $n$ vypustit, vysvětlíme v této sekci později.
 
 \begin{veta}[Static Optimality Bound]
 Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$, a nechť $q:[n]\rightarrow \mathbb N_0$ určuje počet výskytů každého prvku $[n]$ v $S$. Potom $$\opt(S) \in \o\left(m + \sum_{i\in [n]}q(i)\log\frac m{q(i)}\right).$$
@@ -660,16 +660,20 @@ Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $i$-
 Jinými slovy, pokud pracujeme pouze s malou podmnožinou prvků ve stromu, amortizovaná cena přístupů musí být logaritmická pouze ve velikosti této podmnožiny.
 
 \begin{veta}[Dynamic Finger Bound]
-Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $i$-tý prvek si označíme $s_i$. Potom pro platí $$\opt(S) \in \o\left(m + \sum_{i=2}^m \log(1 + |s_{i}-s_{i-1}|) \right).$$
+Mějme přístupovou posloupnost $S$ délky $m$ nad množinou $[n]$ jejíž $i$-tý prvek si označíme $s_i$. Potom platí $$\opt(S) \in \o\left(m + \sum_{i=2}^m \log(1 + |s_{i}-s_{i-1}|) \right).$$
 \end{veta}
 
 Tato mez nám umožňuje prst v každém kroku přesunout na právě navštívený prvek. Pro splay stromy ji dokázal \citet{dynamicfinger}.
 
-Před posledními dvěma mezemi uděláme slibovanou odbočku. Na tu se nám ale bude 
-hodit mové značení.
+Před posledními dvěma mezemi uděláme slibovanou odbočku. Na tu se nám ale budeme potřebovat nové značení.
 
 \begin{definice}
-Mějme posloupnost $S$ o $m$ prvcích a posloupnost $T$ o $t$ prvcích. Pak \emph{zřetězením} posloupností $S$ a $T$ budeme rozumět posloupnost $S\|T$ o $m+t$ prvcích takovou, že $\forall i\leq m: (S\|T)_i = S_i$ a $\forall i, m<i<m+t: (S\|T)_i = T_{i-m}$. Dále zrcadlením posloupnosti $S$ bude posloupnost $\overline{S}$ délky $m$ taková, že $\forall i\leq m$ platí $S_i = \overline{S}_{m-i+1}$. 
+Mějme posloupnost $S$ o $m$ prvcích a posloupnost $T$ o $t$ prvcích. Pak
+\emph{zřetězením} posloupností $S$ a $T$ budeme rozumět posloupnost $S\|T$ o
+$m+t$ prvcích takovou, že $\forall i\leq m: (S\|T)_i = S_i$ a $\forall i,
+m<i<m+t: (S\|T)_i = T_{i-m}$. Dále posloupnost
+$\overline{S}$ délky $m$ takovou, že $\forall i\leq m$ platí $S_i =
+\overline{S}_{m-i+1}$, nazveme \emph{zrcadlením} posloupnosti $S$. 
 \end{definice}
 
 U všech předchozích
@@ -678,20 +682,19 @@ dovede libovolnou přístupovou posloupnost $S$ vykonat v čase $\o(f(n)+g(S))$
 pro vhodné funkce $f$ a $g$, a z toho jsme vyvodili, že optimální strom tu
 samou posloupnost vykoná v čase $\o(g(S))$. Toto tvrzení teď dokážeme. Dokážeme
 ho sice pro libovolnou funkci $f$, ale pouze pro funkce $g$, které jsou nejvýše
-lineární vzhledem k zřetězení. Jinými slovy, budeme požadovat, aby pro každé dvě přístupové posloupnosti $S$, $T$ $g(S) + g(T)\geq
+lineární vzhledem k zřetězení. Jinými slovy, budeme požadovat, aby pro každé dvě přístupové posloupnosti $S$, $T$ platilo $g(S) + g(T)\geq
 g(S\|T)$.
 \begin{tvrz}\label{tvrz:konstantypryc}
 Mějme libovolnou funkci $f:\mathbb N \rightarrow \mathbb N$ a funkci $g$ z množiny všech konečných posloupností přirozených čísel do $\mathbb N$ 
 takovou, že pro každé dvě posloupnosti $S$, $T$ platí $g(S\|T)\leq g(S)+g(T)$. Dále nechť splay strom (nebo jakýkoli jiný
 konkrétní strom) umí vykonat libovolnou posloupnost o délce alespoň $n$ pomocí nejvýše
-$f(n) + g(S)$ kroků. Pak optimální strom umí tu samou posloupnost vykonat pomocí nejvýše $g(S)$ kroků.
+$f(n) + g(S)$ kroků. Pak optimální strom umí tutéž posloupnost vykonat pomocí nejvýše $g(S)$ kroků.
 \end{tvrz}
 
 \begin{dukaz}
-Mějme nějakou pevnou posloupnost $S$. Dále mějme posloupnost $S'$, která je
-posloupnost $S$ $(f(n)+1)$-krát zřetězená sama za sebe. Tu umí splay strom
+Mějme jakoukoli pevnou posloupnost $S$. Dále mějme posloupnost $S'$, což je posloupnost $S$ $(f(n)+1)$-krát zřetězená sama za sebe. Posloupnost $S'$ umí splay strom
 vykonat v čase nejvýše $$f(n) + g(S') \geq f(n) + (f(n)+1) \cdot g(S).$$ Tato
-nerovnost platí z podmínek na funkci $g$ popsaných v minulém odstavci. Nyní
+nerovnost platí díky podmínkám na funkci $g$ popsaných v minulém odstavci. Nyní
 tedy víme, že splay strom vykoná posloupnost $S'$ v čase nejvýše
 $f(n)+(f(n)+1)\cdot g(S))$. Vykonání posloupnosti $S'$ je ale pouze $f(n)$ po
 sobě jdoucích vykonání posloupnosti $S$. Během vykonávání $S'$ tedy vykonáme
@@ -699,17 +702,15 @@ $S$ v průměru v čase nejvýše $$\frac{f(n)}{f(n)+1}+g(S).$$ To znamená, že
 alespoň jedno z vykonání $S$ trvalo nejvýše právě tento průměr.
 Kroků algoritmu musí být celočíselný počet, $g(S)$ je celé číslo a zlomek ve výrazu
 výše je menší než jedna. Proto muselo nejkratší vykonání $S$ trvat nejvýše $g(S)$.
-Optimální strom si ale při svém běhu může vybrat svůj počáteční stav. Může si
-tedy rozhodně vybrat počáteční stav takový, v jakém byl splay strom na začátku
-vykonávání tohoto nalezeného nejkratšího vykonání $S$, a dále se chovat jako
+Optimální strom si ale při svém běhu může vybrat svůj počáteční stav. Tedy například takový, v jakém byl splay strom na začátku
+vykonávání nalezeného nejkratšího vykonání $S$, a dále se chovat jako
 splay strom.
 \end{dukaz}
 
 Toto tvrzení můžeme přímočaře aplikovat na Static Optimality Bound a Static
-Finger Bound. Dynamic Finger Bound bohužel nesplňuje předpoklad věty, jednoduše
-ale nahlédneme, že pro $m\geq n$ nebude relaxování příslušné funkce $g$
-přidáním aditivního $\log(1+|s_{m} - s_{1}|)$ asymptoticky zajímavé a poté již
-můžeme tvrzení aplikovat. Working Set Bound ale tak jednoduše nevyřešíme,
+Finger Bound. Dynamic Finger Bound bohužel nesplňuje předpoklad věty, nahlédneme ale, že pro $m\geq n$ nebude relaxování příslušné funkce $g$
+přidáním aditivního $\log(1+|s_{m} - s_{1}|)$ asymptoticky zajímavé, a poté již
+můžeme tvrzení aplikovat. Working Set Bound však tak jednoduše nevyřešíme,
 budeme potřebovat ještě jedno zdánlivě nesouvisející lemma:
 
 \begin{lemma}
@@ -717,40 +718,41 @@ Mějme přístupovou posloupnost $S$. Pak $\opt(\overline S) \in \Theta(\opt(S))
 \end{lemma}
 
 \begin{dukaz}
-Nahlédneme, že nám stačí ukázat, že pokud máme binární vyhledávací strom $T$ a
+Nahlédneme, že je dostačující ukázat, že pokud máme binární vyhledávací strom $T$ a
 algoritmus $A$, který ho při vyhledání hodnoty $x$ převede ze stavu $T_1$ do stavu
 $T_2$ během $k$ kroků, pak existuje i algoritmus $B$, který při vyhledání hodnoty
 $x$ převede strom ze stavu $T_2$ do stavu $T_1$ pomocí $\o(k)$ kroků.
 
-To ale platí -- Všechny kroky, které algoritmus $A$ udělá, může algoritmus $B$
-udělat v opačném pořadí a opačným směrem. Jediný problém nastane, pokud
-algoritmus $A$ využije krok \uv{najdi kořen}, a stejný problém nastane na
+To ale platí -- Všechny kroky, které provede algoritmus $A$, může algoritmus $B$
+vykonat v opačném pořadí a opačným směrem. Jediný problém nastane, pokud
+algoritmus $A$ využije krok \uv{najdi kořen}. Tentýž problém nastane na
 začátku běhu algoritmu $B$, kdy je nutné vrátit se na místo ve stromu, kde byl
 aktuální vrchol algoritmu $A$ před voláním tohoto kroku, případně před koncem.
+
 Rozmyslíme si ale, že to dokážeme v tolika krocích, jak hluboko příslušný
-vrchol je, a minimálně tolik kroků musel algoritmus $A$ udělat, aby se předtím
+vrchol leží, a minimálně tolik kroků musel algoritmus $A$ udělat, aby se předtím
 do této hloubky dostal. Tato hledání tedy zpomalí běh algoritmu $B$ nejvýše
-dvojnásobně. Protože při tomto postupu sáhneme na všechny vrcholy, na které
-sáhl algoritmus $A$, tak pokud algoritmus $A$ nalezl vrchol $x$, nalezl ho
-algoritmus $B$ také\footnote{Neúspěšná hledání nebudeme brát v potaz}.
+dvojnásobně. Při následování popsaného postupu sáhneme na všechny vrcholy, na něž
+sáhl algoritmus $A$. Proto pokud algoritmus $A$ nalezl vrchol $x$, nalezl ho
+algoritmus $B$ také\footnote{Neúspěšná hledání nebudeme brát v potaz.}.
 \end{dukaz}
 
 Nyní už si pouze rozmyslíme, že důkaz pro Working Set Bound můžeme vést
 podobně, jako pro tvrzení \ref{tvrz:konstantypryc}, ale místo posloupnosti $S$ za sebe
-$(f(n)+1)$-krát zřetězit posloupnost $S\|\overline S$. Tím bychom měli odbočku
+$(f(n)+1)$-krát zřetězíme posloupnost $S\|\overline S$. Tím bychom měli odbočku
 úspěšně za sebou a můžeme se vrátit k odhadům. 
 
 \begin{veta}[Preorder Access Bound]
-Mějme libovolný binární vyhledávací strom $T$ nad množinou klíčů $[n]$. Mějme posloupnost $S$ délky $n$, která prochází strom $T$ v preorder pořadí. To znamená že první prvek $S$ je kořen $T$, poté následují prvky levého podstromu kořene v preorder pořadí a nakonec prvky pravého podstromu kořene v preorder pořadí. Pak $$\opt(S)\in \o(n).$$
+Mějme libovolný binární vyhledávací strom $T$ nad množinou klíčů $[n]$. Mějme posloupnost $S$ délky $n$, která prochází strom $T$ v preorder pořadí. To znamená, že první prvek $S$ je kořen $T$, poté následují prvky levého podstromu kořene v preorder pořadí a nakonec prvky pravého podstromu kořene v preorder pořadí. Pak $$\opt(S)\in \o(n).$$
 \end{veta}
 
-Pro porozumění větě je nutné si uvědomit, že strom $T$ použijeme pouze k
+Aby bylo možné větě porozumět, musíme si uvědomit, že strom $T$ použijeme pouze k
 generování přístupové posloupnosti -- se stromem, který používá optimální nebo
 jakýkoli jiný vyhledávací algoritmus, obecně nemusí mít nic společného. Preorder
 Access Bound není v plné obecnosti pro splay stromy dokázána.
 \citet{preordertarjan} tuto mez představil a pro splay stromy dokázal její
-speciální případ, kde strom $T$ je celý roven své pravé páteři. Tomu odpovídá
-$S$, která obsahuje všechny prvky $[n]$ v rostoucím pořadí.
+speciální případ, kdy strom $T$ je celý roven své pravé páteři. Tomu odpovídá
+posloupnost $S$, která obsahuje všechny prvky $[n]$ v rostoucím pořadí.
 \citet{preordersplay} ukázali, že splay strom dokáže v lineárním čase provést
 posloupnost přístupů odpovídající preorder pořadí jeho vlastního stavu před prvním
 přístupem. Z toho vyplývá, že Preorder Access Bound skutečně pro dynamicky
@@ -784,8 +786,8 @@ abychom vždy v každém procházeném vrcholu změnili preferovaný směr.
 Pokud je množina klíčů ve vrcholech stromu $[2^k-1]$ pro nějaké $k$, dostaneme
 tímto postupem stejnou posloupnost, jako kdybychom vzali hodnoty v listech a
 seřadili jejich binární zápisy nejprve podle cifry s váhou $2^0$, potom $2^1$
-potom $2^2$ a tak dále. Jinými slovy jako bychom binární zápisy klíčů (doplněné
-zleva nulami aby měly sstejnou délku) nejprve zrcadlili, a poté seřadili
+pak $2^2$ a tak dále. Jinými slovy, jako bychom binární zápisy klíčů (doplněné
+zleva nulami, aby měly stejnou délku) nejprve zrcadlili a poté seřadili
 standardně. Proto se této posloupnosti říká \emph{bit reversal posloupnost}.
 
 Na druhou stranu však ukážeme, že pro žádný pevný strom $T$ není Interleave Bound těsná:
@@ -794,32 +796,34 @@ Pro každý strom strom $T$ na $n$ vrcholech a pro každé přirozené číslo $
 \end{tvrz}
 
 \begin{dukaz}
-Mějme tedy strom $T$. Nechť $P$ je nejdelší cesta z kořene do listu v $T$. Poté
+Mějme strom $T$. Nechť $P$ je nejdelší cesta z kořene do listu v $T$. Dále
 mějme strom $T'$ na stejných vrcholech jako $T$, který vznikne tak, že nejprve
 postavíme dokonale vyvážený strom nad vrcholy $P$, a poté do něj vložíme zbylé
 vrcholy z $T$ v libovolném pořadí standardním algoritmem binárního
 vyhledávacího stromu. Nyní nad vrcholy z $P$ uplatníme myšlenku bit reversal
 posloupnosti. Tím dostaneme posloupnost $S$ požadované délky, v níž jsou pouze
-vrcholy z $P$. $P$ byla nejdelší cesta v $T$, tedy $|P|\in \Omega(\log n)$.
+vrcholy z $P$. $P$ byla nejdelší cestou v $T$, tedy $|P|\in \Omega(\log n)$.
 Proto $\opt(S)\geq \ib_{T'}(S) \in \Omega (\log\log n)$, ale protože v $T$ jsou
 všechny vrcholy z $S$ na jedné cestě, tak $\ib_T(S) \in \o(n) \subseteq \o(m)$.
 \end{dukaz}
 
-Na druhou stranu například pro dokonale vyvážený strom $T$ pro každou posloupnost $S$ platí $$\opt(S) \in \Omega(\ib_T(S))\, \cap\, \o(\ib_T(S)\cdot\log\log n).$$ Této složitosti totiž v dosahuje v následující kapitole popsaný tango strom.
-Zda pro každou posloupnost $S$ existuje
+Na druhou stranu například pro dokonale vyvážený strom $T$ pro každou
+posloupnost $S$ platí $$\opt(S) \in \Omega(\ib_T(S))\, \cap\,
+\o(\ib_T(S)\cdot\log\log n).$$ Této složitosti totiž dosahuje v následující
+kapitole popsaný tango strom.  Zda pro každou posloupnost $S$ existuje
 strom $T$ takový, že $\opt(S)\in\o(\ib_T(S))$, není známo.  
 
 \section{Tango stromy}\label{sec:tango}
 
 \citet{tango} představili tango strom. Tango strom je (spolu s výše uvedeným
-splay stromem a v následující kapitole popsaným multisplay stromem) jedna z
+splay stromem a v následující kapitole popsaným multisplay stromem) jednou z
 hlavních struktur, které budeme chtít v dalších kapitolách této práce zkoumat,
 proto ho popíšeme detailněji.
 
 Tango strom je strom, který podporuje pouze operaci vyhledání. Udržuje si
 pomyslný statický dokonale vyvážený\footnote{Algoritmu ve skutečnosti stačí,
 aby měl referenční strom logaritmickou hloubku.} referenční binární vyhledávací
-strom $P$ nad těmi samými klíči, které sám obsahuje. Každou přístupovou
+strom $P$ nad týmiž klíči, které sám obsahuje. Každou přístupovou
 posloupnost pak vykoná v čase $\o(\log\log n\cdot \ib_P(S))$, tedy je
 $(\log\log n)$-kompetitivní. Na druhou stranu není optimální -- z konstrukce
 bude zřejmé, že pokud budeme přistupovat stále k témuž prvku, dostaneme posloupnost, kterou optimální strom
@@ -829,7 +833,7 @@ $\Theta(m\cdot\log\log n )$. Co hůře, bit reversal posloupnost tango strom vyk
 Této časové složitosti dosáhne tak, že si bude vnitřně udržovat rozdělení na
 \emph{pomocné podstromy}, které odpovídají cestám z preferovaných hran daných
 preferovanými směry v $P$ tak, jak byly nadefinovány ve znění Interleave Bound.
-Těm budeme říkat \emph{preferované cesty}. Tyto pomocné stromy budou červenočerné stromy. Protože všechny cesty v $P$
+Těmto cestám budeme říkat \emph{preferované cesty}. Pomocné stromy budou červenočerné stromy. Protože všechny cesty v $P$
 jsou nejvýše logaritmicky dlouhé, bude každá operace (ať už \ope{Find}, nebo \ope{Split}
 či \ope{Join}) s pomocnými stromy trvat $\o(\log\log n)$ času. Pomocných stromů
 navštívíme (včetně násobnosti) za celé vykonávání přístupové posloupnosti právě
@@ -837,29 +841,40 @@ $\ib_P(S)$.
 
 Každý vrchol musí obsahovat následující informace:
 \begin{itemize}
-\item Svou barvu v pomocném červenočerném stromu
-\item Zda je kořenem pomocného stromu
-\item Svou hloubku v $P$
+\item Svou barvu v pomocném červenočerném stromu.
+\item Zda je kořenem pomocného stromu.
+\item Svou hloubku v $P$.
 \item Maximum a minimum hloubek v $P$ všech vrcholů v jejich podstromu. Podstromem vrcholu zde však budeme rozumět pouze podstrom v rámci pomocného stromu, ve kterém se příslušný vrchol nachází.
 \end{itemize}
 
-Při vyhledání budeme potřebovat umět ve stromu $P$ změnit preferovaný směr vrcholu $v$. Tomu odpovídá potřeba odstranit z příslušného pomocného stromu vrcholy na preferované cestě v $P$, které na ní leží pod $v$, a naopak připojení preferované cesty začínající v synovi $v$, k němuž nově vede preferovaná hrana. K popisu této operace ale budeme potřebovat následující lemma:
+Při vyhledávání budeme potřebovat ve stromu $P$ měnit preferovaný směr
+vrcholu. Tomu odpovídá potřeba odstranit z příslušného pomocného stromu
+vrcholy na preferované cestě v $P$, které na ní leží pod příslušným vrcholem $v$, a naopak
+připojení preferované cesty začínající v synovi $v$, k němuž nově vede
+preferovaná hrana. K popisu této operace ale budeme potřebovat následující
+lemma:
 
 \begin{lemma}\label{lemma:interval}
-Mějme libovolnou cestu $C$ v binárním vyhledávacím stromu a vrchol $v$ na této cestě. Pak existují prvky $\ell, r$  univerza, nad kterým je tento binární vyhledávací strom postavený, takové, že každý vrchol $C$ má hloubku vyšší nebo rovnou $v$, právě když pro jeho hodnotu $h$ platí $\ell \leq h \leq r$. Jinými slovy, hodnoty vrcholů pod $v$ tvoří v hodnotách vrcholů v $C$ souvislý interval. Navíc buď za $\ell$ nebo za $r$ můžeme zvolit hodnotu v $v$. Alternativně můžeme požadovat, aby $\ell < h < r$; pak můžeme jako hodnotu $\ell$ nebo $r$ zvolit rodiče $v$.
-\end{lemma}
+Mějme libovolnou cestu $C$ v binárním vyhledávacím stromu a vrchol $v$ na této
+cestě. Pak existují prvky $\ell, r$  univerza, nad nímž je tento binární
+vyhledávací strom postavený, takové, že každý vrchol $C$ má hloubku vyšší nebo
+rovnou $v$, právě když pro jeho hodnotu $h$ platí $\ell \leq h \leq r$. Jinými
+slovy, hodnoty vrcholů pod $v$ tvoří v hodnotách vrcholů v $C$ souvislý
+interval. Navíc buď za $\ell$ nebo za $r$ můžeme zvolit hodnotu vrcholu $v$.
+Alternativně můžeme požadovat, aby $\ell < h < r$; pak můžeme jako hodnotu
+$\ell$ nebo $r$ zvolit rodiče $v$.  \end{lemma}
 
 \begin{dukaz}
-Z definice binárního vyhledávacího stromu vyplývá, že mezi hodnotami v daném stromu tvoří hodnoty v podstromu libovolného vrcholu souvislý interval. Cesta $C$ je speciální případ binárního vyhledávacího stromu a $v$ je její vrchol. Vrcholy pod s hloubkou rovnou či vyšší $v$ jsou v $C$ právě podstrom $v$. Dále musí souvislý interval tvořit i podstrom rodiče $v$ 
+Z definice binárního vyhledávacího stromu vyplývá, že mezi hodnotami v daném stromu tvoří hodnoty v podstromu libovolného vrcholu souvislý interval. Cesta $C$ je speciálním případem binárního vyhledávacího stromu a $v$ je jejím vrcholem. Vrcholy s hloubkou rovnou či vyšší $v$ jsou v $C$ právě podstrom $v$. Dále musí souvislý interval tvořit i podstrom rodiče $v$ 
 \end{dukaz}
 
 Nyní již můžeme přistoupit k popisu průběhu operace \ope{Find} v tango stromu.
-Hledání zahájíme stejně jako v normálním binárním vyhledávacím stromu. Pokaždé,
+Hledání zahájíme stejně jako v standardním binárním vyhledávacím stromu. Pokaždé,
 když ale najdeme vrchol $v$, který je kořenem svého pomocného stromu (krom
 kořene celého tango stromu), znamená to, že jsme sešli z preferované cesty ve
 stromu $P$. Musíme tedy změnit preferovaný směr příslušného vrcholu v $P$, a
 tedy přestavět příslušné pomocné stromy. Zde popíšeme (jak slovně, tak obrázkem \ref{obr:cut_tango}), jak odpojit část původní
-preferované cesty z pomocného stromu, připojování nové preferované cesty bude
+preferované cesty z pomocného stromu. Připojování nové preferované cesty bude
 probíhat podobně.
 
 Mějme tedy pomocný strom $A$ a vrchol $v$ mimo něj, jehož podstrom budeme později chtít do $A$ připojit. Z $v$ přečteme jeho hloubku $d$ v $P$. Pomocí maximálních hloubek v podstromech a pozorování z lemmatu \ref{lemma:interval} najdeme mezi odstraňovanými vrcholy vrchol $r$ s maximální a vrchol $\ell$ s minimální hodnotou. Například minimum budeme hledat následujícím způsobem:
@@ -887,13 +902,13 @@ Dále najdeme předchůdce $\ell'$ vrcholu $\ell$ a následníka $r'$ vrcholu $r
 $\ope{Split}(A, \ell')$ a dostaneme strom $B$ s hodnotami menšími než $\ell'$,
 samostatný vrchol $\ell'$ a strom $C$ s hodnotami většími než $\ell'$. Poté
 zavoláme $\ope{Split}(C,r')$ a dostaneme $D$, $r'$ a $E$. Nyní označíme kořen
-$D$ jako kořen pomocného stromu a připojíme ho jako levého syna vrcholu $r'$.
+$D$ za kořen pomocného stromu a připojíme ho jako levého syna vrcholu $r'$.
 Dále zavoláme $\ope{Join}(\emptyset, r' E)$ a dostaneme opět strom $C$, ač
 uspořádaný jinak než původně. Nakonec zavoláme $\ope{Join}(B,\ell',C)$ a
 dostaneme strom $A$ s provedenými požadovanými úpravami. V celé operaci jsme
-dvakrát hledali, dvakrát provedli \ope{Join}, dvakrát \ope{Split} a po jednom
-použití následníka a předchůdce, tedy provedli jsme $\o(1)$ operací, které
-trvají $\o(\log |A|)\subseteq \o(\log\log n)$, celé rozdělení tedy trvalo
+dvakrát hledali, dvakrát provedli \ope{Join}, dvakrát \ope{Split} a jednou
+použili každou z operací \ope{Pred} a \ope{Succ}, provedli jsme tedy $\o(1)$ operací, z nichž každá trvá
+$\o(\log |A|)\subseteq \o(\log\log n)$, celé rozdělení tedy trvalo
 $\o(\log\log(n))$.
 
 
@@ -904,8 +919,8 @@ snaží spojit dobré vlastnosti splay stromů a tango stromů. Tato struktura j
 stále $(\log\log n$)-kompetitivní, ale na rozdíl od tango stromu dosahuje
 amortizovaně $\o(\log n)$ na přístup (s worst-case $\Theta(\log^2 n)$ na
 přístup). Také dokáže vykonat průchod všemi prvky v jejich pořadí v čase
-$\Theta(n)$ (na což tango strom potřebuje $\Theta(n\log\log n)$). Také bude na rozdíl
-od tango stromu podporovat operace \ope{Insert} a \ope{Delete}\footnote{Úpravu modelu,
+$\Theta(n)$ (na což tango strom potřebuje $\Theta(n\log\log n)$). Na rozdíl
+od tango stromu bude navíc podporovat operace \ope{Insert} a \ope{Delete}\footnote{Úpravu modelu,
 kterou potřebujeme k tomu, abychom mohli mluvit o optimalitě a kompetitivitě
 struktury, která podporuje tyto operace, popíšeme později.}.
 
@@ -914,32 +929,32 @@ pomocné stromy nepoužívá červenočerné stromy, ale splay stromy. Vzhledem 
 tomu, že jediné operace červenočerných stromů, které tango strom využívá, jsou
 \ope{Split} a \ope{Join}, lze v tango stromech nahradit červenočerné stromy
 splay stromy přímočaře, protože splay stromy tyto operace také implementují.
-Samotný postup vyhledání se od tango stromu nepatrně liší. Při vyhledání
+Samotný postup vyhledání se od tango stromu nepatrně liší. Při vyhledávání
 hodnoty v multisplay stromu nejprve najdeme odpovídající vrchol $v$ bez
-jakýchkoli úprav struktury stromu, a až při cestě zpět do kořene postupně
-odspoda nahoru měníme preferované směry vrcholů. Po změně všech preferovaných
+jakýchkoli úprav struktury stromu a až při cestě zpět do kořene postupně
+zdola nahoru měníme preferované směry vrcholů. Po změně všech preferovaných
 směrů nakonec ještě změníme preferovaný směr vrcholu $v$.
 
-Samotné měnění preferovaných směrů je o poznání jednodušší než v tango stromu.
+Samotné měnění preferovaných směrů je v multisplay stromu o poznání jednodušší než v tango stromu.
 Mějme vrchol $v$ ve stromu $T$, kterému chceme změnit preferovaný směr bez újmy
 na obecnost zleva doprava. Potom nám stačí nejprve zavolat \ope{Splay$(v)$}.
-Potom v levém podstromu $v$ najít pomocí informace o minimální hloubce v
+Následně v levém podstromu $v$ najdeme pomocí informace o minimální hloubce v
 podstromu daného vrcholu vrchol $\ell$, který je vrcholem s nejvyšší hodnotou v
-tomto stromu s hloubkou menší než $v$, a zavolat \ope{Splay$(\ell)$} na levý
-podstrom $v$ (tedy tak, aby $v$ zůstal kořenem pomocného podstromu a $\ell$ se
+tomto stromu s hloubkou menší než $v$. Pak zavoláme \ope{Splay$(\ell)$} na levý
+podstrom $v$ (tak, aby $v$ zůstal kořenem pomocného podstromu a $\ell$ se
 stal jeho levým synem). Dále v rámci pravého podstromu $v$ zavoláme \ope{Splay}
 na následníka $v$. Tím se část stromu, kterou chceme z pomocného stromu
-odstranit, stala pravým podstromem levého syna kořene, a pomocný strom, který
+odstranit, stala pravým podstromem levého syna kořene a pomocný strom, který
 chceme nově připojit, se stal levým podstromem pravého syna kořene. Stačí tedy
 upravit příznak kořene pomocného stromu v kořenech těchto podstromů a máme
 hotovo. Rozmyslíme si, že dokonce ani není potřeba upravovat hodnoty minimální
 hloubky vrcholu v podstromu kořene či jeho synů (kvůli změně příznaků; samy
 předchozí operace \ope{Splay} mohou vést k nutnosti úpravy pomocných dat).
 Maximální hloubky by sice mohlo být potřeba upravit, ale ty pro algoritmus
-multisplay stromu vůbec nepotřebujeme -- nebudeme je tedy ve vrcholech
+multisplay stromu nepotřebujeme -- nebudeme je tedy ve vrcholech
 udržovat.
 
-Nyní představíme úpravy struktury, které je potřeba udělat, aby bylo možné do
+Nyní představíme úpravy struktury, které je potřeba provést, aby bylo možné do
 struktury vkládat prvky.  Pokud do multisplay stromu $T$ vložíme prvek $p$, je
 nutné ho vložit i do stromu $P$. Pokud v binárním vyhledávacím stromu vyhledáme
 prvek, který v něm není, projdeme po cestě obsahující oba jeho sousedy, přičemž
@@ -951,13 +966,13 @@ jak jeho předchůdce, tak následníka. Na hlubším z nich musí ale vrchol $v
 hodnotou $p$ viset i ve stromu $P$. Vrchol $v$ má tedy v $P$ hloubku o jedna vyšší,
 než hlubší z těchto dvou vrcholů. Minimální hloubky v podstromech se tím
 žádnému vrcholu (krom $v$) nezměnily, není je tedy potřeba opravovat. Nakonec
-ve stromu popřepínáme preferované syny stejně jako při operaci \ope{Find}.
+ve stromu přepneme preferované syny stejně jako při operaci \ope{Find}.
 
-Tento postup má však jednu vadu -- časové odhady výše všechny závisí na tom, že
-$P$ má hloubku $\Theta(\log n)$. Protože o $P$ jsme doteď mluvili jako o
+Tento postup má však jednu vadu -- všechny výše uvedené závisí na tom, že
+$P$ má hloubku $\Theta(\log n)$. Protože o $P$ jsme dosud mluvili jako o
 nevyvažovaném stromu, mohli bychom tuto vlastnost operací \ope{Insert} rozbít.
-Proto je potřeba z $P$ udělat vyvažovaný strom. Konkrétně zvolíme červenočerný
-strom, protože se nám bude hodit, že má amortizovaně $\o(1)$ změn barev a
+Proto je potřeba, aby $P$ byl vyvažovaný strom. Konkrétně zvolíme červenočerný
+strom, protože pro nás bude výhodné, že má amortizovaně $\o(1)$ změn barev a
 worst-case $\o(1)$ rotací na operaci. V každém vrcholu si budeme nově pamatovat
 jeho barvu v $P$ a hodnoty\footnote{Bylo by lepší, kdybychom si mohli pamatovat
 přímo ukazatele na příslušné vrcholy v $T$ (byť amortizovaná i worst-case složitost zůstane zachována). Tím bychom ale
@@ -965,7 +980,7 @@ porušili pravidla modelu, která povolují v každém vrcholu pouze dva ukazate
 a to na syny daného vrcholu.} jeho rodiče a synů v $P$. 
 
 Nyní potřebujeme umět v $T$ provádět úpravy nutné při vyvažování $P$. To
-znamená, že musíme umět v $T$ najít potomka a rodiče vrcholu v $P$ a provádět
+znamená, že musíme být schopni v $T$ najít potomka a rodiče vrcholu v $P$ a provádět
 rotaci hran. Hledání rodiče a potomka vrcholu je snadné -- rozmyslíme si, že
 cesta mezi libovolným vrcholem a jeho libovolným potomkem vždy navštíví nejvýše
 dva různé pomocné stromy. Protože známe hodnotu uloženou v hledaném rodiči či
@@ -974,46 +989,53 @@ stromech. Jedno nalezení potomka či následníka tedy trvá amortizovaně
 $\o(\log\log n)$ (včetně změny preferovaného vrcholu, pokud příslušná cesta
 vedla napříč dvěma pomocnými stromy).
 
-Při rotaci nás čeká několik problémů. První z nich je, že musíme zachovat
+Při rotaci nás čeká několik problémů. Prvním z nich je, že musíme zachovat
 invariant, že každý vrchol má právě jeden preferovaný směr. To vyřešíme změnou
 preferovaných směrů. Pokud chceme například provést rotaci hrany ve vrcholu
 $v$, který je v $P$ pravým synem vrcholu $w$, musíme nastavit preferovaný směr
-vrcholu $v$ doleva a preferovaný směr vrcholu $w$ doprava. Tím dosáhneme toho,
-že se při rotaci nezmění, které vrcholy náleží které preferované cestě, pouze
-se může změnit jejich pořadí na ní.
+vrcholu $v$ doleva a preferovaný směr vrcholu $w$ doprava. Tak dosáhneme toho,
+že se při rotaci nezmění, které vrcholy náleží které preferované cestě,
+může se změnit pouze jejich pořadí na ní.
 
 Další změny struktury $P$ už se projeví pouze změnami pomocných informací v
 $T$, nikoli však změnou struktury. Tím nemáme na mysli, že bychom neprováděli
-žádné rotace hran, protože nás ještě čeká několik vyhledání, během nich
+žádné rotace hran -- ještě nás čeká několik dílčích vyhledání, během nichž
 provádíme v pomocných stromech standardně operace \ope{Splay}. Již se nezmění
 rozložení vrcholů mezi pomocnými stromy.
 
 Samu rotaci pak provedeme úpravou hodnot rodičů a dětí v dotčených vrcholech
 (konkrétně je potřeba opravit vrchol, v němž provádíme rotaci, jeho rodiče,
-prarodiče a jednoho z potomků). Dále ve vrcholech na koncích rotované hrany
-jednoduše opravíme jejich hloubku. Problém je ale v tom, že nyní bychom
+prarodiče a jednoho z potomků). Dále opravíme hloubku vrcholů koncích rotované hrany. Problém ale spočívá v tom, že nyní bychom
 potřebovali opravit hloubku ve velké části stromu (například v příkladu výše
 zvýšit hloubku v celém podstromu levého syna $\ell$ vrcholu $w$ a snížit v
 podstromu pravého syna $p$ vrcholu $v$). Všimneme si ale, že vzhledem k
 nastavení preferovaných směrů ve vrcholech $v$ a $w$ tvoří podstrom vrcholu
 $\ell$ v $P$ tytéž vrcholy jako podstrom kořene $r$ pomocného stromu
 obsahujícího $\ell$ v $T$. Podobně podstrom vrcholu $p$ v $P$ je podstromem
-kořene nějakého pomocného stromu v $T$. Tyto kořeny najdeme tak, že budeme z
+kořene některého pomocného stromu v $T$. Tyto kořeny najdeme tak, že budeme z
 kořene pomocného stromu obsahujícího $v$ a $w$ postupně hledat hodnoty
 vrcholů $p$ a $\ell$, ale vždy vrátíme první vrchol s příznakem kořene, který
 najdeme (krom vrcholu, z nějž hledat začínáme).
 
-Nyní nahlédneme, že již umíme změny hloubek vyřešit v konstantním čase pomocí nějaké
-z běžných technik, jako například líná propagace změn směrem dolů, nebo, jak si
-vybrali autoři multisplay stromu, diferenčním kódováním hloubky. To znamená, že
+Nyní nahlédneme, že již dokážeme změny hloubek vyřešit v konstantním čase pomocí některé
+z běžných technik, jako je například líná propagace změn směrem dolů, nebo, jak si
+vybrali autoři multisplay stromu, diferenční kódování hloubky. To znamená, že
 pouze kořen celého multisplay stromu zná svou hloubku. Ostatní vrcholy znají
 rozdíl své hloubky v $P$ a hloubky v $P$ svého rodiče v $T$. Stejným trikem
-vyřešíme informaci o minimální hloubce v podstromu -- všimneme si, že v
+vyřešíme přepočítání informace o minimální hloubce v podstromu -- všimneme si, že v
 pomocném stromu obsahujícím $v$ a $w$ změnily hloubku pouze tyto dva vrcholy.
 Proto stačí informaci přepočítat v týchž vrcholech, jako v případě hloubky, a
 dále na cestě mezi $v$ a $w$.
 
-Protože jsme popsali obecně, jak vykonat změnu barvy vrcholu a rotaci hrany ve stromu, máme i vše pro implementaci operace \ope{Delete} nad multisplay stromy\footnote{Pokud se chceme co nejpřesněji držet modelu, který jsme zavedli, přesouvání hodnot při mazání vnitřních vrcholů tak, jak je v binárním vyhledávacím stromu obvyklé, není možné. Proto musíme \ope{Delete} vrcholu, který má nějaké potomky, implementovat tak, že nejprve provedeme rotace tak, aby se tento vrchol stal listem, až potom ho smažeme.}. Nyní bychom rádi řekli, že i tyto úpravy jsou staticky optimální. To je ale problematické -- náš model nepočítal s vkládáním a mazáním. Proto ho musíme nadefinovat znovu.
+Protože jsme popsali obecně, jak vykonat změnu barvy vrcholu a rotaci hrany ve
+stromu, máme vše i pro implementaci operace \ope{Delete} nad multisplay
+stromy\footnote{Pokud se chceme co nejpřesněji držet modelu, který jsme
+zavedli, přesouvání hodnot při mazání vnitřních vrcholů tak, jak je v binárním
+vyhledávacím stromu obvyklé, není možné. Proto musíme \ope{Delete} vrcholu,
+který má nějaké potomky, implementovat tak, že nejprve provedeme rotace tak,
+aby se tento vrchol stal listem, až potom ho smažeme.}. Nyní bychom rádi ukázali,
+že i tyto úpravy jsou staticky optimální. To je ale problematické -- náš model
+nepočítal s vkládáním a mazáním. Proto ho musíme nadefinovat znovu.
 
 Nyní již tedy přístupová posloupnost $S$ není pouze posloupností prvků
 univerza, ale posloupností operací $\ope{Find}(x)$, $\ope{Delete}(x)$ a
@@ -1039,15 +1061,18 @@ Mějme referenční strom $P$. V tomto stromu má každý vrchol svůj preferova
 směr, buď doprava nebo doleva. Vždy, když z vrcholu při vyhledání prvku vyrazíme
 jiným než preferovaným směrem, změníme preferovaný směr tohoto vrcholu. Strom
 $P$ také podporuje rotace hran a operace \ope{Delete} a \ope{Insert} (které
-probíhá standardním algoritmem binárního vyhledávacího stromu\footnote{Platí,
+probíhají standardním algoritmem binárního vyhledávacího stromu\footnote{Platí,
 že standardní algoritmus na mazání nezapadá do nadefinovaného modelu. To
 znamená, že celý náš referenční strom nebude zapadat do modelu dynamického
-binárního vyhledávacího stromu. To nevadí, strom $P$ je pouze pomyslný a strom
+binárního vyhledávacího stromu. To nevadí, strom $P$ je pomyslný a strom
 $T$, který skutečně stavíme, jeho chování pouze simuluje.}). Nechť $\dib(S)_P$ je
 počet změn preferovaných směrů všech vrcholů v $P$ při vykonávání posloupnosti
 operací $S$, přičemž mezi některými operacemi mohly proběhnout rotace některých
-hran. Potom $$\opt(S) \in \Omega(\dib_P(S)/2 - n - 2k + cm),$$ kde $P$ je pomocný strom včetně popisu rotací, které provádíme mezi přístupy a změn díky vkládání a mazání, $n$ je počet vrcholů $P$ po poslední operaci, $k$ je počet rotací hran v popisu $P$, $c$ je vhodně zvolená kladná konstanta a $m$ je délka posloupnosti $S$. 
-\end{veta}
+hran. Potom $$\opt(S) \in \Omega(\dib_P(S)/2 - n - 2k + cm),$$ kde $P$ je
+pomocný strom včetně popisu rotací, které provádíme mezi přístupy, a dalších
+změn vzniklých vkládáním a mazáním, $n$ je počet vrcholů $P$ po poslední operaci, $k$
+je počet rotací hran v popisu $P$, $c$ je vhodně zvolená kladná konstanta a $m$
+je délka posloupnosti $S$.  \end{veta}
 
 Nahlédneme, že vzhledem k výše uvedenému popisu mazání a vkládání je multisplay strom i v dynamickém modelu stále $\log\log(n)$-kompetitivní. 
 
