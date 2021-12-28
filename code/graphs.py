@@ -56,6 +56,18 @@ def _transform(df):
     ).unstack().T.reset_index(level=0, drop=True).T.reset_index()
     return df
 
+def _substract(df, df2):
+    df = df.set_index(
+        ['structure', 'tree_size', 'sequence_type','value_type']
+    ).copy()
+    df2 = df2.set_index(
+        ['structure', 'tree_size', 'sequence_type','value_type']
+    )
+
+    df.loc[df2.index] -= df2
+
+    return df.reset_index()
+
 def by_one_seq_graphs(prints=False):
     df = load_data('data_by_one')
 
@@ -96,8 +108,12 @@ def by_one_seq_graphs(prints=False):
 
 def simple_graphs(seq_type, prints=False, modified=True):
     df = load_data('data', modified=modified)
-    df['value'] /= df['sequence_length']
     df = df.loc[df['sequence_type'] == seq_type].copy()
+
+    if seq_type == "i":
+        df = _substract(df, load_data('data_splay_reversal'))
+
+    df['value'] /= df['sequence_length']
 
     for type_ in ['touch', 'time', 'ratio']:
 
@@ -197,7 +213,7 @@ def variance_random_tango_touch():
 
 
 def per_tree_subset(seq_type):
-    df = load_data('data')
+    df = load_data('data', modified=True)
     df['value'] /= df['sequence_length']
     secondary_type = 'r' if seq_type=='u' else 's'
     df = df.loc[((df['sequence_type'] == seq_type) | (df['sequence_type'] == secondary_type)) & (df['tree_size'] <= 1e7)].copy().fillna(0)
@@ -215,7 +231,7 @@ def per_tree_subset(seq_type):
             styles = (['-', ':', '--', '-.']*2).__iter__()
 
             for subset_size, aux_ in aux.groupby('subset_size'):
-                plt.plot(aux_['tree_size'], aux_['value'], label=LABELS[st]+(', '+str(subset_size) if subset_size else ''), color=next(color), linestyle=next(styles))
+                plt.plot(aux_['tree_size'], aux_['value'], label=LABELS[st]+(', |M| = '+str(subset_size) if subset_size else ', |M| = n'), color=next(color), linestyle=next(styles))
 
             plt.xlabel('Počet vrcholů stromu')
             plt.ylabel(label)
