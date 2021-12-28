@@ -457,3 +457,75 @@ vydělíme dvěma. Tím dostaneme určitou představu o tom, jak daleko je daný
 vzorek od v nějakém smyslu vyhlazené křivky. V grafu vidíme maxima kolem $1/2$,
 což zhruba odpovídá očekávání. 
 
+\section{Bit reversal posloupnost na páteři}
+
+V této sekci proszkoumáme posloupnost, která nad danou množinou klíčů $[n]$
+vznikla tak, že jsme vystavěli dokonale vyvážený strom nad $[n]$, vzali jeho
+pravou páteř a nad ní aplikovali myšlenku bit reversal posloupnosti. Takto
+vzniklou posloupnost potom zřetězíme samu se sebou tolikrát, kolikrát je nutné
+k dosažení cílové délky. Vzhledem k tomu, že délka jednotlivých iterací
+posloupnosti se mění až s dvojnásobným zvětšením $n$, zvolili jsme jako
+testované hodnoty $n$ právě mocniny dvojky od $2^3$ po $2^{26}$.
+
+Jednotlivé iterace bit reversal posloupnosti jsou velmi krátké, proto jsme se
+rozhodli pro konstantní hodnotu $m=1\cdot10^7$. Přímočaré měření takovýmto
+způsobem by ale vedlo k neférovému znevýhodnění splay stromu -- ostatní stromy
+mají již po vystavění logaritmickou hloubku, splay strom má ale po sekvenčním
+vložení prvků hloubku lineární. Pro nejvyšší hodnotu $n$ se tedy první přístup
+dotkne $2^{26} \cong 6\cdot10^7$ vrcholů, což je dost na to, aby se nevhodný
+výchozí tvar stromu projevil v celém měření. Proto jsme se u splay stromu
+rozhodli do měření nezapočítávat prvních 100 operací. Těchto 100 operací s
+rezervou stačí k tomu, abychom operacemi \ope{Splay} přesunuli všechny prvky,
+které se v posloupnosti nachází, do okolí kořene.
+
+\graphfigure{touch_i}{Doteky vrcholů -- Bit reversal posloupnost na páteři.}
+\graphfigure{time_i}{Průměrný čas na přístup -- Bit reversal posloupnost na páteři.}
+
+Při vykonávání této posloupnosti se nejlépe chová tango strom. To je vidět i na
+obrázcích \ref{touch_i} a \ref{time_i}. To není příliš překvapivé -- všechny
+navštěvované vrcholy jsou na jedné cestě z kořene referenčního stromu $P$ do
+listu. Proto při několika prvních přístupech pospojujeme všechny navštěvované
+vrcholy do jediného logaritmicky velkého červenočerného stromu a další přístupy
+již vykonáváme bez modifikací stromu. Na druhou stranu díky Interleave Bound
+víme, že tuto posloupnost rychleji, než v čase $\Theta(\oldlog \oldlog n)$
+vykonat nelze -- není tedy šance, že by byl tango strom asymptoticky překonán
+například splay stromem. 
+
+Splay strom se chová jen o něco hůře -- rozdíl je podobný, jaký jsme pozorovali
+u náhodné přístupové posloupnosti mezi červenočerným stromem a splay stromem.
+To je očekávané. Oba stromy totiž pracují (krom několika úvodních přístupů)
+pouze s vrcholy, jejichž hodnoty patří do přístupové posloupnosti, tango strom
+je ale nijak nemodifikuje. 
+
+V červenočerném stromu jsou vrcholy, k nimž přistupujeme, rozmístěny víceméně
+náhodně -- jedná se o vrcholy, jejichž hodnota je menší nebo rovna polovině
+$n$, což vede k tomu, že budou umístěny spíše v levé, lépe vyvážené části
+stromu. Nic silnějšího o nich ale červenočerný strom nezaručuje. Proto může být
+trochu překvapivé, že se v našem měření červenočerný strom choval lépe než
+multisplay strom. Multisplay strom má totiž lepší asymtotickou složitost.
+Bohužel ale multisplay stromy kromě toho, že fungují  podobně jako splay
+stromy, ještě provádějí změnu preferovaného syna v cílovém vrcholu. To znamená,
+že při vykonávání této posloupnosti vykonají v průměru necelé dvě změny
+preferovaného směru na přístup -- pokud cílový vrchol není list referenčního
+stromu $P$, musíme v něm změnit preferovaný směr. Všechny změny preferovaných
+směrů jsou ale ve skutečnosti nežádoucí a bude je při dalších přístupech nutné
+vrátit.
+
+\def\doublegraphfigure#1#2#3{
+\begin{figure}[h!]
+\centering
+\noindent\hbox to \hsize{\hss
+\includegraphics[width=.65\hsize]{graphs/#1_touch_#2}
+\hskip -.5cm
+\includegraphics[width=.65\hsize]{graphs/#1_time_#2}
+\hss}
+\caption{#3}
+\label{obr:#1_#2}
+\end{figure}
+}
+
+\section{Podmnožinové posloupnosti}
+
+\doublegraphfigure{rb}u{Červenočerný strom -- náhodná podmnožinová posloupnost}
+
+
