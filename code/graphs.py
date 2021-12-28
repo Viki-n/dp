@@ -155,6 +155,8 @@ def simple_graphs(seq_type, prints=False, modified=True):
         plt.ylabel(label)
         plt.legend()
         plt.grid()
+        if type_ == 'time' and seq_type == 'i':
+            plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
         plt.savefig(f'../text/graphs/{type_}_{seq_type}.pdf')
         plt.close()
         plt.figure()
