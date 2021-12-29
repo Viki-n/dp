@@ -5,8 +5,8 @@ from math import log2
 
 LABELS = {
     'touch': 'Dotčené vrcholy na operaci',
-    'time': 'Průměrný čas na operaci [ms]',
-    'ratio': 'Průměrný čas na dotek [ms]',
+    'time': 'Průměrný čas na operaci [μs]',
+    'ratio': 'Průměrný čas na dotek [μs]',
     'rb': 'Červenočerný',
     'splay': 'Splay',
     'multisplay': 'Multisplay',
@@ -36,7 +36,7 @@ def load_data(path, modified=False):
                 }
         else:
             line = line.split()
-            line_data['value'] = int(line[1]) if line_data["value_type"] == 'touch' else float(line[3])
+            line_data['value'] = int(line[1]) if line_data["value_type"] == 'touch' else (float(line[3])*1000)
             data.append(line_data)
 
     df = pd.DataFrame(data)
@@ -155,8 +155,6 @@ def simple_graphs(seq_type, prints=False, modified=True):
         plt.ylabel(label)
         plt.legend()
         plt.grid()
-        if type_ == 'time' and seq_type == 'i':
-            plt.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
         plt.savefig(f'../text/graphs/{type_}_{seq_type}.pdf')
         plt.close()
         plt.figure()
@@ -226,6 +224,8 @@ def per_tree_subset(seq_type):
 
         for st, aux in df_.groupby('structure'):
 
+            plt.title(LABELS[st])
+
             label = LABELS[type_]
             plt.semilogx()
 
@@ -233,7 +233,7 @@ def per_tree_subset(seq_type):
             styles = (['-', ':', '--', '-.']*2).__iter__()
 
             for subset_size, aux_ in aux.groupby('subset_size'):
-                plt.plot(aux_['tree_size'], aux_['value'], label=LABELS[st]+(', |M| = '+str(subset_size) if subset_size else ', |M| = n'), color=next(color), linestyle=next(styles))
+                plt.plot(aux_['tree_size'], aux_['value'], label='k = ' + str(subset_size or 'n'), color=next(color), linestyle=next(styles))
 
             plt.xlabel('Počet vrcholů stromu')
             plt.ylabel(label)
