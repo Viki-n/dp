@@ -514,11 +514,8 @@ vrátit.
 \def\doublegraphfigure#1#2#3{
 \begin{figure}[h!]
 \centering
-\noindent\hbox to \hsize{\hss
-\includegraphics[width=.65\hsize]{graphs/#1_touch_#2}
-\hskip -.5cm
-\includegraphics[width=.65\hsize]{graphs/#1_time_#2}
-\hss}
+\includegraphics[width=.8\hsize]{graphs/#1_touch_#2}
+\includegraphics[width=.8\hsize]{graphs/#1_time_#2}
 \caption{#3}
 \label{obr:#1_#2}
 \end{figure}
@@ -526,6 +523,146 @@ vrátit.
 
 \section{Podmnožinové posloupnosti}
 
+Nyní se podíváme na dva typy podmnožinových posloupností, náhodnou a sekvenční
+podmnožinovou přístupovou posloupnost. Oba typy posloupností vypadají tak, že
+vždy nejprve zkonstruujeme multimnožinu $M$ velikosti $k$ tak, že $k$-krát
+zvolíme rovnoměrně náhodný prvek $[n]$ a přidáme ho do naší multimnožiny. Prvky
+přístupové posloupnosti pak vybíráme pouze z multimnožiny $M$. 
+
+Při tvorbě
+náhodné podmnožinové posloupnosti vybíráme prvky rovnoměrně náhodně, tedy tak, že pro každé
+$i\leq m$ a $j\leq k$ je pravděpodobnost, že $i$-tý prvek přístupové
+posloupnosti bude $j$-tý prvek $M$ rovna počtu výskytů tohoto prvku v $M$
+dělenému $k$.
+
+Do sekvenční podmnožinové posloupnosti vybíráme prvky v (cyklickém) rostoucím pořadí tak, že vícenásobný výskyt prvku v $M$ vede k vícenásobným po sobě jdoucím výskytům daného prvku ve výsledné posloupnosti. 
+
+Pro měření jsme zvolili opět podobně jako u sekvenční a náhodné přístupové
+posloupnosti hodnoty $n$ tak, aby se dvě po sobě jdoucí velikosti stromu od
+sebe lišily v poměru $1:\sqrt[7]{10}$, ale jako maximální hodnotu $n$ jsme
+zvolili $1\cdot10^7$. Nejmenší měřená hodnota $n$ byla $10$. Hodnotu $m$ jsme
+opět zvolili jako $\max(1\cdot10^7, 10\cdot n)$. K měření jsme zvolili hodnoty
+$k$ rovny kladným celočíselným mocninám deseti takovým, aby $k<n$.
+
+Vzhledem k tomu, že pro každou strukturu a každý typ posloupnosti máme šest
+různých hodnot $k$, rozhodli jsme se pro přehlednost vytvořit grafy pro každou
+strukturu a typ posloupnosti zvlášť. Do každého z grafů jsme také přidali
+křivku příslušné \uv{nepodmnožinové} posloupnosti s popiskem $k=n$, přestože se
+nejedná o zcela přesný popis -- tyto posloupnosti jsou speciálním případem
+podmnožinových posloupností, kdy $M$ není multimnožina ale množina a každý
+prvek $[n]$ v ní tedy musí být právě jednou.
+
+\subsection{Červenočerný strom}
+
 \doublegraphfigure{rb}u{Červenočerný strom -- náhodná podmnožinová posloupnost}
+\doublegraphfigure{rb}b{Červenočerný strom -- sekvenční podmnožinová posloupnost}
+
+Červenočerný strom se co se týče počtu doteků chová stejně jako u všech
+ostatních posloupností -- všechny přístupové posloupnosti potřebují $\log n \pm
+\o(1)$ doteků na operaci. Jediný detail, kterého bychom si mohli všimnout, je,
+že pro nejmenší $k=10$ je ve tvaru křivky mnoho nepravidelností -- pro takto
+malé $k$ je totiž nejvyšší pravděpodobnost, že průměrná hloubka $k$ náhodně
+vybraných vrcholů bude daleko od střední hodnoty této náhodné proměnné. 
+
+Na grafu času na operaci vidíme, že pro $n<1\cdot10^4$ se všechny posloupnosti
+chovají přibližně stejně i podle tohoto hlediska. Pro $1\cdot10^4 < n < 3\cdot
+10^5$ se začíná projevovat odlišné chování k L1 a L2 cachím, a pro $n > 3\cdot
+10^5$ se projeví odlišné chování k L3 cachi. Podle tohoto chování můžeme
+všechny posloupnosti rozdělit do dvou hlavních skupin s několika ojedinělými
+případy zapadajícími někam mezi tyto skupiny -- skupina posloupností, kde čas
+na operaci roste i pro vysoká $n$ stejně jako pro nízká a pro $n=10\cdot 7$
+potřebujeme na operaci v průměru mezi pětinou a čtvrtinou mikrosekundy, a
+skupina, kde čas na operaci začíná kolem $n=3\cdot 10^5$ prudce růst a pro
+nejvyšší testované hodnoty potřebujeme na  
+peraci téměř mikrosekundu.
+
+Připomeňme, že nad náhodnými (jak normálními, tak podmnožinovými) přístupovými posloupnostmi je nejlepší cachovací strategie (pokud se nám nevejde celá relevantní část stromu do cache) mít v cache co nejvíc prvních hladin. Otázka ale je, jak velká je relevantní část stromu (tedy množina vrcholů, kterými musíme alespoň jednou projít) v závislosti na $k$ a $n$. To je náhodná veličina která nezávisí pouze na $n$ a $k$, ale i na přesné volbě $M$. My si zde pro představu uděláme pouze horní odhad velikosti relevantní části stromu pro dokonale vyvážený binární strom pro případ, kdy $k\leq2\cdot n$. 
+
+Největší možné relevantní části stromu dosáhneme, když budou všechny prvky $M$ v listech stromu a v nějakém smyslu pravidelně rozprostřené -- pod tím si můžeme představit, že se pro libovolný vrchol bude počet prvků $M$ v pravém a levém podstromu tohoto vrcholu lišit nejvýše o jedna. Potom do relevantní části stromu plně patří prvních $\log k$ hladin stromu. K nim navíc musíme přidat cestu z každého vrcholu na $(\log k)$-té hladině do nějakého listu. Těchto cest je $k$ a každá z nich má délku $\log n - \log k = \log (n/k)$. Relevantní část stromu  má tedy celkem $2k + k\cdot \log (n/k)$ vrcholů.
+
+Vzhledem k tomu, že jsme si již všimli, že náš červenočerný strom má tvarem k dokonale vyváženému blízko, můžeme tato pozorování na červenočerný strom uplatnit.
+
+Nyní se musíme zamyslet, co se stane, když se relevantní část stromu nevejde do
+cache. Pro náhodné podmnožinové posloupnosti platí, že v cachi budeme mít
+uložených prvních $\log k$ hladin stromu (nebo tolik, kolik se vejde). Cesty od
+konce této uložené části patří každá pouze jednomu vrcholu, s vysokou
+pravděpodobností nám je tedy před dalším přístupem k tomuto vrcholu ostatní
+operace z cache vyhází. Dává tedy smysl, že jakmile se nám relevantní část
+stromu do cache nevejde, musíme při většině přístupů cestu od přinejmenším
+$(\log k)$-té hladiny do cílového vrcholu načíst z paměti. Pro vyšší nižší
+hodoty $k$ jsou tyto cesty sice delší, ale relevantní část stromu je menší.
+Proto můžeme mít pro nižší hodnoty $k$ v paměti uložených více těchto cest.
+Vzhledem k tomu, že navíc snižujeme hodnotu $k$, se podíl počtu všech všech
+cest a cest, které můžeme mít uložené, zvětšuje s klesajícím $k$. Na zálkadě
+měření na grafech \ref{obr:rb_u} můžeme říct, že efekty prodlužování cest a
+větší pravděpodobnost uložení cest se zhruba vyrovnají a pro $k > 1\cdot 10^4$
+se již průměrný čas na přístup téměř nemění.
+
+Pro sekvenční přístupovou posloupnost je situace trochu jiná -- tam se LRU
+cache chová tak, že pokud se ani relevantní část pravého či levého podstromu
+kořene nevejde celá do cache, bude při každém sekvenčním průchodu postupně celý
+strom krom kořene z cache vyhozen a zase načten. Proto bude průměrný čas na
+operaci záviset na poměru velikosti relevantní části stromu a počtu operací v
+jednom sekvenčním průchodu stromem. S využitím odhadu výše tento poměr
+odhadneme jako $2 + \log(n/k)$ vrcholů relevantní části stromu na operaci. Tedy
+paradoxně by měl být strom pro vyšší hodnoty $k$ rychlejší.
+
+Tento závěr je konzistentní s měřením -- na obrázku \ref{obr:rb_b} vidíme, že pro $k=1\cdot10^3$ se nám
+ještě celá relevantní část stromu vešla do L3 cache. Pro $k=1\cdot 10^4$ se
+těsně nevešla a proto se také jedná o nejpomalejší z měřených posloupností. Pro
+dále se zvětšující $k$ se jednotlivé operace dále zrychlují a to až k normální
+sekvenční přístupové posloupnosti, která potřebuje načíst z paměti v průměru
+pouze jeden vrchol na přístup. 
+
+\subsection{Splay strom}
+
+\doublegraphfigure{splay}u{Splay strom -- náhodná podmnožinová posloupnost}
+\doublegraphfigure{splay}b{Splay strom -- sekvenční podmnožinová posloupnost}
+
+Chování splay stromu při vykonávání náhodné podmnožinové přístupové
+posloupnosti nepřináší žádné překvapení -- na grafech na obrázku \ref{obr:splay_u}
+vidíme, že u splay stromu skutečně při vykonávání náhodné přístupové
+posloupnosti záleží pouze na $k$ a nikoli na $n$. Na křivce času pro $k =
+1\cdot 10^5$ vidíme okamžik, kdy už se celý splay strom nevešel do cache.
+Vzhledem k tomu, že množinu $M$ z vrcholů stromu vybíráme náhodně, již od
+tohoto bodu nestačí, aby se nám do cache vešlo $k$ vrcholů -- musíme počítat s
+tím, že každý vrchol zabere celý cachový řádek (protože s ním v jednom řádku
+velmi pravděpodobně nebude žádný další vrchol z $M$).
+
+Na začátku každé křivky se projeví ještě efekt, který můžeme nejlépe zkoumat
+pro $k = 1\cdot 10^6$. Nejmenší hodnota $n$, pro kterou zkoumáme $k=1\cdot
+10^6$ je $n= 1\cdot 10^6\cdot \sqrt[7]{10} \cong 1.3\cdot10^6$. Protože je $n$
+jen o malinko větší než $k$, bude v $M$ poměrně hodně duplicitních vrcholů.
+Vzhledem k tomu, že chování splay stromu závisí pouze na počtu unikátních
+vrcholů, není překvapivé, že časy přístupů i počty doteků jsou nižší, když jsou hodnoty $k$ a $n$ blízko sebe.
+
+Tento efekt se ještě výrazněji projeví na obrázku \ref{obr:splay_b} při vykonávání sekvenční přístupové posloupnosti -- tam totiž duplicitní prvek v $M$ znamená, že v přístupové posloupnosti bude to samé číslo vícekrát za sebou. Pouze první z takových přístupů pak proběhne standardně, další se už dotknou pouze kořene.
+
+Na grafu průměrného času na operaci při vykonávání podmnožinové sekvenční
+přístupové posloupnosti vidíme ještě jednu věc, která stojí za povšimnutí --
+výrazné oddělení křivek pro $k=1\cdot 10^5$ a $k=1\cdot 10^6$ od ostatních. To opět souvisí s cachí. 
+
+Při sekvenčním průchodu splay stromem se každého vrcholu dotkneme v průměru o něco víc než pětkrát, jak jsme již experimentálně zjistili v dřívějších sekcích. Přinejmenším při některých z těchto dotyků se dotýkáme mnoha hodnotou sousedících vrcholů po sobě -- například po poslední operaci jednoho sekvenčního průchodu jsou všechny vrcholy na levé páteři stromu a první operace z následujícího průchodu se jich dotkne všech dvakrát (ač my toto počítáme jako jeden dotek) nejprve v sestupném a pak ve vzestupném pořadí. 
+
+Pokud $k < 1\cdot10^5$, vejde se nám celá relevantní část stromu do cache. Když
+vykonáváme (\uv{nepodmnožinovou}) sekvenční přístupovou posloupnost se stromem,
+který se nám do cache nevejde, můžeme stále využít toho, že máme vrcholy v
+paměti uložené v sekvenčním pořadí -- pokud se dotýkáme většího počtu
+sousedících vrcholů hned po sobě, nemusíme kvůli každému vrcholu načítat nový
+cachový řádek. Cachové řádky mají 64 bytů, jeden vrchol splay stromu zabírá 24
+bytů, tedy pokud se dotkneme mnoha sousedících vrcholů současně, stačí z paměti
+načíst $3/8$ cachového řádku na vrchol. Pokud ale provádíme podmnožinovou
+sekvenční přístupovou posloupnost, vrcholy vybíráme z naalokovaných náhodně,
+tedy kvůli většině z nich musíme načíst zvláštní cachový řádek. Navíc se může
+stát, že ani nenačítáme po sobě jdoucí řádky, tedy nevyužíváme faktu, že paměť
+RAM je obvykle rychlejší při sekvenčním než při náhodném průchodu. Proto
+potřebuje podmnožinový sekvenční průchod splay stromem v situaci, kdy $k$ je
+větší než počet řádků cache, ale výrazně menší než $n$, na přístup výrazně víc
+času než standardní sekvenční průchod. 
+
+\doublegraphfigure{tango}u{Tango strom -- náhodná podmnožinová posloupnost}
+\doublegraphfigure{tango}b{Tango strom -- sekvenční podmnožinová posloupnost}
+\doublegraphfigure{multisplay}u{Multisplay strom -- náhodná podmnožinová posloupnost}
+\doublegraphfigure{multisplay}b{Multisplay strom -- sekvenční podmnožinová posloupnost}
 
 
