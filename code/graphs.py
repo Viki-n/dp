@@ -224,7 +224,7 @@ def per_tree_subset(seq_type):
 
         for st, aux in df_.groupby('structure'):
 
-            plt.title(LABELS[st])
+            plt.title(LABELS[st]+' strom')
 
             label = LABELS[type_]
             plt.semilogx()
