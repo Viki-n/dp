@@ -7,8 +7,14 @@
 #define TOPLEVEL
 #endif
 
+#ifndef VALUE
 #define VALUE int
 #define VALUE_FORMAT "%d"
+#endif
+
+#ifndef INVALID
+#define INVALID -1
+#endif
 
 #define MIN(x,y) ((x)>(y)?(y):(x))
 #define MAX(x,y) ((x)>(y)?(x):(y))
@@ -26,10 +32,10 @@ typedef struct Tuple Tuple;
 
 VALUE find_l(Node* root, int depth){
     
-    // finds value of a element that has depth < than input, but its successor has depth >= than input. If such doesnt exist, return -1. 
+    // finds value of a element that has depth < than input, but its successor has depth >= than input. If such doesnt exist, return INVALID. 
     // Comments are switched!
 
-    int left_maxdepth = depth-1;
+    int left_maxdepth = depth - 1;
     if(!is_external(TOUCH(root)->left)){
         left_maxdepth = TOUCH(TOUCH(root)->left)->maxdepth;
     }
@@ -43,7 +49,7 @@ VALUE find_l(Node* root, int depth){
     if(TOUCH(root)->depth >= depth){
         if(is_external(TOUCH(root)->left)){
             // target is somewhere along the path upwards
-            return -1;
+            return INVALID;
         } else {
             // target is the minimum of right subtree
             return find_l(TOUCH(root)->left, depth);
@@ -58,7 +64,7 @@ VALUE find_l(Node* root, int depth){
     // target is either me, or in the left subtree
     
     VALUE result = find_l(TOUCH(root)->right, depth);
-    return result == -1 ? TOUCH(root)->value : result;
+    return result == INVALID ? TOUCH(root)->value : result;
     
 }
 
@@ -66,10 +72,10 @@ VALUE find_l(Node* root, int depth){
 
 VALUE find_r(Node* root, int depth){
     
-    // finds value of a element that has depth < than input, but its predcessor has depth >= than input. If such doesnt exist, return -1. 
+    // finds value of a element that has depth < than input, but its predcessor has depth >= than input. If such doesnt exist, return INVALID. 
     
 
-    int right_maxdepth = depth-1;
+    int right_maxdepth = depth - 1;
     if(!is_external(TOUCH(root)->right)){
         right_maxdepth = TOUCH(TOUCH(root)->right)->maxdepth;
     }
@@ -83,7 +89,7 @@ VALUE find_r(Node* root, int depth){
     if(TOUCH(root)->depth >= depth){
         if(is_external(TOUCH(root)->right)){
             // target is somewhere along the path upwards
-            return -1;
+            return INVALID;
         } else {
             // target is the minimum of right subtree
             return find_r(TOUCH(root)->right, depth);
@@ -98,14 +104,14 @@ VALUE find_r(Node* root, int depth){
     // target is either me, or in the left subtree
     
     VALUE result = find_r(TOUCH(root)->left, depth);
-    return result == -1 ? TOUCH(root)->value : result;
+    return result == INVALID ? TOUCH(root)->value : result;
     
 }
 
 Tuple neighbors(Node* root, VALUE value){
     Tuple result;
-    result.first = -1;
-    result.second = -1;
+    result.first = INVALID;
+    result.second = INVALID;
 
     Node* current_node = root;
     while (current_node == root || !is_external(current_node)){
@@ -135,12 +141,12 @@ static void rebuild_current_subtree(Node** root, Node* new_part){
         l = find_l(rootpointer, TOUCH(new_part)->mindepth);
 
 
-        if (r == -1){
+        if (r == INVALID){
             split(&rootpointer, l);
             TOUCH(TOUCH(rootpointer)->right)->root = true;
             FIX(rootpointer);
             join(&rootpointer);
-        } else if (l == -1){
+        } else if (l == INVALID){
             split(&rootpointer, r);
             TOUCH(TOUCH(rootpointer)->left)->root = true;
             FIX(rootpointer);
@@ -159,12 +165,12 @@ static void rebuild_current_subtree(Node** root, Node* new_part){
     l = n.first;
     r = n.second;
 
-    if (r == -1){
+    if (r == INVALID){
         split(&rootpointer, l);
         TOUCH(TOUCH(rootpointer)->right)->root = false;
         FIX(rootpointer);
         join(&rootpointer);
-    } else if (l == -1){
+    } else if (l == INVALID){
         split(&rootpointer, r);
         TOUCH(TOUCH(rootpointer)->left)->root = false;
         FIX(rootpointer);
@@ -189,7 +195,7 @@ VALUE find(VALUE value, Node** root){
 
     // Handle empty tree separately
     if (!*root){
-        return 0;
+        return INVALID;
     }
 
     Node* current_node = *root;

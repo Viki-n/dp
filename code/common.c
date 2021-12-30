@@ -397,10 +397,10 @@ int* shuffled_array(int size){
         result[i] = i;
     }
     for (int i=0; i<size; i++){
-        int rd = next() % (size - i) + i;
+        int rnd = rd(size - i) + i;
         int tmp = result[i];
-        result[i] = result[rd];
-        result[rd] = tmp;
+        result[i] = result[rnd];
+        result[rnd] = tmp;
     }
     return result;
 }

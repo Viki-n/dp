@@ -7,8 +7,14 @@
 #define TOPLEVEL
 #endif
 
+#ifndef VALUE
 #define VALUE int
 #define VALUE_FORMAT "%d"
+#endif
+
+#ifndef INVALID
+#define INVALID -1
+#endif
 
 #define MIN(x,y) ((x)>(y)?(y):(x))
 #define MAX(x,y) ((x)>(y)?(x):(y))
@@ -137,7 +143,7 @@ VALUE find(VALUE value, Node** root){
 
     // Handle empty tree separately
     if (!*root){
-        return 0;
+        return INVALID;
     }
 
     stack_stack metastack;

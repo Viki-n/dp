@@ -7,8 +7,14 @@
 #define TOPLEVEL
 #endif
 
+#ifndef VALUE
 #define VALUE int
 #define VALUE_FORMAT "%d"
+#endif
+
+#ifndef INVALID
+#define INVALID -1
+#endif
 
 #include "common.c"
 
@@ -31,7 +37,7 @@ VALUE find(VALUE value, Node** root, bool insert){
             *root = new;
             return value;
         } else {
-            return 0;
+            return INVALID;
         }
     }
 

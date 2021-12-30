@@ -7,7 +7,6 @@ struct STACKNAME {
     size_t used;
     size_t size;
 };
-
 typedef struct STACKNAME STACKNAME;
 
 

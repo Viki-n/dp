@@ -6,7 +6,7 @@ V této kapitole popíšeme chování naší implementace stromů na několika t
 
 Třída náhodných přístupových posloupností vypadá tak, že pro danou velikost
 strom vyrobíme náhodnou posloupnost přirozených čísel z intervalu $[0,n)$.
-Náhodná čísla generujeme pomocí pseudonáhodného generátoru {\tt xoshiro256++},
+Náhodná čísla generujeme pomocí pseudonáhodného generátoru {\tt xoshiro256**},
 který představili \citet{xoshiro}. Pro měření jsme zvolili velikosti stromů od $10$ do $1\cdot
 10^8$, kde každá další testovaná velikost byla $\sqrt[7]{10}$-krát větší, než ta předchozí. Takovýto krok
 jsme zvolili proto, že s ním v celém rozsahu měříme celkem 50 různých velikostí
@@ -722,4 +722,33 @@ odpovídají průměrným počtům dotčených vrcholů.
 \doublegraphfigure{multisplay}u{Multisplay strom -- náhodná podmnožinová posloupnost}
 \doublegraphfigure{multisplay}b{Multisplay strom -- sekvenční podmnožinová posloupnost}
 
-K multisplay stromu už toho nelze mnoho dodat -- neprojeví se zde žádný efekt, o kterém bychom již nemluvili při rozebírání chování tango stromu. Multisplay strom však dosahuje ve všech směrech o konstantu lepších výsledků než tango strom. Například pro $k=1\cdot10^3$ a $n=1\cdot 10^7$ potřeboval tango strom při vykonávání podmnožinové náhodné přístupové polsoupnosti na operaci zhruba 90 doteků a 5 mikrosekund. Podle obrázku \ref{obr:multisplay_u} stačilo multisplay stromu na tutéž operaci přibližně 50 doteků a 3 mikrosekundy. Podobně při vykonávání podmnožinové sekvenční přístupové posloupnosti potřeboval tango strom asi 42 doteků a 2 mikrosekundy na operaci, multisplay stromu stačilo 27 doteků a 660 nanosekund, jak je vidět na obrázku \ref{obr:multisplay_b}.
+K multisplay stromu už toho nelze mnoho dodat -- neprojeví se zde žádný efekt,
+o kterém bychom již nemluvili při rozebírání chování tango stromu. Multisplay
+strom však dosahuje ve všech směrech o konstantu lepších výsledků než tango
+strom. Například pro $k=1\cdot10^3$ a $n=1\cdot 10^7$ potřeboval tango strom
+při vykonávání podmnožinové náhodné přístupové polsoupnosti na operaci zhruba
+90 doteků a 5 mikrosekund. Podle obrázku \ref{obr:multisplay_u} stačilo
+multisplay stromu na tutéž operaci přibližně 50 doteků a 3 mikrosekundy.
+Podobně při vykonávání podmnožinové sekvenční přístupové posloupnosti
+potřeboval tango strom asi 42 doteků a 2 mikrosekundy na operaci, multisplay
+stromu stačilo 27 doteků a 660 nanosekund, jak je vidět na obrázku
+\ref{obr:multisplay_b}.
+
+\subsection{Porovnání}
+
+Popsali jsme chování jednotlivých struktur na jednotlivých typech posloupnosti.
+Teď ještě musíme toto chování zběžně porovnat. Již jsme řekli, že multisplay
+strom se chová kvalitativně podobně jako splay strom. Splay strom i
+červenočerný strom však dosahuje pro libovolnou kombinaci parametrů $n$ a $k$
+lepších výsledků než multisplay strom. Pro sekvenční podmnožinovou přístupovou
+posloupnost dosahuje opět pro libovolnou kombinaci parametrů kromě velmi
+nízkých hodnot $n$  lepších výsledků splay strom (byť pro $n=1\cdot 10^7$ a
+$k=1\cdot 10^6$ s poměrně malým rozdílem) -- chování pro velmi nízké hodnoty
+$n$ je ale pro oba stromy podobné, jako při provádění standardní sekvenční
+přístupové posloupnosti a tedy ho není nutné znovu popisovat. Pro podmnožinové
+náhodné přístupové posloupnosti platí, že se splay strom chová lépe než
+červenočerný strom, pokud je $k$ alespoň stokrát menší než $n$. V případě, že
+se strom nevejde celý do cache, se potom červenočerný strom pro $k$
+přibližující se k $n$ zrychluje. Chování splay stromu naopak závisí pouze na
+$k$ a čas potřebný na operaci s ním logaritmicky roste.
+

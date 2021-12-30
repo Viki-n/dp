@@ -4,10 +4,6 @@
 #include <limits.h>
 #include "random.c"
 
-int rd(int max){
-        return (int)(next() % max);
-}
-
 int* subset(int max,int size){
     int* result = malloc(sizeof(int)*size);
     for (int i=0; i<size; i++){

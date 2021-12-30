@@ -104,4 +104,13 @@ void long_jump(void) {
 	s[2] = s2;
 	s[3] = s3;
 }
+
+int rd(int max){
+    uint64_t n = next();
+    while (n >= ULLONG_MAX - (ULLONG_MAX % max)){
+        n = next();
+    }
+    return (int)(n % max);
+}
+
 #endif
