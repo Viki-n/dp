@@ -77,7 +77,7 @@ $\log\log 5.18\cdot 10^7 \cong 4.68$.
 
 Dále si všimneme mírného rozvlnění křivky tango stromu kolem $n=5\cdot 10^3$ a
 znovu kolem $n=1\cdot 10^6$. Tento efekt se ale výrazněji projeví při
-sekvenčních přstupech, které budeme diskutovat v následující sekci, s jeho
+sekvenčních přístupech, které budeme diskutovat v následující sekci, s jeho
 vysvětlením tedy počkáme tam.
 
 \graphfigure{time_r}{Průměrný čas na operaci -- náhodná přístupová posloupnost.}
@@ -136,7 +136,7 @@ míst. Tomu říkáme, že tyto bloky, případně adresy, \emph{aliasují}.
 
 Kdybychom potřebovali pracovat s větším počtem aliasujících bloků, přestává být
 podstatný celkový počet řádků, které se do cache vejdou -- o tom, jak úspěšná
-cache bude, rozhoduje pouze hdnota $k$.
+cache bude, rozhoduje pouze hodnota $k$.
 
 \subsubsection{Cache a dokonale vyvážené stromy}\label{sec:cache_and_balanced}
 
@@ -175,7 +175,7 @@ však tento předpoklad nemusí platit).
 V našem případě se $k$ rovná $16$. To znamená, že můžeme plně uložit prvních pět hladin, z
 šesté uložíme polovinu, ze všech dalších pak už jen čtvrtinu až po 23., což je
 poslední hladina, z níž se jedna čtvrtina do cache vejde, i kdyby v ní nic
-jiného než tato hladina nebylo. Na dalších úrovních pak zeshora odhadneme
+jiného než tato hladina nebylo. Na dalších úrovních pak shora odhadneme
 pravděpodobnost přítomnosti daného vrcholu v cachi popořadě jako $1/8$, $1/16$
 a tak dále. To znamená, že střední hodnota počtu nenacachovaných řádků, které
 musíme načíst při přístupu k náhodnému listu stromu, je díky linearitě střední
@@ -201,7 +201,7 @@ společných nejnižších bitů.
 
 Dále jsem ověřili, zda problém skutečně nastává. Připomeneme, že naše struktury stavíme tak, že nejprve naalokujeme pole tak velké, aby se nám do něj vešel celý strom, jehož začátek je zarovnaný na začátek stránky paměti, a poté vždy, když potřebujeme nový vrchol, použijeme z tohoto pole první nepoužitý. Vzhledem k tomu, že jsme ani jedné ze struktur neimplementovali operaci \ope{Delete}, je tento postup poměrně přímočarý.
 
-Díky naší implemntaci operací \ope{Build} u jednotlivých stromů vede tento postup k tomu, že splay strom a červenočerný strom mají své vrcholy v paměti v rostoucím pořadí klíčů, tango strom a multisplay strom v preorder pořadí jejich referenčních stromů $P$. To znamená, že je nejprve uložen kořen $P$, pak rekurzivně stejně jeho levý podstrom, a nakonec pravý podstrom.
+Díky naší implementaci operací \ope{Build} u jednotlivých stromů vede tento postup k tomu, že splay strom a červenočerný strom mají své vrcholy v paměti v rostoucím pořadí klíčů, tango strom a multisplay strom v preorder pořadí jejich referenčních stromů $P$. To znamená, že je nejprve uložen kořen $P$, pak rekurzivně stejně jeho levý podstrom, a nakonec pravý podstrom.
 
 Provedli jsme tedy experiment, kdy jsme opět naměřili čas běhu červenočerného stromu na náhodné přístupové posloupnosti. Upravili jsme ale alokaci paměti na nové vrcholy tak, že z pole nepřidělujeme adresy novým vrcholům sekvenčně, ale v náhodném pořadí. Tato úprava vedla k tomu, že průměrný čas na dotek mnohem lépe kopíruje chování splay stromu, jak je vidět na obrázku \ref{obr:randomized_rb}.
 
@@ -217,7 +217,7 @@ pravidelný, a tyto pravidelnosti jsou založené na mocninách dvojky, které t
 figurují v ekvivalenčních třídách aliasování cache. Tango stromu, multisplay
 stromu a splay stromu se tento problém vyhne právě kvůli tomu, že jejich
 struktura je velmi nepravidelná (přestože u prvních dvou existuje dokonale
-vyvážený refenční strom $P$. Možná jim v našem měření pomohly také
+vyvážený referenční strom $P$. Možná jim v našem měření pomohly také
 nepravidelnosti ve struktuře $P$ pramenící z toho, že žádná z měřených
 velikostí nebyla příliš blízko k mocnině dvojky.)
 
@@ -247,10 +247,10 @@ Budeme předpokládat, že $T$ má alespoň $2^h-1$ vrcholů.
 Nejprve začneme s důkazem, který jsme slíbili již na začátku této sekce.
 
 \begin{lemma}
-Mějme červenočerný strom $T$, který vznikl tak, že byly jeho klíče v rostoucím pořadí vloženy do na počátku prázdného stromu. Pak všechny červené vrcholy z $T$ leží buď na pravé páteři $T$, nebo jsou syni vrcholu, který leží na pravé páteři $T$.
+Mějme červenočerný strom $T$, který vznikl tak, že byly jeho klíče v rostoucím pořadí vloženy do na počátku prázdného stromu. Pak všechny červené vrcholy z $T$ leží buď na pravé páteři $T$, nebo jsou synové vrcholu, který leží na pravé páteři $T$.
 \end{lemma}
 \begin{dukaz}
-Budeme postupovat indukcí podle počtu vrcholů $T$. Je zřejmé, že pro strom o jednom vrcholu tvrzení platí. Nyní ukážeme, že pokdu do takového stromu $T$ nad klíči $[n]$ vložíme klíč $n+1$, strom bude stále mít požadovanou vlastnost.
+Budeme postupovat indukcí podle počtu vrcholů $T$. Je zřejmé, že pro strom o jednom vrcholu tvrzení platí. Nyní ukážeme, že pokud do takového stromu $T$ nad klíči $[n]$ vložíme klíč $n+1$, strom bude stále mít požadovanou vlastnost.
 
 Rozmyslíme si, jak by se mohlo stát, že nám vznikne červený vrchol mimo pravou páteř nebo její sousedství. Není možné, že bychom ho tam tak přímo vložili, protože vkládáme nové maximum a tedy na pravou páteř. Při vyvažování po operaci \ope{Insert} děláme 3 typy kroků: Přebarvení černého vrcholu na červený a obou jeho synů z červené na černou, rotace a dvojitá rotace.
 
@@ -336,7 +336,7 @@ Tyto předpoklady víceméně naplňuje graf na obrázku \ref{obr:touch_s}. Vid�
 kolem $8.49$ s větším rozptylem, kdežto počet dotyků tango stromu a
 červenočerného stromu napříč celým grafem stále roste. Počínaje $n\cong 1000$
 se červenočerný strom dotkne nejvíce vrcholů ze všech (přesnou hodnotu nelze
-určit kvůli velkému rozptylu tango stromu). Nejlepšího výsledku doshuje pro
+určit kvůli velkému rozptylu tango stromu). Nejlepšího výsledku dosahuje pro
 stromy o 26 prvcích a menší červenočerný strom, počínaje $n=37$ se nejméně
 vrcholů dotkne splay strom. I počet dotyků multisplay stromu má určitý rozptyl,
 proto nelze přesně určit, pro jakou hodnotu $n$ začne mít tango strom méně
@@ -358,7 +358,7 @@ $40\,\operatorname{ns}$ na operaci, kterých dosahuje splay strom, výhodnějš�
 
 Multisplay strom může jedním vrcholem projít i vícekrát a dokonce
 ho i vícekrát modifikovat (první modifikaci vrcholu provede při změnách
-prefervaných cest tak aby byl hledaný vrchol v pomocném stromě s kořenem,
+preferovaných cest tak aby byl hledaný vrchol v pomocném stromě s kořenem,
 druhou poté při závěrečné změně preferovaného syna hledaného vrcholu). Proto
 také potřebuje přibližně $250\,\operatorname{ns}$ na operaci a rychlejší než
 červenočerný strom je až pro $n>1\cdot 10^7$. Tango strom má v jistém smyslu
@@ -445,7 +445,7 @@ hloubku nejhlubších listů počítáme jako o jedna menší.
 
 Na závěr ještě ukážeme, jak výrazné rozdíly v praxi tento jev na počtu dotyků
 způsobí. Na grafu na obrázku \ref{obr:touch_r} je jev velmi nezřetelný, to je ale
-částečně tím, že křivka tango stromu na tomto grafu asama o sobě poměrně prudce
+částečně tím, že křivka tango stromu na tomto grafu sama o sobě poměrně prudce
 roste, v čemž se může leccos ztratit. Proto jsme tento jev alespoň částečně
 izolovali. Jednotlivé naměřené hodnoty pro tango strom v grafu na obrázku
 \ref{obr:touch_r} označíme jako $h_1, h_2, \dots, h_{50}$. Potom v grafu
@@ -459,7 +459,7 @@ což zhruba odpovídá očekávání.
 
 \section{Bit reversal posloupnost na páteři}
 
-V této sekci proszkoumáme posloupnost, která nad danou množinou klíčů $[n]$
+V této sekci prozkoumáme posloupnost, která nad danou množinou klíčů $[n]$
 vznikla tak, že jsme vystavěli dokonale vyvážený strom nad $[n]$, vzali jeho
 pravou páteř a nad ní aplikovali myšlenku bit reversal posloupnosti. Takto
 vzniklou posloupnost potom zřetězíme samu se sebou tolikrát, kolikrát je nutné
@@ -502,7 +502,7 @@ náhodně -- jedná se o vrcholy, jejichž hodnota je menší nebo rovna polovin
 $n$, což vede k tomu, že budou umístěny spíše v levé, lépe vyvážené části
 stromu. Nic silnějšího o nich ale červenočerný strom nezaručuje. Proto může být
 trochu překvapivé, že se v našem měření červenočerný strom choval lépe než
-multisplay strom. Multisplay strom má totiž lepší asymtotickou složitost.
+multisplay strom. Multisplay strom má totiž lepší asymptotickou složitost.
 Bohužel ale multisplay stromy kromě toho, že fungují  podobně jako splay
 stromy, ještě provádějí změnu preferovaného syna v cílovém vrcholu. To znamená,
 že při vykonávání této posloupnosti vykonají v průměru necelé dvě změny
@@ -574,7 +574,7 @@ na operaci roste i pro vysoká $n$ stejně jako pro nízká a pro $n=10\cdot 7$
 potřebujeme na operaci v průměru mezi pětinou a čtvrtinou mikrosekundy, a
 skupina, kde čas na operaci začíná kolem $n=3\cdot 10^5$ prudce růst a pro
 nejvyšší testované hodnoty potřebujeme na  
-peraci téměř mikrosekundu.
+operaci téměř mikrosekundu.
 
 Připomeňme, že nad náhodnými (jak normálními, tak podmnožinovými) přístupovými posloupnostmi je nejlepší cachovací strategie (pokud se nám nevejde celá relevantní část stromu do cache) mít v cache co nejvíc prvních hladin. Otázka ale je, jak velká je relevantní část stromu (tedy množina vrcholů, kterými musíme alespoň jednou projít) v závislosti na $k$ a $n$. To je náhodná veličina která nezávisí pouze na $n$ a $k$, ale i na přesné volbě $M$. My si zde pro představu uděláme pouze horní odhad velikosti relevantní části stromu pro dokonale vyvážený binární strom pro případ, kdy $k\leq2\cdot n$. 
 
@@ -590,10 +590,10 @@ pravděpodobností nám je tedy před dalším přístupem k tomuto vrcholu osta
 operace z cache vyhází. Dává tedy smysl, že jakmile se nám relevantní část
 stromu do cache nevejde, musíme při většině přístupů cestu od přinejmenším
 $(\log k)$-té hladiny do cílového vrcholu načíst z paměti. Pro vyšší nižší
-hodoty $k$ jsou tyto cesty sice delší, ale relevantní část stromu je menší.
+hodnoty $k$ jsou tyto cesty sice delší, ale relevantní část stromu je menší.
 Proto můžeme mít pro nižší hodnoty $k$ v paměti uložených více těchto cest.
 Vzhledem k tomu, že navíc snižujeme hodnotu $k$, se podíl počtu všech všech
-cest a cest, které můžeme mít uložené, zvětšuje s klesajícím $k$. Na zálkadě
+cest a cest, které můžeme mít uložené, zvětšuje s klesajícím $k$. Na základě
 měření na grafech \ref{obr:rb_u} můžeme říct, že efekty prodlužování cest a
 větší pravděpodobnost uložení cest se zhruba vyrovnají a pro $k > 1\cdot 10^4$
 se již průměrný čas na přístup téměř nemění.
@@ -666,7 +666,7 @@ větší než počet řádků cache, ale výrazně menší než $n$, na přístu
 \doublegraphfigure{tango}b{Tango strom -- sekvenční podmnožinová posloupnost}
 
 Dále jsme zkoumali chování tango stromu při vykonávání podmnožinové náhodné
-přístupové posloupnosti. Na grafu s logaritmickou osou $x$ a lineání osou $y$
+přístupové posloupnosti. Na grafu s logaritmickou osou $x$ a lineární osou $y$
 znamená z $[0,0]$ do $[a,a]$ pro kladné $a$ logaritmický růst zobrazované
 proměnné. Na prvním grafu na obrázku \ref{obr:tango_u} vidíme, že křivka standardní náhodné přístupové
 posloupnosti je mírně konvexní, strom tedy potřebuje více než logaritmický
@@ -700,7 +700,7 @@ Dostáváme tedy, že při standardním sekvenčním průchodu musíme udělat p
 přibližně jednu změnu preferovaného směru na přístup, a navíc víc než polovina
 těchto změn odpojuje a zase připojuje pomocné stromy o jediném vrcholu. Při
 podmnožinovém sekvenčním průchodu může být potřeba udělat až téměř dvě změny
-preferovanáho směru na přístup a navíc všechny tyto změny mohou připojovat
+preferovaného směru na přístup a navíc všechny tyto změny mohou připojovat
 části preferovaných cest o alespoň $\lfloor\log (n/k)\rfloor$ vrcholech. Tím
 lze zdůvodnit, že podmnožinová sekvenční přístupová posloupnost vede podle obrázku \ref{obr:tango_b} oproti
 standardní sekvenční přístupové k násobně více dotykům na operaci, a tento
@@ -726,7 +726,7 @@ K multisplay stromu už toho nelze mnoho dodat -- neprojeví se zde žádný efe
 o kterém bychom již nemluvili při rozebírání chování tango stromu. Multisplay
 strom však dosahuje ve všech směrech o konstantu lepších výsledků než tango
 strom. Například pro $k=1\cdot10^3$ a $n=1\cdot 10^7$ potřeboval tango strom
-při vykonávání podmnožinové náhodné přístupové polsoupnosti na operaci zhruba
+při vykonávání podmnožinové náhodné přístupové posloupnosti na operaci zhruba
 90 doteků a 5 mikrosekund. Podle obrázku \ref{obr:multisplay_u} stačilo
 multisplay stromu na tutéž operaci přibližně 50 doteků a 3 mikrosekundy.
 Podobně při vykonávání podmnožinové sekvenční přístupové posloupnosti

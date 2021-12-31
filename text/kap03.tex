@@ -6,7 +6,7 @@ V této kapitole popíšeme některé detaily implementací binárních vyhledá
 
 Všechny testované struktury jsme implementovali v jazyce C. Ten byl zvolen
 proto, že umožňuje kontrolovat, co přesně měříme -- měření nám nepokazí ani
-interní fungování interpreteru, jako by hrozilo, kdybychom zvolili například
+interní fungování interpretru, jako by hrozilo, kdybychom zvolili například
 Python, ani zásahy garbage collectoru, které by se nám nevyhnuly například v
 Javě.
 
@@ -15,7 +15,7 @@ naimplementovali operaci \ope{Find}. Dále jsme pro červenočerný strom a spla
 strom napsali operaci \ope{Insert}, pro zbylé dva stromy potom operaci
 \ope{Build}. Protože ale stavbu struktury nechceme měřit, tak před měřením pro
 červenočerný a splay strom struktury nejprve vybudujeme tím, že do nich
-postupně vložíme všechny klíče, které mají obsahovat, v rostoucím pořadí (tento postup jsme obzvláště u červenočerného stomu zvolili záměrně, abychom dostali na začátku pokud možno co nejhůře vyvážený červenočerný strom). 
+postupně vložíme všechny klíče, které mají obsahovat, v rostoucím pořadí (tento postup jsme obzvláště u červenočerného stromu zvolili záměrně, abychom dostali na začátku pokud možno co nejhůře vyvážený červenočerný strom). 
 
 Od reálného použití (přinejmenším červenočerného a splay stromu) jsme se mírně odchýlili metodou alokace paměti na nové vrcholy -- abychom dosáhli co nejpředvídatelnějšího chování, alokujeme jedno pole vrcholů se začátkem zarovnaným na stránku paměti a vrcholy budeme mít uložené v něm. Adresy nových vrcholů v rámci tohoto pole jsme nejprve přiřazovali sekvenčně, ale po zjištěních ze sekce \ref{sec:rb_and_cache} jsme počínaje měřeními popsanými v sekci \ref{sec:sequential_access_sequence} přiřazovali pro červenočerný strom adresy v náhodném pořadí. 
 

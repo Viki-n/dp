@@ -549,7 +549,7 @@ na vrcholy).
 \end{definice}
 
 Všimneme si, že běžné algoritmy binárních vyhledávacích stromů tuto definici
-splňují -- Například červenočerné a AVL stromy potřebují v~každém vrcholu
+splňují -- například červenočerné a AVL stromy potřebují v~každém vrcholu
 jediný bit informace, splay strom se obejde zcela bez dalších informací.
 
 Pro danou přístupovou sekvenci $S$ existuje přístupový algoritmus, který ji
@@ -564,7 +564,7 @@ faktor $\o(n)$ asymptoticky zanedbatelný.
 
 
 \begin{definice}
-O~přístupovém algoritmu řekneme, že je \emph{$f(n)$-kompetitivní}, pokud každou
+O~přístupovém algoritmu řekneme, že je \emph{$f(n)$-kompetitivní}, pokud libovolnou
 posloupnost přístupů $X$ nad univerzem velikosti $n$ vykoná v~čase $
 \o(f(n))\cdot\opt(X)$. O~online přístupovém algoritmu řekneme, že je
 \emph{dynamicky optimální}, pokud je $\mathcal O(1)$-kompetitivní.
@@ -586,7 +586,7 @@ předpokládat, že operaci \ope{Delete} nikdy nevykonáme a všechny operace
 Splay strom podporuje operaci $\ope{Splay}(x)$, a všechny ostatní stromové
 operace implementuje pomocí $\o(1)$ volání této operace.
 
-Samotná operace $\ope{Splay}(x)$ se skládá ze dvou fází: Nejprve standardním způsobe
+Samotná operace $\ope{Splay}(x)$ se skládá ze dvou fází: nejprve standardním způsobem
 vyhledáme vrchol stromu obsahující klíč $x$ a poté tento vrchol pomocí rotací
 hran přesuneme do kořene. V~případě neúspěšného hledání přesuneme do kořene poslední navštívený vrchol. Někdy také operaci \ope{Splay} definujeme pouze jako přesun vrcholu rotacemi do kořene -- pak musíme dostat jako argument této operace rovnou ukazatel na vrchol.
 
@@ -597,7 +597,19 @@ rodič synové na téže či různé straně, použijeme buď zig-zig rotaci, ne
 rotaci). Pouze ve chvíli, kdy je splayovaný vrchol synem kořene, použijeme
 jednoduchou rotaci. Tento postup má za následek, že hloubka splayovaného vrcholu se sníží na nulu, hloubka všech ostatních vrcholů, kterých se během splayování dotkneme, se sníží přinejmenším o~polovinu (až na aditivní konstantu) a hloubka vrcholů, kterých jsme se nedotkli, se zvýší maximálně o~konstantu.
 
-Pomocí operace $\ope{Splay}(x)$ naimplementujeme ostatní stromové operace. Při operaci \ope{Insert}(x) nejprve zavoláme $\ope{Splay}(x)$. Tím se dostane následník nebo předchůdce $x$ do kořene. Potom můžeme vložit nový vrchol obsahující $x$ mezi jeho pravého nebo levého syna. Při operaci \ope{Delete} na prvek zavoláme $\ope{Splay}$, poté ze stromu odstraníme kořen a dva vzniklé stromy (jsou-li oba neprázdné)  spojíme dále popsanou operací \ope{Join}. Operaci \ope{Join} tak, jak byla popsána v~kapitole \nameref{sec:RB}, můžeme provést tak, že ve stromu, který bez újmy na obecnosti obsahuje menší prvky ze dvou spojovaných stromů, zavoláme $\ope{Splay}(\infty)$. Tím dostaneme nejvyšší prvek do kořene. Kořeni proto bude chybět pravý syn. Na jeho místo tedy můžeme připojit druhý strom. Pokud máme v~rámci spojování prvek mezi hodnotami obou stromů do stromu vložit, stačí ho prohlásit za nový kořen a jako syny mu připojit kořeny původních stromů. \ope{Split} provedeme následovně:
+Pomocí operace $\ope{Splay}(x)$ naimplementujeme ostatní stromové operace. Při
+operaci \ope{Insert}(x) nejprve zavoláme $\ope{Splay}(x)$. Tím se dostane
+následník nebo předchůdce $x$ do kořene. Potom můžeme vložit nový vrchol
+obsahující $x$ mezi něj a jeho pravého nebo levého syna. Při operaci \ope{Delete} na
+prvek zavoláme $\ope{Splay}$, poté ze stromu odstraníme kořen a dva vzniklé
+stromy (jsou-li oba neprázdné)  spojíme dále popsanou operací \ope{Join}.
+Operaci \ope{Join} tak, jak byla popsána v~kapitole \nameref{sec:RB}, můžeme
+provést tak, že ve stromu, který bez újmy na obecnosti obsahuje menší prvky ze
+dvou spojovaných stromů, zavoláme $\ope{Splay}(\infty)$. Tím dostaneme nejvyšší
+prvek do kořene. Kořeni proto bude chybět pravý syn. Na jeho místo tedy můžeme
+připojit druhý strom. Pokud máme v~rámci spojování prvek mezi hodnotami obou
+stromů do stromu vložit, stačí ho prohlásit za nový kořen a jako syny mu
+připojit kořeny původních stromů. \ope{Split} provedeme následovně:
 
 \begin{enumerate}
 \item $\ope{Split}(x)$ v~našem případě rozdělí strom na stromy s~hodnotou klíče větší než $x$, menší než $x$, případně nechá samostatně vrchol s~hodnotou $x$, pokud ve stromu byl. Začneme tedy zavoláním $\ope{Splay}(x)$.

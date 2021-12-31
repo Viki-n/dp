@@ -68,10 +68,10 @@ chod vypsáním počtu bytů, které zabírá v paměti jeden vrchol tohoto stro
 Při použití těchto souborů jako knihoven je potřeba nadefinovat jedno z maker
 !SPLAY!, !REDBLACK!, !MULTISPLAY! nebo !TANGO!, čímž docílíme, že preprocesor
 odstraní funkci !main!. Dále je možné nadefinovat makro !VALUE!, jehož expanzí
-bude datový typ, který chceme do stromu ukládat. Tento datový typmusí
+bude datový typ, který chceme do stromu ukládat. Tento datový typ musí
 podporovat porovnávání pomocí operátoru !>!. Výchozí hodnota tohoto makra je
 !int!. Pokud makro nadefinujeme, je dále nutné nadefinovat makro
-!VALUE_FORMAT!, jehož expanzí bude formátovací řetěrec odpovídající typu
+!VALUE_FORMAT!, jehož expanzí bude formátovací řetězec odpovídající typu
 !VALUE!. Dále je možné nadefinovat makro !INVALID!, jehož expanzí bude hodnota
 typu !VALUE!, která do stromu nesmí být nikdy vložena. Ta je pak interně
 používána jako chybová hodnota a je také vrácena při hledání v prázdném stromu.
@@ -93,7 +93,7 @@ samotného se jedná o implementaci operace \ope{Build} pro červenočerný a sp
 strom, které ve svých vlastních souborech implementují pouze operaci
 \ope{Insert}. Tento soubor je také možné přeložit. Při překládání očekává, že
 bude předem nadefinováno právě jedno z maker !SPLAY!, !REDBLACK!, !MULTISPLAY!
-nebo !TANGO!, podle čehož vybere, který strom bude měřit. Dále raguje ještě na
+nebo !TANGO!, podle čehož vybere, který strom bude měřit. Dále reaguje ještě na
 dvě další makra. Prvním z nich je makro !TOUCH!, které vede k tomu, že bude
 přeložený program měřit počet dotyků (jinak bude měřit čas procesu). Druhým je
 potom makro !RANDOM_ALLOCATION!, které vede k tomu, že jsou adresy nových
@@ -113,15 +113,15 @@ spuštění očekává na prvním řádku svého standardního vstupu celé čí
 intervalu $[0, \text{!MAX_INT!}]$ (podle standardu musí být hodnota !MAX_INT!
 alespoň $2^{15}-1$) odpovídající požadované velikosti testovaného stromu. Dále
 očekává na dalších řádcích vstupu přístupovou posloupnost, a to tak, že každý
-řádek standardního vstupu bude obsahovat právě jedno čislo. Na konci
-standatdního vstupu program vypíše buď počet dotyků vrcholu, nebo celkové
+řádek standardního vstupu bude obsahovat právě jedno číslo. Na konci
+standardního vstupu program vypíše buď počet dotyků vrcholu, nebo celkové
 množství milisekund strávených operacemi \ope{Find}.
 
 A nakonec soubor !data.c! obsahuje generátor dat. Tento soubor po přiložení vydá program, který na příkazové řádce očekává 4 až 5 argumentů. Nejprve požadovanou velikost stromu $n$. Potom požadovanou délku přístupové posloupnosti $m$. Potom seed náhodného generátoru, u nějž je nutné, aby se jednalo o malé číslo, protože inicializace trvá lineárně dlouho vůči hodnotě seedu. Dále znak určující typ posloupnosti. Možné hodnoty jsou
 
 \begin{itemize}
 \item !s! pro sekvenční přístupovou posloupnost,
-\item !r! pro náhodnou přísupovou posloupnost,
+\item !r! pro náhodnou přístupovou posloupnost,
 \item !i! pro bit reversal posloupnost levé páteře,
 \item !u! pro podmnožinovou náhodnou posloupnost,
 \item !b! pro podmnožinovou sekvenční posloupnost.
