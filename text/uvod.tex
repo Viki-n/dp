@@ -1,17 +1,17 @@
 \chapter*{Úvod}
 \addcontentsline{toc}{chapter}{Úvod}
 
-Téměř žádný program se neobejde bez uchovávání dat v paměti počítače. Pro uchováváni dat je nutné vybrat datovou strukturu, jejíž schopnosti odpovídají potřebám programu. Pokud chceme umět pokládat dotazy na předchůdce či následníka prvku, nebo pokud naše data reprezentují intervaly čísel a my potřebujeme umět rozhodnout, zda dané číslo je prvkem nějakého ze zapamatovaných intervalů, je přirozenou volbou struktury binární vyhledávací strom. Základní binární vyhledávací strom bohužel ale nezaručuje lepší než lineární čas na operaci, proto \citet{AVL} představili AVL strom, nejstarší z vyvažovaných binárních stromů.
+Téměř žádný program se neobejde bez uchovávání dat v~paměti počítače. Pro uchováváni dat je nutné vybrat datovou strukturu, jejíž schopnosti odpovídají potřebám programu. Pokud chceme umět pokládat dotazy na předchůdce či následníka prvku, nebo pokud naše data reprezentují intervaly čísel a my potřebujeme umět rozhodnout, zda dané číslo je prvkem nějakého ze zapamatovaných intervalů, je přirozenou volbou struktury binární vyhledávací strom. Základní binární vyhledávací strom bohužel ale nezaručuje lepší než lineární čas na operaci, proto \citet{AVL} představili AVL strom, nejstarší z~vyvažovaných binárních stromů.
 
-AVL strom dovede vykonat libovolnou operaci v čase $\mathcal O(\log n)$, což je nejlepší složitost v nejhorším případě, které lze dosáhnout. Po AVL stromu přišly další varianty vyvažovaných binárních vyhledávacích stromů, jako například červenočerný strom, který představili \citet{redblack}, který nabízí oproti AVL stromu navíc například operaci \ope{Split}, a také garantuje amortizovaně $\mathcal O(1)$ zápisů do paměti na operaci. Tím dosahuje rychlejšího chování v některých praktických aplikacích. 
+AVL strom dovede vykonat libovolnou operaci v~čase $\mathcal O(\log n)$, což je nejlepší složitost v~nejhorším případě, které lze dosáhnout. Po AVL stromu přišly další varianty vyvažovaných binárních vyhledávacích stromů, jako například červenočerný strom, který představili \citet{redblack}, který nabízí oproti AVL stromu navíc například operaci \ope{Split}, a také garantuje amortizovaně $\mathcal O(1)$ zápisů do paměti na operaci. Tím dosahuje rychlejšího chování v~některých praktických aplikacích. 
 
-Přestože nejde obecně dosáhnout lepší než logaritmické časové složitosti operace \ope{Find}, některé konkrétní přístupové posloupnosti lze vykonat i s lepším průměrným časem na operaci. \citet{splay} proto představili splay strom, který mění svou strukturu nejen při vkládání či mazání prvků, ale i při jejich vyhledávání. Tím dosahuje lepší časové složitosti při vykonávání některých přístupových posloupností a zachovává si amortizovaně logaritmickou složitost při vykonávání jiných, v nejhorším případě ale může mít až lineární hloubku. Také může při každém přístupu změnit část svojí struktury, což vede k mnoha zápisům do paměti, které jsou obvykle pomalejší než čtení.
+Přestože nejde obecně dosáhnout lepší než logaritmické časové složitosti operace \ope{Find}, některé konkrétní přístupové posloupnosti lze vykonat i s~lepším průměrným časem na operaci. \citet{splay} proto představili splay strom, který mění svou strukturu nejen při vkládání či mazání prvků, ale i při jejich vyhledávání. Tím dosahuje lepší časové složitosti při vykonávání některých přístupových posloupností a zachovává si amortizovaně logaritmickou složitost při vykonávání jiných, v~nejhorším případě ale může mít až lineární hloubku. Také může při každém přístupu změnit část svojí struktury, což vede k~mnoha zápisům do paměti, které jsou obvykle pomalejší než čtení.
 
-Autoři splay stromu o něm postulovali, že dovede vykonat libovolnou přístupovou posloupnost v optimálním čase. Toto tvrzení však stále není ani nyní, 35 let po objevu splay stromu, dokázané. Ve skutečnosti není dokázané žádné silnější tvrzení, než že se splay strom chová nejvýše o logaritmický faktor hůře, než optimální strom. Toto tvrzení je ale triviální -- i optimálnímu stromu musí každé vyhledání prvku trvat alespoň $\mathcal O(1)$ času -- a splňují ho i například AVL stromy.
+Autoři splay stromu o~něm postulovali, že dovede vykonat libovolnou přístupovou posloupnost v~optimálním čase. Toto tvrzení však stále není ani nyní, 35 let po objevu splay stromu, dokázané. Ve skutečnosti není dokázané žádné silnější tvrzení, než že se splay strom chová nejvýše o~logaritmický faktor hůře, než optimální strom. Toto tvrzení je ale triviální -- i optimálnímu stromu musí každé vyhledání prvku trvat alespoň $\mathcal O(1)$ času -- a splňují ho i například AVL stromy.
 
-Později byly představeny dvě další datové struktury, tango stromy a multisplay stromy, pro které se jejich autorům podařilo dokázat, že provedou nejvýše o faktor $\log\log n$ kroků více, než optimální strom.
+Později byly představeny dvě další datové struktury, tango stromy a multisplay stromy, pro které se jejich autorům podařilo dokázat, že provedou nejvýše o~faktor $\log\log n$ kroků více, než optimální strom.
 
-V praxi je ale ne vždy asymptotická složitost struktury její rozhodující
+V~praxi je ale ne vždy asymptotická složitost struktury její rozhodující
 vlastností -- existuje mnoho příkladů struktur, které mají velmi nízkou
 asymptotickou složitost, ale ta se projeví až na neprakticky velkých datech. Za
 všechny můžeme uvést například Fibonacciho haldu. Proto vznikly studie
@@ -19,16 +19,16 @@ zkoumající praktické chování těchto stromů. \citet{AVLperformance} zkouma
 počty jednotlivých kroků, které provede AVL strom při vykonávání náhodné
 posloupnosti různých operací. \citet{comparison} a \citet{comparison2}
 porovnávali několik různých vyvažovacích strategií, a to jak podle času běhu na konkrétním hardwaru, tak
-podle délek cest z kořene k vyhledávaným vrcholům. Všechny tyto studie zkoumali
-chování stromů pouze na umělých přístupových posloupnostech. Žádná z nich také
+podle délek cest z~kořene k~vyhledávaným vrcholům. Všechny tyto studie zkoumali
+chování stromů pouze na umělých přístupových posloupnostech. Žádná z~nich také
 nezkoumala chování splay stromu (mimo jiné proto, že vznikly před představením
 splay stromu).
 
-\citet{performance} porovnával celkem 20 datových struktur -- větší počet variant červenočerného, AVL a splay stromu, které se mezi sebou lišily reprezentací vrcholů. K porovnání použil nejen umělé přístupové posloupnosti, ale i přístupové posloupnosti získané přímo z běhu několika programů, které binární vyhledávací stromy používají, například z webového prohlížeče Firefox nebo z jádra operačního systému Linux. Ve svém článku měřil pouze čas běhu simulace.
+\citet{performance} porovnával celkem 20 datových struktur -- větší počet variant červenočerného, AVL a splay stromu, které se mezi sebou lišily reprezentací vrcholů. K~porovnání použil nejen umělé přístupové posloupnosti, ale i přístupové posloupnosti získané přímo z~běhu několika programů, které binární vyhledávací stromy používají, například z~webového prohlížeče Firefox nebo z~jádra operačního systému Linux. Ve svém článku měřil pouze čas běhu simulace.
 
-Žádná z těchto prací však nezkoumala chování tango stromů a multisplay stromů. Proto jsme se rozhodli porovnat chování těchto dvou datových struktur, a dále červenočerného a splay stromu, na několika typech přístupových posloupností.
+Žádná z~těchto prací však nezkoumala chování tango stromů a multisplay stromů. Proto jsme se rozhodli porovnat chování těchto dvou datových struktur, a dále červenočerného a splay stromu, na několika typech přístupových posloupností.
 
 \section*{Struktura práce}
 \addcontentsline{toc}{section}{Struktura práce}
 
-V první kapitole nazvané Teoretický úvod představíme model binárního vyhledávacího stromu a jeho varianty, jejichž chování budeme v dalších kapitolách zkoumat. V druhé kapitole stručně připomeneme cíle práce. Ve třetí kapitole popíšeme metodiku, kterou se budeme řídit při provádění měření. Ve čtvrté a závěrečné kapitole představíme naměřené výsledky a provedeme jejich diskusi.
+V~první kapitole nazvané Teoretický úvod představíme model binárního vyhledávacího stromu a jeho varianty, jejichž chování budeme v~dalších kapitolách zkoumat. V~druhé kapitole stručně připomeneme cíle práce. Ve třetí kapitole popíšeme metodiku, kterou se budeme řídit při provádění měření. Ve čtvrté a závěrečné kapitole představíme naměřené výsledky a provedeme jejich diskusi.
