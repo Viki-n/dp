@@ -1,6 +1,6 @@
 \section{Dokumentace}
 
-Součástí elektronických příloh práce je zdrojový kód v jazyce C programů použitých k měření vlastností stromů. Zde poskytneme dokumentaci tohoto zdrojového kódu.
+Součástí elektronických příloh práce je zdrojový kód v~jazyce C programů použitých k~měření vlastností stromů. Zde poskytneme dokumentaci tohoto zdrojového kódu.
 
 \catcode`_=\active
 \def _{\textunderscore}
@@ -10,7 +10,7 @@ Součástí elektronických příloh práce je zdrojový kód v jazyce C program
 
 
 
-Kód je rozdělen do celkem 9 souborů. Kód v souboru {\tt stack.h} obsahuje naši
+Kód je rozdělen do celkem 9 souborů. Kód v~souboru {\tt stack.h} obsahuje naši
 implementaci zásobníku. Zásobník předpokládá, že před jeho vložením do zdrojového kódu budou nadefinována následující objektová makra, jejichž expanzí budou validní identifikátory jazyka C:
 
 \begin{itemize}
@@ -23,7 +23,7 @@ implementaci zásobníku. Zásobník předpokládá, že před jeho vložením d
 \item (volitelně) !PEEK!
 \end{itemize}
 
-Tím budou nadefinovány následující typy a funkce (makrem v tomto popisu máme na mysli jeho hodnotu po expanzi):
+Tím budou nadefinovány následující typy a funkce (makrem v~tomto popisu máme na mysli jeho hodnotu po expanzi):
 \begin{itemize}
 \item datový typ !STACKNAME!, který odpovídá stejnojmenné struktuře,
 \item funkce !void INIT(STACKNAME *stack, size_t initialsize)!, která inicializuje zásobník,
@@ -34,14 +34,14 @@ Tím budou nadefinovány následující typy a funkce (makrem v tomto popisu má
 \end{itemize}
 
 Dále zásobník obsahuje prvky !stack.used! a !stack.size!, které obsahují
-aktuální počet prvků v zásobníku a aktuální kapacitu zásobníku. Vnitřně
-zásobník funguje tak, že pokud by měl počet prvků v zásobníku překročit
+aktuální počet prvků v~zásobníku a aktuální kapacitu zásobníku. Vnitřně
+zásobník funguje tak, že pokud by měl počet prvků v~zásobníku překročit
 kapacitu, je kapacita zdvojnásobena. Kapacitu nikdy nezmenšujeme, protože to
 pro naši aplikaci zásobníku není potřeba.
 
-Kód v souboru !random.c! obsahuje implementaci pseudonáhodného generátoru
-!xoshiro256**!. Tento generátor potřebuje 256-bitový seed. V našich aplikacích
-používáme pevný 256-bitový seed, a v případě, že potřebujeme více různých
+Kód v~souboru !random.c! obsahuje implementaci pseudonáhodného generátoru
+!xoshiro256**!. Tento generátor potřebuje 256-bitový seed. V~našich aplikacích
+používáme pevný 256-bitový seed, a v~případě, že potřebujeme více různých
 náhodných posloupností, použijeme opakované volání funkce !jump!, kterou tento
 pseudonáhodný generátor implementuje. Jedno zavolání funkce !jump! je
 ekvivalentní $2^{64}$ volání funkce !next!. Volání funkce !jump! je pro tento
@@ -52,20 +52,20 @@ Soubor {\tt common.c} obsahuje kód společný více
 stromům -- definici struktury vrcholu, počítadlo doteků, rotace a alokace vrcholů a kvůli
 tomu, že tango strom interně využívá červenočerné stromy, také většinu kódu
 specifického pro červenočerný strom (operace \ope{Join}, \ope{Split} a kód
-starající se o vyvažování po operaci \ope{Insert}). Naopak neobsahuje kód
-potřebný pro vykonání operace \ope{Splay}, protože po této operaci chceme v
-splay stromu a v multisplay stromu něco trochu jiného a došli jsme k názoru, že
-bude jednodušší nechat tyto implementace oddělené. Podobně jsme zůstali u
-separátních implementací funkcí vypisující tvar stromů na standardní výstup pro
+starající se o~vyvažování po operaci \ope{Insert}). Naopak neobsahuje kód
+potřebný pro vykonání operace \ope{Splay}, protože po této operaci chceme
+v~splay stromu a v~multisplay stromu něco trochu jiného a došli jsme k~názoru, že
+bude jednodušší nechat tyto implementace oddělené. Podobně jsme zůstali
+u~separátních implementací funkcí vypisující tvar stromů na standardní výstup pro
 účely ladění.
 
 Soubory {\tt rb.c}, {\tt splay.c}, {\tt multisplay.c} a {\tt tango.c} obsahují
 implementace jednotlivých stromů. Tyto soubory je možné samostatně přeložit --
 tím dostaneme program, který neakceptuje žádný vstup a při spuštění krátce
 demonstruje funkčnost daného stromu. Všechny čtyři programy také ukončí svůj
-chod vypsáním počtu bytů, které zabírá v paměti jeden vrchol tohoto stromu.
+chod vypsáním počtu bytů, které zabírá v~paměti jeden vrchol tohoto stromu.
 
-Při použití těchto souborů jako knihoven je potřeba nadefinovat jedno z maker
+Při použití těchto souborů jako knihoven je potřeba nadefinovat jedno z~maker
 !SPLAY!, !REDBLACK!, !MULTISPLAY! nebo !TANGO!, čímž docílíme, že preprocesor
 odstraní funkci !main!. Dále je možné nadefinovat makro !VALUE!, jehož expanzí
 bude datový typ, který chceme do stromu ukládat. Tento datový typ musí
@@ -74,50 +74,50 @@ podporovat porovnávání pomocí operátoru !>!. Výchozí hodnota tohoto makra
 !VALUE_FORMAT!, jehož expanzí bude formátovací řetězec odpovídající typu
 !VALUE!. Dále je možné nadefinovat makro !INVALID!, jehož expanzí bude hodnota
 typu !VALUE!, která do stromu nesmí být nikdy vložena. Ta je pak interně
-používána jako chybová hodnota a je také vrácena při hledání v prázdném stromu.
+používána jako chybová hodnota a je také vrácena při hledání v~prázdném stromu.
 
 Inkludování souboru nám nadefinuje datový typ !Node!, do nějž lze ukládat strom. Dále nám nadefinuje několik funkcí pro práci se stromem, konkrétně:
 
 \begin{itemize}
 \item !void print_tree(Node *root)!, která vytiskne grafickou reprezentaci stromu na standardní výstup,
-\item v případě multisplay a tango stromu !Node *build(int hi)!, která vytvoří strom na vrcholech 0 až !hi!,
-\item v případě multisplay a tango stromu !VALUE *find(VALUE value, Node **root)!, která vyhledá ve stromu hodnotu !value! a vrátí ji, pokud ve stromu je, případně jejího předchůdce či následníka ve stromu, pokud !value! ve stromu není,
-\item v případě červenočerného stromu !VALUE *find(VALUE value, Node **root, bool insert)!, která vyhledá ve stromu hodnotu !value! a vrátí ji, pokud ve stromu je, jinak ji do stromu vloží a vrátí ji, pokud nastavíme příznak !insert!, případně jejího předchůdce či následníka ve stromu, pokud !value! ve stromu není a !insert! je !false!,
-\item v případě splay stromu !VALUE *splay(VALUE value, Node **root, bool insert)!, která funguje stejně jako funkce !find! červenočerného stromu,
-\item v případě červenočerného stromu funkci !void split(Node** root, VALUE value)!, která vrátí na adrese !*root! strom, jehož kořen je vrchol obsahující hodnotu !value! a jeho levý a pravý podstrom jsou validní červenočerné stromy obsahující dohromady přesně vrcholy z vstupního stromu krom vrcholu s hodnotou !value!,
-\item v případě červenočerného stromu funkci !void join(Node **root)! inverzní k funkci !split!.
+\item v~případě multisplay a tango stromu !Node *build(int hi)!, která vytvoří strom na vrcholech 0 až !hi!,
+\item v~případě multisplay a tango stromu !VALUE *find(VALUE value, Node **root)!, která vyhledá ve stromu hodnotu !value! a vrátí ji, pokud ve stromu je, případně jejího předchůdce či následníka ve stromu, pokud !value! ve stromu není,
+\item v~případě červenočerného stromu !VALUE *find(VALUE value, Node **root, bool insert)!, která vyhledá ve stromu hodnotu !value! a vrátí ji, pokud ve stromu je, jinak ji do stromu vloží a vrátí ji, pokud nastavíme příznak !insert!, případně jejího předchůdce či následníka ve stromu, pokud !value! ve stromu není a !insert! je !false!,
+\item v~případě splay stromu !VALUE *splay(VALUE value, Node **root, bool insert)!, která funguje stejně jako funkce !find! červenočerného stromu,
+\item v~případě červenočerného stromu funkci !void split(Node** root, VALUE value)!, která vrátí na adrese !*root! strom, jehož kořen je vrchol obsahující hodnotu !value! a jeho levý a pravý podstrom jsou validní červenočerné stromy obsahující dohromady přesně vrcholy z~vstupního stromu krom vrcholu s~hodnotou !value!,
+\item v~případě červenočerného stromu funkci !void join(Node **root)! inverzní k~funkci !split!.
 \end{itemize}
 
-Soubor {\tt run_tests.c} obsahuje kód nutný k provedení měření. Kromě měření
-samotného se jedná o implementaci operace \ope{Build} pro červenočerný a splay
+Soubor {\tt run_tests.c} obsahuje kód nutný k~provedení měření. Kromě měření
+samotného se jedná o~implementaci operace \ope{Build} pro červenočerný a splay
 strom, které ve svých vlastních souborech implementují pouze operaci
 \ope{Insert}. Tento soubor je také možné přeložit. Při překládání očekává, že
-bude předem nadefinováno právě jedno z maker !SPLAY!, !REDBLACK!, !MULTISPLAY!
+bude předem nadefinováno právě jedno z~maker !SPLAY!, !REDBLACK!, !MULTISPLAY!
 nebo !TANGO!, podle čehož vybere, který strom bude měřit. Dále reaguje ještě na
-dvě další makra. Prvním z nich je makro !TOUCH!, které vede k tomu, že bude
+dvě další makra. Prvním z~nich je makro !TOUCH!, které vede k~tomu, že bude
 přeložený program měřit počet dotyků (jinak bude měřit čas procesu). Druhým je
-potom makro !RANDOM_ALLOCATION!, které vede k tomu, že jsou adresy nových
-vrcholů přiřazovány náhodně (jinak jsou přiřazovány v rostoucím pořadí).
+potom makro !RANDOM_ALLOCATION!, které vede k~tomu, že jsou adresy nových
+vrcholů přiřazovány náhodně (jinak jsou přiřazovány v~rostoucím pořadí).
 
 Na tyto dvě makra ve skutečnosti reagují i samy jednotlivé stromy. Při jejich
 překladu se ale makro !TOUCH! projeví pouze větší velikostí vrcholů, protože
-proměnná, která udává pořadové číslo operace, není nikdy změněna a proměnná, v
-níž se ukládá celkový počet doteků, není nikdy přečtena. Makro
-!RANDOM_ALLOCATION! se potom vůbec neprojeví v chování přeloženého
+proměnná, která udává pořadové číslo operace, není nikdy změněna a proměnná,
+v~níž se ukládá celkový počet doteků, není nikdy přečtena. Makro
+!RANDOM_ALLOCATION! se potom vůbec neprojeví v~chování přeloženého
 červenočerného a splay stromu. Při jejich běhu se totiž nikdy nezavolá
 inicializační funkce alokátoru paměti a nové vrcholy se alokují pomocí funkce
 !malloc!.
 
 Po přeložení zdrojového souboru !run_tests.c! dostaneme program, který po
-spuštění očekává na prvním řádku svého standardního vstupu celé číslo z
-intervalu $[0, \text{!MAX_INT!}]$ (podle standardu musí být hodnota !MAX_INT!
+spuštění očekává na prvním řádku svého standardního vstupu celé číslo
+z~intervalu $[0, \text{!MAX_INT!}]$ (podle standardu musí být hodnota !MAX_INT!
 alespoň $2^{15}-1$) odpovídající požadované velikosti testovaného stromu. Dále
 očekává na dalších řádcích vstupu přístupovou posloupnost, a to tak, že každý
 řádek standardního vstupu bude obsahovat právě jedno číslo. Na konci
 standardního vstupu program vypíše buď počet dotyků vrcholu, nebo celkové
 množství milisekund strávených operacemi \ope{Find}.
 
-A nakonec soubor !data.c! obsahuje generátor dat. Tento soubor po přiložení vydá program, který na příkazové řádce očekává 4 až 5 argumentů. Nejprve požadovanou velikost stromu $n$. Potom požadovanou délku přístupové posloupnosti $m$. Potom seed náhodného generátoru, u nějž je nutné, aby se jednalo o malé číslo, protože inicializace trvá lineárně dlouho vůči hodnotě seedu. Dále znak určující typ posloupnosti. Možné hodnoty jsou
+A~nakonec soubor !data.c! obsahuje generátor dat. Tento soubor po přiložení vydá program, který na příkazové řádce očekává 4 až 5 argumentů. Nejprve požadovanou velikost stromu $n$. Potom požadovanou délku přístupové posloupnosti $m$. Potom seed náhodného generátoru, u~nějž je nutné, aby se jednalo o~malé číslo, protože inicializace trvá lineárně dlouho vůči hodnotě seedu. Dále znak určující typ posloupnosti. Možné hodnoty jsou
 
 \begin{itemize}
 \item !s! pro sekvenční přístupovou posloupnost,
@@ -127,6 +127,6 @@ A nakonec soubor !data.c! obsahuje generátor dat. Tento soubor po přiložení 
 \item !b! pro podmnožinovou sekvenční posloupnost.
 \end{itemize}
 
-Pro podmnožinové posloupnosti program očekává ještě pátý argument s požadovanou velikostí podmnožiny. Všechny číselné argumenty kromě seedu a délky posloupnosti musí být kladná celá čísla, seed a délka posloupnosti mohou být i nula.
+Pro podmnožinové posloupnosti program očekává ještě pátý argument s~požadovanou velikostí podmnožiny. Všechny číselné argumenty kromě seedu a délky posloupnosti musí být kladná celá čísla, seed a délka posloupnosti mohou být i nula.
 
 \catcode`_=8
