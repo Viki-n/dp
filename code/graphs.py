@@ -149,7 +149,7 @@ def simple_graphs(seq_type, prints=False, modified=True):
 
         if type_ == 'touch' and seq_type == 'r':
             logs = np.array(list(map(log2, sizes)))
-            plt.plot(sizes, logs, color='gray', label='log(n)')
+            plt.plot(sizes, logs, color='gray', label='log₂(n)')
 
         plt.xlabel('Počet vrcholů stromu')
         plt.ylabel(label)

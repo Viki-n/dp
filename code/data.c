@@ -109,11 +109,20 @@ int main(int argc, char** argv) {
             for (int i=0; i<length; i++){
                 printf("%d\n", set[rd(subset_size)]);
             }
-        } else {
+        } else if (mode == 'b') {
             qsort(set, subset_size, sizeof(int), comp);
             for (int i=0; i<length; i++){
                 printf("%d\n", set[i%subset_size]);
             }
+        } else if (mode == 'e'){
+            for (int i=0; i<length; i++){
+                if (i % (3* subset_size) == 0){
+                    free(set);
+                    set = subset(size, subset_size);
+                }
+                printf("%d\n", set[rd(subset_size)]);
+            }
+        }
 
         }
     }
