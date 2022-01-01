@@ -709,10 +709,10 @@ $f(n) + g(S)$ kroků. Pak optimální strom umí tutéž posloupnost vykonat pom
 
 \begin{dukaz}
 Mějme jakoukoli pevnou posloupnost $S$. Dále mějme posloupnost $S'$, což je posloupnost $S$ $(f(n)+1)$-krát zřetězená sama za sebe. Posloupnost $S'$ umí splay strom
-vykonat v~čase nejvýše $$f(n) + g(S') \geq f(n) + (f(n)+1) \cdot g(S).$$ Tato
+vykonat v~čase nejvýše $$f(n) + g(S') \leq f(n) + (f(n)+1) \cdot g(S).$$ Tato
 nerovnost platí díky podmínkám na funkci $g$ popsaných v~minulém odstavci. Nyní
 tedy víme, že splay strom vykoná posloupnost $S'$ v~čase nejvýše
-$f(n)+(f(n)+1)\cdot g(S))$. Vykonání posloupnosti $S'$ je ale pouze $f(n)$ po
+$f(n)+(f(n)+1)\cdot g(S))$. Vykonání posloupnosti $S'$ je ale pouze $f(n)+1$ po
 sobě jdoucích vykonání posloupnosti $S$. Během vykonávání $S'$ tedy vykonáme
 $S$ v~průměru v~čase nejvýše $$\frac{f(n)}{f(n)+1}+g(S).$$ To znamená, že
 alespoň jedno z~vykonání $S$ trvalo nejvýše právě tento průměr.
@@ -1094,6 +1094,6 @@ změn vzniklých vkládáním a mazáním, $n$ je počet vrcholů $P$ po posledn
 je počet rotací hran v~popisu $P$, $c$ je vhodně zvolená kladná konstanta a $m$
 je délka posloupnosti $S$.  \end{veta}
 
-Nahlédneme, že vzhledem k~výše uvedenému popisu mazání a vkládání je multisplay strom i v~dynamickém modelu stále $(\log\logn)$-kompetitivní. 
+Nahlédneme, že vzhledem k~výše uvedenému popisu mazání a vkládání je multisplay strom i v~dynamickém modelu stále $(\log\log n)$-kompetitivní. 
 
 %\section{Geometrický náhled na stromové operace}

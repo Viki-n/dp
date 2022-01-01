@@ -11,7 +11,7 @@ Součástí elektronických příloh práce je zdrojový kód v~jazyce C program
 
 
 Kód je rozdělen do celkem 9 souborů. Kód v~souboru {\tt stack.h} obsahuje naši
-implementaci zásobníku. Zásobník předpokládá, že před jeho vložením do zdrojového kódu budou nadefinována následující objektová makra, jejichž expanzí budou validní identifikátory jazyka C:
+implementaci zásobníku. Rozhodli jsme se totiž v implementaci operací \ope{Find} nepoužít žádnou knhovní funkci, abychom měli kontrolu nad zacházením s cachí. Zásobník předpokládá, že před jeho vložením do zdrojového kódu budou nadefinována následující objektová makra, jejichž expanzí budou validní identifikátory jazyka C:
 
 \begin{itemize}
 \item !STACKNAME!
@@ -40,11 +40,11 @@ kapacitu, je kapacita zdvojnásobena. Kapacitu nikdy nezmenšujeme, protože to
 pro naši aplikaci zásobníku není potřeba.
 
 Kód v~souboru !random.c! obsahuje implementaci pseudonáhodného generátoru
-!xoshiro256**!. Tento generátor potřebuje 256-bitový seed. V~našich aplikacích
+!xoshiro256**!, který představili \citet{xoshiro}. Tento generátor potřebuje 256-bitový seed. V~našich aplikacích
 používáme pevný 256-bitový seed, a v~případě, že potřebujeme více různých
 náhodných posloupností, použijeme opakované volání funkce !jump!, kterou tento
 pseudonáhodný generátor implementuje. Jedno zavolání funkce !jump! je
-ekvivalentní $2^{64}$ volání funkce !next!. Volání funkce !jump! je pro tento
+ekvivalentní $2^{64}$ volání funkce !next!, kterou jinak používáme na generování náhodných čísel. Volání funkce !jump! je pro tento
 generátor doporučený způsob generování více nezávislých posloupností náhodných
 čísel.
 
@@ -65,7 +65,7 @@ tím dostaneme program, který neakceptuje žádný vstup a při spuštění kr�
 demonstruje funkčnost daného stromu. Všechny čtyři programy také ukončí svůj
 chod vypsáním počtu bytů, které zabírá v~paměti jeden vrchol tohoto stromu.
 
-Při použití těchto souborů jako knihoven je potřeba nadefinovat jedno z~maker
+Tyto soubory lze také použít jako moduly do jiného programu -- pomocí inkludování příslušného souboru. Při takovém použití je nutné nadefinovat příslušné z~maker
 !SPLAY!, !REDBLACK!, !MULTISPLAY! nebo !TANGO!, čímž docílíme, že preprocesor
 odstraní funkci !main!. Dále je možné nadefinovat makro !VALUE!, jehož expanzí
 bude datový typ, který chceme do stromu ukládat. Tento datový typ musí
@@ -79,12 +79,12 @@ používána jako chybová hodnota a je také vrácena při hledání v~prázdn�
 Inkludování souboru nám nadefinuje datový typ !Node!, do nějž lze ukládat strom. Dále nám nadefinuje několik funkcí pro práci se stromem, konkrétně:
 
 \begin{itemize}
-\item !void print_tree(Node *root)!, která vytiskne grafickou reprezentaci stromu na standardní výstup,
+\item !void print_tree(Node *root)!, která vytiskne textovou reprezentaci stromu na standardní výstup,
 \item v~případě multisplay a tango stromu !Node *build(int hi)!, která vytvoří strom na vrcholech 0 až !hi!,
 \item v~případě multisplay a tango stromu !VALUE *find(VALUE value, Node **root)!, která vyhledá ve stromu hodnotu !value! a vrátí ji, pokud ve stromu je, případně jejího předchůdce či následníka ve stromu, pokud !value! ve stromu není,
-\item v~případě červenočerného stromu !VALUE *find(VALUE value, Node **root, bool insert)!, která vyhledá ve stromu hodnotu !value! a vrátí ji, pokud ve stromu je, jinak ji do stromu vloží a vrátí ji, pokud nastavíme příznak !insert!, případně jejího předchůdce či následníka ve stromu, pokud !value! ve stromu není a !insert! je !false!,
+\item v~případě červenočerného stromu !VALUE *find(VALUE value, Node **root, bool insert)!, která vyhledá ve stromu hodnotu !value! a vrátí ji, pokud ve stromu je, jinak ji do stromu vloží a vrátí ji, pokud nastavíme příznak !insert!, případně jejího předchůdce či následníka ve stromu, pokud !value! ve stromu není a !insert! je !false!. Na adrese !*root! potom vrátí červenočerný strom po změně, kterou v něm mohl !find! s příznakem !insert! udělat.
 \item v~případě splay stromu !VALUE *splay(VALUE value, Node **root, bool insert)!, která funguje stejně jako funkce !find! červenočerného stromu,
-\item v~případě červenočerného stromu funkci !void split(Node** root, VALUE value)!, která vrátí na adrese !*root! strom, jehož kořen je vrchol obsahující hodnotu !value! a jeho levý a pravý podstrom jsou validní červenočerné stromy obsahující dohromady přesně vrcholy z~vstupního stromu krom vrcholu s~hodnotou !value!,
+\item v~případě červenočerného stromu funkci !void split(Node **root, VALUE value)!, která vrátí na adrese !*root! strom, jehož kořen je vrchol obsahující hodnotu !value! a jeho levý a pravý podstrom jsou validní červenočerné stromy obsahující dohromady přesně vrcholy z~vstupního stromu krom vrcholu s~hodnotou !value!,
 \item v~případě červenočerného stromu funkci !void join(Node **root)! inverzní k~funkci !split!.
 \end{itemize}
 
@@ -99,9 +99,9 @@ přeložený program měřit počet dotyků (jinak bude měřit čas procesu). D
 potom makro !RANDOM_ALLOCATION!, které vede k~tomu, že jsou adresy nových
 vrcholů přiřazovány náhodně (jinak jsou přiřazovány v~rostoucím pořadí).
 
-Na tyto dvě makra ve skutečnosti reagují i samy jednotlivé stromy. Při jejich
+Na tato dvě makra ve skutečnosti reagují i samy jednotlivé stromy. Při jejich
 překladu se ale makro !TOUCH! projeví pouze větší velikostí vrcholů, protože
-proměnná, která udává pořadové číslo operace, není nikdy změněna a proměnná,
+proměnná, která udává pořadové číslo operace, není nikdy změněna, a proměnná,
 v~níž se ukládá celkový počet doteků, není nikdy přečtena. Makro
 !RANDOM_ALLOCATION! se potom vůbec neprojeví v~chování přeloženého
 červenočerného a splay stromu. Při jejich běhu se totiž nikdy nezavolá
@@ -110,12 +110,11 @@ inicializační funkce alokátoru paměti a nové vrcholy se alokují pomocí fu
 
 Po přeložení zdrojového souboru !run_tests.c! dostaneme program, který po
 spuštění očekává na prvním řádku svého standardního vstupu celé číslo
-z~intervalu $[0, \text{!MAX_INT!}]$ (podle standardu musí být hodnota !MAX_INT!
-alespoň $2^{15}-1$) odpovídající požadované velikosti testovaného stromu. Dále
+z~intervalu $[0, \text{!MAX_INT!}]$ odpovídající požadované velikosti testovaného stromu. Dále
 očekává na dalších řádcích vstupu přístupovou posloupnost, a to tak, že každý
 řádek standardního vstupu bude obsahovat právě jedno číslo. Na konci
-standardního vstupu program vypíše buď počet dotyků vrcholu, nebo celkové
-množství milisekund strávených operacemi \ope{Find}.
+standardního vstupu program vypíše buď počet dotyků vrcholu, nebo celkový
+počet milisekund strávených operacemi \ope{Find}.
 
 A~nakonec soubor !data.c! obsahuje generátor dat. Tento soubor po přiložení vydá program, který na příkazové řádce očekává 4 až 5 argumentů. Nejprve požadovanou velikost stromu $n$. Potom požadovanou délku přístupové posloupnosti $m$. Potom seed náhodného generátoru, u~nějž je nutné, aby se jednalo o~malé číslo, protože inicializace trvá lineárně dlouho vůči hodnotě seedu. Dále znak určující typ posloupnosti. Možné hodnoty jsou
 
