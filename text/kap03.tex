@@ -19,7 +19,13 @@ postupně vložíme všechny klíče, které mají obsahovat, v~rostoucím pořa
 
 Od reálného použití (přinejmenším červenočerného a splay stromu) jsme se mírně odchýlili metodou alokace paměti na nové vrcholy -- abychom dosáhli co nejpředvídatelnějšího chování, alokujeme jedno pole vrcholů se začátkem zarovnaným na stránku paměti a vrcholy budeme mít uložené v~něm. Adresy nových vrcholů v~rámci tohoto pole jsme nejprve přiřazovali sekvenčně, ale po zjištěních ze sekce \ref{sec:rb_and_cache} jsme počínaje měřeními popsanými v~sekci \ref{sec:sequential_access_sequence} přiřazovali pro červenočerný strom adresy v~náhodném pořadí. 
 
-Dále jsme se odchýlili od modelu -- ve snaze minimalizovat množství paměti zabírané jednotlivými vrcholy jsme se rozhodli nemít ve vrcholech ukazatele na rodiče a místo toho si ukazatele na rodiče všech vrcholů mezi aktuálním vrcholem a kořenem držet na zásobníku. Čistě pro zjednodušení algoritmu jsem se také rozhodli operace \ope{Split} a \ope{Join} červenočerného stromu, které jsou interně využívány operací \ope{Find} tango stromu, neimplementovat pomocí rotací hran, ale přímo tak jak byly popsány v~sekci o~červenočerném stromu. 
+Dále jsme se odchýlili od modelu -- ve snaze minimalizovat množství paměti
+zabírané jednotlivými vrcholy jsme se rozhodli nemít ve vrcholech ukazatele na
+rodiče a místo toho si ukazatele na rodiče všech vrcholů mezi aktuálním
+vrcholem a kořenem držet na zásobníku. Čistě pro zjednodušení algoritmu jsem se
+také rozhodli operace \ope{Split} a \ope{Join} červenočerného stromu, které
+jsou interně využívány operací \ope{Find} tango stromu, neimplementovat pomocí
+rotací hran, ale přímo tak, jak byly popsány v~sekci o~červenočerném stromu. 
 
 \citet{tango} ve svém článku o~tango stromu také mluví o~tom, že jako součást přístupu vždy změní preferovaný směr v~cílovém vrcholu na směr doleva. Protože však tato změna není pro důkazy složitosti tango stromu nutná, rozhodli jsme se jí nedělat (naopak změna preferovaného směru v~cílovém vrcholu multisplay stromu nutná je, tu tedy provádíme).
 
@@ -31,7 +37,7 @@ Měření počtu dotčených vrcholů jsme provedli tak, že jsme každé operac
 přiřadili její pořadové číslo. V~každém vrcholu jsme si zaznamenali pořadové číslo
 operace, při které byl naposled navštíven. Poté jsme vždy, když jsme se dotkli daného
 vrcholu, kde dotykem myslíme dereferencování na něj mířícího ukazatele,
-zkontrolovali, zda jsme ho během této operace již viděli, a pokud ne, změnili jsme
+zkontrolovali, zda jsme ho během této operace již viděli. Pokud ne, změnili jsme
 číslo poslední operace které máme v~tomto vrcholu zaznamenané a zvýšili
 počítadlo dotčených vrcholů o~jedna.
 
@@ -40,24 +46,23 @@ Měření času jsme provedli pomocí jiného programu, než kterým počítáme
 běh). Stejně jako v~případě počtu doteků používáme naši implementaci datových
 struktur, jejíž zdrojový kód je součástí elektronických příloh práce. K~její
 kompilaci jsme použili překladač {\tt gcc} ve verzi {\tt 10.2.1} s~úrovní
-optimalizací {\tt O3}. Při měření času jsme postupovali tak, že pro syntetické
-testy jsme přesměrovali standardní výstup generátoru (jehož zdrojový kód je
-taktéž součástí elektronických příloh práce) na standardní vstup testovaného
-programu, pro praktický test jsme na standardní vstup testovaného programu
-přesměrovali soubor s~daty. V~testovacím programu poté nejprve vybudujeme
+optimalizací {\tt O3}. Při měření času jsme postupovali tak, jsme propojili standardní výstup generátoru (jehož zdrojový kód je
+taktéž součástí elektronických příloh práce) a standardní vstup testovaného
+programu rourou. V~testovacím programu poté nejprve vybudujeme
 strukturu patřičné velikosti, potom načteme ze standardního vstupu do pole
-prvních nejvýše $1\cdot10^7$ prvků přístupové posloupnosti. Potom začneme měřit
+prvních nejvýše $10^7$ prvků přístupové posloupnosti. Potom začneme měřit
 čas a vykonáme načtenou část přístupové posloupnosti. Pokud ještě zbývá
 nenačtená část posloupnosti, měření přerušíme, načteme dalších nejvýše
-$1\cdot10^7$ prvků a změříme tuto část posloupnosti. Takto pokračujeme, dokud
+$10^7$ prvků a změříme tuto část posloupnosti. Takto pokračujeme, dokud
 se nedostaneme na konec posloupnosti.
 
 Procesorový čas jsme měřili pomocí funkce {\tt clock()} z~hlavičkového souboru
 {\tt time.h}. K~měření jsme použili procesor {\tt AMD EPYC 7301}
-s~frekvencí  $2.7\, \operatorname{GHz}$. Tento procesor obsahuje 8 fyzických a tedy
-16 logických jader, naše měření však nebylo nijak paralelizováno. V~systému bylo
+s~frekvencí  $2.7\, \operatorname{GHz}$. Tento procesor obsahuje 16 fyzických a tedy
+32 logických jader, naše měření však nebylo nijak paralelizováno. Jedno jádro má k dispozici $64\,\operatorname{kB}$ L1 cache, $512\,\operatorname{kB}$ L2 cache a $8\,\operatorname{MB}$ L3 cache. Procesory však mohou využívat i L3 cache patřící jiným procesorům; součet kapacit všech L3 cachí v systému je $128\,\operatorname{MB}$. V~systému bylo
 k~dispozici $126\,\operatorname{GB}$ RAM. Vzhledem k~tomu, že na pamětově
 nejnáročnější z~navržených testů stačilo méně než $10\,\operatorname{GB}$
 paměti, nás tedy dostupná paměť nijak neomezila. Měření proběhlo pod operačním
 systémem {\tt Debian GNU/Linux 11}.
 
+Měření času jsme nijak systematicky neopakovali, ale na základě několika pokusů jsme dospěli k závěru, že rozptyl mezi více měřeními též přístupové posloupnosti je zanedbatelný.

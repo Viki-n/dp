@@ -20,6 +20,8 @@ COLORS = {
     'tango': 'tab:red'
 }
 
+XLABEL = 'Počet vrcholů stromu (log)'
+
 def load_data(path, modified=False):
     line_data = None
     data = []
@@ -97,7 +99,7 @@ def by_one_seq_graphs(prints=False):
                 print(st)
                 print('mins:', mins)
                 print('maxes:', maxes)
-        plt.xlabel('Počet vrcholů stromu')
+        plt.xlabel(XLABEL)
         plt.ylabel(label)
         plt.grid()
         plt.legend()
@@ -151,13 +153,64 @@ def simple_graphs(seq_type, prints=False, modified=True):
             logs = np.array(list(map(log2, sizes)))
             plt.plot(sizes, logs, color='gray', label='log₂(n)')
 
-        plt.xlabel('Počet vrcholů stromu')
+        plt.xlabel(XLABEL)
         plt.ylabel(label)
         plt.legend()
         plt.grid()
         plt.savefig(f'../text/graphs/{type_}_{seq_type}.pdf')
         plt.close()
         plt.figure()
+
+
+def simple_graphs_divided(seq_type, prints=False, modified=True):
+    df = load_data('data', modified=modified)
+    df = df.loc[df['sequence_type'] == seq_type].copy()
+
+    if seq_type == "i":
+        df = _substract(df, load_data('data_splay_reversal'))
+
+    df['value'] /= df['sequence_length']
+
+    for type_ in ['touch']:
+
+        if type_ == 'ratio':
+            df_ = _transform(df)
+            df_['value'] = df_['time']/df_['touch']
+        else:
+            df_ = df.loc[df['value_type'] == type_].copy()
+
+        label = LABELS[type_] + ' dělené log₂(n)'
+        plt.semilogx()
+
+        sizes = []
+        data = {}
+        for st, aux in df_.groupby('structure'):
+            plt.plot(aux['tree_size'], aux['value']/aux['tree_size'].apply(log2), label=LABELS[st], color=COLORS[st])
+            data[st] = aux['value'].values
+            sizes = sizes or list(aux['tree_size'])
+
+        if prints:
+            if type_ == 'touch' and seq_type == 'r':
+                logs = np.array(list(map(log2, sizes)))
+                plt.plot(sizes, logs, color='gray', label='log(n)')
+
+                for d in data:
+                    print(d)
+                    print(np.mean(data[d] - logs[:len(data[d])]))
+                    print(data[d] / logs[:len(data[d])])
+
+                for d in data:
+                    print(d)
+                    print(np.mean(data[d]), np.mean(data[d][len(data[d])//2:]))
+
+        plt.xlabel(XLABEL)
+        plt.ylabel(label)
+        plt.legend()
+        plt.grid()
+        plt.savefig(f'../text/graphs/{type_}_{seq_type}_divided.pdf')
+        plt.close()
+        plt.figure()
+
 
 
 def randomized_graphs():
@@ -182,11 +235,41 @@ def randomized_graphs():
             line_type = ':' if 'rbrandom' == st else '-'
             plt.plot(aux['tree_size'], aux['value'], label=label_, linestyle=line_type, color=COLORS.get(st, COLORS['rb']))
 
-    plt.xlabel('Počet vrcholů stromu')
+    plt.xlabel(XLABEL)
     plt.ylabel(label)
     plt.legend()
     plt.grid()
     plt.savefig(f'../text/graphs/randomized_rb.pdf')
+    plt.close()
+    plt.figure()
+
+
+def randomized_graphs_2():
+    df = load_data('data')
+    df['value'] /= df['sequence_length']
+    df1 = df.loc[(df['sequence_type'] == 's') & (df['structure'] == 'splay')].copy()
+
+    df2 = load_data('data_splay_random', modified=None)
+    df2['value'] /= df2['sequence_length']
+    #  df2['structure'] = 'rbrandom'
+
+    for df in [df1, df2]:
+        type_='time'
+        df_ = df.loc[df['value_type'] == type_].copy()
+
+        label = LABELS[type_]
+        plt.semilogx()
+
+        for st, aux in df_.groupby('structure'):
+            label_ = 'Sekvenční alokace' if 'splay' == st else (LABELS[st] + ' strom' if st in LABELS else 'Náhodná alokace')
+            line_type = ':' if 'splayrandom' == st else '-'
+            plt.plot(aux['tree_size'], aux['value'], label=label_, linestyle=line_type, color=COLORS.get(st, COLORS['splay']))
+
+    plt.xlabel(XLABEL)
+    plt.ylabel(label)
+    plt.legend()
+    plt.grid()
+    plt.savefig(f'../text/graphs/randomized_splay.pdf')
     plt.close()
     plt.figure()
 
@@ -203,7 +286,7 @@ def variance_random_tango_touch():
     df = df.dropna(subset=['value'])
     plt.plot(df['tree_size'], df['value'], label=LABELS['tango'], color=COLORS['tango'])
 
-    plt.xlabel('Počet vrcholů stromu')
+    plt.xlabel(XLABEL)
     plt.ylabel(label)
     plt.legend()
     plt.grid()
@@ -235,7 +318,7 @@ def per_tree_subset(seq_type):
             for subset_size, aux_ in aux.groupby('subset_size'):
                 plt.plot(aux_['tree_size'], aux_['value'], label='k = ' + str(subset_size or 'n'), color=next(color), linestyle=next(styles))
 
-            plt.xlabel('Počet vrcholů stromu')
+            plt.xlabel(XLABEL)
             plt.ylabel(label)
             plt.legend()
             plt.grid()
@@ -252,8 +335,11 @@ if __name__ == '__main__':
     simple_graphs('r', modified=False)
     simple_graphs('i')
 
+    simple_graphs_divided('r')
+
     variance_random_tango_touch()
     randomized_graphs()
+    randomized_graphs_2()
 
     per_tree_subset('u')
     per_tree_subset('b')

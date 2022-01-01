@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70206" creator="Ipe 7.2.7">
-<info created="D:20211218033626" modified="D:20211220223136"/>
+<info created="D:20211218033626" modified="D:20220101162452"/>
 <ipestyle name="basic">
 <symbol name="arrow/arc(spx)">
 <path stroke="sym-stroke" fill="sym-stroke" pen="sym-pen">
@@ -361,7 +361,7 @@ h
 <path matrix="-0.339266 0 0 0.339266 330.713 569.368" stroke="black">
 16 0 0 16 128 704 e
 </path>
-<text matrix="1 0 0 1 252.926 71.1494" pos="32 736" stroke="black" type="label" width="5.071" height="4.289" depth="0" valign="baseline" style="math">z</text>
+<text matrix="1 0 0 1 252.751 70.0668" pos="32 736" stroke="black" type="label" width="5.071" height="4.289" depth="0" valign="baseline" style="math">z</text>
 <text matrix="1 0 0 1 218.367 -49.9062" transformations="translations" pos="80 736" stroke="black" type="label" width="22.658" height="6.919" depth="0.83" valign="baseline" style="math">k-1</text>
 <text matrix="1 0 0 1 301.181 -8.8626" transformations="translations" pos="49.1914 694.956" stroke="black" type="label" width="5.5" height="6.918" depth="0" valign="baseline" style="math">k</text>
 <text matrix="1 0 0 1 169.51 -8.8626" transformations="translations" pos="49.1914 694.956" stroke="black" type="label" width="5.5" height="6.918" depth="0" valign="baseline" style="math">k</text>
