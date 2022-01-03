@@ -679,7 +679,7 @@ Mějme přístupovou posloupnost $S=s_1, s_2,\dots,s_m$ nad množinou $[n]$. Dá
 Jinými slovy, pokud pracujeme pouze s~malou podmnožinou prvků ve stromu, amortizovaná cena přístupů musí být logaritmická pouze ve velikosti této podmnožiny.
 
 \begin{veta}[Dynamic Finger Bound]
-Mějme přístupovou posloupnost $S=s_1, s_2,\dots,s_m$ nad množinou $[n]$. Potom platí $$\opt(S) \in \o\left(m + \sum_{i=2}^m \log(1 + |s_{i}-s_{i-1}|) \right).$$
+Mějme přístupovou posloupnost $S=s_1,\dots,s_m$ nad množinou $[n]$. Potom platí $$\opt(S) \in \o\left(m + \sum_{i=2}^m \log(1 + |s_{i}-s_{i-1}|) \right).$$
 \end{veta}
 
 Tato mez nám umožňuje prst v~každém kroku přesunout na právě navštívený prvek. Pro splay stromy ji dokázal \citet{dynamicfinger}.
@@ -687,8 +687,8 @@ Tato mez nám umožňuje prst v~každém kroku přesunout na právě navštíven
 Před posledními dvěma mezemi uděláme slibovanou odbočku. Na tu se nám ale budeme potřebovat nové značení.
 
 \begin{definice}
-Mějme posloupnost $S=s_1, s_2,\dots, s_m$ a posloupnost $T=t_1, t_2, \dots, t_k$. Pak
-\emph{zřetězením} posloupností $S$ a $T$ budeme rozumět posloupnost $S\|T = s_1, s_2,\dots, s_m, t_1,\dots,t_k$. Dále posloupnost
+Mějme posloupnosti $S=s_1, s_2,\dots, s_m$ a $T=t_1, t_2, \dots, t_k$. Pak
+\emph{zřetězením} posloupností $S$ a $T$ budeme rozumět posloupnost $$S\|T = s_1, s_2,\dots, s_m, t_1,\dots,t_k.$$ Dále posloupnost
 $\overline{S}=s_m, s_{m-1}, \dots, s_1$  nazveme \emph{otočením} posloupnosti $S$. 
 \end{definice}
 
@@ -742,7 +742,7 @@ algoritmus $A$, který ho při vyhledání hodnoty $x$ převede ze stavu $T_1$ d
 $T_2$ během $k$ kroků, pak existuje i algoritmus $B$, který při vyhledání hodnoty
 $x$ převede strom ze stavu $T_2$ do stavu $T_1$ pomocí $\o(k)$ kroků.
 
-To ale platí -- Všechny kroky, které provede algoritmus $A$, může algoritmus $B$
+To ale platí -- všechny kroky, které provede algoritmus $A$, může algoritmus $B$
 vykonat v~opačném pořadí a opačným směrem. Jediný problém nastane, pokud
 algoritmus $A$ využije krok \uv{najdi kořen}. Tentýž problém nastane na
 začátku běhu algoritmu $B$, kdy je nutné vrátit se na místo ve stromu, kde byl
@@ -1081,9 +1081,8 @@ Mějme referenční strom $P$. V~tomto stromu má každý vrchol svůj preferova
 směr, buď doprava nebo doleva. Vždy, když z~vrcholu při vyhledání prvku vyrazíme
 jiným než preferovaným směrem, změníme preferovaný směr tohoto vrcholu. Strom
 $P$ také podporuje rotace hran a operace \ope{Delete} a \ope{Insert} (které
-probíhají standardním algoritmem binárního vyhledávacího stromu\footnote{Platí,
-že standardní algoritmus na mazání nezapadá do nadefinovaného modelu. To
-znamená, že celý náš referenční strom nebude zapadat do modelu dynamického
+probíhají standardním algoritmem binárního vyhledávacího stromu\footnote{Standardní algoritmus na mazání nezapadá do nadefinovaného modelu. To
+znamená, že celý náš referenční strom nesplňuje definici dynamického
 binárního vyhledávacího stromu. To nevadí, strom $P$ je pomyslný a strom
 $T$, který skutečně stavíme, jeho chování pouze simuluje.}). Nechť $\dib_P(S)$ je
 počet změn preferovaných směrů všech vrcholů v~$P$ při vykonávání posloupnosti

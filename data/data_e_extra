@@ -1,0 +1,168 @@
+test_rbrandom_time 10000000 100000000 565 e 10
+Total time elapsed: 48541.492000 ms
+test_splay_time 10000000 100000000 565 e 10
+Total time elapsed: 52197.465000 ms
+test_rbrandom_time 10000000 100000000 566 e 13
+Total time elapsed: 49146.438000 ms
+test_splay_time 10000000 100000000 566 e 13
+Total time elapsed: 52874.593000 ms
+test_rbrandom_time 10000000 100000000 567 e 19
+Total time elapsed: 49107.177000 ms
+test_splay_time 10000000 100000000 567 e 19
+Total time elapsed: 53382.206000 ms
+test_rbrandom_time 10000000 100000000 568 e 26
+Total time elapsed: 49254.969000 ms
+test_splay_time 10000000 100000000 568 e 26
+Total time elapsed: 53824.719000 ms
+test_rbrandom_time 10000000 100000000 569 e 37
+Total time elapsed: 49475.126000 ms
+test_splay_time 10000000 100000000 569 e 37
+Total time elapsed: 54609.700000 ms
+test_rbrandom_time 10000000 100000000 570 e 51
+Total time elapsed: 49917.492000 ms
+test_splay_time 10000000 100000000 570 e 51
+Total time elapsed: 55229.301000 ms
+test_rbrandom_time 10000000 100000000 571 e 71
+Total time elapsed: 50313.714000 ms
+test_splay_time 10000000 100000000 571 e 71
+Total time elapsed: 56357.808000 ms
+test_rbrandom_time 10000000 100000000 572 e 100
+Total time elapsed: 50895.062000 ms
+test_splay_time 10000000 100000000 572 e 100
+Total time elapsed: 57158.327000 ms
+test_rbrandom_time 10000000 100000000 573 e 138
+Total time elapsed: 51046.032000 ms
+test_splay_time 10000000 100000000 573 e 138
+Total time elapsed: 58376.016000 ms
+test_rbrandom_time 10000000 100000000 574 e 193
+Total time elapsed: 51840.113000 ms
+test_splay_time 10000000 100000000 574 e 193
+Total time elapsed: 59680.547000 ms
+test_rbrandom_time 10000000 100000000 575 e 268
+Total time elapsed: 52554.246000 ms
+test_splay_time 10000000 100000000 575 e 268
+Total time elapsed: 60460.069000 ms
+test_rbrandom_time 10000000 100000000 576 e 372
+Total time elapsed: 53428.399000 ms
+test_splay_time 10000000 100000000 576 e 372
+Total time elapsed: 61610.419000 ms
+test_rbrandom_time 10000000 100000000 577 e 517
+Total time elapsed: 54703.690000 ms
+test_splay_time 10000000 100000000 577 e 517
+Total time elapsed: 62666.998000 ms
+test_rbrandom_time 10000000 100000000 578 e 719
+Total time elapsed: 56064.124000 ms
+test_splay_time 10000000 100000000 578 e 719
+Total time elapsed: 64573.266000 ms
+test_rbrandom_time 10000000 100000000 579 e 1000
+Total time elapsed: 57187.683000 ms
+test_splay_time 10000000 100000000 579 e 1000
+Total time elapsed: 64761.830000 ms
+test_rbrandom_time 10000000 100000000 580 e 1389
+Total time elapsed: 58045.742000 ms
+test_splay_time 10000000 100000000 580 e 1389
+Total time elapsed: 65780.989000 ms
+test_rbrandom_time 10000000 100000000 581 e 1930
+Total time elapsed: 59088.571000 ms
+test_splay_time 10000000 100000000 581 e 1930
+Total time elapsed: 66780.113000 ms
+test_rbrandom_time 10000000 100000000 582 e 2682
+Total time elapsed: 60100.333000 ms
+test_splay_time 10000000 100000000 582 e 2682
+Total time elapsed: 67725.231000 ms
+test_rbrandom_time 10000000 100000000 583 e 3727
+Total time elapsed: 62141.574000 ms
+test_splay_time 10000000 100000000 583 e 3727
+Total time elapsed: 69209.665000 ms
+test_rbrandom_time 10000000 100000000 584 e 5179
+Total time elapsed: 65656.482000 ms
+test_splay_time 10000000 100000000 584 e 5179
+Total time elapsed: 70036.424000 ms
+test_rbrandom_time 10000000 100000000 585 e 7196
+Total time elapsed: 71777.596000 ms
+test_splay_time 10000000 100000000 585 e 7196
+Total time elapsed: 71130.811000 ms
+test_rbrandom_time 10000000 100000000 586 e 10000
+Total time elapsed: 78749.628000 ms
+test_splay_time 10000000 100000000 586 e 10000
+Total time elapsed: 71931.356000 ms
+test_rbrandom_time 10000000 100000000 587 e 13894
+Total time elapsed: 84678.221000 ms
+test_splay_time 10000000 100000000 587 e 13894
+Total time elapsed: 73260.244000 ms
+test_rbrandom_time 10000000 100000000 588 e 19306
+Total time elapsed: 91511.339000 ms
+test_splay_time 10000000 100000000 588 e 19306
+Total time elapsed: 74753.494000 ms
+test_rbrandom_time 10000000 100000000 589 e 26826
+Total time elapsed: 95776.064000 ms
+test_splay_time 10000000 100000000 589 e 26826
+Total time elapsed: 76863.094000 ms
+test_rbrandom_time 10000000 100000000 590 e 37275
+Total time elapsed: 96525.587000 ms
+test_splay_time 10000000 100000000 590 e 37275
+Total time elapsed: 80021.783000 ms
+test_rbrandom_time 10000000 100000000 591 e 51794
+Total time elapsed: 99321.072000 ms
+test_splay_time 10000000 100000000 591 e 51794
+Total time elapsed: 83037.917000 ms
+test_rbrandom_time 10000000 100000000 592 e 71968
+Total time elapsed: 100908.367000 ms
+test_splay_time 10000000 100000000 592 e 71968
+Total time elapsed: 88951.297000 ms
+test_rbrandom_time 10000000 100000000 593 e 100000
+Total time elapsed: 101903.631000 ms
+test_splay_time 10000000 100000000 593 e 100000
+Total time elapsed: 90847.827000 ms
+test_rbrandom_time 10000000 100000000 594 e 138949
+Total time elapsed: 104219.164000 ms
+test_splay_time 10000000 100000000 594 e 138949
+Total time elapsed: 95260.370000 ms
+test_rbrandom_time 10000000 100000000 595 e 193069
+Total time elapsed: 103380.077000 ms
+test_splay_time 10000000 100000000 595 e 193069
+Total time elapsed: 99874.542000 ms
+test_rbrandom_time 10000000 100000000 596 e 268269
+Total time elapsed: 103780.489000 ms
+test_splay_time 10000000 100000000 596 e 268269
+Total time elapsed: 104477.546000 ms
+test_rbrandom_time 10000000 100000000 597 e 372759
+Total time elapsed: 104222.039000 ms
+test_splay_time 10000000 100000000 597 e 372759
+Total time elapsed: 110921.105000 ms
+test_rbrandom_time 10000000 100000000 598 e 517947
+Total time elapsed: 103979.929000 ms
+test_splay_time 10000000 100000000 598 e 517947
+Total time elapsed: 114572.826000 ms
+test_rbrandom_time 10000000 100000000 599 e 719685
+Total time elapsed: 105995.822000 ms
+test_splay_time 10000000 100000000 599 e 719685
+Total time elapsed: 119311.963000 ms
+test_rbrandom_time 10000000 100000000 600 e 1000000
+Total time elapsed: 105412.579000 ms
+test_splay_time 10000000 100000000 600 e 1000000
+Total time elapsed: 124227.198000 ms
+test_rbrandom_time 10000000 100000000 601 e 1389495
+Total time elapsed: 105714.302000 ms
+test_splay_time 10000000 100000000 601 e 1389495
+Total time elapsed: 128351.263000 ms
+test_rbrandom_time 10000000 100000000 602 e 1930697
+Total time elapsed: 106313.990000 ms
+test_splay_time 10000000 100000000 602 e 1930697
+Total time elapsed: 132657.145000 ms
+test_rbrandom_time 10000000 100000000 603 e 2682695
+Total time elapsed: 106657.494000 ms
+test_splay_time 10000000 100000000 603 e 2682695
+Total time elapsed: 137091.946000 ms
+test_rbrandom_time 10000000 100000000 604 e 3727593
+Total time elapsed: 106157.883000 ms
+test_splay_time 10000000 100000000 604 e 3727593
+Total time elapsed: 142182.714000 ms
+test_rbrandom_time 10000000 100000000 605 e 5179474
+Total time elapsed: 105800.851000 ms
+test_splay_time 10000000 100000000 605 e 5179474
+Total time elapsed: 145845.237000 ms
+test_rbrandom_time 10000000 100000000 606 e 7196856
+Total time elapsed: 105267.538000 ms
+test_splay_time 10000000 100000000 606 e 7196856
+Total time elapsed: 145833.654000 ms

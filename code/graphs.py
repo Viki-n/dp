@@ -298,7 +298,7 @@ def variance_random_tango_touch():
 def per_tree_subset(seq_type):
     df = load_data('data', modified=True)
     df['value'] /= df['sequence_length']
-    secondary_type = 'r' if seq_type=='u' else 's'
+    secondary_type = 's' if seq_type=='b' else 'r'
     df = df.loc[((df['sequence_type'] == seq_type) | (df['sequence_type'] == secondary_type)) & (df['tree_size'] <= 1e7)].copy().fillna(0)
 
     for type_ in ['touch', 'time']:
@@ -327,6 +327,27 @@ def per_tree_subset(seq_type):
             plt.figure()
 
 
+def subset_graphs():
+    df = load_data('data_e_extra', modified=True)
+
+    df['value'] /= df['sequence_length']
+
+    for type_ in ['time']:
+
+        label = LABELS[type_]
+        plt.semilogx()
+
+        for st, aux in df.groupby('structure'):
+            plt.plot(aux['subset_size'].astype(int), aux['value'], label=LABELS[st], color=COLORS[st])
+
+
+        plt.xlabel('Velikost množny M (log)')
+        plt.ylabel(label)
+        plt.legend()
+        plt.grid()
+        plt.savefig(f'../text/graphs/comparison_e.pdf')
+        plt.close()
+        plt.figure()
 
 
 if __name__ == '__main__':
@@ -343,4 +364,7 @@ if __name__ == '__main__':
 
     per_tree_subset('u')
     per_tree_subset('b')
+    per_tree_subset('e')
+
+    subset_graphs()
 

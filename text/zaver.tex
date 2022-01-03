@@ -1,2 +1,23 @@
 \chapter*{Závěr}
 \addcontentsline{toc}{chapter}{Závěr}
+
+V~práci jsme představili teoretický model dynamického binárního vyhledávacího stromu a několik starších výsledků na cestě k~dynamické optimalitě.
+
+Vytvořili jsme vlastní implementaci čtyř představených stromů, červenočerného, splay, tango a multisplay. Poté jsme navrhli několik tříd přístupových posloupností, na kterých jsme zkoumali, kolik doteků vrcholů a kolik času který ze zmíněných stromů potřebuje na vykonání jedné operace \ope{Find}. 
+
+Zjistili jsme, že nad náhodnými přístupovými posloupnostmi se nejlépe chová červenočerný strom. Objevili jsme však překvapivý potenciální problém červenočerného stromu -- zjistili jsme, že pokud jeho vrcholy naalokujeme a vložíme do stromu v~sekvenčním pořadí, narazíme na problémy související s~asociativitou cache. Tyto problémy se začnou projevovat ve chvíli, kdy je $n$ násobené nejvyšší mocninou dvojky, která dělí množství bytů, které v~paměti zabírá jeden vrchol, větší, než kapacita cache v~bytech.
+
+Nad sekvenčními a sekvenčními podmožinovými přístupovými posloupnostmi se naopak nejlépe choval splay strom. U~něj jsme naopak narazili na zpomalení, když vrcholy v~rostoucím pořadí uloženy nebyly Toto zpomalení však nebylo dost velké na to, aby byl splay strom červenočerným stromem překonán. Pro náhodné podmnožinové posloupnosti byl splay strom srovnatelně rychlý jako červenočerný strom, pokud $k \cong n/100$. Pro nižší hodnoty $k$ byl rychlejší splay strom, pro vyšší červenočerný strom. 
+
+Pro vykonávání proměnlivě podmnožinových přístupových posloupností se ukázal obecně vhodnější červenočerný strom. Splay strom byl rychlejší pouze pro volbu parametru $k$ takovou, aby se $k$ vrcholů sice vešlo do cache, ale pouze těsně.
+
+Při vykonávání všech zmíněných posloupností byl tango strom časově s~velkým
+rozdílem nejhorší, i když počtem dotčených vrcholů při vykonávání sekvenční
+přístupové posloupnosti se zařadil před červenočerný strom. Multisplay strom se
+choval výrazně lépe než tango strom, ale stále hůře než oba zbývající stromy.
+
+Našli jsme také jednu velmi specifickou přístupovou posloupnost, při jejímž vykonávání se tango strom choval nejlépe ze všech stromů. Najít přístupovou posloupnost, na které by se choval nejlépe multisplay strom, se nám nepovedlo. U~několika různých tříd posloupností jsme nabyli dojmu, že multisplay stromu škodí, že na konci každé operace \ope{Find} provede ještě změnu preferovaného směru v~cílovém vrcholu -- mohlo by být zajímavé zopakovat experimenty s~variantou multisplay stromu, který tuto změnu neprovádí. Protože ale na této změně závisí důkazy asymptotického chování struktury, nemuseli bychom ji vynechávat, pouze nahradit operací \ope{Splay} zavolanou na cílový vrchol -- pak by vlastnosti struktury tak, jak je  představili \citet{multisplay}, zůstaly zachovány.
+
+Nakonec jsme se pokusili najít přístupovou posloupnost z~reálného světa. Za tímto účelem jsme prozkoumali zdrojový kód webového prohlížeče Firefox. V~tom jsme objevili implementaci červenočerného stromu a splay stromu. Zdrojové kódy těchto struktur jsme upravili tak, aby struktury vypisovaly při běhu prohlížeče na standardní výstup, jakým způsobem jsou používány. Zjistili jsme ale, že splay strom při použití ve Firefoxu obvykle obsahuje pouze dva nebo tři vrcholy a nezaznamenali jsme použití, kdy by měl více než pět vrcholů. U~červenočerného stromu jsme podobně zjistili, že má při použití obvykle pouze několik desítek vrcholů.
+
+Navíc v~obou případech v~posloupnosti operací nad těmito stromy převažovaly operace \ope{Insert} a \ope{Delete} nad operacemi \ope{Find}. My jsme ale potřebovali posloupnost výhradně z~operací \ope{Find}, protože tango strom jiné operace nepodporuje. Mohli bychom ale zkusit najít pro naše účely vhodnější praktickou aplikaci binárních vyhledávacích stromů a vyzkoušet časy běhu jednotlivých stromů při této aplikaci.

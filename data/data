@@ -7514,3 +7514,2649 @@ test_tango_time 67108864 10000000 417 i
 Total time elapsed: 68.920000 ms
 test_tango_touch 67108864 10000000 417 i
 Touches: 41538519
+test_multisplay_time 13 10000000 418 e 10
+Total time elapsed: 2576.364000 ms
+test_multisplay_touch 13 10000000 418 e 10
+Touches: 69880278
+test_rb_time 13 10000000 418 e 10
+Total time elapsed: 313.058000 ms
+test_rb_touch 13 10000000 418 e 10
+Touches: 33077002
+test_splay_time 13 10000000 418 e 10
+Total time elapsed: 464.220000 ms
+test_splay_touch 13 10000000 418 e 10
+Touches: 30902048
+test_tango_time 13 10000000 418 e 10
+Total time elapsed: 2772.160000 ms
+test_tango_touch 13 10000000 418 e 10
+Touches: 62085472
+test_multisplay_time 19 10000000 419 e 10
+Total time elapsed: 3015.432000 ms
+test_multisplay_touch 19 10000000 419 e 10
+Touches: 82169891
+test_rb_time 19 10000000 419 e 10
+Total time elapsed: 338.948000 ms
+test_rb_touch 19 10000000 419 e 10
+Touches: 37364739
+test_splay_time 19 10000000 419 e 10
+Total time elapsed: 509.615000 ms
+test_splay_touch 19 10000000 419 e 10
+Touches: 33956289
+test_tango_time 19 10000000 419 e 10
+Total time elapsed: 3403.386000 ms
+test_tango_touch 19 10000000 419 e 10
+Touches: 80048043
+test_multisplay_time 26 10000000 420 e 10
+Total time elapsed: 3424.594000 ms
+test_multisplay_touch 26 10000000 420 e 10
+Touches: 94760485
+test_rb_time 26 10000000 420 e 10
+Total time elapsed: 364.057000 ms
+test_rb_touch 26 10000000 420 e 10
+Touches: 41535954
+test_splay_time 26 10000000 420 e 10
+Total time elapsed: 550.866000 ms
+test_splay_touch 26 10000000 420 e 10
+Touches: 36375636
+test_tango_time 26 10000000 420 e 10
+Total time elapsed: 4254.927000 ms
+test_tango_touch 26 10000000 420 e 10
+Touches: 95047035
+test_multisplay_time 37 10000000 421 e 10
+Total time elapsed: 3888.780000 ms
+test_multisplay_touch 37 10000000 421 e 10
+Touches: 107559540
+test_rb_time 37 10000000 421 e 10
+Total time elapsed: 389.651000 ms
+test_rb_touch 37 10000000 421 e 10
+Touches: 48912348
+test_splay_time 37 10000000 421 e 10
+Total time elapsed: 598.146000 ms
+test_splay_touch 37 10000000 421 e 10
+Touches: 38989481
+test_tango_time 37 10000000 421 e 10
+Total time elapsed: 5213.751000 ms
+test_tango_touch 37 10000000 421 e 10
+Touches: 112388151
+test_multisplay_time 51 10000000 422 e 10
+Total time elapsed: 4335.280000 ms
+test_multisplay_touch 51 10000000 422 e 10
+Touches: 119752449
+test_rb_time 51 10000000 422 e 10
+Total time elapsed: 411.232000 ms
+test_rb_touch 51 10000000 422 e 10
+Touches: 52354313
+test_splay_time 51 10000000 422 e 10
+Total time elapsed: 660.710000 ms
+test_splay_touch 51 10000000 422 e 10
+Touches: 41300053
+test_tango_time 51 10000000 422 e 10
+Total time elapsed: 6243.687000 ms
+test_tango_touch 51 10000000 422 e 10
+Touches: 128323865
+test_multisplay_time 71 10000000 423 e 10
+Total time elapsed: 4692.624000 ms
+test_multisplay_touch 71 10000000 423 e 10
+Touches: 132085510
+test_rb_time 71 10000000 423 e 10
+Total time elapsed: 467.517000 ms
+test_rb_touch 71 10000000 423 e 10
+Touches: 57323460
+test_splay_time 71 10000000 423 e 10
+Total time elapsed: 699.490000 ms
+test_splay_touch 71 10000000 423 e 10
+Touches: 43627264
+test_tango_time 71 10000000 423 e 10
+Total time elapsed: 7302.543000 ms
+test_tango_touch 71 10000000 423 e 10
+Touches: 145606597
+test_multisplay_time 100 10000000 424 e 10
+Total time elapsed: 5163.835000 ms
+test_multisplay_touch 100 10000000 424 e 10
+Touches: 144710076
+test_rb_time 100 10000000 424 e 10
+Total time elapsed: 522.451000 ms
+test_rb_touch 100 10000000 424 e 10
+Touches: 62018529
+test_splay_time 100 10000000 424 e 10
+Total time elapsed: 753.990000 ms
+test_splay_touch 100 10000000 424 e 10
+Touches: 45990518
+test_tango_time 100 10000000 424 e 10
+Total time elapsed: 8363.199000 ms
+test_tango_touch 100 10000000 424 e 10
+Touches: 163526718
+test_multisplay_time 138 10000000 425 e 10
+Total time elapsed: 5469.685000 ms
+test_multisplay_touch 138 10000000 425 e 10
+Touches: 156801846
+test_rb_time 138 10000000 425 e 10
+Total time elapsed: 577.363000 ms
+test_rb_touch 138 10000000 425 e 10
+Touches: 67478636
+test_splay_time 138 10000000 425 e 10
+Total time elapsed: 805.964000 ms
+test_splay_touch 138 10000000 425 e 10
+Touches: 48202450
+test_tango_time 138 10000000 425 e 10
+Total time elapsed: 9550.492000 ms
+test_tango_touch 138 10000000 425 e 10
+Touches: 180590841
+test_multisplay_time 138 10000000 426 e 100
+Total time elapsed: 6951.437000 ms
+test_multisplay_touch 138 10000000 426 e 100
+Touches: 186746991
+test_rb_time 138 10000000 426 e 100
+Total time elapsed: 595.735000 ms
+test_rb_touch 138 10000000 426 e 100
+Touches: 67463479
+test_splay_time 138 10000000 426 e 100
+Total time elapsed: 1157.865000 ms
+test_splay_touch 138 10000000 426 e 100
+Touches: 70638297
+test_tango_time 138 10000000 426 e 100
+Total time elapsed: 14131.376000 ms
+test_tango_touch 138 10000000 426 e 100
+Touches: 220861042
+test_multisplay_time 193 10000000 427 e 10
+Total time elapsed: 5920.450000 ms
+test_multisplay_touch 193 10000000 427 e 10
+Touches: 167838834
+test_rb_time 193 10000000 427 e 10
+Total time elapsed: 613.055000 ms
+test_rb_touch 193 10000000 427 e 10
+Touches: 70838866
+test_splay_time 193 10000000 427 e 10
+Total time elapsed: 863.012000 ms
+test_splay_touch 193 10000000 427 e 10
+Touches: 50469468
+test_tango_time 193 10000000 427 e 10
+Total time elapsed: 10505.733000 ms
+test_tango_touch 193 10000000 427 e 10
+Touches: 198606089
+test_multisplay_time 193 10000000 428 e 100
+Total time elapsed: 7672.480000 ms
+test_multisplay_touch 193 10000000 428 e 100
+Touches: 202833036
+test_rb_time 193 10000000 428 e 100
+Total time elapsed: 632.212000 ms
+test_rb_touch 193 10000000 428 e 100
+Touches: 70829112
+test_splay_time 193 10000000 428 e 100
+Total time elapsed: 1270.645000 ms
+test_splay_touch 193 10000000 428 e 100
+Touches: 74075431
+test_tango_time 193 10000000 428 e 100
+Total time elapsed: 15647.137000 ms
+test_tango_touch 193 10000000 428 e 100
+Touches: 246663067
+test_multisplay_time 268 10000000 429 e 10
+Total time elapsed: 6208.817000 ms
+test_multisplay_touch 268 10000000 429 e 10
+Touches: 179908830
+test_rb_time 268 10000000 429 e 10
+Total time elapsed: 720.715000 ms
+test_rb_touch 268 10000000 429 e 10
+Touches: 77124563
+test_splay_time 268 10000000 429 e 10
+Total time elapsed: 915.281000 ms
+test_splay_touch 268 10000000 429 e 10
+Touches: 52690826
+test_tango_time 268 10000000 429 e 10
+Total time elapsed: 11752.351000 ms
+test_tango_touch 268 10000000 429 e 10
+Touches: 214982537
+test_multisplay_time 268 10000000 430 e 100
+Total time elapsed: 8138.667000 ms
+test_multisplay_touch 268 10000000 430 e 100
+Touches: 221524461
+test_rb_time 268 10000000 430 e 100
+Total time elapsed: 738.563000 ms
+test_rb_touch 268 10000000 430 e 100
+Touches: 77144056
+test_splay_time 268 10000000 430 e 100
+Total time elapsed: 1317.207000 ms
+test_splay_touch 268 10000000 430 e 100
+Touches: 77163776
+test_tango_time 268 10000000 430 e 100
+Total time elapsed: 17586.579000 ms
+test_tango_touch 268 10000000 430 e 100
+Touches: 270426421
+test_multisplay_time 372 10000000 431 e 10
+Total time elapsed: 6632.886000 ms
+test_multisplay_touch 372 10000000 431 e 10
+Touches: 189905202
+test_rb_time 372 10000000 431 e 10
+Total time elapsed: 716.822000 ms
+test_rb_touch 372 10000000 431 e 10
+Touches: 79003315
+test_splay_time 372 10000000 431 e 10
+Total time elapsed: 981.285000 ms
+test_splay_touch 372 10000000 431 e 10
+Touches: 54869439
+test_tango_time 372 10000000 431 e 10
+Total time elapsed: 12684.359000 ms
+test_tango_touch 372 10000000 431 e 10
+Touches: 234542860
+test_multisplay_time 372 10000000 432 e 100
+Total time elapsed: 8771.481000 ms
+test_multisplay_touch 372 10000000 432 e 100
+Touches: 236903378
+test_rb_time 372 10000000 432 e 100
+Total time elapsed: 739.217000 ms
+test_rb_touch 372 10000000 432 e 100
+Touches: 78996914
+test_splay_time 372 10000000 432 e 100
+Total time elapsed: 1382.420000 ms
+test_splay_touch 372 10000000 432 e 100
+Touches: 80021594
+test_tango_time 372 10000000 432 e 100
+Total time elapsed: 19142.128000 ms
+test_tango_touch 372 10000000 432 e 100
+Touches: 298905717
+test_multisplay_time 517 10000000 433 e 10
+Total time elapsed: 6862.426000 ms
+test_multisplay_touch 517 10000000 433 e 10
+Touches: 201361074
+test_rb_time 517 10000000 433 e 10
+Total time elapsed: 888.027000 ms
+test_rb_touch 517 10000000 433 e 10
+Touches: 85819425
+test_splay_time 517 10000000 433 e 10
+Total time elapsed: 1014.832000 ms
+test_splay_touch 517 10000000 433 e 10
+Touches: 57090157
+test_tango_time 517 10000000 433 e 10
+Total time elapsed: 13934.290000 ms
+test_tango_touch 517 10000000 433 e 10
+Touches: 249201563
+test_multisplay_time 517 10000000 434 e 100
+Total time elapsed: 9139.724000 ms
+test_multisplay_touch 517 10000000 434 e 100
+Touches: 255022249
+test_rb_time 517 10000000 434 e 100
+Total time elapsed: 905.898000 ms
+test_rb_touch 517 10000000 434 e 100
+Touches: 85820772
+test_splay_time 517 10000000 434 e 100
+Total time elapsed: 1445.319000 ms
+test_splay_touch 517 10000000 434 e 100
+Touches: 82711506
+test_tango_time 517 10000000 434 e 100
+Total time elapsed: 20905.690000 ms
+test_tango_touch 517 10000000 434 e 100
+Touches: 320308565
+test_multisplay_time 719 10000000 435 e 10
+Total time elapsed: 7260.981000 ms
+test_multisplay_touch 719 10000000 435 e 10
+Touches: 210095830
+test_rb_time 719 10000000 435 e 10
+Total time elapsed: 936.075000 ms
+test_rb_touch 719 10000000 435 e 10
+Touches: 88099089
+test_splay_time 719 10000000 435 e 10
+Total time elapsed: 1059.404000 ms
+test_splay_touch 719 10000000 435 e 10
+Touches: 59300254
+test_tango_time 719 10000000 435 e 10
+Total time elapsed: 14837.879000 ms
+test_tango_touch 719 10000000 435 e 10
+Touches: 270156035
+test_multisplay_time 719 10000000 436 e 100
+Total time elapsed: 9753.649000 ms
+test_multisplay_touch 719 10000000 436 e 100
+Touches: 268974258
+test_rb_time 719 10000000 436 e 100
+Total time elapsed: 966.040000 ms
+test_rb_touch 719 10000000 436 e 100
+Touches: 88115723
+test_splay_time 719 10000000 436 e 100
+Total time elapsed: 1504.134000 ms
+test_splay_touch 719 10000000 436 e 100
+Touches: 85297732
+test_tango_time 719 10000000 436 e 100
+Total time elapsed: 22428.584000 ms
+test_tango_touch 719 10000000 436 e 100
+Touches: 350813831
+test_multisplay_time 1000 10000000 437 e 10
+Total time elapsed: 7521.480000 ms
+test_multisplay_touch 1000 10000000 437 e 10
+Touches: 220995353
+test_rb_time 1000 10000000 437 e 10
+Total time elapsed: 914.772000 ms
+test_rb_touch 1000 10000000 437 e 10
+Touches: 94041427
+test_splay_time 1000 10000000 437 e 10
+Total time elapsed: 1106.557000 ms
+test_splay_touch 1000 10000000 437 e 10
+Touches: 61521619
+test_tango_time 1000 10000000 437 e 10
+Total time elapsed: 16081.231000 ms
+test_tango_touch 1000 10000000 437 e 10
+Touches: 284347109
+test_multisplay_time 1000 10000000 438 e 100
+Total time elapsed: 10135.557000 ms
+test_multisplay_touch 1000 10000000 438 e 100
+Touches: 286139488
+test_rb_time 1000 10000000 438 e 100
+Total time elapsed: 942.145000 ms
+test_rb_touch 1000 10000000 438 e 100
+Touches: 94056007
+test_splay_time 1000 10000000 438 e 100
+Total time elapsed: 1556.375000 ms
+test_splay_touch 1000 10000000 438 e 100
+Touches: 87744361
+test_tango_time 1000 10000000 438 e 100
+Total time elapsed: 24103.710000 ms
+test_tango_touch 1000 10000000 438 e 100
+Touches: 370994278
+test_multisplay_time 1389 10000000 439 e 10
+Total time elapsed: 7876.449000 ms
+test_multisplay_touch 1389 10000000 439 e 10
+Touches: 228592526
+test_rb_time 1389 10000000 439 e 10
+Total time elapsed: 1022.512000 ms
+test_rb_touch 1389 10000000 439 e 10
+Touches: 98551340
+test_splay_time 1389 10000000 439 e 10
+Total time elapsed: 1149.874000 ms
+test_splay_touch 1389 10000000 439 e 10
+Touches: 63701089
+test_tango_time 1389 10000000 439 e 10
+Total time elapsed: 16897.667000 ms
+test_tango_touch 1389 10000000 439 e 10
+Touches: 304739628
+test_multisplay_time 1389 10000000 440 e 100
+Total time elapsed: 10623.390000 ms
+test_multisplay_touch 1389 10000000 440 e 100
+Touches: 298224020
+test_rb_time 1389 10000000 440 e 100
+Total time elapsed: 1053.791000 ms
+test_rb_touch 1389 10000000 440 e 100
+Touches: 98563345
+test_splay_time 1389 10000000 440 e 100
+Total time elapsed: 1609.792000 ms
+test_splay_touch 1389 10000000 440 e 100
+Touches: 90121132
+test_tango_time 1389 10000000 440 e 100
+Total time elapsed: 25408.394000 ms
+test_tango_touch 1389 10000000 440 e 100
+Touches: 400721857
+test_multisplay_time 1389 10000000 441 e 1000
+Total time elapsed: 12342.244000 ms
+test_multisplay_touch 1389 10000000 441 e 1000
+Touches: 328024519
+test_rb_time 1389 10000000 441 e 1000
+Total time elapsed: 1073.876000 ms
+test_rb_touch 1389 10000000 441 e 1000
+Touches: 98552508
+test_splay_time 1389 10000000 441 e 1000
+Total time elapsed: 2236.235000 ms
+test_splay_touch 1389 10000000 441 e 1000
+Touches: 117269086
+test_tango_time 1389 10000000 441 e 1000
+Total time elapsed: 31886.851000 ms
+test_tango_touch 1389 10000000 441 e 1000
+Touches: 443925907
+test_multisplay_time 1930 10000000 442 e 10
+Total time elapsed: 8175.591000 ms
+test_multisplay_touch 1930 10000000 442 e 10
+Touches: 238301409
+test_rb_time 1930 10000000 442 e 10
+Total time elapsed: 1094.909000 ms
+test_rb_touch 1930 10000000 442 e 10
+Touches: 103059377
+test_splay_time 1930 10000000 442 e 10
+Total time elapsed: 1197.959000 ms
+test_splay_touch 1930 10000000 442 e 10
+Touches: 65909213
+test_tango_time 1930 10000000 442 e 10
+Total time elapsed: 18113.135000 ms
+test_tango_touch 1930 10000000 442 e 10
+Touches: 317785463
+test_multisplay_time 1930 10000000 443 e 100
+Total time elapsed: 11035.505000 ms
+test_multisplay_touch 1930 10000000 443 e 100
+Touches: 313506088
+test_rb_time 1930 10000000 443 e 100
+Total time elapsed: 1133.710000 ms
+test_rb_touch 1930 10000000 443 e 100
+Touches: 103048882
+test_splay_time 1930 10000000 443 e 100
+Total time elapsed: 1661.314000 ms
+test_splay_touch 1930 10000000 443 e 100
+Touches: 92479955
+test_tango_time 1930 10000000 443 e 100
+Total time elapsed: 26912.383000 ms
+test_tango_touch 1930 10000000 443 e 100
+Touches: 419156402
+test_multisplay_time 1930 10000000 444 e 1000
+Total time elapsed: 12966.431000 ms
+test_multisplay_touch 1930 10000000 444 e 1000
+Touches: 349467563
+test_rb_time 1930 10000000 444 e 1000
+Total time elapsed: 1158.709000 ms
+test_rb_touch 1930 10000000 444 e 1000
+Touches: 103044340
+test_splay_time 1930 10000000 444 e 1000
+Total time elapsed: 2273.602000 ms
+test_splay_touch 1930 10000000 444 e 1000
+Touches: 120787959
+test_tango_time 1930 10000000 444 e 1000
+Total time elapsed: 34269.463000 ms
+test_tango_touch 1930 10000000 444 e 1000
+Touches: 468959621
+test_multisplay_time 2682 10000000 445 e 10
+Total time elapsed: 8508.368000 ms
+test_multisplay_touch 2682 10000000 445 e 10
+Touches: 245554021
+test_rb_time 2682 10000000 445 e 10
+Total time elapsed: 1154.404000 ms
+test_rb_touch 2682 10000000 445 e 10
+Touches: 107949901
+test_splay_time 2682 10000000 445 e 10
+Total time elapsed: 1227.928000 ms
+test_splay_touch 2682 10000000 445 e 10
+Touches: 68130549
+test_tango_time 2682 10000000 445 e 10
+Total time elapsed: 18848.759000 ms
+test_tango_touch 2682 10000000 445 e 10
+Touches: 337210729
+test_multisplay_time 2682 10000000 446 e 100
+Total time elapsed: 11446.282000 ms
+test_multisplay_touch 2682 10000000 446 e 100
+Touches: 324100239
+test_rb_time 2682 10000000 446 e 100
+Total time elapsed: 1201.276000 ms
+test_rb_touch 2682 10000000 446 e 100
+Touches: 107975617
+test_splay_time 2682 10000000 446 e 100
+Total time elapsed: 1689.063000 ms
+test_splay_touch 2682 10000000 446 e 100
+Touches: 94766072
+test_tango_time 2682 10000000 446 e 100
+Total time elapsed: 28129.991000 ms
+test_tango_touch 2682 10000000 446 e 100
+Touches: 446996895
+test_multisplay_time 2682 10000000 447 e 1000
+Total time elapsed: 13524.020000 ms
+test_multisplay_touch 2682 10000000 447 e 1000
+Touches: 365396182
+test_rb_time 2682 10000000 447 e 1000
+Total time elapsed: 1230.177000 ms
+test_rb_touch 2682 10000000 447 e 1000
+Touches: 107954548
+test_splay_time 2682 10000000 447 e 1000
+Total time elapsed: 2312.816000 ms
+test_splay_touch 2682 10000000 447 e 1000
+Touches: 124004227
+test_tango_time 2682 10000000 447 e 1000
+Total time elapsed: 36151.861000 ms
+test_tango_touch 2682 10000000 447 e 1000
+Touches: 505869318
+test_multisplay_time 3727 10000000 448 e 10
+Total time elapsed: 8795.248000 ms
+test_multisplay_touch 3727 10000000 448 e 10
+Touches: 254379112
+test_rb_time 3727 10000000 448 e 10
+Total time elapsed: 1210.361000 ms
+test_rb_touch 3727 10000000 448 e 10
+Touches: 112690621
+test_splay_time 3727 10000000 448 e 10
+Total time elapsed: 1274.048000 ms
+test_splay_touch 3727 10000000 448 e 10
+Touches: 70321801
+test_tango_time 3727 10000000 448 e 10
+Total time elapsed: 19983.961000 ms
+test_tango_touch 3727 10000000 448 e 10
+Touches: 349364373
+test_multisplay_time 3727 10000000 449 e 100
+Total time elapsed: 11849.572000 ms
+test_multisplay_touch 3727 10000000 449 e 100
+Touches: 337487002
+test_rb_time 3727 10000000 449 e 100
+Total time elapsed: 1260.767000 ms
+test_rb_touch 3727 10000000 449 e 100
+Touches: 112692510
+test_splay_time 3727 10000000 449 e 100
+Total time elapsed: 1755.260000 ms
+test_splay_touch 3727 10000000 449 e 100
+Touches: 97027393
+test_tango_time 3727 10000000 449 e 100
+Total time elapsed: 29438.990000 ms
+test_tango_touch 3727 10000000 449 e 100
+Touches: 464143709
+test_multisplay_time 3727 10000000 450 e 1000
+Total time elapsed: 14210.660000 ms
+test_multisplay_touch 3727 10000000 450 e 1000
+Touches: 385348335
+test_rb_time 3727 10000000 450 e 1000
+Total time elapsed: 1296.720000 ms
+test_rb_touch 3727 10000000 450 e 1000
+Touches: 112690263
+test_splay_time 3727 10000000 450 e 1000
+Total time elapsed: 2381.532000 ms
+test_splay_touch 3727 10000000 450 e 1000
+Touches: 126969029
+test_tango_time 3727 10000000 450 e 1000
+Total time elapsed: 38186.276000 ms
+test_tango_touch 3727 10000000 450 e 1000
+Touches: 529900133
+test_multisplay_time 5179 10000000 451 e 10
+Total time elapsed: 9143.899000 ms
+test_multisplay_touch 5179 10000000 451 e 10
+Touches: 261421154
+test_rb_time 5179 10000000 451 e 10
+Total time elapsed: 1279.235000 ms
+test_rb_touch 5179 10000000 451 e 10
+Touches: 116718170
+test_splay_time 5179 10000000 451 e 10
+Total time elapsed: 1340.647000 ms
+test_splay_touch 5179 10000000 451 e 10
+Touches: 72537247
+test_tango_time 5179 10000000 451 e 10
+Total time elapsed: 20812.542000 ms
+test_tango_touch 5179 10000000 451 e 10
+Touches: 367739679
+test_multisplay_time 5179 10000000 452 e 100
+Total time elapsed: 12205.640000 ms
+test_multisplay_touch 5179 10000000 452 e 100
+Touches: 347268682
+test_rb_time 5179 10000000 452 e 100
+Total time elapsed: 1335.978000 ms
+test_rb_touch 5179 10000000 452 e 100
+Touches: 116717217
+test_splay_time 5179 10000000 452 e 100
+Total time elapsed: 1807.636000 ms
+test_splay_touch 5179 10000000 452 e 100
+Touches: 99256613
+test_tango_time 5179 10000000 452 e 100
+Total time elapsed: 30500.333000 ms
+test_tango_touch 5179 10000000 452 e 100
+Touches: 490336254
+test_multisplay_time 5179 10000000 453 e 1000
+Total time elapsed: 14738.142000 ms
+test_multisplay_touch 5179 10000000 453 e 1000
+Touches: 400275702
+test_rb_time 5179 10000000 453 e 1000
+Total time elapsed: 1381.979000 ms
+test_rb_touch 5179 10000000 453 e 1000
+Touches: 116720260
+test_splay_time 5179 10000000 453 e 1000
+Total time elapsed: 2486.394000 ms
+test_splay_touch 5179 10000000 453 e 1000
+Touches: 129720767
+test_tango_time 5179 10000000 453 e 1000
+Total time elapsed: 39907.236000 ms
+test_tango_touch 5179 10000000 453 e 1000
+Touches: 564524624
+test_multisplay_time 7196 10000000 454 e 10
+Total time elapsed: 9544.418000 ms
+test_multisplay_touch 7196 10000000 454 e 10
+Touches: 269602712
+test_rb_time 7196 10000000 454 e 10
+Total time elapsed: 1340.431000 ms
+test_rb_touch 7196 10000000 454 e 10
+Touches: 121740996
+test_splay_time 7196 10000000 454 e 10
+Total time elapsed: 1381.091000 ms
+test_splay_touch 7196 10000000 454 e 10
+Touches: 74745086
+test_tango_time 7196 10000000 454 e 10
+Total time elapsed: 21846.176000 ms
+test_tango_touch 7196 10000000 454 e 10
+Touches: 379608685
+test_multisplay_time 7196 10000000 455 e 100
+Total time elapsed: 12665.061000 ms
+test_multisplay_touch 7196 10000000 455 e 100
+Touches: 358766483
+test_rb_time 7196 10000000 455 e 100
+Total time elapsed: 1415.781000 ms
+test_rb_touch 7196 10000000 455 e 100
+Touches: 121739783
+test_splay_time 7196 10000000 455 e 100
+Total time elapsed: 1856.532000 ms
+test_splay_touch 7196 10000000 455 e 100
+Touches: 101478824
+test_tango_time 7196 10000000 455 e 100
+Total time elapsed: 31724.659000 ms
+test_tango_touch 7196 10000000 455 e 100
+Touches: 506588255
+test_multisplay_time 7196 10000000 456 e 1000
+Total time elapsed: 15487.979000 ms
+test_multisplay_touch 7196 10000000 456 e 1000
+Touches: 418191643
+test_rb_time 7196 10000000 456 e 1000
+Total time elapsed: 1465.424000 ms
+test_rb_touch 7196 10000000 456 e 1000
+Touches: 121727198
+test_splay_time 7196 10000000 456 e 1000
+Total time elapsed: 2540.618000 ms
+test_splay_touch 7196 10000000 456 e 1000
+Touches: 132355387
+test_tango_time 7196 10000000 456 e 1000
+Total time elapsed: 41516.308000 ms
+test_tango_touch 7196 10000000 456 e 1000
+Touches: 587768374
+test_multisplay_time 10000 10000000 457 e 10
+Total time elapsed: 9814.856000 ms
+test_multisplay_touch 10000 10000000 457 e 10
+Touches: 276581771
+test_rb_time 10000 10000000 457 e 10
+Total time elapsed: 1409.553000 ms
+test_rb_touch 10000 10000000 457 e 10
+Touches: 128854078
+test_splay_time 10000 10000000 457 e 10
+Total time elapsed: 1428.038000 ms
+test_splay_touch 10000 10000000 457 e 10
+Touches: 76942323
+test_tango_time 10000 10000000 457 e 10
+Total time elapsed: 22788.721000 ms
+test_tango_touch 10000 10000000 457 e 10
+Touches: 396843787
+test_multisplay_time 10000 10000000 458 e 100
+Total time elapsed: 13027.901000 ms
+test_multisplay_touch 10000 10000000 458 e 100
+Touches: 367912900
+test_rb_time 10000 10000000 458 e 100
+Total time elapsed: 1486.797000 ms
+test_rb_touch 10000 10000000 458 e 100
+Touches: 128859058
+test_splay_time 10000 10000000 458 e 100
+Total time elapsed: 1903.935000 ms
+test_splay_touch 10000 10000000 458 e 100
+Touches: 103709005
+test_tango_time 10000 10000000 458 e 100
+Total time elapsed: 32821.391000 ms
+test_tango_touch 10000 10000000 458 e 100
+Touches: 530503948
+test_multisplay_time 10000 10000000 459 e 1000
+Total time elapsed: 15909.021000 ms
+test_multisplay_touch 10000 10000000 459 e 1000
+Touches: 432147110
+test_rb_time 10000 10000000 459 e 1000
+Total time elapsed: 1539.001000 ms
+test_rb_touch 10000 10000000 459 e 1000
+Touches: 128819139
+test_splay_time 10000 10000000 459 e 1000
+Total time elapsed: 2601.860000 ms
+test_splay_touch 10000 10000000 459 e 1000
+Touches: 134861225
+test_tango_time 10000 10000000 459 e 1000
+Total time elapsed: 43263.635000 ms
+test_tango_touch 10000 10000000 459 e 1000
+Touches: 619430784
+test_multisplay_time 13894 10000000 460 e 10
+Total time elapsed: 10114.062000 ms
+test_multisplay_touch 13894 10000000 460 e 10
+Touches: 284064069
+test_rb_time 13894 10000000 460 e 10
+Total time elapsed: 1475.368000 ms
+test_rb_touch 13894 10000000 460 e 10
+Touches: 132928172
+test_splay_time 13894 10000000 460 e 10
+Total time elapsed: 1483.940000 ms
+test_splay_touch 13894 10000000 460 e 10
+Touches: 79133072
+test_tango_time 13894 10000000 460 e 10
+Total time elapsed: 23788.744000 ms
+test_tango_touch 13894 10000000 460 e 10
+Touches: 409204320
+test_multisplay_time 13894 10000000 461 e 100
+Total time elapsed: 13411.533000 ms
+test_multisplay_touch 13894 10000000 461 e 100
+Touches: 377723292
+test_rb_time 13894 10000000 461 e 100
+Total time elapsed: 1580.571000 ms
+test_rb_touch 13894 10000000 461 e 100
+Touches: 132914268
+test_splay_time 13894 10000000 461 e 100
+Total time elapsed: 1961.451000 ms
+test_splay_touch 13894 10000000 461 e 100
+Touches: 105908117
+test_tango_time 13894 10000000 461 e 100
+Total time elapsed: 33827.356000 ms
+test_tango_touch 13894 10000000 461 e 100
+Touches: 547139523
+test_multisplay_time 13894 10000000 462 e 1000
+Total time elapsed: 16524.970000 ms
+test_multisplay_touch 13894 10000000 462 e 1000
+Touches: 447650954
+test_rb_time 13894 10000000 462 e 1000
+Total time elapsed: 1636.002000 ms
+test_rb_touch 13894 10000000 462 e 1000
+Touches: 132907417
+test_splay_time 13894 10000000 462 e 1000
+Total time elapsed: 2684.934000 ms
+test_splay_touch 13894 10000000 462 e 1000
+Touches: 137253938
+test_tango_time 13894 10000000 462 e 1000
+Total time elapsed: 44836.461000 ms
+test_tango_touch 13894 10000000 462 e 1000
+Touches: 643104971
+test_multisplay_time 13894 10000000 463 e 10000
+Total time elapsed: 18550.269000 ms
+test_multisplay_touch 13894 10000000 463 e 10000
+Touches: 477197530
+test_rb_time 13894 10000000 463 e 10000
+Total time elapsed: 1663.763000 ms
+test_rb_touch 13894 10000000 463 e 10000
+Touches: 132915918
+test_splay_time 13894 10000000 463 e 10000
+Total time elapsed: 3253.414000 ms
+test_splay_touch 13894 10000000 463 e 10000
+Touches: 165284750
+test_tango_time 13894 10000000 463 e 10000
+Total time elapsed: 52156.795000 ms
+test_tango_touch 13894 10000000 463 e 10000
+Touches: 687115003
+test_multisplay_time 19306 10000000 464 e 10
+Total time elapsed: 10398.375000 ms
+test_multisplay_touch 19306 10000000 464 e 10
+Touches: 291201905
+test_rb_time 19306 10000000 464 e 10
+Total time elapsed: 1546.885000 ms
+test_rb_touch 19306 10000000 464 e 10
+Touches: 138512841
+test_splay_time 19306 10000000 464 e 10
+Total time elapsed: 1532.249000 ms
+test_splay_touch 19306 10000000 464 e 10
+Touches: 81361924
+test_tango_time 19306 10000000 464 e 10
+Total time elapsed: 24852.695000 ms
+test_tango_touch 19306 10000000 464 e 10
+Touches: 425440790
+test_multisplay_time 19306 10000000 465 e 100
+Total time elapsed: 13587.655000 ms
+test_multisplay_touch 19306 10000000 465 e 100
+Touches: 386347705
+test_rb_time 19306 10000000 465 e 100
+Total time elapsed: 1659.724000 ms
+test_rb_touch 19306 10000000 465 e 100
+Touches: 138492487
+test_splay_time 19306 10000000 465 e 100
+Total time elapsed: 2025.156000 ms
+test_splay_touch 19306 10000000 465 e 100
+Touches: 108131669
+test_tango_time 19306 10000000 465 e 100
+Total time elapsed: 35114.129000 ms
+test_tango_touch 19306 10000000 465 e 100
+Touches: 568600768
+test_multisplay_time 19306 10000000 466 e 1000
+Total time elapsed: 16792.809000 ms
+test_multisplay_touch 19306 10000000 466 e 1000
+Touches: 460265265
+test_rb_time 19306 10000000 466 e 1000
+Total time elapsed: 1712.161000 ms
+test_rb_touch 19306 10000000 466 e 1000
+Touches: 138539945
+test_splay_time 19306 10000000 466 e 1000
+Total time elapsed: 2794.611000 ms
+test_splay_touch 19306 10000000 466 e 1000
+Touches: 139645070
+test_tango_time 19306 10000000 466 e 1000
+Total time elapsed: 46391.815000 ms
+test_tango_touch 19306 10000000 466 e 1000
+Touches: 670891462
+test_multisplay_time 19306 10000000 467 e 10000
+Total time elapsed: 19040.960000 ms
+test_multisplay_touch 19306 10000000 467 e 10000
+Touches: 495554567
+test_rb_time 19306 10000000 467 e 10000
+Total time elapsed: 1749.851000 ms
+test_rb_touch 19306 10000000 467 e 10000
+Touches: 138519012
+test_splay_time 19306 10000000 467 e 10000
+Total time elapsed: 3395.060000 ms
+test_splay_touch 19306 10000000 467 e 10000
+Touches: 168857235
+test_tango_time 19306 10000000 467 e 10000
+Total time elapsed: 54734.838000 ms
+test_tango_touch 19306 10000000 467 e 10000
+Touches: 723618516
+test_multisplay_time 26826 10000000 468 e 10
+Total time elapsed: 10755.192000 ms
+test_multisplay_touch 26826 10000000 468 e 10
+Touches: 298106179
+test_rb_time 26826 10000000 468 e 10
+Total time elapsed: 1604.408000 ms
+test_rb_touch 26826 10000000 468 e 10
+Touches: 142029359
+test_splay_time 26826 10000000 468 e 10
+Total time elapsed: 1594.195000 ms
+test_splay_touch 26826 10000000 468 e 10
+Touches: 83562456
+test_tango_time 26826 10000000 468 e 10
+Total time elapsed: 25892.583000 ms
+test_tango_touch 26826 10000000 468 e 10
+Touches: 439031894
+test_multisplay_time 26826 10000000 469 e 100
+Total time elapsed: 13966.958000 ms
+test_multisplay_touch 26826 10000000 469 e 100
+Touches: 394809799
+test_rb_time 26826 10000000 469 e 100
+Total time elapsed: 1727.850000 ms
+test_rb_touch 26826 10000000 469 e 100
+Touches: 142022320
+test_splay_time 26826 10000000 469 e 100
+Total time elapsed: 2104.610000 ms
+test_splay_touch 26826 10000000 469 e 100
+Touches: 110317622
+test_tango_time 26826 10000000 469 e 100
+Total time elapsed: 36142.468000 ms
+test_tango_touch 26826 10000000 469 e 100
+Touches: 586203209
+test_multisplay_time 26826 10000000 470 e 1000
+Total time elapsed: 17291.368000 ms
+test_multisplay_touch 26826 10000000 470 e 1000
+Touches: 473464929
+test_rb_time 26826 10000000 470 e 1000
+Total time elapsed: 1813.192000 ms
+test_rb_touch 26826 10000000 470 e 1000
+Touches: 142021434
+test_splay_time 26826 10000000 470 e 1000
+Total time elapsed: 2887.276000 ms
+test_splay_touch 26826 10000000 470 e 1000
+Touches: 141952246
+test_tango_time 26826 10000000 470 e 1000
+Total time elapsed: 47898.466000 ms
+test_tango_touch 26826 10000000 470 e 1000
+Touches: 695739158
+test_multisplay_time 26826 10000000 471 e 10000
+Total time elapsed: 20073.691000 ms
+test_multisplay_touch 26826 10000000 471 e 10000
+Touches: 514308232
+test_rb_time 26826 10000000 471 e 10000
+Total time elapsed: 1841.064000 ms
+test_rb_touch 26826 10000000 471 e 10000
+Touches: 142025294
+test_splay_time 26826 10000000 471 e 10000
+Total time elapsed: 3442.755000 ms
+test_splay_touch 26826 10000000 471 e 10000
+Touches: 172115627
+test_tango_time 26826 10000000 471 e 10000
+Total time elapsed: 56855.958000 ms
+test_tango_touch 26826 10000000 471 e 10000
+Touches: 756403812
+test_multisplay_time 37275 10000000 472 e 10
+Total time elapsed: 10898.233000 ms
+test_multisplay_touch 37275 10000000 472 e 10
+Touches: 305322800
+test_rb_time 37275 10000000 472 e 10
+Total time elapsed: 1681.569000 ms
+test_rb_touch 37275 10000000 472 e 10
+Touches: 147327565
+test_splay_time 37275 10000000 472 e 10
+Total time elapsed: 1667.966000 ms
+test_splay_touch 37275 10000000 472 e 10
+Touches: 85773041
+test_tango_time 37275 10000000 472 e 10
+Total time elapsed: 27041.430000 ms
+test_tango_touch 37275 10000000 472 e 10
+Touches: 454412541
+test_multisplay_time 37275 10000000 473 e 100
+Total time elapsed: 14322.084000 ms
+test_multisplay_touch 37275 10000000 473 e 100
+Touches: 403172850
+test_rb_time 37275 10000000 473 e 100
+Total time elapsed: 1823.475000 ms
+test_rb_touch 37275 10000000 473 e 100
+Touches: 147344210
+test_splay_time 37275 10000000 473 e 100
+Total time elapsed: 2174.049000 ms
+test_splay_touch 37275 10000000 473 e 100
+Touches: 112561304
+test_tango_time 37275 10000000 473 e 100
+Total time elapsed: 37550.896000 ms
+test_tango_touch 37275 10000000 473 e 100
+Touches: 605542691
+test_multisplay_time 37275 10000000 474 e 1000
+Total time elapsed: 17692.032000 ms
+test_multisplay_touch 37275 10000000 474 e 1000
+Touches: 485086161
+test_rb_time 37275 10000000 474 e 1000
+Total time elapsed: 1921.529000 ms
+test_rb_touch 37275 10000000 474 e 1000
+Touches: 147336851
+test_splay_time 37275 10000000 474 e 1000
+Total time elapsed: 2903.511000 ms
+test_splay_touch 37275 10000000 474 e 1000
+Touches: 144243549
+test_tango_time 37275 10000000 474 e 1000
+Total time elapsed: 49507.986000 ms
+test_tango_touch 37275 10000000 474 e 1000
+Touches: 720412647
+test_multisplay_time 37275 10000000 475 e 10000
+Total time elapsed: 20574.628000 ms
+test_multisplay_touch 37275 10000000 475 e 10000
+Touches: 531834430
+test_rb_time 37275 10000000 475 e 10000
+Total time elapsed: 2011.724000 ms
+test_rb_touch 37275 10000000 475 e 10000
+Touches: 147319209
+test_splay_time 37275 10000000 475 e 10000
+Total time elapsed: 3641.572000 ms
+test_splay_touch 37275 10000000 475 e 10000
+Touches: 175099326
+test_tango_time 37275 10000000 475 e 10000
+Total time elapsed: 59246.317000 ms
+test_tango_touch 37275 10000000 475 e 10000
+Touches: 788316209
+test_multisplay_time 51794 10000000 476 e 10
+Total time elapsed: 11229.723000 ms
+test_multisplay_touch 51794 10000000 476 e 10
+Touches: 311902685
+test_rb_time 51794 10000000 476 e 10
+Total time elapsed: 1787.110000 ms
+test_rb_touch 51794 10000000 476 e 10
+Touches: 151799827
+test_splay_time 51794 10000000 476 e 10
+Total time elapsed: 1736.167000 ms
+test_splay_touch 51794 10000000 476 e 10
+Touches: 87991698
+test_tango_time 51794 10000000 476 e 10
+Total time elapsed: 28090.342000 ms
+test_tango_touch 51794 10000000 476 e 10
+Touches: 469174119
+test_multisplay_time 51794 10000000 477 e 100
+Total time elapsed: 14735.148000 ms
+test_multisplay_touch 51794 10000000 477 e 100
+Touches: 410722456
+test_rb_time 51794 10000000 477 e 100
+Total time elapsed: 1940.736000 ms
+test_rb_touch 51794 10000000 477 e 100
+Touches: 151856126
+test_splay_time 51794 10000000 477 e 100
+Total time elapsed: 2237.157000 ms
+test_splay_touch 51794 10000000 477 e 100
+Touches: 114761049
+test_tango_time 51794 10000000 477 e 100
+Total time elapsed: 38503.026000 ms
+test_tango_touch 51794 10000000 477 e 100
+Touches: 623920305
+test_multisplay_time 51794 10000000 478 e 1000
+Total time elapsed: 18262.229000 ms
+test_multisplay_touch 51794 10000000 478 e 1000
+Touches: 496243615
+test_rb_time 51794 10000000 478 e 1000
+Total time elapsed: 2042.231000 ms
+test_rb_touch 51794 10000000 478 e 1000
+Touches: 151795256
+test_splay_time 51794 10000000 478 e 1000
+Total time elapsed: 2996.015000 ms
+test_splay_touch 51794 10000000 478 e 1000
+Touches: 146501164
+test_tango_time 51794 10000000 478 e 1000
+Total time elapsed: 50708.266000 ms
+test_tango_touch 51794 10000000 478 e 1000
+Touches: 745503112
+test_multisplay_time 51794 10000000 479 e 10000
+Total time elapsed: 21169.762000 ms
+test_multisplay_touch 51794 10000000 479 e 10000
+Touches: 548771419
+test_rb_time 51794 10000000 479 e 10000
+Total time elapsed: 2128.409000 ms
+test_rb_touch 51794 10000000 479 e 10000
+Touches: 151833210
+test_splay_time 51794 10000000 479 e 10000
+Total time elapsed: 3690.113000 ms
+test_splay_touch 51794 10000000 479 e 10000
+Touches: 177901029
+test_tango_time 51794 10000000 479 e 10000
+Total time elapsed: 61282.819000 ms
+test_tango_touch 51794 10000000 479 e 10000
+Touches: 822588853
+test_multisplay_time 71968 10000000 480 e 10
+Total time elapsed: 11482.423000 ms
+test_multisplay_touch 71968 10000000 480 e 10
+Touches: 319353247
+test_rb_time 71968 10000000 480 e 10
+Total time elapsed: 1861.401000 ms
+test_rb_touch 71968 10000000 480 e 10
+Touches: 157712069
+test_splay_time 71968 10000000 480 e 10
+Total time elapsed: 1815.474000 ms
+test_splay_touch 71968 10000000 480 e 10
+Touches: 90251326
+test_tango_time 71968 10000000 480 e 10
+Total time elapsed: 29489.308000 ms
+test_tango_touch 71968 10000000 480 e 10
+Touches: 484163276
+test_multisplay_time 71968 10000000 481 e 100
+Total time elapsed: 15105.333000 ms
+test_multisplay_touch 71968 10000000 481 e 100
+Touches: 418885445
+test_rb_time 71968 10000000 481 e 100
+Total time elapsed: 2023.898000 ms
+test_rb_touch 71968 10000000 481 e 100
+Touches: 157680267
+test_splay_time 71968 10000000 481 e 100
+Total time elapsed: 2311.579000 ms
+test_splay_touch 71968 10000000 481 e 100
+Touches: 116976832
+test_tango_time 71968 10000000 481 e 100
+Total time elapsed: 40058.402000 ms
+test_tango_touch 71968 10000000 481 e 100
+Touches: 641751008
+test_multisplay_time 71968 10000000 482 e 1000
+Total time elapsed: 18406.448000 ms
+test_multisplay_touch 71968 10000000 482 e 1000
+Touches: 507119133
+test_rb_time 71968 10000000 482 e 1000
+Total time elapsed: 2176.800000 ms
+test_rb_touch 71968 10000000 482 e 1000
+Touches: 157685932
+test_splay_time 71968 10000000 482 e 1000
+Total time elapsed: 3057.080000 ms
+test_splay_touch 71968 10000000 482 e 1000
+Touches: 148773639
+test_tango_time 71968 10000000 482 e 1000
+Total time elapsed: 52441.661000 ms
+test_tango_touch 71968 10000000 482 e 1000
+Touches: 767820974
+test_multisplay_time 71968 10000000 483 e 10000
+Total time elapsed: 21730.990000 ms
+test_multisplay_touch 71968 10000000 483 e 10000
+Touches: 565361692
+test_rb_time 71968 10000000 483 e 10000
+Total time elapsed: 2322.142000 ms
+test_rb_touch 71968 10000000 483 e 10000
+Touches: 157702160
+test_splay_time 71968 10000000 483 e 10000
+Total time elapsed: 3835.705000 ms
+test_splay_touch 71968 10000000 483 e 10000
+Touches: 180541380
+test_tango_time 71968 10000000 483 e 10000
+Total time elapsed: 63426.242000 ms
+test_tango_touch 71968 10000000 483 e 10000
+Touches: 850822210
+test_multisplay_time 100000 10000000 484 e 10
+Total time elapsed: 11802.370000 ms
+test_multisplay_touch 100000 10000000 484 e 10
+Touches: 325617794
+test_rb_time 100000 10000000 484 e 10
+Total time elapsed: 1955.984000 ms
+test_rb_touch 100000 10000000 484 e 10
+Touches: 160976311
+test_splay_time 100000 10000000 484 e 10
+Total time elapsed: 1882.530000 ms
+test_splay_touch 100000 10000000 484 e 10
+Touches: 92496952
+test_tango_time 100000 10000000 484 e 10
+Total time elapsed: 30462.705000 ms
+test_tango_touch 100000 10000000 484 e 10
+Touches: 499923527
+test_multisplay_time 100000 10000000 485 e 100
+Total time elapsed: 15215.872000 ms
+test_multisplay_touch 100000 10000000 485 e 100
+Touches: 425673787
+test_rb_time 100000 10000000 485 e 100
+Total time elapsed: 2114.604000 ms
+test_rb_touch 100000 10000000 485 e 100
+Touches: 160950797
+test_splay_time 100000 10000000 485 e 100
+Total time elapsed: 2388.501000 ms
+test_splay_touch 100000 10000000 485 e 100
+Touches: 119240867
+test_tango_time 100000 10000000 485 e 100
+Total time elapsed: 41075.651000 ms
+test_tango_touch 100000 10000000 485 e 100
+Touches: 660865571
+test_multisplay_time 100000 10000000 486 e 1000
+Total time elapsed: 18816.320000 ms
+test_multisplay_touch 100000 10000000 486 e 1000
+Touches: 516408285
+test_rb_time 100000 10000000 486 e 1000
+Total time elapsed: 2334.796000 ms
+test_rb_touch 100000 10000000 486 e 1000
+Touches: 160948315
+test_splay_time 100000 10000000 486 e 1000
+Total time elapsed: 3141.561000 ms
+test_splay_touch 100000 10000000 486 e 1000
+Touches: 151000354
+test_tango_time 100000 10000000 486 e 1000
+Total time elapsed: 53738.977000 ms
+test_tango_touch 100000 10000000 486 e 1000
+Touches: 792954474
+test_multisplay_time 100000 10000000 487 e 10000
+Total time elapsed: 22044.282000 ms
+test_multisplay_touch 100000 10000000 487 e 10000
+Touches: 580119585
+test_rb_time 100000 10000000 487 e 10000
+Total time elapsed: 2482.878000 ms
+test_rb_touch 100000 10000000 487 e 10000
+Touches: 160967383
+test_splay_time 100000 10000000 487 e 10000
+Total time elapsed: 3930.263000 ms
+test_splay_touch 100000 10000000 487 e 10000
+Touches: 183120086
+test_tango_time 100000 10000000 487 e 10000
+Total time elapsed: 65388.549000 ms
+test_tango_touch 100000 10000000 487 e 10000
+Touches: 885391810
+test_multisplay_time 138949 10000000 488 e 10
+Total time elapsed: 12024.481000 ms
+test_multisplay_touch 138949 10000000 488 e 10
+Touches: 333178693
+test_rb_time 138949 10000000 488 e 10
+Total time elapsed: 2049.047000 ms
+test_rb_touch 138949 10000000 488 e 10
+Touches: 167481876
+test_splay_time 138949 10000000 488 e 10
+Total time elapsed: 1952.838000 ms
+test_splay_touch 138949 10000000 488 e 10
+Touches: 94762699
+test_tango_time 138949 10000000 488 e 10
+Total time elapsed: 31885.570000 ms
+test_tango_touch 138949 10000000 488 e 10
+Touches: 514029137
+test_multisplay_time 138949 10000000 489 e 100
+Total time elapsed: 15395.615000 ms
+test_multisplay_touch 138949 10000000 489 e 100
+Touches: 433866243
+test_rb_time 138949 10000000 489 e 100
+Total time elapsed: 2259.624000 ms
+test_rb_touch 138949 10000000 489 e 100
+Touches: 167491637
+test_splay_time 138949 10000000 489 e 100
+Total time elapsed: 2468.585000 ms
+test_splay_touch 138949 10000000 489 e 100
+Touches: 121499863
+test_tango_time 138949 10000000 489 e 100
+Total time elapsed: 42540.709000 ms
+test_tango_touch 138949 10000000 489 e 100
+Touches: 677299457
+test_multisplay_time 138949 10000000 490 e 1000
+Total time elapsed: 19103.987000 ms
+test_multisplay_touch 138949 10000000 490 e 1000
+Touches: 526824923
+test_rb_time 138949 10000000 490 e 1000
+Total time elapsed: 2521.784000 ms
+test_rb_touch 138949 10000000 490 e 1000
+Touches: 167449629
+test_splay_time 138949 10000000 490 e 1000
+Total time elapsed: 3229.028000 ms
+test_splay_touch 138949 10000000 490 e 1000
+Touches: 153322946
+test_tango_time 138949 10000000 490 e 1000
+Total time elapsed: 55281.037000 ms
+test_tango_touch 138949 10000000 490 e 1000
+Touches: 812710217
+test_multisplay_time 138949 10000000 491 e 10000
+Total time elapsed: 22733.035000 ms
+test_multisplay_touch 138949 10000000 491 e 10000
+Touches: 595378427
+test_rb_time 138949 10000000 491 e 10000
+Total time elapsed: 2702.857000 ms
+test_rb_touch 138949 10000000 491 e 10000
+Touches: 167476667
+test_splay_time 138949 10000000 491 e 10000
+Total time elapsed: 4011.330000 ms
+test_splay_touch 138949 10000000 491 e 10000
+Touches: 185585975
+test_tango_time 138949 10000000 491 e 10000
+Total time elapsed: 67583.940000 ms
+test_tango_touch 138949 10000000 491 e 10000
+Touches: 909460712
+test_multisplay_time 138949 10000000 492 e 100000
+Total time elapsed: 24824.816000 ms
+test_multisplay_touch 138949 10000000 492 e 100000
+Touches: 625295182
+test_rb_time 138949 10000000 492 e 100000
+Total time elapsed: 2691.330000 ms
+test_rb_touch 138949 10000000 492 e 100000
+Touches: 167452043
+test_splay_time 138949 10000000 492 e 100000
+Total time elapsed: 4675.990000 ms
+test_splay_touch 138949 10000000 492 e 100000
+Touches: 213756592
+test_tango_time 138949 10000000 492 e 100000
+Total time elapsed: 75365.185000 ms
+test_tango_touch 138949 10000000 492 e 100000
+Touches: 954009980
+test_multisplay_time 193069 10000000 493 e 10
+Total time elapsed: 12351.993000 ms
+test_multisplay_touch 193069 10000000 493 e 10
+Touches: 339373557
+test_rb_time 193069 10000000 493 e 10
+Total time elapsed: 2149.853000 ms
+test_rb_touch 193069 10000000 493 e 10
+Touches: 169144901
+test_splay_time 193069 10000000 493 e 10
+Total time elapsed: 1991.906000 ms
+test_splay_touch 193069 10000000 493 e 10
+Touches: 97055792
+test_tango_time 193069 10000000 493 e 10
+Total time elapsed: 32917.805000 ms
+test_tango_touch 193069 10000000 493 e 10
+Touches: 531214711
+test_multisplay_time 193069 10000000 494 e 100
+Total time elapsed: 15770.880000 ms
+test_multisplay_touch 193069 10000000 494 e 100
+Touches: 440373654
+test_rb_time 193069 10000000 494 e 100
+Total time elapsed: 2470.580000 ms
+test_rb_touch 193069 10000000 494 e 100
+Touches: 169099666
+test_splay_time 193069 10000000 494 e 100
+Total time elapsed: 2505.162000 ms
+test_splay_touch 193069 10000000 494 e 100
+Touches: 123753554
+test_tango_time 193069 10000000 494 e 100
+Total time elapsed: 43654.470000 ms
+test_tango_touch 193069 10000000 494 e 100
+Touches: 697652118
+test_multisplay_time 193069 10000000 495 e 1000
+Total time elapsed: 19414.055000 ms
+test_multisplay_touch 193069 10000000 495 e 1000
+Touches: 535009953
+test_rb_time 193069 10000000 495 e 1000
+Total time elapsed: 2635.545000 ms
+test_rb_touch 193069 10000000 495 e 1000
+Touches: 169121342
+test_splay_time 193069 10000000 495 e 1000
+Total time elapsed: 3232.866000 ms
+test_splay_touch 193069 10000000 495 e 1000
+Touches: 155586853
+test_tango_time 193069 10000000 495 e 1000
+Total time elapsed: 56565.817000 ms
+test_tango_touch 193069 10000000 495 e 1000
+Touches: 838383267
+test_multisplay_time 193069 10000000 496 e 10000
+Total time elapsed: 23222.331000 ms
+test_multisplay_touch 193069 10000000 496 e 10000
+Touches: 608453937
+test_rb_time 193069 10000000 496 e 10000
+Total time elapsed: 2826.257000 ms
+test_rb_touch 193069 10000000 496 e 10000
+Touches: 169124804
+test_splay_time 193069 10000000 496 e 10000
+Total time elapsed: 4074.741000 ms
+test_splay_touch 193069 10000000 496 e 10000
+Touches: 188053166
+test_tango_time 193069 10000000 496 e 10000
+Total time elapsed: 69428.932000 ms
+test_tango_touch 193069 10000000 496 e 10000
+Touches: 944221869
+test_multisplay_time 193069 10000000 497 e 100000
+Total time elapsed: 25589.581000 ms
+test_multisplay_touch 193069 10000000 497 e 100000
+Touches: 642853863
+test_rb_time 193069 10000000 497 e 100000
+Total time elapsed: 2829.857000 ms
+test_rb_touch 193069 10000000 497 e 100000
+Touches: 169117648
+test_splay_time 193069 10000000 497 e 100000
+Total time elapsed: 4727.488000 ms
+test_splay_touch 193069 10000000 497 e 100000
+Touches: 217463624
+test_tango_time 193069 10000000 497 e 100000
+Total time elapsed: 77950.803000 ms
+test_tango_touch 193069 10000000 497 e 100000
+Touches: 998251793
+test_multisplay_time 268269 10000000 498 e 10
+Total time elapsed: 12828.710000 ms
+test_multisplay_touch 268269 10000000 498 e 10
+Touches: 347041380
+test_rb_time 268269 10000000 498 e 10
+Total time elapsed: 2313.785000 ms
+test_rb_touch 268269 10000000 498 e 10
+Touches: 176274667
+test_splay_time 268269 10000000 498 e 10
+Total time elapsed: 2094.466000 ms
+test_splay_touch 268269 10000000 498 e 10
+Touches: 99410667
+test_tango_time 268269 10000000 498 e 10
+Total time elapsed: 34546.779000 ms
+test_tango_touch 268269 10000000 498 e 10
+Touches: 544106121
+test_multisplay_time 268269 10000000 499 e 100
+Total time elapsed: 16250.146000 ms
+test_multisplay_touch 268269 10000000 499 e 100
+Touches: 448341992
+test_rb_time 268269 10000000 499 e 100
+Total time elapsed: 2601.257000 ms
+test_rb_touch 268269 10000000 499 e 100
+Touches: 176253243
+test_splay_time 268269 10000000 499 e 100
+Total time elapsed: 2546.941000 ms
+test_splay_touch 268269 10000000 499 e 100
+Touches: 126076022
+test_tango_time 268269 10000000 499 e 100
+Total time elapsed: 45414.800000 ms
+test_tango_touch 268269 10000000 499 e 100
+Touches: 712133371
+test_multisplay_time 268269 10000000 500 e 1000
+Total time elapsed: 20068.662000 ms
+test_multisplay_touch 268269 10000000 500 e 1000
+Touches: 544562168
+test_rb_time 268269 10000000 500 e 1000
+Total time elapsed: 2869.668000 ms
+test_rb_touch 268269 10000000 500 e 1000
+Touches: 176247217
+test_splay_time 268269 10000000 500 e 1000
+Total time elapsed: 3301.063000 ms
+test_splay_touch 268269 10000000 500 e 1000
+Touches: 157927989
+test_tango_time 268269 10000000 500 e 1000
+Total time elapsed: 58339.899000 ms
+test_tango_touch 268269 10000000 500 e 1000
+Touches: 855375948
+test_multisplay_time 268269 10000000 501 e 10000
+Total time elapsed: 23768.655000 ms
+test_multisplay_touch 268269 10000000 501 e 10000
+Touches: 622443328
+test_rb_time 268269 10000000 501 e 10000
+Total time elapsed: 3061.676000 ms
+test_rb_touch 268269 10000000 501 e 10000
+Touches: 176246700
+test_splay_time 268269 10000000 501 e 10000
+Total time elapsed: 4101.531000 ms
+test_splay_touch 268269 10000000 501 e 10000
+Touches: 190481539
+test_tango_time 268269 10000000 501 e 10000
+Total time elapsed: 71329.772000 ms
+test_tango_touch 268269 10000000 501 e 10000
+Touches: 964290679
+test_multisplay_time 268269 10000000 502 e 100000
+Total time elapsed: 26156.382000 ms
+test_multisplay_touch 268269 10000000 502 e 100000
+Touches: 663642913
+test_rb_time 268269 10000000 502 e 100000
+Total time elapsed: 3096.455000 ms
+test_rb_touch 268269 10000000 502 e 100000
+Touches: 176250992
+test_splay_time 268269 10000000 502 e 100000
+Total time elapsed: 4906.807000 ms
+test_splay_touch 268269 10000000 502 e 100000
+Touches: 220831620
+test_tango_time 268269 10000000 502 e 100000
+Total time elapsed: 81056.848000 ms
+test_tango_touch 268269 10000000 502 e 100000
+Touches: 1025232711
+test_multisplay_time 372759 10000000 503 e 10
+Total time elapsed: 13410.815000 ms
+test_multisplay_touch 372759 10000000 503 e 10
+Touches: 353076066
+test_rb_time 372759 10000000 503 e 10
+Total time elapsed: 2650.985000 ms
+test_rb_touch 372759 10000000 503 e 10
+Touches: 178452751
+test_splay_time 372759 10000000 503 e 10
+Total time elapsed: 2378.849000 ms
+test_splay_touch 372759 10000000 503 e 10
+Touches: 101791990
+test_tango_time 372759 10000000 503 e 10
+Total time elapsed: 36010.511000 ms
+test_tango_touch 372759 10000000 503 e 10
+Touches: 562821635
+test_multisplay_time 372759 10000000 504 e 100
+Total time elapsed: 17021.851000 ms
+test_multisplay_touch 372759 10000000 504 e 100
+Touches: 454708358
+test_rb_time 372759 10000000 504 e 100
+Total time elapsed: 2906.908000 ms
+test_rb_touch 372759 10000000 504 e 100
+Touches: 178478605
+test_splay_time 372759 10000000 504 e 100
+Total time elapsed: 2838.507000 ms
+test_splay_touch 372759 10000000 504 e 100
+Touches: 128490811
+test_tango_time 372759 10000000 504 e 100
+Total time elapsed: 46965.404000 ms
+test_tango_touch 372759 10000000 504 e 100
+Touches: 734529116
+test_multisplay_time 372759 10000000 505 e 1000
+Total time elapsed: 20774.459000 ms
+test_multisplay_touch 372759 10000000 505 e 1000
+Touches: 552078667
+test_rb_time 372759 10000000 505 e 1000
+Total time elapsed: 3208.421000 ms
+test_rb_touch 372759 10000000 505 e 1000
+Touches: 178475588
+test_splay_time 372759 10000000 505 e 1000
+Total time elapsed: 3471.561000 ms
+test_splay_touch 372759 10000000 505 e 1000
+Touches: 160332820
+test_tango_time 372759 10000000 505 e 1000
+Total time elapsed: 60054.575000 ms
+test_tango_touch 372759 10000000 505 e 1000
+Touches: 882124430
+test_multisplay_time 372759 10000000 506 e 10000
+Total time elapsed: 24465.999000 ms
+test_multisplay_touch 372759 10000000 506 e 10000
+Touches: 633526803
+test_rb_time 372759 10000000 506 e 10000
+Total time elapsed: 3432.331000 ms
+test_rb_touch 372759 10000000 506 e 10000
+Touches: 178483352
+test_splay_time 372759 10000000 506 e 10000
+Total time elapsed: 4437.268000 ms
+test_splay_touch 372759 10000000 506 e 10000
+Touches: 192959975
+test_tango_time 372759 10000000 506 e 10000
+Total time elapsed: 73729.125000 ms
+test_tango_touch 372759 10000000 506 e 10000
+Touches: 998821534
+test_multisplay_time 372759 10000000 507 e 100000
+Total time elapsed: 27553.993000 ms
+test_multisplay_touch 372759 10000000 507 e 100000
+Touches: 679806884
+test_rb_time 372759 10000000 507 e 100000
+Total time elapsed: 3583.441000 ms
+test_rb_touch 372759 10000000 507 e 100000
+Touches: 178469366
+test_splay_time 372759 10000000 507 e 100000
+Total time elapsed: 5204.485000 ms
+test_splay_touch 372759 10000000 507 e 100000
+Touches: 224036024
+test_tango_time 372759 10000000 507 e 100000
+Total time elapsed: 84435.816000 ms
+test_tango_touch 372759 10000000 507 e 100000
+Touches: 1070667028
+test_multisplay_time 517947 10000000 508 e 10
+Total time elapsed: 13943.278000 ms
+test_multisplay_touch 517947 10000000 508 e 10
+Touches: 360757181
+test_rb_time 517947 10000000 508 e 10
+Total time elapsed: 3103.759000 ms
+test_rb_touch 517947 10000000 508 e 10
+Touches: 184392531
+test_splay_time 517947 10000000 508 e 10
+Total time elapsed: 2646.036000 ms
+test_splay_touch 517947 10000000 508 e 10
+Touches: 104234547
+test_tango_time 517947 10000000 508 e 10
+Total time elapsed: 37633.957000 ms
+test_tango_touch 517947 10000000 508 e 10
+Touches: 574755821
+test_multisplay_time 517947 10000000 509 e 100
+Total time elapsed: 17470.515000 ms
+test_multisplay_touch 517947 10000000 509 e 100
+Touches: 462600166
+test_rb_time 517947 10000000 509 e 100
+Total time elapsed: 3389.187000 ms
+test_rb_touch 517947 10000000 509 e 100
+Touches: 184380986
+test_splay_time 517947 10000000 509 e 100
+Total time elapsed: 3275.030000 ms
+test_splay_touch 517947 10000000 509 e 100
+Touches: 130913099
+test_tango_time 517947 10000000 509 e 100
+Total time elapsed: 48832.105000 ms
+test_tango_touch 517947 10000000 509 e 100
+Touches: 747696160
+test_multisplay_time 517947 10000000 510 e 1000
+Total time elapsed: 21321.044000 ms
+test_multisplay_touch 517947 10000000 510 e 1000
+Touches: 561196618
+test_rb_time 517947 10000000 510 e 1000
+Total time elapsed: 3712.490000 ms
+test_rb_touch 517947 10000000 510 e 1000
+Touches: 184393183
+test_splay_time 517947 10000000 510 e 1000
+Total time elapsed: 3925.790000 ms
+test_splay_touch 517947 10000000 510 e 1000
+Touches: 162776532
+test_tango_time 517947 10000000 510 e 1000
+Total time elapsed: 61865.678000 ms
+test_tango_touch 517947 10000000 510 e 1000
+Touches: 897524229
+test_multisplay_time 517947 10000000 511 e 10000
+Total time elapsed: 25448.623000 ms
+test_multisplay_touch 517947 10000000 511 e 10000
+Touches: 646524902
+test_rb_time 517947 10000000 511 e 10000
+Total time elapsed: 3851.880000 ms
+test_rb_touch 517947 10000000 511 e 10000
+Touches: 184374437
+test_splay_time 517947 10000000 511 e 10000
+Total time elapsed: 4710.587000 ms
+test_splay_touch 517947 10000000 511 e 10000
+Touches: 195477443
+test_tango_time 517947 10000000 511 e 10000
+Total time elapsed: 75534.176000 ms
+test_tango_touch 517947 10000000 511 e 10000
+Touches: 1017281108
+test_multisplay_time 517947 10000000 512 e 100000
+Total time elapsed: 28998.451000 ms
+test_multisplay_touch 517947 10000000 512 e 100000
+Touches: 699356103
+test_rb_time 517947 10000000 512 e 100000
+Total time elapsed: 4283.593000 ms
+test_rb_touch 517947 10000000 512 e 100000
+Touches: 184399528
+test_splay_time 517947 10000000 512 e 100000
+Total time elapsed: 5859.311000 ms
+test_splay_touch 517947 10000000 512 e 100000
+Touches: 227069702
+test_tango_time 517947 10000000 512 e 100000
+Total time elapsed: 87550.305000 ms
+test_tango_touch 517947 10000000 512 e 100000
+Touches: 1094783475
+test_multisplay_time 719685 10000000 513 e 10
+Total time elapsed: 14630.787000 ms
+test_multisplay_touch 719685 10000000 513 e 10
+Touches: 366711923
+test_rb_time 719685 10000000 513 e 10
+Total time elapsed: 3524.733000 ms
+test_rb_touch 719685 10000000 513 e 10
+Touches: 188982074
+test_splay_time 719685 10000000 513 e 10
+Total time elapsed: 3038.251000 ms
+test_splay_touch 719685 10000000 513 e 10
+Touches: 106815357
+test_tango_time 719685 10000000 513 e 10
+Total time elapsed: 39071.304000 ms
+test_tango_touch 719685 10000000 513 e 10
+Touches: 594516943
+test_multisplay_time 719685 10000000 514 e 100
+Total time elapsed: 18004.280000 ms
+test_multisplay_touch 719685 10000000 514 e 100
+Touches: 468586968
+test_rb_time 719685 10000000 514 e 100
+Total time elapsed: 3816.951000 ms
+test_rb_touch 719685 10000000 514 e 100
+Touches: 188954239
+test_splay_time 719685 10000000 514 e 100
+Total time elapsed: 4191.702000 ms
+test_splay_touch 719685 10000000 514 e 100
+Touches: 133448181
+test_tango_time 719685 10000000 514 e 100
+Total time elapsed: 50511.640000 ms
+test_tango_touch 719685 10000000 514 e 100
+Touches: 770730444
+test_multisplay_time 719685 10000000 515 e 1000
+Total time elapsed: 21800.111000 ms
+test_multisplay_touch 719685 10000000 515 e 1000
+Touches: 567646771
+test_rb_time 719685 10000000 515 e 1000
+Total time elapsed: 4180.011000 ms
+test_rb_touch 719685 10000000 515 e 1000
+Touches: 188952694
+test_splay_time 719685 10000000 515 e 1000
+Total time elapsed: 4110.596000 ms
+test_splay_touch 719685 10000000 515 e 1000
+Touches: 165305853
+test_tango_time 719685 10000000 515 e 1000
+Total time elapsed: 63606.916000 ms
+test_tango_touch 719685 10000000 515 e 1000
+Touches: 924126121
+test_multisplay_time 719685 10000000 516 e 10000
+Total time elapsed: 25811.044000 ms
+test_multisplay_touch 719685 10000000 516 e 10000
+Touches: 655423091
+test_rb_time 719685 10000000 516 e 10000
+Total time elapsed: 4343.003000 ms
+test_rb_touch 719685 10000000 516 e 10000
+Touches: 188962007
+test_splay_time 719685 10000000 516 e 10000
+Total time elapsed: 5132.814000 ms
+test_splay_touch 719685 10000000 516 e 10000
+Touches: 198074096
+test_tango_time 719685 10000000 516 e 10000
+Total time elapsed: 77998.288000 ms
+test_tango_touch 719685 10000000 516 e 10000
+Touches: 1050473281
+test_multisplay_time 719685 10000000 517 e 100000
+Total time elapsed: 30651.119000 ms
+test_multisplay_touch 719685 10000000 517 e 100000
+Touches: 713331458
+test_rb_time 719685 10000000 517 e 100000
+Total time elapsed: 5467.580000 ms
+test_rb_touch 719685 10000000 517 e 100000
+Touches: 188976725
+test_splay_time 719685 10000000 517 e 100000
+Total time elapsed: 6705.372000 ms
+test_splay_touch 719685 10000000 517 e 100000
+Touches: 230042139
+test_tango_time 719685 10000000 517 e 100000
+Total time elapsed: 90848.074000 ms
+test_tango_touch 719685 10000000 517 e 100000
+Touches: 1137672526
+test_multisplay_time 1000000 10000000 518 e 10
+Total time elapsed: 15340.001000 ms
+test_multisplay_touch 1000000 10000000 518 e 10
+Touches: 374267499
+test_rb_time 1000000 10000000 518 e 10
+Total time elapsed: 3914.679000 ms
+test_rb_touch 1000000 10000000 518 e 10
+Touches: 193309276
+test_splay_time 1000000 10000000 518 e 10
+Total time elapsed: 3516.390000 ms
+test_splay_touch 1000000 10000000 518 e 10
+Touches: 109540185
+test_tango_time 1000000 10000000 518 e 10
+Total time elapsed: 41067.667000 ms
+test_tango_touch 1000000 10000000 518 e 10
+Touches: 606195969
+test_multisplay_time 1000000 10000000 519 e 100
+Total time elapsed: 18658.496000 ms
+test_multisplay_touch 1000000 10000000 519 e 100
+Touches: 476195168
+test_rb_time 1000000 10000000 519 e 100
+Total time elapsed: 4448.956000 ms
+test_rb_touch 1000000 10000000 519 e 100
+Touches: 193332632
+test_splay_time 1000000 10000000 519 e 100
+Total time elapsed: 3975.773000 ms
+test_splay_touch 1000000 10000000 519 e 100
+Touches: 136154272
+test_tango_time 1000000 10000000 519 e 100
+Total time elapsed: 52610.440000 ms
+test_tango_touch 1000000 10000000 519 e 100
+Touches: 783664774
+test_multisplay_time 1000000 10000000 520 e 1000
+Total time elapsed: 22598.417000 ms
+test_multisplay_touch 1000000 10000000 520 e 1000
+Touches: 576021758
+test_rb_time 1000000 10000000 520 e 1000
+Total time elapsed: 4854.737000 ms
+test_rb_touch 1000000 10000000 520 e 1000
+Touches: 193337157
+test_splay_time 1000000 10000000 520 e 1000
+Total time elapsed: 4699.092000 ms
+test_splay_touch 1000000 10000000 520 e 1000
+Touches: 168011286
+test_tango_time 1000000 10000000 520 e 1000
+Total time elapsed: 65761.358000 ms
+test_tango_touch 1000000 10000000 520 e 1000
+Touches: 938896306
+test_multisplay_time 1000000 10000000 521 e 10000
+Total time elapsed: 26855.615000 ms
+test_multisplay_touch 1000000 10000000 521 e 10000
+Touches: 666767455
+test_rb_time 1000000 10000000 521 e 10000
+Total time elapsed: 5232.224000 ms
+test_rb_touch 1000000 10000000 521 e 10000
+Touches: 193316312
+test_splay_time 1000000 10000000 521 e 10000
+Total time elapsed: 5500.872000 ms
+test_splay_touch 1000000 10000000 521 e 10000
+Touches: 200781276
+test_tango_time 1000000 10000000 521 e 10000
+Total time elapsed: 80229.965000 ms
+test_tango_touch 1000000 10000000 521 e 10000
+Touches: 1068352075
+test_multisplay_time 1000000 10000000 522 e 100000
+Total time elapsed: 31565.231000 ms
+test_multisplay_touch 1000000 10000000 522 e 100000
+Touches: 730746961
+test_rb_time 1000000 10000000 522 e 100000
+Total time elapsed: 13932.955000 ms
+test_rb_touch 1000000 10000000 522 e 100000
+Touches: 193319130
+test_splay_time 1000000 10000000 522 e 100000
+Total time elapsed: 7011.018000 ms
+test_splay_touch 1000000 10000000 522 e 100000
+Touches: 233082754
+test_tango_time 1000000 10000000 522 e 100000
+Total time elapsed: 94247.847000 ms
+test_tango_touch 1000000 10000000 522 e 100000
+Touches: 1160978267
+test_multisplay_time 1389495 13894950 523 e 10
+Total time elapsed: 22082.430000 ms
+test_multisplay_touch 1389495 13894950 523 e 10
+Touches: 528278694
+test_rb_time 1389495 13894950 523 e 10
+Total time elapsed: 6738.270000 ms
+test_rb_touch 1389495 13894950 523 e 10
+Touches: 274721989
+test_splay_time 1389495 13894950 523 e 10
+Total time elapsed: 5076.682000 ms
+test_splay_touch 1389495 13894950 523 e 10
+Touches: 155283950
+test_tango_time 1389495 13894950 523 e 10
+Total time elapsed: 58901.382000 ms
+test_tango_touch 1389495 13894950 523 e 10
+Touches: 870373686
+test_multisplay_time 1389495 13894950 524 e 100
+Total time elapsed: 26509.011000 ms
+test_multisplay_touch 1389495 13894950 524 e 100
+Touches: 669984508
+test_rb_time 1389495 13894950 524 e 100
+Total time elapsed: 7708.992000 ms
+test_rb_touch 1389495 13894950 524 e 100
+Touches: 274709063
+test_splay_time 1389495 13894950 524 e 100
+Total time elapsed: 5714.594000 ms
+test_splay_touch 1389495 13894950 524 e 100
+Touches: 192232258
+test_tango_time 1389495 13894950 524 e 100
+Total time elapsed: 75026.257000 ms
+test_tango_touch 1389495 13894950 524 e 100
+Touches: 1121545534
+test_multisplay_time 1389495 13894950 525 e 1000
+Total time elapsed: 32212.725000 ms
+test_multisplay_touch 1389495 13894950 525 e 1000
+Touches: 809337786
+test_rb_time 1389495 13894950 525 e 1000
+Total time elapsed: 8614.391000 ms
+test_rb_touch 1389495 13894950 525 e 1000
+Touches: 274715902
+test_splay_time 1389495 13894950 525 e 1000
+Total time elapsed: 7398.721000 ms
+test_splay_touch 1389495 13894950 525 e 1000
+Touches: 236519171
+test_tango_time 1389495 13894950 525 e 1000
+Total time elapsed: 93532.567000 ms
+test_tango_touch 1389495 13894950 525 e 1000
+Touches: 1341791816
+test_multisplay_time 1389495 13894950 526 e 10000
+Total time elapsed: 37761.198000 ms
+test_multisplay_touch 1389495 13894950 526 e 10000
+Touches: 937531465
+test_rb_time 1389495 13894950 526 e 10000
+Total time elapsed: 9937.605000 ms
+test_rb_touch 1389495 13894950 526 e 10000
+Touches: 274745131
+test_splay_time 1389495 13894950 526 e 10000
+Total time elapsed: 7956.244000 ms
+test_splay_touch 1389495 13894950 526 e 10000
+Touches: 282043515
+test_tango_time 1389495 13894950 526 e 10000
+Total time elapsed: 113956.124000 ms
+test_tango_touch 1389495 13894950 526 e 10000
+Touches: 1528853204
+test_multisplay_time 1389495 13894950 527 e 100000
+Total time elapsed: 45440.894000 ms
+test_multisplay_touch 1389495 13894950 527 e 100000
+Touches: 1032494736
+test_rb_time 1389495 13894950 527 e 100000
+Total time elapsed: 11704.473000 ms
+test_rb_touch 1389495 13894950 527 e 100000
+Touches: 274724451
+test_splay_time 1389495 13894950 527 e 100000
+Total time elapsed: 10202.848000 ms
+test_splay_touch 1389495 13894950 527 e 100000
+Touches: 327221280
+test_tango_time 1389495 13894950 527 e 100000
+Total time elapsed: 134784.824000 ms
+test_tango_touch 1389495 13894950 527 e 100000
+Touches: 1668622711
+test_multisplay_time 1389495 13894950 528 e 1000000
+Total time elapsed: 49670.427000 ms
+test_multisplay_touch 1389495 13894950 528 e 1000000
+Touches: 1072624990
+test_rb_time 1389495 13894950 528 e 1000000
+Total time elapsed: 12339.148000 ms
+test_rb_touch 1389495 13894950 528 e 1000000
+Touches: 274715922
+test_splay_time 1389495 13894950 528 e 1000000
+Total time elapsed: 13107.108000 ms
+test_splay_touch 1389495 13894950 528 e 1000000
+Touches: 366440491
+test_tango_time 1389495 13894950 528 e 1000000
+Total time elapsed: 147651.250000 ms
+test_tango_touch 1389495 13894950 528 e 1000000
+Touches: 1738498536
+test_multisplay_time 1930697 19306970 529 e 10
+Total time elapsed: 31705.453000 ms
+test_multisplay_touch 1930697 19306970 529 e 10
+Touches: 748373705
+test_rb_time 1930697 19306970 529 e 10
+Total time elapsed: 11094.902000 ms
+test_rb_touch 1930697 19306970 529 e 10
+Touches: 392468773
+test_splay_time 1930697 19306970 529 e 10
+Total time elapsed: 7472.056000 ms
+test_splay_touch 1930697 19306970 529 e 10
+Touches: 219962810
+test_tango_time 1930697 19306970 529 e 10
+Total time elapsed: 85131.043000 ms
+test_tango_touch 1930697 19306970 529 e 10
+Touches: 1232681900
+test_multisplay_time 1930697 19306970 530 e 100
+Total time elapsed: 38323.328000 ms
+test_multisplay_touch 1930697 19306970 530 e 100
+Touches: 945455757
+test_rb_time 1930697 19306970 530 e 100
+Total time elapsed: 12741.513000 ms
+test_rb_touch 1930697 19306970 530 e 100
+Touches: 392485645
+test_splay_time 1930697 19306970 530 e 100
+Total time elapsed: 8648.511000 ms
+test_splay_touch 1930697 19306970 530 e 100
+Touches: 271333623
+test_tango_time 1930697 19306970 530 e 100
+Total time elapsed: 107717.897000 ms
+test_tango_touch 1930697 19306970 530 e 100
+Touches: 1584170570
+test_multisplay_time 1930697 19306970 531 e 1000
+Total time elapsed: 45377.426000 ms
+test_multisplay_touch 1930697 19306970 531 e 1000
+Touches: 1139865436
+test_rb_time 1930697 19306970 531 e 1000
+Total time elapsed: 15348.897000 ms
+test_rb_touch 1930697 19306970 531 e 1000
+Touches: 392456788
+test_splay_time 1930697 19306970 531 e 1000
+Total time elapsed: 9926.522000 ms
+test_splay_touch 1930697 19306970 531 e 1000
+Touches: 332821722
+test_tango_time 1930697 19306970 531 e 1000
+Total time elapsed: 133690.710000 ms
+test_tango_touch 1930697 19306970 531 e 1000
+Touches: 1893286626
+test_multisplay_time 1930697 19306970 532 e 10000
+Total time elapsed: 54518.765000 ms
+test_multisplay_touch 1930697 19306970 532 e 10000
+Touches: 1322027750
+test_rb_time 1930697 19306970 532 e 10000
+Total time elapsed: 17801.295000 ms
+test_rb_touch 1930697 19306970 532 e 10000
+Touches: 392470642
+test_splay_time 1930697 19306970 532 e 10000
+Total time elapsed: 11555.187000 ms
+test_splay_touch 1930697 19306970 532 e 10000
+Touches: 396149916
+test_tango_time 1930697 19306970 532 e 10000
+Total time elapsed: 162495.264000 ms
+test_tango_touch 1930697 19306970 532 e 10000
+Touches: 2159327735
+test_multisplay_time 1930697 19306970 533 e 100000
+Total time elapsed: 64396.725000 ms
+test_multisplay_touch 1930697 19306970 533 e 100000
+Touches: 1464332439
+test_rb_time 1930697 19306970 533 e 100000
+Total time elapsed: 20946.722000 ms
+test_rb_touch 1930697 19306970 533 e 100000
+Touches: 392471000
+test_splay_time 1930697 19306970 533 e 100000
+Total time elapsed: 14826.588000 ms
+test_splay_touch 1930697 19306970 533 e 100000
+Touches: 459147185
+test_tango_time 1930697 19306970 533 e 100000
+Total time elapsed: 192573.599000 ms
+test_tango_touch 1930697 19306970 533 e 100000
+Touches: 2363835357
+test_multisplay_time 1930697 19306970 534 e 1000000
+Total time elapsed: 71845.743000 ms
+test_multisplay_touch 1930697 19306970 534 e 1000000
+Touches: 1531939142
+test_rb_time 1930697 19306970 534 e 1000000
+Total time elapsed: 21520.451000 ms
+test_rb_touch 1930697 19306970 534 e 1000000
+Touches: 392481685
+test_splay_time 1930697 19306970 534 e 1000000
+Total time elapsed: 19342.531000 ms
+test_splay_touch 1930697 19306970 534 e 1000000
+Touches: 516135662
+test_tango_time 1930697 19306970 534 e 1000000
+Total time elapsed: 212993.881000 ms
+test_tango_touch 1930697 19306970 534 e 1000000
+Touches: 2473530246
+test_multisplay_time 2682695 26826950 535 e 10
+Total time elapsed: 45332.873000 ms
+test_multisplay_touch 2682695 26826950 535 e 10
+Touches: 1056186208
+test_rb_time 2682695 26826950 535 e 10
+Total time elapsed: 17519.268000 ms
+test_rb_touch 2682695 26826950 535 e 10
+Touches: 555819479
+test_splay_time 2682695 26826950 535 e 10
+Total time elapsed: 11358.368000 ms
+test_splay_touch 2682695 26826950 535 e 10
+Touches: 311584180
+test_tango_time 2682695 26826950 535 e 10
+Total time elapsed: 122506.529000 ms
+test_tango_touch 2682695 26826950 535 e 10
+Touches: 1768883260
+test_multisplay_time 2682695 26826950 536 e 100
+Total time elapsed: 54706.849000 ms
+test_multisplay_touch 2682695 26826950 536 e 100
+Touches: 1329972201
+test_rb_time 2682695 26826950 536 e 100
+Total time elapsed: 20811.517000 ms
+test_rb_touch 2682695 26826950 536 e 100
+Touches: 555836941
+test_splay_time 2682695 26826950 536 e 100
+Total time elapsed: 12574.346000 ms
+test_splay_touch 2682695 26826950 536 e 100
+Touches: 382890091
+test_tango_time 2682695 26826950 536 e 100
+Total time elapsed: 154239.652000 ms
+test_tango_touch 2682695 26826950 536 e 100
+Touches: 2265385592
+test_multisplay_time 2682695 26826950 537 e 1000
+Total time elapsed: 64778.406000 ms
+test_multisplay_touch 2682695 26826950 537 e 1000
+Touches: 1601083681
+test_rb_time 2682695 26826950 537 e 1000
+Total time elapsed: 25036.618000 ms
+test_rb_touch 2682695 26826950 537 e 1000
+Touches: 555846822
+test_splay_time 2682695 26826950 537 e 1000
+Total time elapsed: 14332.824000 ms
+test_splay_touch 2682695 26826950 537 e 1000
+Touches: 468345522
+test_tango_time 2682695 26826950 537 e 1000
+Total time elapsed: 190904.085000 ms
+test_tango_touch 2682695 26826950 537 e 1000
+Touches: 2703513282
+test_multisplay_time 2682695 26826950 538 e 10000
+Total time elapsed: 77439.569000 ms
+test_multisplay_touch 2682695 26826950 538 e 10000
+Touches: 1857173054
+test_rb_time 2682695 26826950 538 e 10000
+Total time elapsed: 29097.769000 ms
+test_rb_touch 2682695 26826950 538 e 10000
+Touches: 555880214
+test_splay_time 2682695 26826950 538 e 10000
+Total time elapsed: 16689.083000 ms
+test_splay_touch 2682695 26826950 538 e 10000
+Touches: 556322786
+test_tango_time 2682695 26826950 538 e 10000
+Total time elapsed: 231395.578000 ms
+test_tango_touch 2682695 26826950 538 e 10000
+Touches: 3083781920
+test_multisplay_time 2682695 26826950 539 e 100000
+Total time elapsed: 93615.666000 ms
+test_multisplay_touch 2682695 26826950 539 e 100000
+Touches: 2064097591
+test_rb_time 2682695 26826950 539 e 100000
+Total time elapsed: 34558.616000 ms
+test_rb_touch 2682695 26826950 539 e 100000
+Touches: 555845128
+test_splay_time 2682695 26826950 539 e 100000
+Total time elapsed: 21012.855000 ms
+test_splay_touch 2682695 26826950 539 e 100000
+Touches: 644193999
+test_tango_time 2682695 26826950 539 e 100000
+Total time elapsed: 275567.040000 ms
+test_tango_touch 2682695 26826950 539 e 100000
+Touches: 3385394779
+test_multisplay_time 2682695 26826950 540 e 1000000
+Total time elapsed: 104063.093000 ms
+test_multisplay_touch 2682695 26826950 540 e 1000000
+Touches: 2171969722
+test_rb_time 2682695 26826950 540 e 1000000
+Total time elapsed: 34713.306000 ms
+test_rb_touch 2682695 26826950 540 e 1000000
+Touches: 555840115
+test_splay_time 2682695 26826950 540 e 1000000
+Total time elapsed: 28278.873000 ms
+test_splay_touch 2682695 26826950 540 e 1000000
+Touches: 725461676
+test_tango_time 2682695 26826950 540 e 1000000
+Total time elapsed: 306550.551000 ms
+test_tango_touch 2682695 26826950 540 e 1000000
+Touches: 3567359202
+test_multisplay_time 3727593 37275930 541 e 10
+Total time elapsed: 64942.257000 ms
+test_multisplay_touch 3727593 37275930 541 e 10
+Touches: 1494495668
+test_rb_time 3727593 37275930 541 e 10
+Total time elapsed: 27898.094000 ms
+test_rb_touch 3727593 37275930 541 e 10
+Touches: 791291483
+test_splay_time 3727593 37275930 541 e 10
+Total time elapsed: 16624.890000 ms
+test_splay_touch 3727593 37275930 541 e 10
+Touches: 441174717
+test_tango_time 3727593 37275930 541 e 10
+Total time elapsed: 176759.900000 ms
+test_tango_touch 3727593 37275930 541 e 10
+Touches: 2502054267
+test_multisplay_time 3727593 37275930 542 e 100
+Total time elapsed: 77959.972000 ms
+test_multisplay_touch 3727593 37275930 542 e 100
+Touches: 1874855909
+test_rb_time 3727593 37275930 542 e 100
+Total time elapsed: 33632.636000 ms
+test_rb_touch 3727593 37275930 542 e 100
+Touches: 791254636
+test_splay_time 3727593 37275930 542 e 100
+Total time elapsed: 18538.804000 ms
+test_splay_touch 3727593 37275930 542 e 100
+Touches: 540169608
+test_tango_time 3727593 37275930 542 e 100
+Total time elapsed: 221040.427000 ms
+test_tango_touch 3727593 37275930 542 e 100
+Touches: 3195555514
+test_multisplay_time 3727593 37275930 543 e 1000
+Total time elapsed: 92721.636000 ms
+test_multisplay_touch 3727593 37275930 543 e 1000
+Touches: 2252521801
+test_rb_time 3727593 37275930 543 e 1000
+Total time elapsed: 39658.355000 ms
+test_rb_touch 3727593 37275930 543 e 1000
+Touches: 791278778
+test_splay_time 3727593 37275930 543 e 1000
+Total time elapsed: 21198.382000 ms
+test_splay_touch 3727593 37275930 543 e 1000
+Touches: 658920725
+test_tango_time 3727593 37275930 543 e 1000
+Total time elapsed: 272141.567000 ms
+test_tango_touch 3727593 37275930 543 e 1000
+Touches: 3810163507
+test_multisplay_time 3727593 37275930 544 e 10000
+Total time elapsed: 108922.695000 ms
+test_multisplay_touch 3727593 37275930 544 e 10000
+Touches: 2613301682
+test_rb_time 3727593 37275930 544 e 10000
+Total time elapsed: 58667.994000 ms
+test_rb_touch 3727593 37275930 544 e 10000
+Touches: 791235849
+test_splay_time 3727593 37275930 544 e 10000
+Total time elapsed: 24434.944000 ms
+test_splay_touch 3727593 37275930 544 e 10000
+Touches: 781189091
+test_tango_time 3727593 37275930 544 e 10000
+Total time elapsed: 329604.643000 ms
+test_tango_touch 3727593 37275930 544 e 10000
+Touches: 4348542658
+test_multisplay_time 3727593 37275930 545 e 100000
+Total time elapsed: 133637.772000 ms
+test_multisplay_touch 3727593 37275930 545 e 100000
+Touches: 2917354042
+test_rb_time 3727593 37275930 545 e 100000
+Total time elapsed: 54053.383000 ms
+test_rb_touch 3727593 37275930 545 e 100000
+Touches: 791278167
+test_splay_time 3727593 37275930 545 e 100000
+Total time elapsed: 30104.399000 ms
+test_splay_touch 3727593 37275930 545 e 100000
+Touches: 903504909
+test_tango_time 3727593 37275930 545 e 100000
+Total time elapsed: 392641.060000 ms
+test_tango_touch 3727593 37275930 545 e 100000
+Touches: 4786811343
+test_multisplay_time 3727593 37275930 546 e 1000000
+Total time elapsed: 147646.699000 ms
+test_multisplay_touch 3727593 37275930 546 e 1000000
+Touches: 3091644213
+test_rb_time 3727593 37275930 546 e 1000000
+Total time elapsed: 54670.173000 ms
+test_rb_touch 3727593 37275930 546 e 1000000
+Touches: 791322739
+test_splay_time 3727593 37275930 546 e 1000000
+Total time elapsed: 41454.347000 ms
+test_splay_touch 3727593 37275930 546 e 1000000
+Touches: 1019712102
+test_tango_time 3727593 37275930 546 e 1000000
+Total time elapsed: 445974.085000 ms
+test_tango_touch 3727593 37275930 546 e 1000000
+Touches: 5067932816
+test_multisplay_time 5179474 51794740 547 e 10
+Total time elapsed: 92707.810000 ms
+test_multisplay_touch 5179474 51794740 547 e 10
+Touches: 2109498217
+test_rb_time 5179474 51794740 547 e 10
+Total time elapsed: 42913.711000 ms
+test_rb_touch 5179474 51794740 547 e 10
+Touches: 1135726622
+test_splay_time 5179474 51794740 547 e 10
+Total time elapsed: 24538.772000 ms
+test_splay_touch 5179474 51794740 547 e 10
+Touches: 624374137
+test_tango_time 5179474 51794740 547 e 10
+Total time elapsed: 253805.001000 ms
+test_tango_touch 5179474 51794740 547 e 10
+Touches: 3585158737
+test_multisplay_time 5179474 51794740 548 e 100
+Total time elapsed: 111081.791000 ms
+test_multisplay_touch 5179474 51794740 548 e 100
+Touches: 2637845492
+test_rb_time 5179474 51794740 548 e 100
+Total time elapsed: 51616.304000 ms
+test_rb_touch 5179474 51794740 548 e 100
+Touches: 1135767488
+test_splay_time 5179474 51794740 548 e 100
+Total time elapsed: 27070.890000 ms
+test_splay_touch 5179474 51794740 548 e 100
+Touches: 761897726
+test_tango_time 5179474 51794740 548 e 100
+Total time elapsed: 316044.309000 ms
+test_tango_touch 5179474 51794740 548 e 100
+Touches: 4564303214
+test_multisplay_time 5179474 51794740 549 e 1000
+Total time elapsed: 129623.999000 ms
+test_multisplay_touch 5179474 51794740 549 e 1000
+Touches: 3163607296
+test_rb_time 5179474 51794740 549 e 1000
+Total time elapsed: 60976.125000 ms
+test_rb_touch 5179474 51794740 549 e 1000
+Touches: 1135731425
+test_splay_time 5179474 51794740 549 e 1000
+Total time elapsed: 30659.406000 ms
+test_splay_touch 5179474 51794740 549 e 1000
+Touches: 926909881
+test_tango_time 5179474 51794740 549 e 1000
+Total time elapsed: 388418.438000 ms
+test_tango_touch 5179474 51794740 549 e 1000
+Touches: 5433661674
+test_multisplay_time 5179474 51794740 550 e 10000
+Total time elapsed: 156739.555000 ms
+test_multisplay_touch 5179474 51794740 550 e 10000
+Touches: 3669624237
+test_rb_time 5179474 51794740 550 e 10000
+Total time elapsed: 71469.249000 ms
+test_rb_touch 5179474 51794740 550 e 10000
+Touches: 1135763795
+test_splay_time 5179474 51794740 550 e 10000
+Total time elapsed: 35194.603000 ms
+test_splay_touch 5179474 51794740 550 e 10000
+Touches: 1096845485
+test_tango_time 5179474 51794740 550 e 10000
+Total time elapsed: 469171.671000 ms
+test_tango_touch 5179474 51794740 550 e 10000
+Touches: 6196675607
+test_multisplay_time 5179474 51794740 551 e 100000
+Total time elapsed: 190892.790000 ms
+test_multisplay_touch 5179474 51794740 551 e 100000
+Touches: 4106102680
+test_rb_time 5179474 51794740 551 e 100000
+Total time elapsed: 82758.628000 ms
+test_rb_touch 5179474 51794740 551 e 100000
+Touches: 1135695888
+test_splay_time 5179474 51794740 551 e 100000
+Total time elapsed: 44047.178000 ms
+test_splay_touch 5179474 51794740 551 e 100000
+Touches: 1266898961
+test_tango_time 5179474 51794740 551 e 100000
+Total time elapsed: 560595.050000 ms
+test_tango_touch 5179474 51794740 551 e 100000
+Touches: 6833167024
+test_multisplay_time 5179474 51794740 552 e 1000000
+Total time elapsed: 213596.567000 ms
+test_multisplay_touch 5179474 51794740 552 e 1000000
+Touches: 4375131353
+test_rb_time 5179474 51794740 552 e 1000000
+Total time elapsed: 83655.386000 ms
+test_rb_touch 5179474 51794740 552 e 1000000
+Touches: 1135752291
+test_splay_time 5179474 51794740 552 e 1000000
+Total time elapsed: 60285.470000 ms
+test_splay_touch 5179474 51794740 552 e 1000000
+Touches: 1431143820
+test_tango_time 5179474 51794740 552 e 1000000
+Total time elapsed: 642327.444000 ms
+test_tango_touch 5179474 51794740 552 e 1000000
+Touches: 7270899776
+test_multisplay_time 7196856 71968560 553 e 10
+Total time elapsed: 133911.630000 ms
+test_multisplay_touch 7196856 71968560 553 e 10
+Touches: 2981379521
+test_rb_time 7196856 71968560 553 e 10
+Total time elapsed: 64489.348000 ms
+test_rb_touch 7196856 71968560 553 e 10
+Touches: 1608388065
+test_splay_time 7196856 71968560 553 e 10
+Total time elapsed: 35713.313000 ms
+test_splay_touch 7196856 71968560 553 e 10
+Touches: 883421328
+test_tango_time 7196856 71968560 553 e 10
+Total time elapsed: 364786.023000 ms
+test_tango_touch 7196856 71968560 553 e 10
+Touches: 5069539427
+test_multisplay_time 7196856 71968560 554 e 100
+Total time elapsed: 159051.030000 ms
+test_multisplay_touch 7196856 71968560 554 e 100
+Touches: 3715443631
+test_rb_time 7196856 71968560 554 e 100
+Total time elapsed: 77533.468000 ms
+test_rb_touch 7196856 71968560 554 e 100
+Touches: 1608435570
+test_splay_time 7196856 71968560 554 e 100
+Total time elapsed: 38992.748000 ms
+test_splay_touch 7196856 71968560 554 e 100
+Touches: 1074437474
+test_tango_time 7196856 71968560 554 e 100
+Total time elapsed: 451427.870000 ms
+test_tango_touch 7196856 71968560 554 e 100
+Touches: 6437473340
+test_multisplay_time 7196856 71968560 555 e 1000
+Total time elapsed: 184298.216000 ms
+test_multisplay_touch 7196856 71968560 555 e 1000
+Touches: 4446945103
+test_rb_time 7196856 71968560 555 e 1000
+Total time elapsed: 91109.369000 ms
+test_rb_touch 7196856 71968560 555 e 1000
+Touches: 1608431875
+test_splay_time 7196856 71968560 555 e 1000
+Total time elapsed: 44536.938000 ms
+test_splay_touch 7196856 71968560 555 e 1000
+Touches: 1303707082
+test_tango_time 7196856 71968560 555 e 1000
+Total time elapsed: 552565.169000 ms
+test_tango_touch 7196856 71968560 555 e 1000
+Touches: 7657010515
+test_multisplay_time 7196856 71968560 556 e 10000
+Total time elapsed: 219787.745000 ms
+test_multisplay_touch 7196856 71968560 556 e 10000
+Touches: 5155894454
+test_rb_time 7196856 71968560 556 e 10000
+Total time elapsed: 106509.022000 ms
+test_rb_touch 7196856 71968560 556 e 10000
+Touches: 1608430940
+test_splay_time 7196856 71968560 556 e 10000
+Total time elapsed: 50151.557000 ms
+test_splay_touch 7196856 71968560 556 e 10000
+Touches: 1539826571
+test_tango_time 7196856 71968560 556 e 10000
+Total time elapsed: 666125.664000 ms
+test_tango_touch 7196856 71968560 556 e 10000
+Touches: 8734484668
+test_multisplay_time 7196856 71968560 557 e 100000
+Total time elapsed: 267914.364000 ms
+test_multisplay_touch 7196856 71968560 557 e 100000
+Touches: 5786315662
+test_rb_time 7196856 71968560 557 e 100000
+Total time elapsed: 121910.628000 ms
+test_rb_touch 7196856 71968560 557 e 100000
+Touches: 1608451416
+test_splay_time 7196856 71968560 557 e 100000
+Total time elapsed: 63428.940000 ms
+test_splay_touch 7196856 71968560 557 e 100000
+Touches: 1776265951
+test_tango_time 7196856 71968560 557 e 100000
+Total time elapsed: 795954.478000 ms
+test_tango_touch 7196856 71968560 557 e 100000
+Touches: 9654466848
+test_multisplay_time 7196856 71968560 558 e 1000000
+Total time elapsed: 308584.721000 ms
+test_multisplay_touch 7196856 71968560 558 e 1000000
+Touches: 6204739261
+test_rb_time 7196856 71968560 558 e 1000000
+Total time elapsed: 124815.365000 ms
+test_rb_touch 7196856 71968560 558 e 1000000
+Touches: 1608387435
+test_splay_time 7196856 71968560 558 e 1000000
+Total time elapsed: 86506.120000 ms
+test_splay_touch 7196856 71968560 558 e 1000000
+Touches: 2006158220
+test_tango_time 7196856 71968560 558 e 1000000
+Total time elapsed: 903767.700000 ms
+test_tango_touch 7196856 71968560 558 e 1000000
+Touches: 10316133799
+test_multisplay_time 10000000 100000000 559 e 10
+Total time elapsed: 190828.229000 ms
+test_multisplay_touch 10000000 100000000 559 e 10
+Touches: 4207632542
+test_rb_time 10000000 100000000 559 e 10
+Total time elapsed: 96490.427000 ms
+test_rb_touch 10000000 100000000 559 e 10
+Touches: 2281465350
+test_splay_time 10000000 100000000 559 e 10
+Total time elapsed: 52343.340000 ms
+test_splay_touch 10000000 100000000 559 e 10
+Touches: 1249584249
+test_tango_time 10000000 100000000 559 e 10
+Total time elapsed: 526721.674000 ms
+test_tango_touch 10000000 100000000 559 e 10
+Touches: 7240806993
+test_multisplay_time 10000000 100000000 560 e 100
+Total time elapsed: 223353.991000 ms
+test_multisplay_touch 10000000 100000000 560 e 100
+Touches: 5227337029
+test_rb_time 10000000 100000000 560 e 100
+Total time elapsed: 115795.466000 ms
+test_rb_touch 10000000 100000000 560 e 100
+Touches: 2281516098
+test_splay_time 10000000 100000000 560 e 100
+Total time elapsed: 57450.248000 ms
+test_splay_touch 10000000 100000000 560 e 100
+Touches: 1514765474
+test_tango_time 10000000 100000000 560 e 100
+Total time elapsed: 646559.901000 ms
+test_tango_touch 10000000 100000000 560 e 100
+Touches: 9168705709
+test_multisplay_time 10000000 100000000 561 e 1000
+Total time elapsed: 265426.393000 ms
+test_multisplay_touch 10000000 100000000 561 e 1000
+Touches: 6245342735
+test_rb_time 10000000 100000000 561 e 1000
+Total time elapsed: 135083.187000 ms
+test_rb_touch 10000000 100000000 561 e 1000
+Touches: 2281491444
+test_splay_time 10000000 100000000 561 e 1000
+Total time elapsed: 64589.270000 ms
+test_splay_touch 10000000 100000000 561 e 1000
+Touches: 1833301519
+test_tango_time 10000000 100000000 561 e 1000
+Total time elapsed: 787169.955000 ms
+test_tango_touch 10000000 100000000 561 e 1000
+Touches: 10889376120
+test_multisplay_time 10000000 100000000 562 e 10000
+Total time elapsed: 312125.415000 ms
+test_multisplay_touch 10000000 100000000 562 e 10000
+Touches: 7236220455
+test_rb_time 10000000 100000000 562 e 10000
+Total time elapsed: 159571.365000 ms
+test_rb_touch 10000000 100000000 562 e 10000
+Touches: 2281462702
+test_splay_time 10000000 100000000 562 e 10000
+Total time elapsed: 72053.523000 ms
+test_splay_touch 10000000 100000000 562 e 10000
+Touches: 2161453767
+test_tango_time 10000000 100000000 562 e 10000
+Total time elapsed: 947969.971000 ms
+test_tango_touch 10000000 100000000 562 e 10000
+Touches: 12408547274
+test_multisplay_time 10000000 100000000 563 e 100000
+Total time elapsed: 382478.659000 ms
+test_multisplay_touch 10000000 100000000 563 e 100000
+Touches: 8132446990
+test_rb_time 10000000 100000000 563 e 100000
+Total time elapsed: 181597.036000 ms
+test_rb_touch 10000000 100000000 563 e 100000
+Touches: 2281483323
+test_splay_time 10000000 100000000 563 e 100000
+Total time elapsed: 90711.592000 ms
+test_splay_touch 10000000 100000000 563 e 100000
+Touches: 2490404667
+test_tango_time 10000000 100000000 563 e 100000
+Total time elapsed: 1130705.163000 ms
+test_tango_touch 10000000 100000000 563 e 100000
+Touches: 13734283984
+test_multisplay_time 10000000 100000000 564 e 1000000
+Total time elapsed: 437535.868000 ms
+test_multisplay_touch 10000000 100000000 564 e 1000000
+Touches: 8761882945
+test_rb_time 10000000 100000000 564 e 1000000
+Total time elapsed: 186494.841000 ms
+test_rb_touch 10000000 100000000 564 e 1000000
+Touches: 2281566497
+test_splay_time 10000000 100000000 564 e 1000000
+Total time elapsed: 125969.587000 ms
+test_splay_touch 10000000 100000000 564 e 1000000
+Touches: 2813845171
+test_tango_time 10000000 100000000 564 e 1000000
+Total time elapsed: 1289806.502000 ms
+test_tango_touch 10000000 100000000 564 e 1000000
+Touches: 14718173777
+test_rbrandom_time 13 10000000 418 e 10
+Total time elapsed: 317.337000 ms
+test_rbrandom_time 19 10000000 419 e 10
+Total time elapsed: 334.443000 ms
+test_rbrandom_time 26 10000000 420 e 10
+Total time elapsed: 353.588000 ms
+test_rbrandom_time 37 10000000 421 e 10
+Total time elapsed: 369.682000 ms
+test_rbrandom_time 51 10000000 422 e 10
+Total time elapsed: 389.951000 ms
+test_rbrandom_time 71 10000000 423 e 10
+Total time elapsed: 452.501000 ms
+test_rbrandom_time 100 10000000 424 e 10
+Total time elapsed: 509.777000 ms
+test_rbrandom_time 138 10000000 425 e 10
+Total time elapsed: 549.894000 ms
+test_rbrandom_time 138 10000000 426 e 100
+Total time elapsed: 572.785000 ms
+test_rbrandom_time 193 10000000 427 e 10
+Total time elapsed: 597.441000 ms
+test_rbrandom_time 193 10000000 428 e 100
+Total time elapsed: 602.880000 ms
+test_rbrandom_time 268 10000000 429 e 10
+Total time elapsed: 678.236000 ms
+test_rbrandom_time 268 10000000 430 e 100
+Total time elapsed: 701.338000 ms
+test_rbrandom_time 372 10000000 431 e 10
+Total time elapsed: 632.887000 ms
+test_rbrandom_time 372 10000000 432 e 100
+Total time elapsed: 660.166000 ms
+test_rbrandom_time 517 10000000 433 e 10
+Total time elapsed: 736.413000 ms
+test_rbrandom_time 517 10000000 434 e 100
+Total time elapsed: 754.740000 ms
+test_rbrandom_time 719 10000000 435 e 10
+Total time elapsed: 770.354000 ms
+test_rbrandom_time 719 10000000 436 e 100
+Total time elapsed: 799.194000 ms
+test_rbrandom_time 1000 10000000 437 e 10
+Total time elapsed: 916.379000 ms
+test_rbrandom_time 1000 10000000 438 e 100
+Total time elapsed: 970.937000 ms
+test_rbrandom_time 1389 10000000 439 e 10
+Total time elapsed: 1025.837000 ms
+test_rbrandom_time 1389 10000000 440 e 100
+Total time elapsed: 1063.421000 ms
+test_rbrandom_time 1389 10000000 441 e 1000
+Total time elapsed: 1083.033000 ms
+test_rbrandom_time 1930 10000000 442 e 10
+Total time elapsed: 1110.267000 ms
+test_rbrandom_time 1930 10000000 443 e 100
+Total time elapsed: 1151.482000 ms
+test_rbrandom_time 1930 10000000 444 e 1000
+Total time elapsed: 1178.877000 ms
+test_rbrandom_time 2682 10000000 445 e 10
+Total time elapsed: 1158.643000 ms
+test_rbrandom_time 2682 10000000 446 e 100
+Total time elapsed: 1207.034000 ms
+test_rbrandom_time 2682 10000000 447 e 1000
+Total time elapsed: 1248.399000 ms
+test_rbrandom_time 3727 10000000 448 e 10
+Total time elapsed: 1212.213000 ms
+test_rbrandom_time 3727 10000000 449 e 100
+Total time elapsed: 1284.063000 ms
+test_rbrandom_time 3727 10000000 450 e 1000
+Total time elapsed: 1308.072000 ms
+test_rbrandom_time 5179 10000000 451 e 10
+Total time elapsed: 1307.264000 ms
+test_rbrandom_time 5179 10000000 452 e 100
+Total time elapsed: 1389.206000 ms
+test_rbrandom_time 5179 10000000 453 e 1000
+Total time elapsed: 1420.019000 ms
+test_rbrandom_time 7196 10000000 454 e 10
+Total time elapsed: 1349.027000 ms
+test_rbrandom_time 7196 10000000 455 e 100
+Total time elapsed: 1402.568000 ms
+test_rbrandom_time 7196 10000000 456 e 1000
+Total time elapsed: 1453.890000 ms
+test_rbrandom_time 10000 10000000 457 e 10
+Total time elapsed: 1384.062000 ms
+test_rbrandom_time 10000 10000000 458 e 100
+Total time elapsed: 1473.508000 ms
+test_rbrandom_time 10000 10000000 459 e 1000
+Total time elapsed: 1540.779000 ms
+test_rbrandom_time 13894 10000000 460 e 10
+Total time elapsed: 1445.876000 ms
+test_rbrandom_time 13894 10000000 461 e 100
+Total time elapsed: 1551.566000 ms
+test_rbrandom_time 13894 10000000 462 e 1000
+Total time elapsed: 1622.033000 ms
+test_rbrandom_time 13894 10000000 463 e 10000
+Total time elapsed: 1649.231000 ms
+test_rbrandom_time 19306 10000000 464 e 10
+Total time elapsed: 1502.870000 ms
+test_rbrandom_time 19306 10000000 465 e 100
+Total time elapsed: 1608.708000 ms
+test_rbrandom_time 19306 10000000 466 e 1000
+Total time elapsed: 1691.476000 ms
+test_rbrandom_time 19306 10000000 467 e 10000
+Total time elapsed: 1744.655000 ms
+test_rbrandom_time 26826 10000000 468 e 10
+Total time elapsed: 1563.846000 ms
+test_rbrandom_time 26826 10000000 469 e 100
+Total time elapsed: 1701.260000 ms
+test_rbrandom_time 26826 10000000 470 e 1000
+Total time elapsed: 1815.910000 ms
+test_rbrandom_time 26826 10000000 471 e 10000
+Total time elapsed: 1849.732000 ms
+test_rbrandom_time 37275 10000000 472 e 10
+Total time elapsed: 1656.937000 ms
+test_rbrandom_time 37275 10000000 473 e 100
+Total time elapsed: 1827.195000 ms
+test_rbrandom_time 37275 10000000 474 e 1000
+Total time elapsed: 1970.771000 ms
+test_rbrandom_time 37275 10000000 475 e 10000
+Total time elapsed: 2031.052000 ms
+test_rbrandom_time 51794 10000000 476 e 10
+Total time elapsed: 1736.023000 ms
+test_rbrandom_time 51794 10000000 477 e 100
+Total time elapsed: 1937.624000 ms
+test_rbrandom_time 51794 10000000 478 e 1000
+Total time elapsed: 2053.167000 ms
+test_rbrandom_time 51794 10000000 479 e 10000
+Total time elapsed: 2172.592000 ms
+test_rbrandom_time 71968 10000000 480 e 10
+Total time elapsed: 1824.752000 ms
+test_rbrandom_time 71968 10000000 481 e 100
+Total time elapsed: 2009.512000 ms
+test_rbrandom_time 71968 10000000 482 e 1000
+Total time elapsed: 2170.118000 ms
+test_rbrandom_time 71968 10000000 483 e 10000
+Total time elapsed: 2313.525000 ms
+test_rbrandom_time 100000 10000000 484 e 10
+Total time elapsed: 1898.624000 ms
+test_rbrandom_time 100000 10000000 485 e 100
+Total time elapsed: 2077.445000 ms
+test_rbrandom_time 100000 10000000 486 e 1000
+Total time elapsed: 2272.314000 ms
+test_rbrandom_time 100000 10000000 487 e 10000
+Total time elapsed: 2439.308000 ms
+test_rbrandom_time 138949 10000000 488 e 10
+Total time elapsed: 1964.793000 ms
+test_rbrandom_time 138949 10000000 489 e 100
+Total time elapsed: 2183.527000 ms
+test_rbrandom_time 138949 10000000 490 e 1000
+Total time elapsed: 2370.040000 ms
+test_rbrandom_time 138949 10000000 491 e 10000
+Total time elapsed: 2577.571000 ms
+test_rbrandom_time 138949 10000000 492 e 100000
+Total time elapsed: 2607.112000 ms
+test_rbrandom_time 193069 10000000 493 e 10
+Total time elapsed: 1944.158000 ms
+test_rbrandom_time 193069 10000000 494 e 100
+Total time elapsed: 2119.822000 ms
+test_rbrandom_time 193069 10000000 495 e 1000
+Total time elapsed: 2365.324000 ms
+test_rbrandom_time 193069 10000000 496 e 10000
+Total time elapsed: 2581.958000 ms
+test_rbrandom_time 193069 10000000 497 e 100000
+Total time elapsed: 2599.095000 ms
+test_rbrandom_time 268269 10000000 498 e 10
+Total time elapsed: 2003.874000 ms
+test_rbrandom_time 268269 10000000 499 e 100
+Total time elapsed: 2180.745000 ms
+test_rbrandom_time 268269 10000000 500 e 1000
+Total time elapsed: 2475.663000 ms
+test_rbrandom_time 268269 10000000 501 e 10000
+Total time elapsed: 2652.728000 ms
+test_rbrandom_time 268269 10000000 502 e 100000
+Total time elapsed: 2722.009000 ms
+test_rbrandom_time 372759 10000000 503 e 10
+Total time elapsed: 2243.950000 ms
+test_rbrandom_time 372759 10000000 504 e 100
+Total time elapsed: 2411.262000 ms
+test_rbrandom_time 372759 10000000 505 e 1000
+Total time elapsed: 2790.571000 ms
+test_rbrandom_time 372759 10000000 506 e 10000
+Total time elapsed: 3026.756000 ms
+test_rbrandom_time 372759 10000000 507 e 100000
+Total time elapsed: 3275.192000 ms
+test_rbrandom_time 517947 10000000 508 e 10
+Total time elapsed: 2672.975000 ms
+test_rbrandom_time 517947 10000000 509 e 100
+Total time elapsed: 2797.679000 ms
+test_rbrandom_time 517947 10000000 510 e 1000
+Total time elapsed: 3046.986000 ms
+test_rbrandom_time 517947 10000000 511 e 10000
+Total time elapsed: 3455.193000 ms
+test_rbrandom_time 517947 10000000 512 e 100000
+Total time elapsed: 4050.289000 ms
+test_rbrandom_time 719685 10000000 513 e 10
+Total time elapsed: 3019.837000 ms
+test_rbrandom_time 719685 10000000 514 e 100
+Total time elapsed: 3017.001000 ms
+test_rbrandom_time 719685 10000000 515 e 1000
+Total time elapsed: 3558.682000 ms
+test_rbrandom_time 719685 10000000 516 e 10000
+Total time elapsed: 4642.196000 ms
+test_rbrandom_time 719685 10000000 517 e 100000
+Total time elapsed: 4910.009000 ms
+test_rbrandom_time 1000000 10000000 518 e 10
+Total time elapsed: 3181.782000 ms
+test_rbrandom_time 1000000 10000000 519 e 100
+Total time elapsed: 3369.843000 ms
+test_rbrandom_time 1000000 10000000 520 e 1000
+Total time elapsed: 3744.042000 ms
+test_rbrandom_time 1000000 10000000 521 e 10000
+Total time elapsed: 4518.067000 ms
+test_rbrandom_time 1000000 10000000 522 e 100000
+Total time elapsed: 5744.378000 ms
+test_rbrandom_time 1389495 13894950 523 e 10
+Total time elapsed: 4869.209000 ms
+test_rbrandom_time 1389495 13894950 524 e 100
+Total time elapsed: 4947.871000 ms
+test_rbrandom_time 1389495 13894950 525 e 1000
+Total time elapsed: 5719.416000 ms
+test_rbrandom_time 1389495 13894950 526 e 10000
+Total time elapsed: 6618.228000 ms
+test_rbrandom_time 1389495 13894950 527 e 100000
+Total time elapsed: 8585.601000 ms
+test_rbrandom_time 1389495 13894950 528 e 1000000
+Total time elapsed: 8984.423000 ms
+test_rbrandom_time 1930697 19306970 529 e 10
+Total time elapsed: 7117.460000 ms
+test_rbrandom_time 1930697 19306970 530 e 100
+Total time elapsed: 8166.281000 ms
+test_rbrandom_time 1930697 19306970 531 e 1000
+Total time elapsed: 8302.117000 ms
+test_rbrandom_time 1930697 19306970 532 e 10000
+Total time elapsed: 10167.999000 ms
+test_rbrandom_time 1930697 19306970 533 e 100000
+Total time elapsed: 13207.340000 ms
+test_rbrandom_time 1930697 19306970 534 e 1000000
+Total time elapsed: 13728.429000 ms
+test_rbrandom_time 2682695 26826950 535 e 10
+Total time elapsed: 10403.459000 ms
+test_rbrandom_time 2682695 26826950 536 e 100
+Total time elapsed: 10795.521000 ms
+test_rbrandom_time 2682695 26826950 537 e 1000
+Total time elapsed: 12174.804000 ms
+test_rbrandom_time 2682695 26826950 538 e 10000
+Total time elapsed: 15961.793000 ms
+test_rbrandom_time 2682695 26826950 539 e 100000
+Total time elapsed: 20538.712000 ms
+test_rbrandom_time 2682695 26826950 540 e 1000000
+Total time elapsed: 20956.022000 ms
+test_rbrandom_time 3727593 37275930 541 e 10
+Total time elapsed: 15195.989000 ms
+test_rbrandom_time 3727593 37275930 542 e 100
+Total time elapsed: 15778.354000 ms
+test_rbrandom_time 3727593 37275930 543 e 1000
+Total time elapsed: 17817.653000 ms
+test_rbrandom_time 3727593 37275930 544 e 10000
+Total time elapsed: 23446.822000 ms
+test_rbrandom_time 3727593 37275930 545 e 100000
+Total time elapsed: 30756.028000 ms
+test_rbrandom_time 3727593 37275930 546 e 1000000
+Total time elapsed: 31858.354000 ms
+test_rbrandom_time 5179474 51794740 547 e 10
+Total time elapsed: 22363.016000 ms
+test_rbrandom_time 5179474 51794740 548 e 100
+Total time elapsed: 23026.897000 ms
+test_rbrandom_time 5179474 51794740 549 e 1000
+Total time elapsed: 26200.114000 ms
+test_rbrandom_time 5179474 51794740 550 e 10000
+Total time elapsed: 35222.788000 ms
+test_rbrandom_time 5179474 51794740 551 e 100000
+Total time elapsed: 45593.506000 ms
+test_rbrandom_time 5179474 51794740 552 e 1000000
+Total time elapsed: 46693.309000 ms
+test_rbrandom_time 7196856 71968560 553 e 10
+Total time elapsed: 35130.937000 ms
+test_rbrandom_time 7196856 71968560 554 e 100
+Total time elapsed: 34395.066000 ms
+test_rbrandom_time 7196856 71968560 555 e 1000
+Total time elapsed: 38944.318000 ms
+test_rbrandom_time 7196856 71968560 556 e 10000
+Total time elapsed: 53084.853000 ms
+test_rbrandom_time 7196856 71968560 557 e 100000
+Total time elapsed: 68470.255000 ms
+test_rbrandom_time 7196856 71968560 558 e 1000000
+Total time elapsed: 76997.411000 ms
+test_rbrandom_time 10000000 100000000 559 e 10
+Total time elapsed: 48748.119000 ms
+test_rbrandom_time 10000000 100000000 560 e 100
+Total time elapsed: 50539.743000 ms
+test_rbrandom_time 10000000 100000000 561 e 1000
+Total time elapsed: 57141.351000 ms
+test_rbrandom_time 10000000 100000000 562 e 10000
+Total time elapsed: 78571.953000 ms
+test_rbrandom_time 10000000 100000000 563 e 100000
+Total time elapsed: 103495.170000 ms
+test_rbrandom_time 10000000 100000000 564 e 1000000
+Total time elapsed: 106541.259000 ms
