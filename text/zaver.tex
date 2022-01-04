@@ -9,13 +9,21 @@ Zjistili jsme, že nad náhodnými přístupovými posloupnostmi se nejlépe cho
 červenočerný strom. Objevili jsme však překvapivý potenciální problém
 červenočerného stromu -- zjistili jsme, že pokud jeho vrcholy naalokujeme a
 vložíme do stromu v~sekvenčním pořadí, narazíme na problémy související
-s~asociativitou cache. Tyto problémy se začnou projevovat ve chvíli, kdy je kamacita cache v bytech menší než $n$
-vynásobené nejvyšší mocninou dvojky, která dělí množství bytů, které v~paměti
+s~asociativitou cache. Tyto problémy se začnou projevovat ve chvíli, kdy je kapacita cache v bytech menší než počet vrcholů stromu
+vynásobený nejvyšší mocninou dvojky, která dělí množství bytů, které v~paměti
 zabírá jeden vrchol.
 
-Nad sekvenčními a sekvenčními podmožinovými přístupovými posloupnostmi se naopak nejlépe choval splay strom. U~něj jsme naopak narazili na zpomalení, když vrcholy v~rostoucím pořadí uloženy nebyly Toto zpomalení však nebylo dost velké na to, aby byl splay strom červenočerným stromem překonán. Pro náhodné podmnožinové posloupnosti byl splay strom srovnatelně rychlý jako červenočerný strom, pokud $k \cong n/100$. Pro nižší hodnoty $k$ byl rychlejší splay strom, pro vyšší červenočerný strom. 
+Nad sekvenčními a sekvenčními podmožinovými přístupovými posloupnostmi se
+naopak nejlépe choval splay strom. U~něj jsme naopak narazili na zpomalení,
+když vrcholy v~rostoucím pořadí uloženy nebyly Toto zpomalení však nebylo dost
+velké na to, aby byl splay strom červenočerným stromem překonán. Pro náhodné
+podmnožinové posloupnosti byl splay strom srovnatelně rychlý jako červenočerný
+strom, pokud byla velikost podmnožiny $M$, z níž byly cílové vrcholy přístupů vybírány, zhruba stokrát menší, než kolik měl strom vrcholů. Pro nižší hodnoty $|M|$ byl rychlejší splay strom,
+pro vyšší červenočerný strom. 
 
-Pro vykonávání proměnlivě podmnožinových přístupových posloupností se ukázal obecně vhodnější červenočerný strom. Splay strom byl rychlejší pouze pro volbu parametru $k$ takovou, aby se $k$ vrcholů sice vešlo do cache, ale pouze těsně.
+Pro vykonávání proměnlivě podmnožinových přístupových posloupností se ukázal
+obecně vhodnější červenočerný strom. Splay strom byl rychlejší pouze pro volbu
+parametru $|M|$ takovou, aby se $|M|$ vrcholů sice vešlo do cache, ale pouze těsně.
 
 Při vykonávání všech zmíněných posloupností byl tango strom časově s~velkým
 rozdílem nejhorší, i když počtem dotčených vrcholů při vykonávání sekvenční

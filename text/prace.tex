@@ -1,29 +1,29 @@
 %%% Hlavní soubor. Zde se definují základní parametry a odkazuje se na ostatní části. %%%
 
-%% Verze pro jednostranný tisk:
-% Okraje: levý 40mm, pravý 25mm, horní a dolní 25mm
-% (ale pozor, LaTeX si sám přidává 1in)
-\documentclass[12pt,a4paper]{report}
-\setlength\textwidth{145mm}
-\setlength\textheight{247mm}
-\setlength\oddsidemargin{15mm}
-\setlength\evensidemargin{15mm}
-\setlength\topmargin{0mm}
-\setlength\headsep{0mm}
-\setlength\headheight{0mm}
-% \openright zařídí, aby následující text začínal na pravé straně knihy
-\let\openright=\clearpage
+%%% Verze pro jednostranný tisk:
+%% Okraje: levý 40mm, pravý 25mm, horní a dolní 25mm
+%% (ale pozor, LaTeX si sám přidává 1in)
+%\documentclass[12pt,a4paper]{report}
+%\setlength\textwidth{145mm}
+%\setlength\textheight{247mm}
+%\setlength\oddsidemargin{15mm}
+%\setlength\evensidemargin{15mm}
+%\setlength\topmargin{0mm}
+%\setlength\headsep{0mm}
+%\setlength\headheight{0mm}
+%% \openright zařídí, aby následující text začínal na pravé straně knihy
+%\let\openright=\clearpage
 
-%% Pokud tiskneme oboustranně:
-% \documentclass[12pt,a4paper,twoside,openright]{report}
-% \setlength\textwidth{145mm}
-% \setlength\textheight{247mm}
-% \setlength\oddsidemargin{14.2mm}
-% \setlength\evensidemargin{0mm}
-% \setlength\topmargin{0mm}
-% \setlength\headsep{0mm}
-% \setlength\headheight{0mm}
-% \let\openright=\cleardoublepage
+% Pokud tiskneme oboustranně:
+ \documentclass[12pt,a4paper,twoside,openright]{report}
+ \setlength\textwidth{145mm}
+ \setlength\textheight{247mm}
+ \setlength\oddsidemargin{14.2mm}
+ \setlength\evensidemargin{0mm}
+ \setlength\topmargin{0mm}
+ \setlength\headsep{0mm}
+ \setlength\headheight{0mm}
+ \let\openright=\cleardoublepage
 
 %% Vytváříme PDF/A-2u
 \usepackage[a-2u]{pdfx}
@@ -116,7 +116,14 @@ operaci a také čas běhu na reálném hardwaru. Ukázali jsme, že tango strom
 splay strom. V~chování splay stromu a červenočerného stromu hrály nečekaně velkou roli efekty cache.
 }
 \def\AbstraktEN{%
-Abstract.
+In this thesis, we compared some variants of binary search trees that approach
+dynamic optimality: Tango trees, Multisplay trees and Splay trees. We
+empirically tested the behavior of these three types of trees, as well as
+Red-Black trees. We measured the amount of visited nodes per operation and
+running time on real hardware. We showed, that Tango trees and Multisplay
+trees are in most cases less efficient than Splay trees and Red-Black trees.
+Cache-related effects played suprisingly large part in the behavior of Red-Black tree and Splay tree.
+
 }
 
 % 3 až 5 klíčových slov (doporučeno), každé uzavřeno ve složených závorkách

@@ -790,13 +790,14 @@ Mějme přístupovou posloupnost $S$ nad množinou $[n]$. Dále mějme libovoln�
 (statický) strom $T$ nad toutéž množinou klíčů. Každý vrchol stromu~$T$ má svůj
 preferovaný směr. Vždy, když projdeme při hledání v~$T$ vrcholem $v$, nastavíme preferovaný směr
 $v$ na syna, do nějž jsme z~vrcholu $v$ pokračovali. $\ib_T(S)$ označíme
-celkový počet změn preferovaných směrů\footnote{Protože nás zajímají pouze
-posloupnosti $S$ takové, že jejich délka $m$ je větší nebo rovna $n$, počáteční
-nastavení preferovaných směrů ovlivní $\ib_T(S)$ nejvýše o~multiplikativní
-konstantu.} ve stromu $T$ při vykonání posloupnosti přístupů $S$. Pak pro
+celkový počet změn preferovaných směrů ve stromu $T$ při vykonání posloupnosti přístupů $S$. Pak pro
 libovolný strom $T$ platí $$\opt(S) \in \Omega(\ib_T(S)).$$ 
 \end{veta}
 
+Připomeneme, že nás zajímají pouze
+posloupnosti~$S$ takové, že jejich délka~$m$ je větší nebo rovna~$n$. Proto počáteční
+nastavení preferovaných směrů ovlivní $\ib_T(S)$ nejvýše o~multiplikativní
+konstantu.
 Interleave bound představili a dokázali v~tomto znění \citet{tango}. Podobný odhad (lišící se pouze multiplikativní konstantou) ale představil už \citet{interleave}.
 
 Tato mez nám dává mimo jiné rodinu konkrétních posloupností $S$ takových, že

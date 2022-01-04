@@ -538,11 +538,15 @@ stromu $P$, musíme v~něm změnit preferovaný směr. Všechny změny preferova
 směrů jsou ale ve skutečnosti nežádoucí a bude je při dalších přístupech nutné
 vrátit.
 
+\def\dira#1{\vskip #1}
+
 \def\doublegraphfigure#1#2#3{
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{graphs/#1_touch_#2}
+\dira{10pt}
 \includegraphics[width=\textwidth]{graphs/#1_time_#2}
+\dira{10pt}
 \caption{#3}
 \label{obr:#1_#2}
 \end{figure}
@@ -788,7 +792,7 @@ náhodné přístupové posloupnosti platí, že se splay strom chová lépe ne�
 červenočerný strom, pokud je $k$ alespoň stokrát menší než $n$. V~případě, že
 nemůžem celý strom uložit do cache, se potom červenočerný strom pro $k$
 přibližující se k~$n$ zrychluje. Chování splay stromu naopak závisí pouze na~$k$ a čas potřebný na operaci s~ním logaritmicky roste.
-
+\newpage
 \section{Proměnlivě podmnožinová posloupnost}
 
 Proměnlivě podmnožinová posloupnost je posloupnost, která vypadá podobně jako náhodná podmnožinová posloupnost, navíc má ale ještě parametr $\ell$. Při tvorbě této posloupnosti postupujeme podobně jako při tvorbě náhodné podmnožinové posloupnosti, ale navíc po každých $\ell$ vybraných prvcích vybereme novou náhodnou multimnožinu $M$. Při zkoumání této přístupové posloupnosti jsme zvolili $\ell = 3k$.
