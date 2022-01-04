@@ -492,7 +492,7 @@ Takový strom určitě invarianty červenočerného stromu splňuje -- máme-li 
 vrcholy se sudým rankem spojené hranou, je (minimálně) spodní z~nich 2-syn. Z téhož důvodu je na každé cestě z kořene do externího vrcholu právě tolik černých vrcholů, kolik je lichých čísel mezi nulou a rankem kořene. 
 Naopak pokud máme libovolný červenočerný strom, můžeme každému vrcholu $v$, jehož
 podstrom si označíme $S$, přiřadit rank $2\cdot H'(S)$, pokud je $v$ červený a
-$2\cdot H'(S) + 1$i, pokud je černý.
+$2\cdot H'(S) + 1$, pokud je černý.
 
 Toto pravidlo lze formulovat také tak, že každý vrchol je buď $(1,1)$, $(1,2)$ nebo $(2,2)$-vrchol. Toto pravidlo vypadá podobně jako AVL pravidlo. Mohli bychom se tedy ptát, zda neexistuje nějaké pravidlo, které by bylo restriktivnější než pravidlo červenočerných stromů, ale volnější než pravidlo AVL stromů, které by nám umožnilo spojit výhody obou těchto stromů. Připomeneme, že výhodou AVL stromu je o~něco menší hloubka nejhlubšího vrcholu v~nejhorším případě, výhodou červenočerných stromů je garance nejvýše $\o(1)$ změn struktury na operaci. 
 
