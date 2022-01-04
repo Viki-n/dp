@@ -1,4 +1,4 @@
-\chapter{Binární vyhledávací stromy}
+\chapter{Vyhledávací stromy}
 
 V~této kapitole zavedeme formální definici binárního vyhledávacího stromu a
 pojednáme o~jeho výhodách oproti jiným způsobům uložení dat. Dále přiblížíme
@@ -10,7 +10,7 @@ binární vyhledávací strom. Nakonec se podíváme na tango stromy a multispla
 stromy a dokážeme, že tyto meze splňují (nebo, v~případě tango stromu, že je
 téměř splňují).
 
-\section{Binární vyhledávací strom}
+\section{Binární vyhledávací stromy}
 \def\U{\mathcal U}
 \def\o{\mathcal O}
 \let\op\operatorname
@@ -44,7 +44,7 @@ které v~této práci popíšeme.
 
 \emph{Binární vyhledávací strom} je struktura, které může být buď prázdná, nebo
 může obsahovat vrchol, který nazveme \emph{kořen}. Kořen má dva ukazatele,
-které opět ukazují na (ne nutně neprázdné) binární vyhledávací stromy. Kořenům těchto stromů budeme říkat \emph{pravý} a \emph{levý syn} kořene. Pokud je vrchol $v$ synem vrcholu $u$, řekneme, že vrchol $u$ je rodičem vrcholu $v$. Každý vrchol stromu krom kořene musí mít právě jednoho rodiče. 
+které opět ukazují na (ne nutně neprázdné) binární vyhledávací stromy. Kořenům těchto stromů budeme říkat \emph{pravý} a \emph{levý syn} kořene. Pokud je vrchol $v$ synem vrcholu $u$, řekneme, že vrchol $u$ je rodičem vrcholu $v$. Na každý vrchol stromu krom kořene musí ukazovat právě jeden ukazatel z~rodiče. 
 
 Pro vrchol $v$ nazveme
 \emph{podstromem vrcholu $v$} množinu vrcholů, do nichž se dá dostat z~vrcholu
@@ -108,7 +108,7 @@ programováním \citet{staticoptimality}. Myšlenku jeho algoritmu zde představ
 
 Mějme množinu klíčů, pro jednoduchost $[n]$ (tedy
 množinu přirozených čísel od 1 do $n$ včetně), a pole vah $w$. 
-Naším cílem bude najít strom nad množinou klíčů $[n]$ s co nejnižší celkovou vahou, kde váha stromu je $$\sum_{i\in [n]}w_i\cdot (\text{Hloubka vrcholu obsahujícího $i$}).$$ 
+Naším cílem bude najít strom nad množinou klíčů $[n]$ s co nejnižší celkovou vahou, kde váha stromu je $$\sum_{i\in [n]}w_i\cdot (\text{hloubka vrcholu obsahujícího $i$}).$$ 
 
 Váha klíče
 $i$ $w[i]$ může být buď pravděpodobnost, že daný přístup bude mít za
@@ -135,13 +135,13 @@ podle algoritmu uvedeného výše v~této kapitole. \citet{sortingsearching}
 ukázal, že pokud budeme prvky do stromu vkládat v~náhodném pořadí,\footnote{Bez
 újmy na obecnosti předpokládáme, že do struktury postupně vložíme všechny prvky
 z~množiny $[n]$ pro vhodně zvolené $n$. Potom náhodné pořadí znamená pořadí
-určené rovnoměrně náhodně zvolenou permutací na~množině $[n]$} s~vysokou
+určené rovnoměrně náhodně zvolenou permutací na~množině $[n]$.} s~vysokou
 pravděpodobností dostaneme strom, v~němž bude průměrná hloubka vrcholu $2 \ln n$.
 \citet{Robson} dále ukázal, že pokud $H(n)$ je střední hodnota hloubky nejhlubšího 
 vrcholu ve stromu o~$n$ vrcholech vytvořeného vložením hodnot v náhodném pořadí, pak $$\lim_{m\rightarrow
 \infty}\frac{H(n)}{\ln(n)}\leq\alpha,$$ kde $\alpha$ je přibližně
 $4.311\dots$, přesně se jedná o~největší kořen rovnice $$\alpha\cdot \ln
-\frac{2e}{\alpha} = 1.$$ \citet{devroye} později dokázal, že výše uvedená
+\frac{2\operatorname{e}}{\alpha} = 1.$$ \citet{devroye} později dokázal, že výše uvedená
 nerovnost je ve skutečnosti rovnost.
 
 V~praxi však často klíče potřebujeme vkládat i v~pořadí, které není náhodné,
@@ -228,7 +228,7 @@ V~každém vrcholu si budeme pamatovat navíc informaci o~vyvážení daného vr
 Tato informace může nabývat tří možných hodnot -- příslušný vrchol může být buď
 \emph{vyvážený} (oba jeho podstromy jsou stejně hluboké), nebo \emph{nakloněný
 doprava} (jeho pravý podstrom je o~jedna hlubší než levý), nebo
-\emph{nakloněný doleva}\footnote{Vystačili bychom si i s~jediným bitem, který by udával, zda je podstrom daného vrcholu hlubší než podstrom jeho sourozence.}.
+\emph{nakloněný doleva}.\footnote{Vystačili bychom si i s~jediným bitem, který by udával, zda je podstrom daného vrcholu hlubší než podstrom jeho sourozence.}
 
 
 \begin{figure}[h!]
@@ -299,7 +299,7 @@ Operaci \ope{Delete} zde podobně detailně probírat nebudeme, podotkneme ale, 
 
 
 
-\subsection{Červenočerný strom}\label{sec:RB}
+\subsection{Červenočerné stromy}\label{sec:RB}
 
 \citet{btrees} představili B-stromy. Těmi se zde nebudeme blíže zabývat, protože se nejedná o binární stromy. Z jejich speciálního případu (2,4) stromů ale \citet{redblack} odvodili červenočerné stromy, které si nyní popíšeme. K~tomu se nám bude hodit alternativní pohled na binární stromy.
 Představíme si, že na každé místo ve stromu, kde některému vrcholu chybí pravý nebo levý syn, přidáme jeden list.
@@ -329,8 +329,8 @@ zkontrahujeme všechny hrany mezi červeným synem a jeho černým rodičem, dos
 ve kterém má každý vrchol kromě listů mezi dvěma a čtyřmi potomky a ve kterém
 jsou všechny cesty z~kořene do listu stejně dlouhé. Tím dostaneme přesně  původní (2,4) strom.
 
-Nyní se pokusíme odhadnout minimální počet vrcholů ve stromu hloubky
-$n$. Tento minimální počet si označíme $D(n)$. Strom s~minimálním počtem vrcholů při dané hloubce vypadá tak, že obsahuje
+Nyní se pokusíme odhadnout minimální počet interních vrcholů ve stromu hloubky
+$h$. Tento minimální počet si označíme $D(h)$. Strom s~minimálním počtem vrcholů při dané hloubce vypadá tak, že obsahuje
 jednu cestu, na níž se střídají červené a černé vrcholy. Na každý její vrchol
 dále pověsíme dokonale vyvážený strom tvořený pouze černými vrcholy o~hloubce
 určené tak, aby byly splněny invarianty. To znamená, že jeden z~podstromů
@@ -339,10 +339,10 @@ je dokonale vyvážený strom. Kdybychom se pokusili $D(n)$ vyjádřit pouze pom
 $D(n-1)$, muselo by se nám ve vzorci objevit zaokrouhlování ve formě dolní celé
 části. Abychom se zaokrouhlování vyhnuli, vyjádříme $D(n)$ pomocí $D(n-2)$.
 
-$D(n)$ můžeme vyjádřit\footnote{V následujícím výpočtu nebereme v~úvahu externí vrcholy. Kdybychom je v~úvahu brali, přesné vzorce by vypadaly trochu jinak, ale v~závěru by se změna schovala v~$\o$-notaci.} jako $D(1)=1$, $D(2) = 2$, $D(2i) = D(2i-2) + 2 \cdot
+$D(h)$ můžeme vyjádřit jako $D(1)=1$, $D(2) = 2$, $D(2i) = D(2i-2) + 2 \cdot
 (2^{i - 1} - 1) + 2$, $D(2i + 1) = D(2i - 1) + 2^{i-1}-1 + 2^i-1 + 2$. Z~toho
 po zjednodušení a vyřešení dostáváme, že $D(i)\in\Theta(2^{i/2})$, tedy nejvyšší
-možná hloubka s~daným počtem vrcholů je $H(n) = \log_{\sqrt 2} n + \o(1)$.
+možná hloubka s~daným počtem interních vrcholů je $H(n) = \log_{\sqrt 2} n + \o(1)$.
 Protože  $\sqrt 2 < \varphi$, je hloubka červenočerného stromu v~nejhorším
 případě větší než hloubka AVL stromu v~nejhorším případě při stejném počtu
 vrcholů.
@@ -516,7 +516,7 @@ který má následující vlastnosti:
 
 \chapter{Cesta k dynamické optimalitě}
 
-V předchozí kapitole jsme se zabývali stromy, které při vykonávání operace \ope{Find} paměť pouze čtou. Jak by ale vypadal optimální strom, pokud by mohl s každou operací \ope{Find} změnit svoji strukturu?   
+V předchozí kapitole jsme se zabývali stromy, které při vykonávání operace \ope{Find} paměť pouze čtou. Jak by ale vypadal optimální strom, pokud by mohl s~každou operací \ope{Find} změnit svoji strukturu?   
 
 \section{Výpočetní model}\label{sec:model}
 Chceme-li mluvit o~optimálním stromu, musíme nejprve specifikovat, co přesně
@@ -615,6 +615,8 @@ prvek do kořene. Kořeni proto bude chybět pravý syn. Na jeho místo tedy mů
 připojit druhý strom. Pokud máme v~rámci spojování prvek mezi hodnotami obou
 stromů do stromu vložit, stačí ho prohlásit za nový kořen a jako syny mu
 připojit kořeny původních stromů. 
+
+\penalty -10000
 
 \ope{Split} provedeme následovně:
 
@@ -753,7 +755,7 @@ vrchol leží, a minimálně tolik kroků musel algoritmus $A$ udělat, aby se p
 do této hloubky dostal. Tato hledání tedy zpomalí běh algoritmu $B$ nejvýše
 dvojnásobně. Při následování popsaného postupu sáhneme na všechny vrcholy, na něž
 sáhl algoritmus $A$. Proto pokud algoritmus $A$ nalezl vrchol $x$, nalezl ho
-algoritmus~$B$ také\footnote{Neúspěšná hledání nebudeme brát v~potaz.}.
+algoritmus~$B$ také.
 \end{dukaz}
 
 Nyní už si pouze rozmyslíme, že důkaz pro Working Set Bound můžeme vést
@@ -786,7 +788,7 @@ Nyní se podíváme na jediný dolní odhad, který nás v~této kapitole čeká
 \begin{veta}[Interleave Bound]
 Mějme přístupovou posloupnost $S$ nad množinou $[n]$. Dále mějme libovolný
 (statický) strom $T$ nad toutéž množinou klíčů. Každý vrchol stromu~$T$ má svůj
-preferovaný směr. Vždy, když projdeme při hledání v $T$ vrcholem $v$, nastavíme preferovaný směr
+preferovaný směr. Vždy, když projdeme při hledání v~$T$ vrcholem $v$, nastavíme preferovaný směr
 $v$ na syna, do nějž jsme z~vrcholu $v$ pokračovali. $\ib_T(S)$ označíme
 celkový počet změn preferovaných směrů\footnote{Protože nás zajímají pouze
 posloupnosti $S$ takové, že jejich délka $m$ je větší nebo rovna $n$, počáteční
@@ -930,7 +932,7 @@ použili každou z~operací \ope{Pred} a \ope{Succ}, provedli jsme tedy $\o(1)$ 
 $\o(\log |A|)\subseteq \o(\log\log n)$, celé rozdělení tedy trvalo
 $\o(\log\log n)$.
 
-Podotkneme, že operace červenočerného stromu \ope{Split} a \ope{Join} přesně tak, jak byly výše popsané, nezapadají do modelu, v němž se pohybujeme. Operaci \ope{Join} však lze v této podobě provést pouze pomocí rotací přímočaře. U operace \ope{Split} využijeme  toho, že víme, že ovlivní pouze logaritmicky mnoho vrcholů, a víme, že libovolný strom lze převést na libovolný jiný pomocí $\o(n)$ rotací -- v tomto případě budeme postupovat, jako by část stromu, kterou \ope{Split} neovlivní, vůbec neexistovala. Připomeneme, že se v našem modelu čas strávený rozhodováním, jaký další krok máme provést, do časové složitosti nepočítá.
+Podotkneme, že operace červenočerného stromu \ope{Split} a \ope{Join} přesně tak, jak byly výše popsané, nezapadají do modelu, v němž se pohybujeme. Operaci \ope{Join} však lze v~této podobě provést pouze pomocí rotací přímočaře. U operace \ope{Split} využijeme  toho, že víme, že ovlivní pouze logaritmicky mnoho vrcholů, a víme, že libovolný strom lze převést na libovolný jiný pomocí $\o(n)$ rotací -- v tomto případě budeme postupovat, jako by část stromu, kterou \ope{Split} neovlivní, vůbec neexistovala. Připomeneme, že se v našem modelu čas strávený rozhodováním, jaký další krok máme provést, do časové složitosti nepočítá.
 
 \section{Multisplay stromy}
 
