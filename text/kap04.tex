@@ -250,7 +250,7 @@ kongruentní modulo $2^{h+s}$, kde $2^s$ je nejvyšší mocnina dvojky, kterou j
 dělitelný počet bytů paměti, jež zabírá jeden vrchol. Pak dokážeme
 následující tvrzení:
 
-\begin{tvrz}
+\begin{tvrz}\label{tvrz:vec}
 Mějme červenočerný strom $T$, který vznikl tak, že byly jeho klíče vloženy do na počátku prázdného stromu v~rostoucím pořadí. Potom pro každé $h\in \mathbb N$ jsou vrcholy, jejichž podstrom obsahuje alespoň $2^h -1$ vrcholů, až na konstantně mnoho výjimek právě ty vrcholy, jejichž klíče jsou kongruentní s~klíčem v~kořeni modulo $2^{h-1}$.
 \end{tvrz}
 
@@ -280,19 +280,19 @@ Při vkládání nového maxima se nám nikdy nemůže stát, že bychom potřeb
 
 Při vkládání nového maxima bychom mohli chtít provést jedině rotaci doleva.
 Mějme tedy vrchol $v$, jeho pravého syna $u$ a levého syna $w$. Dále mějme levého syna $x$ vrcholu $u$.
-rotovaná hrana vždy leží na cestě z~nového vrcholu do kořene, víme, že $v$ a
-$u$ leží na pravé páteři. Kdyby se nám po rotaci stalo, že budeme mít červený vrchol mimo pravou páteř $T$ a její sousedství, musel by před rotací být červený alespoň jeden z~vrcholů $w$ a $x$. To ale není možné. Víme, že v~případě, že jsme přistoupili k~vyvažování, musí být vrchol $v$ černý a vrchol $u$ i jeho pravý syn červený. To znamená, že vrchol $u$ musel být červený již před aktuální operací \ope{Insert}. Kdyby tedy byl vrchol $x$ červený, porušoval by již před aktuální operací \ope{Insert} spolu s~vrcholem $u$ invariant červenočerného stromu. Kdyby byl červený vrchol $w$, nevyvažovali bychom strom rotací, ale přebarvením $u$ a $w$ na černo a $v$ na červeno. 
+Rotovaná hrana vždy leží na cestě z~nového vrcholu do kořene. Víme, že $v$ a
+$u$ leží na pravé páteři. Kdyby se nám po rotaci stalo, že budeme mít červený vrchol mimo pravou páteř $T$ a i mimo její sousedství, musel by před rotací být červený alespoň jeden z~vrcholů $w$ a $x$. To ale není možné. Víme, že v~případě, že jsme přistoupili k~vyvažování, musí být vrchol $v$ černý a vrchol $u$ i jeho pravý syn červený. To znamená, že vrchol $u$ musel být červený již před aktuální operací \ope{Insert}. Kdyby tedy byl vrchol $x$ červený, porušoval by již před aktuální operací \ope{Insert} spolu s~vrcholem $u$ invariant červenočerného stromu. Kdyby byl červený vrchol $w$, nevyvažovali bychom strom rotací, ale přebarvením $u$ a $w$ na černo a $v$ na červeno. 
 \end{dukaz}
 
-Z~invariantu červenočerného stromu vyplývá, že pokud v~červenočerném stromu nejsou krom možná kořene žádné červené vrcholy, musí být všechny cesty z~kořene do externího vrcholu stejně dlouhé, tedy tento strom musí být dokonale vyvážený a počet vrcholů v~něm musí být bez jednoho mocnina dvojky. To samé platí i o~podstromech jednotlivých vrcholů v~červenočerném stromu.
+Z~invariantu červenočerného stromu vyplývá, že pokud v~červenočerném stromu nejsou krom možná kořene žádné červené vrcholy, musí být všechny cesty z~kořene do externího vrcholu stejně dlouhé. Tento strom tedy musí být dokonale vyvážený a počet vrcholů v~něm musí být bez jednoho mocnina dvojky. Totéž platí i o~podstromech jednotlivých vrcholů v~červenočerném stromu.
 
-Před další částí důkazu nahlédneme, že v~$T$ nikdy nemůže být pravý ani levý podstrom vrcholu menší, než pravý ani levý podstrom jeho syna, krom případu, kdy nějaké z~těchto podstromů obsahují část pravé páteře $T$.
+Před další částí důkazu nahlédneme, že v~$T$ nikdy nemůže být pravý ani levý podstrom vrcholu menší než libovolný z~podstromů jeho syna, krom případu, kdy některé z~těchto podstromů obsahují část pravé páteře $T$.
 
 Mějme dva vrcholy $u$, $v$ stromu $T$ takové, že $u$ je bez újmy na obecnosti v~pravém
 podstromu $v$. Velikost levého podstromu $u$ si označíme jako $2^{h'}-1$. Rozmyslíme si, kde leží vrcholy, jejichž klíče leží mezi klíčem
 $u$ a $v$. Jedná se jednak o~celý levý podstrom $v$, jednak o~některé vrcholy
 na cestě mezi $u$ a $v$, a jednak o~levé podstromy těchto vrcholů. Tyto vrcholy
-sice potenciálně mohou ležet i na pravé páteři, ale kořeny všech zmíněných podstromů nikoli -- buď se jedná o~levé podstromy, nebo se vše odehrává v~levém podstromu $v$. To znamená, že velikost každého z~těchto podstromů je alespoň $2^{h'} - 1$, a tedy pokud k~ní připočteme ještě samotný vrchol, na kterém tento podstrom visí, bude dělitelná $2^{h'}$. To tedy znamená, že rozdíl mezi hodnotami v~$u$ a $v$ je dělitelný $2^{h'}$.
+sice potenciálně mohou ležet i na pravé páteři, ale kořeny všech zmíněných podstromů nikoli -- buď se jedná o~levé podstromy, nebo se vše odehrává v~levém podstromu $v$. To znamená, že velikost každého z~těchto podstromů je alespoň $2^{h'} - 1$. Pokud k~ní tedy připočteme ještě samotný vrchol, na kterém tento podstrom visí, bude dělitelná $2^{h'}$. To znamená, že rozdíl mezi hodnotami v~$u$ a $v$ je dělitelný $2^{h'}$.
 
 \begin{pozorovani}\label{poz:1}
 Tím jsme ukázali, že pro všechny vrcholy platí, že rozdíl jejich hodnoty a hodnoty kořene je dělitelný hodnotou jedna plus velikost pravého či levého podstromu daného vrcholu (v~závislosti na tom, zda je daný vrchol v~levém či pravém podstromu kořene).
@@ -302,16 +302,16 @@ Nyní najdeme vrchol $v$, což bude vrchol s~nejvyšším klíčem takový, že 
 podstrom má velikost alespoň $2^{h-1} -1$, nebo kořen, pokud žádný takový vrchol neexistuje. Rozmyslíme si, že $v$ leží na pravé páteři $T$. Strom si
 rozdělíme na dvě části: $T_2$, což bude pravý podstrom $v$, a $T_1$ což bude zbytek $T$ včetně $v$.
 
-Podmínky ze znění tvrzení si označíme jako $p_1$ a $p_2$. Vrchol tedy splňuje podmínku $p_1$, pokud jeho podstrom obsahuje alespoň $2^h-1$ vrcholů, a podmínku $p_2$, pokud je jeho hodnota kongruentní s~hodnotou v~kořeni modulo $2^{h-1}$.
+Podmínky ze znění tvrzení \ref{tvrz:vec} si označíme jako $p_1$ a $p_2$. Vrchol tedy splňuje podmínku $p_1$, pokud jeho podstrom obsahuje alespoň $2^h-1$ vrcholů, a podmínku $p_2$, pokud je jeho hodnota kongruentní s~hodnotou v~kořeni modulo $2^{h-1}$.
 
-Nyní ukážeme, že v~$T_1$ splňují obě podmínky přesně tytéž vrcholy, a v~$T_2$ splňuje každou z~podmínek nejvýše konstantně mnoho vrcholů.
+Nyní ukážeme, že v~$T_1$ splňují obě podmínky přesně tytéž vrcholy a v~$T_2$ splňuje každou z~podmínek nejvýše konstantně mnoho vrcholů.
 
 Pro $T_1$ tedy potřebujeme dokázat dvě implikace. První z~nich, tedy že vrchol
 splňující $p_1$ splňuje i $p_2$, plyne z~pozorování \ref{poz:1}. Naopak pokud
 máme vrchol $u$, který nesplňuje $p_1$, najdeme jeho nejbližšího předka $w$,
 který $p_1$ splňuje. Rozmyslíme si, že $w$ nemůže ležet na pravé páteři. Tento vrchol má podstrom velikosti právě $2^{h}-1$. Rozdíl
 jeho hodnoty a hodnoty libovolného vrcholu v~jeho podstromě je tedy maximálně
-$2^{h-1}-1$. Protože dále už víme, že $w$ splňuje i $p_2$, $u$ splňovat $p_2$
+$2^{h-1}-1$. Protože už víme, že $w$ splňuje i $p_2$, $u$ splňovat $p_2$
 nemůže.
 
 Na poslední část důkazu potřebujeme ještě jedno lemma.
@@ -322,14 +322,14 @@ Každý vrchol $T$, který má oba syny, má pravý strom nejvýše pětkrát v�
 \begin{dukaz}
 Pro vrcholy $T$ mimo pravou páteř platí lemma triviálně. Mějme tedy vrchol $v$ na pravé páteři stromu $T$. Nechť podstrom $v$ má černou výšku $h$. Dále popíšeme případ, kdy $v$ je černý -- pro červené $v$ by popis vypadal podobně. 
 
-Víme, že levý podstrom $v$ je buď čistě černý strom hloubky $h-1$, nebo černý strom s~červeným vrcholem v~kořeni hloubky $h$. Pro potřebu horního odhadu na poměr velikosti podstromů tedy zvolíme první variantu -- levý podstrom $v$ tedy bude obsahovat $2^{h-1} -1$ vrcholů. 
+Víme, že levý podstrom $v$ je buď čistě černý strom hloubky $h-1$, nebo černý strom s~červeným vrcholem v~kořeni hloubky $h$. Pro potřebu horního odhadu na poměr velikosti podstromů tedy zvolíme první variantu -- levý podstrom $v$ bude obsahovat $2^{h-1} -1$ vrcholů. 
 
-Pravý podstrom $v$ chceme naopak co největší. Pravý syn $v_1$ vrcholu $v$ tedy
-musí být červený. Proto musí být levý podstrom $v_1$ čistě černý a tedy
-obsahuje také $2^{h-1} -1$ vrcholů. Pravý syn $v_2$ vrcholu $v_1$ musí být
-černý, jeho levý podstrom tedy může mít červený kořen, proto může mít také
+Pravý podstrom $v$ chceme naopak co největší. Pravý syn $v_1$ vrcholu $v$ 
+musí být červený. Proto musí být levý podstrom $v_1$ čistě černý a musí
+obsahovat také $2^{h-1} -1$ vrcholů. Pravý syn $v_2$ vrcholu $v_1$ musí být
+černý, jeho levý podstrom tedy může mít červený kořen. Proto může mít také
 $2^{h-1} -1$ vrcholů. Pravý syn $v_3$ vrcholu $v_2$ bude červený, jeho levý
-podstrom tedy čistě černý, a tedy bude mít $2^{h-2}-1$ vrcholů. Takto bychom
+podstrom tedy čistě černý a bude mít $2^{h-2}-1$ vrcholů. Takto bychom
 mohli pokračovat dál. Dojdeme k~tomu, že $v_i$ má levý podstrom velikosti
 $2^{h-\lceil i/2\rceil} -1$. První nepravidelnost nastane až u~$v_{2h}$ --
 vrchol $v_{2h-2}$ je černý a jeho levý i pravý podstrom už je tvořen jen
@@ -338,17 +338,17 @@ jediným červeným vrcholem. Vrchol~$v_{2h}$ tedy neexistuje.
 To znamená, že počet vrcholů v~pravém podstromu $v$ je $$\sum_{i=1}^{2h-1}\left(2^{h-\left\lceil \frac i2\right\rceil} -1 +1\right) = 2^{h+1}-3 = 4\cdot (2^{h-1}-1) +1 \leq 5\cdot(2^{h-1}-1).$$
 \end{dukaz}
 
-Víme, že levý podstrom $v$ má velikost nejvýše $2^h-1$. Velikost $T_2$ je tedy nejvýše $5\cdot 2^h - 5$. To znamená, že v~$T_2$ může být nejvýše 9 vrcholů splňujících~$p_2$. Naopak díky volbě $v$ víme, že všechny vrcholy v~$T_2$ splňující $p_1$ musí ležet na pravé páteři. Protože ale víme, že podstrom kořene $T_2$ je velký nejvýše $5\cdot 2^h-5$ a při přechodu z~otce na pravého syna se vždy podstrom aktuálního vrcholu alespoň o~šestinu zmenší, můžeme udělat nejvýše konstantně mnoho kroků, než bude podstrom aktuálního vrcholu menší než $2^h-1$. 
+Víme, že levý podstrom $v$ má velikost nejvýše $2^h-1$. Velikost $T_2$ je tedy nejvýše $5\cdot 2^h - 5$. To znamená, že v~$T_2$ může být nejvýše 9 vrcholů splňujících~$p_2$. Naopak díky volbě $v$ víme, že všechny vrcholy v~$T_2$ splňující $p_1$ musí ležet na pravé páteři. Protože ale víme, že podstrom kořene $T_2$ je velký nejvýše $5\cdot 2^h-5$ a při přechodu z~otce na pravého syna se vždy podstrom aktuálního vrcholu alespoň o~šestinu zmenší, můžeme provést nejvýše konstantně mnoho kroků, než bude podstrom aktuálního vrcholu menší než $2^h-1$. 
 \end{dukaz}
 
-Tím jsme tedy ukázali, že náš červenočerný strom trpí problémy s~asociativitou cache téměř stejnou měrou, jako by byl dokonale vyvážený.
+Tím jsme tedy ukázali, že náš červenočerný strom trpí problémy s~asociativitou cache téměř stejnou měrou, jako kdyby byl dokonale vyvážený.
 
 
 \section{Sekvenční přístupová posloupnost}\label{sec:sequential_access_sequence}
 
 V~této třídě zvolíme velikosti stromů i délky posloupností stejně jako v~třídě
-náhodných přístupových posloupností, ale místo náhodných dat budeme stále kolem
-dokola přistupovat postupně ke všem vrcholům ve stromu v~rostoucím pořadí.
+náhodných přístupových posloupností, ale místo náhodných dat budeme opakovaně
+přistupovat postupně ke všem vrcholům ve stromu v~rostoucím pořadí.
 
 Na základě teorie bychom čekali, že počet doteků na operaci splay a multisplay
 stromu bude v~$n$ konstantní. Pro tango strom očekáváme $\Theta(\oldlog\oldlog
@@ -366,7 +366,7 @@ kolem $8.49$ s~větším rozptylem, kdežto počet dotyků tango stromu a
 červenočerného stromu napříč celým grafem stále roste. Počínaje $n\cong 1000$
 se červenočerný strom dotkne nejvíce vrcholů ze všech (přesnou hodnotu nelze
 určit kvůli velkému rozptylu tango stromu). Nejlepšího výsledku dosahuje pro
-stromy o~26 prvcích a menší červenočerný strom, počínaje $n=37$ se nejméně
+stromy o~26 a méně prvcích červenočerný strom, počínaje $n=37$ se nejméně
 vrcholů dotkne splay strom. I~počet dotyků multisplay stromu má určitý rozptyl,
 proto nelze přesně určit, pro jakou hodnotu $n$ začne mít tango strom méně
 dotyků na operaci než červenočerný strom, nicméně pro $n$ mezi $1000$ a $2500$
@@ -375,7 +375,7 @@ méně dotyků.
 
 \graphfigure{time_s}{Průměrný čas na operaci -- sekvenční přístupová posloupnost.}
 
-Budeme-li se však koukat na čas běhu, který je zachycený v~obrázku
+Budeme-li však sledovat čas běhu, který je zachycený v~obrázku
 \ref{obr:time_s}, zjistíme, že pro $n<100$ je v~praxi nejrychlejší červenočerný
 strom. To jednoduše zdůvodníme tím, že červenočerný strom při každém přístupu
 každý dotčený vrchol skutečně bez modifikací navštíví. Splay strom oproti tomu
@@ -385,9 +385,9 @@ modifikuje.  Pro vyšší hodnoty $n$ je ale konzistentních
 $40\,\operatorname{ns}$ na operaci, kterých dosahuje splay strom, výhodnější.
 
 
-Multisplay strom může jedním vrcholem projít i vícekrát a dokonce
+Multisplay strom může jedním vrcholem projít i vícekrát, a dokonce
 ho i vícekrát modifikovat (první modifikaci vrcholu provede při změnách
-preferovaných cest tak aby byl hledaný vrchol v~pomocném stromě s~kořenem,
+preferovaných cest tak, aby se hledaný vrchol nacházel v~pomocném stromě s~kořenem,
 druhou poté při závěrečné změně preferovaného syna hledaného vrcholu). Proto
 také potřebuje přibližně $250\,\operatorname{ns}$ na operaci a rychlejší než
 červenočerný strom je až pro $n> 10^7$. Tango strom má v~jistém smyslu
@@ -415,29 +415,29 @@ Lokální maxima křivky tango i multisplay stromu jsou v~hodnotách ve tvaru $2
 Abychom toto chování vysvětlili, musíme si rozmyslet, jak přesně probíhá
 sekvenční přístup v~tango stromu. Na konci prvního sekvenčního průchodu mají
 všechny vrcholy nastavený preferovaný směr doprava. My musíme během průchodu
-nastavit každému vrcholu preferovaný směr nejprve doleva, a poté zase zpět
+nastavit každému vrcholu preferovaný směr nejprve doleva a poté zase zpět
 doprava. Tedy každému vrcholu jeho preferovaný směr změníme celkem dvakrát.
 
-Je ale důležité si uvědomit, že v~tango stromu se změny preferovaných směrů
+Je ale důležité uvědomit si, že v~tango stromu se změny preferovaných směrů
 týkají pouze vrcholů, které mají v~referenčním stromě $P$ oba syny. My v~naší
 implementaci však stavíme $P$ tak, aby se pro každý jeho vrchol $v$ lišila
 velikost pravého a levého podstromu vrcholu $v$ nejvýše o~jedna. To vede k~tomu, že pokud se
 $n$ rovná $3\cdot2^k-1$ pro nějaké $k$, $P$ vypadá tak, že na jeho předposlední
-hladině mají všechny vrcholy právě jednoho syna, a tedy v~nich nelze změny
+hladině mají všechny vrcholy právě jednoho syna, a nelze v~nich tedy změny
 preferovaných směrů provádět. Proto pro každé $k$ platí, že při sekvenčním
 průchodu stromem libovolné velikosti mezi $2^k-1$ a $3\cdot 2^{k-1}-1$ je vždy
-potřeba udělat přesně ten samý počet změn preferovaných směrů. Těchto změn je přesně
-dvakrát tolik, kolik má strom vrcholů s~oběma syny, tedy $2\cdot(2^{k-1} -1)$.
+potřeba udělat přesně tentýž počet změn preferovaných směrů. Těchto změn je přesně
+dvakrát více, než kolik má strom vrcholů s~oběma syny, tedy $2\cdot(2^{k-1} -1)$.
 
 Změny preferovaných směrů se ale pro vyšší hodnoty $n$ při výpočtu
 průměrného počtu dotyků či průměrného času rozpočítají mezi více operací,
 průměr (ať už času nebo počtu dotyků) na operaci tedy bude nižší. Pro $n$
  mezi $3\cdot 2^{k-1}-1$ a $2^{k+1}-1$ naopak přidání každého dalšího listu $P$ způsobí potřebu dvou nových změn preferovaných směrů (v~rodiči tohoto listu v~$P$) při sekvenčním průchodu tango stromem.
 
-U~multisplay stromu to samé zcela neplatí -- změnu preferovaného směru
+U~multisplay stromu totéž zcela neplatí -- změnu preferovaného směru
 provádíme i pro vrcholy, které mají jednoho syna, jsou-li cílem hledání
 (preferovaný syn pak může být externí vrchol). Přesto ale takové změny
-preferovaných směrů způsobí doteky méně vrcholů, než změny preferovaných směrů vrcholů s~oběma syny.
+preferovaných směrů způsobí doteky méně vrcholů než změny preferovaných směrů vrcholů s~oběma syny.
 
 Zmenšení rozptylu křivek na obrázcích \ref{obr:touch_s} a \ref{obr:time_s}
 kolem $n= 10^4$ a $n=5\cdot 10^6$ vysvětlíme snadno -- v~relevantních
@@ -465,8 +465,8 @@ hloubce vrcholu, ale s~tím, že listům z~poslední hladiny $P$ počítáme hlo
 
 Všimneme si, že na rozdíl od sekvenční přístupové posloupnosti je při vykonávání náhodné
 posloupnosti střední hodnota počtů změn preferovaných směrů na přístup v~$n$
-monotónně rostoucí. To je nepřekvapivé -- i pro $n$ mezi $2^k-1$ a $3\cdot
-2^{k-1}-1$ stále přidáváme nové vrcholy do spodní vrstvy $P$ a tedy zvyšujeme
+monotónně rostoucí. To není překvapivé -- i pro $n$ mezi $2^k-1$ a $3\cdot
+2^{k-1}-1$ stále přidáváme nové vrcholy do spodní vrstvy $P$, a tím zvyšujeme
 pravděpodobnost, že daný dotaz povede hlouběji do stromu $P$, a to i přesto, že
 hloubku nejhlubších listů počítáme jako o~jedna menší.
 
@@ -474,7 +474,7 @@ hloubku nejhlubších listů počítáme jako o~jedna menší.
 
 Na závěr ještě ukážeme, jak výrazné rozdíly v~praxi tento jev na počtu dotyků
 způsobí. Na grafu na obrázku \ref{obr:touch_r} je jev velmi nezřetelný, to je ale
-částečně tím, že křivka tango stromu na tomto grafu sama o~sobě poměrně prudce
+částečně způsobeno tím, že křivka tango stromu na tomto grafu sama o~sobě poměrně prudce
 roste, v~čemž se může leccos ztratit. Proto jsme tento jev alespoň částečně
 izolovali. Jednotlivé naměřené hodnoty pro tango strom v~grafu na obrázku
 \ref{obr:touch_r} označíme jako $h_1, h_2, \dots, h_{50}$. Potom v~grafu
@@ -491,7 +491,7 @@ což zhruba odpovídá očekávání.
 V~této sekci prozkoumáme posloupnost, která nad danou množinou klíčů $[n]$
 vznikla tak, že jsme vystavěli dokonale vyvážený strom nad $[n]$, vzali jeho
 pravou páteř a nad ní aplikovali myšlenku bit reversal posloupnosti. Takto
-vzniklou posloupnost potom zřetězíme samu se sebou tolikrát, kolikrát je nutné
+vzniklou posloupnost potom zřetězíme samu se sebou tolikrát, kolikrát je potřeba
 k~dosažení cílové délky. Vzhledem k~tomu, že délka jednotlivých iterací
 posloupnosti se mění až s~dvojnásobným zvětšením $n$, zvolili jsme jako
 testované hodnoty $n$ právě mocniny dvojky od $2^3$ po $2^{26}$.
@@ -520,7 +520,7 @@ víme, že tuto posloupnost rychleji než v~čase $\Theta(\oldlog \oldlog n)$
 vykonat nelze -- není tedy šance, že by byl tango strom asymptoticky překonán
 například splay stromem. 
 
-Splay strom se chová jen o~něco hůře -- rozdíl je podobný, jaký jsme pozorovali
+Splay strom potřebuje jen o~trochu více doteků -- rozdíl je podobný, jaký jsme pozorovali
 u~náhodné přístupové posloupnosti mezi červenočerným stromem a splay stromem.
 To je očekávané. Oba stromy totiž pracují (krom několika úvodních přístupů)
 pouze s~vrcholy, jejichž hodnoty patří do přístupové posloupnosti, tango strom
@@ -531,10 +531,10 @@ náhodně -- jedná se o~vrcholy, jejichž hodnota je menší nebo rovna polovin
 stromu. Nic silnějšího o~nich ale červenočerný strom nezaručuje. Proto může být
 trochu překvapivé, že se v~našem měření červenočerný strom choval lépe než
 multisplay strom. Multisplay strom má totiž lepší asymptotickou složitost.
-Bohužel ale multisplay stromy kromě toho, že fungují  podobně jako splay
-stromy, ještě provádějí změnu preferovaného syna v~cílovém vrcholu. To znamená,
+Bohužel ale multisplay stromy kromě (toho, že fungují  podobně jako splay
+stromy) ještě provádějí změnu preferovaného syna v~cílovém vrcholu. To znamená,
 že při vykonávání této posloupnosti vykonají v~průměru necelé dvě změny
-preferovaného směru na přístup -- pokud cílový vrchol není list referenčního
+preferovaného směru na přístup -- pokud cílový vrchol není listem referenčního
 stromu $P$, musíme v~něm změnit preferovaný směr. Všechny změny preferovaných
 směrů jsou ale ve skutečnosti nežádoucí a bude je při dalších přístupech nutné
 vrátit.
@@ -552,15 +552,15 @@ vrátit.
 \section{Podmnožinové posloupnosti}
 
 Nyní se podíváme na dva typy podmnožinových posloupností, náhodnou a sekvenční
-podmnožinovou přístupovou posloupnost. Oba typy posloupností vypadají tak, že
-vždy nejprve zkonstruujeme multimnožinu $M$ velikosti $k$ tak, že $k$-krát
-zvolíme rovnoměrně náhodný prvek $[n]$ a přidáme ho do naší multimnožiny. Prvky
+podmnožinovou přístupovou posloupnost. Oba typy posloupností vytvoříme tak, že
+vždy nejprve zkonstruujeme multimnožinu $M$ velikosti $k$ pomocí $k$
+rovnoměrně náhodných voleb prvku $[n]$. Prvky
 přístupové posloupnosti pak vybíráme pouze z~multimnožiny $M$. 
 
 Při tvorbě
 náhodné podmnožinové posloupnosti vybíráme prvky rovnoměrně náhodně, tedy tak, že pro každé
 $i\leq m$ a $j\leq k$ je pravděpodobnost, že $i$-tý prvek přístupové
-posloupnosti bude $j$-tý prvek $M$ rovna počtu výskytů tohoto prvku v~$M$
+posloupnosti bude $j$-tý prvek $M$, rovna počtu výskytů tohoto prvku v~$M$
 dělenému $k$.
 
 Do sekvenční podmnožinové posloupnosti vybíráme prvky v~(cyklickém) rostoucím pořadí tak, že vícenásobný výskyt prvku v~$M$ vede k~vícenásobným po sobě jdoucím výskytům daného prvku ve výsledné posloupnosti. 
@@ -577,7 +577,7 @@ různých hodnot $k$, rozhodli jsme se pro přehlednost vytvořit grafy pro kaž
 strukturu a typ posloupnosti zvlášť. Do každého z~grafů jsme také přidali
 křivku příslušné \uv{nepodmnožinové} posloupnosti s~popiskem $k=n$, přestože se
 nejedná o~zcela přesný popis -- tyto posloupnosti jsou speciálním případem
-podmnožinových posloupností, kdy $M$ není multimnožina, ale množina, a každý
+podmnožinových posloupností, kdy $M$ není multimnožinou, ale množinou, a každý
 prvek $[n]$ v~ní tedy musí být právě jednou.
 
 \subsection{Červenočerný strom}
@@ -594,28 +594,35 @@ vybraných vrcholů bude daleko od střední hodnoty této náhodné proměnné.
 
 Na grafu času na operaci vidíme, že pro $n<10^4$ se všechny posloupnosti
 chovají přibližně stejně i podle tohoto hlediska. Pro $10^4 < n < 3\cdot
-10^5$ se začíná projevovat odlišné chování k~L1 a L2 cachím, a pro $n > 3\cdot
+10^5$ se začíná projevovat odlišné chování k~L1 a L2 cachím a pro $n > 3\cdot
 10^5$ se projeví odlišné chování k~L3 cachi. Podle tohoto chování můžeme
-všechny posloupnosti rozdělit do dvou hlavních skupin s~několika ojedinělými
-případy zapadajícími někam mezi tyto skupiny -- skupina posloupností, kde čas
+všechny posloupnosti rozdělit do dvou hlavních skupin (s~několika ojedinělými
+případy zapadajícími mezi tyto skupiny) -- skupina posloupností, kde čas
 na operaci roste i pro vysoká $n$ stejně jako pro nízká a pro $n=10^7$
 potřebujeme na operaci v~průměru mezi pětinou a čtvrtinou mikrosekundy, a
 skupina, kde čas na operaci začíná kolem $n=3\cdot 10^5$ prudce růst a pro
 nejvyšší testované hodnoty potřebujeme na  
 operaci téměř mikrosekundu.
 
-Připomeňme, že nad náhodnými (jak normálními, tak podmnožinovými) přístupovými posloupnostmi je nejlepší cachovací strategie (pokud se nám nevejde celá relevantní část stromu do cache) mít v~cache co nejvíc prvních hladin. Otázka ale je, jak velká je relevantní část stromu (tedy množina vrcholů, kterými musíme alespoň jednou projít) v~závislosti na $k$ a $n$. To je náhodná veličina která nezávisí pouze na $n$ a $k$, ale i na přesné volbě $M$. My si zde pro představu uděláme pouze horní odhad velikosti relevantní části stromu pro dokonale vyvážený binární strom pro případ, kdy $k\leq2\cdot n$. 
+Připomeňme, že nad náhodnými (jak normálními, tak podmnožinovými) přístupovými
+posloupnostmi je nejlepší cachovací strategií (pokud se nám nevejde celá
+relevantní část stromu do cache) mít v~cachi co nejvíc prvních hladin. Otázka
+ale je, jak velká je relevantní část stromu (tedy množina vrcholů, kterými
+musíme alespoň jednou projít) v~závislosti na $k$ a $n$. To je náhodná veličina,
+která nezávisí pouze na $n$ a $k$, ale i na přesné volbě $M$. My zde pro
+představu spočítáme pouze horní odhad velikosti relevantní části stromu pro
+dokonale vyvážený binární strom pro případ, kdy $k\leq2\cdot n$. 
 
-Největší možné relevantní části stromu dosáhneme, když budou všechny prvky~$M$ v~listech stromu a v~nějakém smyslu pravidelně rozprostřené -- pod tím si můžeme představit, že se pro libovolný vrchol bude počet prvků $M$ v~pravém a levém podstromu tohoto vrcholu lišit nejvýše o~jedna. Potom do relevantní části stromu plně patří prvních $\log k$ hladin stromu. K~nim navíc musíme přidat cestu z~každého vrcholu na $(\log k)$-té hladině do nějakého listu. Těchto cest je $k$ a každá z~nich má délku $\log n - \log k = \log (n/k)$. Relevantní část stromu  má tedy celkem $2k + k\cdot \log (n/k)$ vrcholů.
+Největší možné relevantní části stromu dosáhneme, když budou všechny prvky~$M$ v~listech stromu a v~nějakém smyslu pravidelně rozprostřené -- pod tím si můžeme představit, že se pro libovolný vrchol bude počet prvků $M$ v~pravém a levém podstromu tohoto vrcholu lišit nejvýše o~jedna. Potom do relevantní části stromu plně patří prvních $\log k$ hladin stromu. K~nim navíc musíme přidat cestu z~každého vrcholu na $(\log k)$-té hladině do některého listu. Těchto cest je $k$ a každá z~nich má délku $\log n - \log k = \log (n/k)$. Relevantní část stromu  má tedy celkem $2k + k\cdot \log (n/k)$ vrcholů.
 
-Vzhledem k~tomu, že jsme si již všimli, že náš červenočerný strom má tvarem k~dokonale vyváženému blízko, můžeme tato pozorování na červenočerný strom uplatnit.
+Vzhledem k~tomu, že jsme si již všimli, že náš červenočerný strom má tvarem k~dokonale vyváženému stromu blízko, můžeme tato pozorování na červenočerný strom uplatnit.
 
 Nyní se musíme zamyslet, co se stane, když se relevantní část stromu nevejde do
 cache. Pro náhodné podmnožinové posloupnosti platí, že v~cachi budeme mít
-uložených prvních $\log k$ hladin stromu (nebo tolik, kolik se vejde). Cesty od
-konce této uložené části patří každá pouze jednomu vrcholu, s~vysokou
+uložených prvních $\log k$ hladin stromu (nebo tolik, kolik se vejde). Každá z cest od
+konce této uložené části patří pouze jednomu vrcholu, s~vysokou
 pravděpodobností nám je tedy před dalším přístupem k~tomuto vrcholu ostatní
-operace z~cache vyhází. Dává tedy smysl, že jakmile se nám relevantní část
+operace z~cache vyhází. Proto dává smysl, že jakmile se nám relevantní část
 stromu do cache nevejde, musíme při většině přístupů cestu od přinejmenším
 $(\log k)$-té hladiny do cílového vrcholu načíst z~paměti. Pro nižší
 hodnoty $k$ jsou tyto cesty sice delší, ale relevantní část stromu je menší.
@@ -631,14 +638,14 @@ cache chová tak, že pokud se ani relevantní část pravého či levého podst
 kořene nevejde celá do cache, bude při každém sekvenčním průchodu postupně celý
 strom krom kořene z~cache vyhozen a zase načten. Proto bude průměrný čas na
 operaci záviset na poměru velikosti relevantní části stromu a počtu operací
-v~jednom sekvenčním průchodu stromem. S~využitím odhadu výše tento poměr
+v~jednom sekvenčním průchodu stromem. S~využitím  výše zmíněného odhadu tento poměr
 odhadneme jako $2 + \log(n/k)$ vrcholů relevantní části stromu na operaci. Tedy
 paradoxně by měl být strom pro vyšší hodnoty $k$ rychlejší.
 
-Tento závěr je konzistentní s~měřením -- na obrázku \ref{obr:rb_b} vidíme, že pro $k=10^3$ se nám
-ještě celá relevantní část stromu vešla do L3 cache. Pro $k= 10^4$ se
+Tento závěr je konzistentní s~měřením -- na obrázku \ref{obr:rb_b} vidíme, že pro $k=10^3$ se
+ještě celá relevantní část stromu vešla do cache. Pro $k= 10^4$ se
 těsně nevešla a proto se také jedná o~nejpomalejší z~měřených posloupností. Pro
-dále se zvětšující $k$ se jednotlivé operace dále zrychlují, a to až k~normální
+dále se zvětšující $k$ se jednotlivé operace zrychlují, a to až k~normální
 sekvenční přístupové posloupnosti, která potřebuje načíst z~paměti v~průměru
 pouze jeden vrchol na přístup. 
 
@@ -648,7 +655,7 @@ pouze jeden vrchol na přístup.
 \doublegraphfigure{splay}b{Splay strom -- sekvenční podmnožinová posloupnost}
 
 Chování splay stromu při vykonávání náhodné podmnožinové přístupové
-posloupnosti nepřináší žádné překvapení -- na grafech na obrázku \ref{obr:splay_u}
+posloupnosti nepřináší žádné překvapení -- v grafech na obrázku \ref{obr:splay_u}
 vidíme, že u~splay stromu skutečně při vykonávání náhodné přístupové
 posloupnosti záleží pouze na $k$, a nikoli na $n$. Na křivce času pro $k =
  10^5$ vidíme okamžik, kdy už se celý splay strom nevešel do cache.
@@ -660,31 +667,31 @@ velmi pravděpodobně nebude žádný další vrchol z~$M$).
 Na začátku každé křivky se projeví ještě efekt, který můžeme nejlépe zkoumat
 pro $k =  10^6$. Nejmenší hodnota $n$, pro kterou zkoumáme $k=
 10^6$ je $n=  10^6\cdot \sqrt[7]{10} \cong 1.3\cdot10^6$. Protože je $n$
-jen o~malinko větší než $k$, bude v~$M$ poměrně hodně duplicitních vrcholů.
+jen nepatrně větší než $k$, bude v~$M$ poměrně hodně duplicitních vrcholů.
 Vzhledem k~tomu, že chování splay stromu závisí pouze na počtu unikátních
-vrcholů, není překvapivé, že časy přístupů i počty doteků jsou nižší, když jsou hodnoty $k$ a $n$ blízko sebe.
+vrcholů, není překvapením, že časy přístupů i počty doteků jsou nižší, když jsou hodnoty $k$ a $n$ blízko sebe.
 
-Tento efekt se ještě výrazněji projeví na obrázku \ref{obr:splay_b} při vykonávání sekvenční přístupové posloupnosti -- tam totiž duplicitní prvek v~$M$ znamená, že v~přístupové posloupnosti bude totéž číslo vícekrát za sebou. Pouze první z~takových přístupů pak proběhne standardně, další se už dotknou pouze kořene.
+Tento efekt se ještě výrazněji projeví na obrázku \ref{obr:splay_b} při vykonávání sekvenční přístupové posloupnosti. Tam totiž duplicitní prvek v~$M$ znamená, že se v~přístupové posloupnosti bude totéž číslo vyskytovat vícekrát za sebou. Pouze první z~takových přístupů pak proběhne standardně, další se už dotknou pouze kořene.
 
 Na grafu průměrného času na operaci při vykonávání podmnožinové sekvenční
 přístupové posloupnosti vidíme ještě jednu věc, která stojí za povšimnutí --
 výrazné oddělení křivek pro $k= 10^5$ a $k= 10^6$ od ostatních. To opět souvisí s~cachí. 
 
-Při sekvenčním průchodu splay stromem se každého vrcholu dotkneme v~průměru o~něco víc než pětkrát, jak jsme již experimentálně zjistili v~dřívějších sekcích. Přinejmenším při některých z~těchto doteků se dotýkáme mnoha hodnotou sousedících vrcholů po sobě -- například po poslední operaci jednoho sekvenčního průchodu jsou všechny vrcholy na levé páteři stromu a první operace z~následujícího průchodu se jich dotkne všech dvakrát (ač my toto počítáme jako jeden dotek) nejprve v~sestupném a pak ve vzestupném pořadí. 
+Při sekvenčním průchodu splay stromem se každého vrcholu dotkneme v~průměru o~něco víc než pětkrát, jak jsme již experimentálně zjistili v~dřívějších sekcích. Přinejmenším při některých z~těchto doteků se dotýkáme mnoha hodnotou sousedících vrcholů po sobě -- například po poslední operaci jednoho sekvenčního průchodu leží všechny vrcholy na levé páteři stromu a první operace z~následujícího průchodu se jich všech dotkne dvakrát (ačkoli my toto počítáme za jeden dotek) nejprve v~sestupném a pak ve vzestupném pořadí. 
 
 \graphfigure{randomized_splay}{Průměrný čas na operaci Splay stromu -- náhodná přístupová posloupnost.}
 
-Pokud $k < 10^5$, vejde se nám celá relevantní část stromu do cache. Když
+Pokud $k < 10^5$, vejde se celá relevantní část stromu do cache. Když
 vykonáváme (\uv{nepodmnožinovou}) sekvenční přístupovou posloupnost se stromem,
-který se nám do cache nevejde, můžeme stále využít toho, že máme vrcholy
+který se do cache nevejde, můžeme stále využít toho, že máme vrcholy
 v~paměti uložené v~sekvenčním pořadí -- pokud se dotýkáme většího počtu
 sousedících vrcholů hned po sobě, nemusíme kvůli každému vrcholu načítat nový
 cachový řádek. Cachové řádky mají 64 bytů, jeden vrchol splay stromu zabírá 24
-bytů, tedy pokud se dotkneme mnoha sousedících vrcholů současně, stačí z~paměti
+bytů, pokud se tedy dotkneme mnoha sousedících vrcholů současně, stačí z~paměti
 načíst $3/8$ cachového řádku na vrchol. Pokud ale provádíme podmnožinovou
 sekvenční přístupovou posloupnost, vrcholy vybíráme z~naalokovaných náhodně,
 tedy kvůli většině z~nich musíme načíst samostatný cachový řádek. Navíc se může
-stát, že ani nenačítáme po sobě jdoucí řádky, tedy nevyužíváme faktu, že paměť
+stát, že ani nenačítáme po sobě jdoucí řádky, nevyužíváme tedy faktu, že paměť
 RAM je obvykle rychlejší při sekvenčním než při náhodném průchodu. Proto
 potřebuje podmnožinový sekvenční průchod splay stromem v~situaci, kdy $k$ je
 větší než počet řádků cache, ale výrazně menší než $n$, na přístup výrazně víc
@@ -713,35 +720,35 @@ Nyní se podíváme na podmnožinovou sekvenční přístupovou posloupnost.
 Připomeneme, že při normálním sekvenčním průchodu splay stromem musíme provést
 celkem dvě změny preferovaného směru vrcholu v~každém vrcholu, který je
 v~referenčním stromu $P$ vnitřní. Například pro $n=2^h-1$ pro nějaké $h$ se jedná
-celkem o~$n - 1$ změn. Navíc až $(n+1)/2$ z~nich bude ve vrcholech, které jsou
+celkem o~$n - 1$ změn. Navíc až $(n+1)/2$ z~nich bude provedeno ve vrcholech, které jsou
 v~$P$ na předposlední hladině. Takové změny preferovaných směrů mohou provést
-poměrně málo doteků vrcholů, protože vrcholy $r'$ a $\ell$ pro tyto změny jsou
-ve stromu blízko sebe a cesty mezi těmito vrcholy a kořenem sdílí většinu
+poměrně málo doteků vrcholů, protože vrcholy $r'$ a $\ell$ pro tyto změny leží
+ve stromu blízko sebe a cesty mezi těmito vrcholy a kořenem často sdílí většinu
 vrcholů. 
 
 Při vykonávání podmnožinové sekvenční přístupové posloupnosti je situace trochu
-jiná. Při popisu chování červenočerného stromu jsme udělali odhad, jak nejhůře
+jiná. Při popisu chování červenočerného stromu jsme spočítali odhad, jak nejhůře
 může vypadat relevantní podstrom dokonale vyváženého stromu. Tento odhad znovu
 aplikujeme na strom $P$. Při podmnožinovém sekvenčním průchodu tango stromem
 musíme udělat dvě změny preferovaného směru v~každém vrcholu relevantního
 podstromu stromu $P$, který má v~tomto podstromu oba syny. To může být až $k-1$
-vrcholů. Navíc více než polovina z~nich může být na $(\log k)$-té hladině $P$
+vrcholů. Navíc nadpoloviční většina z~nich může být na $(\log k)$-té hladině $P$
 (a ostatní ještě výše).
 
-Dostáváme tedy, že při standardním sekvenčním průchodu musíme udělat pouze
-přibližně jednu změnu preferovaného směru na přístup, a navíc víc než polovina
+Dostáváme tedy, že při standardním sekvenčním průchodu musíme provést pouze
+přibližně jednu změnu preferovaného směru na přístup, a navíc většina
 těchto změn odpojuje a zase připojuje pomocné stromy o~jediném vrcholu. Při
 podmnožinovém sekvenčním průchodu může být potřeba udělat až téměř dvě změny
-preferovaného směru na přístup a navíc všechny tyto změny mohou připojovat
+preferovaného směru na přístup a všechny tyto změny mohou připojovat
 části preferovaných cest o~alespoň $\lfloor\log (n/k)\rfloor$ vrcholech. Tím
 lze zdůvodnit, že podmnožinová sekvenční přístupová posloupnost vede podle obrázku \ref{obr:tango_b} oproti
-standardní sekvenční přístupové k~násobně více dotykům na operaci, a tento
-potřebný počet dotyků dále s~rostoucím $n$ (nebo taky pro konstantní $n$
+standardní sekvenční přístupové posloupnosti k~násobně více dotykům na operaci a tento
+potřebný počet dotyků se dále zvyšuje s~rostoucím $n$ (nebo taky pro konstantní $n$
 s~klesajícím $k$). 
 
 Připomeneme, že naše implementace tango stromu má na začátku všechny pomocné
-stromy o~jediném vrcholu, tedy vrcholy na počátku nemají nastavený preferovaný
-směr. To znamená, že při vykonávání podmnožinové sekvenční posloupnosti se
+stromy o~jediném vrcholu (vrcholy na počátku nemají nastavený preferovaný
+směr). To znamená, že při vykonávání podmnožinové sekvenční posloupnosti se
 skutečně dotkneme právě těch vrcholů, které jsou v~relevantním podstromu stromu
 $P$. Proto není překvapivé, že se při vykonávání této posloupnosti pro nízké
 hodnoty $k$ vejde celá relevantní část stromu do cache (různých jejích úrovní
@@ -776,11 +783,11 @@ lepších výsledků než multisplay strom. Pro sekvenční podmnožinovou pří
 posloupnost dosahuje opět pro libovolnou kombinaci parametrů kromě velmi
 nízkých hodnot $n$  lepších výsledků splay strom (byť pro $n= 10^7$ a
 $k= 10^6$ s~poměrně malým rozdílem) -- chování pro velmi nízké hodnoty
-$n$ je ale pro oba stromy podobné, jako při provádění standardní sekvenční
-přístupové posloupnosti a tedy ho není nutné znovu popisovat. Pro podmnožinové
+$n$ je ale pro oba stromy podobné jako při provádění standardní sekvenční
+přístupové posloupnosti a není tedy nutné jej znovu popisovat. Pro podmnožinové
 náhodné přístupové posloupnosti platí, že se splay strom chová lépe než
 červenočerný strom, pokud je $k$ alespoň stokrát menší než $n$. V~případě, že
-se strom nevejde celý do cache, se potom červenočerný strom pro $k$
+nemůžem celý strom uložit do cache, se potom červenočerný strom pro $k$
 přibližující se k~$n$ zrychluje. Chování splay stromu naopak závisí pouze na~$k$ a čas potřebný na operaci s~ním logaritmicky roste.
 
 \section{Proměnlivě podmnožinová posloupnost}
