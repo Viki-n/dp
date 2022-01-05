@@ -23,9 +23,9 @@ int comp (const void * elem1, const void * elem2)
 
 void help(char** argv){
         printf("\nInsufficient amount of arguments!\n\n");
-        printf("usage: %s tree_size sequence_length seed (s|r|u|b|i) [modifier]\n", argv[0]);
-        printf("s  sequential\nr  random\nu  subset\nb  subset sequential\ni  left spine bit reversal\n");
-        printf("u and b require an extra modifier -- size of subset\n");
+        printf("usage: %s tree_size sequence_length seed (s|r|u|b|i|e) [modifier]\n", argv[0]);
+        printf("s  sequential\nr  random\nu  subset\nb  subset sequential\ni  left spine bit reversal\ne  variable subset\n");
+        printf("u, b and e require an extra modifier -- size of subset\n");
         printf("\noutputs tree_size-1 on first line, and then sequence_length\nnumbers from [0,tree_size) generated using given mode.\n");
  
 }

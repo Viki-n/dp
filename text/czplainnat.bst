@@ -493,12 +493,12 @@ FUNCTION {either.or.check}
 FUNCTION {format.bvolume}
 { volume empty$
     { "" }
-    { "volume" volume tie.or.space.connect
+    { "číslo" volume tie.or.space.connect
       series empty$
         'skip$
         { " of " * series emphasize * }
       if$
-      "volume and number" number either.or.check
+      "číslo and number" number either.or.check
     }
   if$
 }
@@ -560,8 +560,8 @@ FUNCTION {format.pages}
 { pages empty$
     { "" }
     { pages multi.page.check
-        { "pages" pages n.dashify tie.or.space.connect }
-        { "page" pages tie.or.space.connect }
+        { "stránky" pages n.dashify tie.or.space.connect }
+        { "stránka" pages tie.or.space.connect }
       if$
     }
   if$
