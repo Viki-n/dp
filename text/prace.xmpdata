@@ -1,7 +1,12 @@
 % Metadata k uložení do PDF, podrobnější popis viz dokumentace balíčku pdfx.
 
-\Author{Jméno Příjmení}
-\Title{Název práce}
-\Keywords{klíčová slova\sep další taková\sep ještě jiná}
-\Subject{Abstrakt práce}
+\Author{Viktor Němeček}
+\Title{Dynamické vlastnosti stromů}
+\Keywords{binární vyhledávací stromy\sep červenočerné stromy\sep tango stromy\sep splay stromy\sep multisplay stromy}
+\Subject{V této práci jsme srovnali několik variant binárního vyhledávacího stromu, které se
+blíží dynamické optimalitě: tango stromy,
+multisplay stromy a splay stromy.
+Experimentálně jsme prozkoumali chování těchto tří typů stromů a červenočerných stromů. Měřili jsme počet navštívených vrcholů na
+operaci a také čas běhu na reálném hardwaru. Ukázali jsme, že tango strom a multisplay strom jsou ve většině případů méně efektivní než červenočerný a
+splay strom. V~chování splay stromu a červenočerného stromu hrály nečekaně velkou roli efekty cache.}
 \Publisher{Univerzita Karlova}
