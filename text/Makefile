@@ -1,6 +1,6 @@
 export TEXINPUTS=../tex//:
 
-all: prace.pdf abstrakt.pdf
+all: prace.pdf abstrakt.pdf abstrakt_en.pdf
 
 quick: prace.tex $(wildcard *.tex) literatura.bib prace.xmpdata
 	pdflatex prace.tex
@@ -20,6 +20,10 @@ prace.pdf: prace.tex $(wildcard *.tex) literatura.bib prace.xmpdata
 abstrakt.pdf: abstrakt.tex abstrakt.xmpdata
 	pdflatex $<
 
+abstrakt_en.pdf: abstrakt_en.tex abstrakt_en.xmpdata
+	pdflatex $<
+
+
 clean:
 	rm -f *.log *.dvi *.aux *.toc *.lof *.lot *.out *.bbl *.blg *.xmpi
-	rm -f prace.pdf abstrakt.pdf
+	rm -f prace.pdf abstrakt.pdf abstrakt_en.pdf

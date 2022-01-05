@@ -1,0 +1,21 @@
+%%% Šablona pro jednoduchý soubor formátu PDF/A, jako treba samostatný abstrakt práce.
+
+\documentclass[12pt]{report}
+
+\usepackage[a4paper, hmargin=1in, vmargin=1in]{geometry}
+\usepackage[a-2u]{pdfx}
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+
+\begin{document}
+
+%% Nezapomeňte upravit abstrakt.xmpdata.
+In this thesis we compared some variants of binary search trees that approach dynamic optimality: Tango trees, Multisplay trees, and Splay trees. We empirically tested the behavior of these three types of trees, as well as Red-Black trees. We measured the amount of visited nodes per operation and running time on real hardware. 
+We proved that Tango trees and Multisplay trees are in most cases less efficient than Splay trees and Red-Black trees. Cache-related effects played a surprisingly large part in the behavior of Red-Black tree and Splay tree.
+
+
+
+\end{document}
