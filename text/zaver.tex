@@ -9,28 +9,28 @@ Zjistili jsme, že nad náhodnými přístupovými posloupnostmi se nejlépe cho
 červenočerný strom. Objevili jsme však překvapivý potenciální problém
 červenočerného stromu -- zjistili jsme, že pokud jeho vrcholy naalokujeme a
 vložíme do stromu v~sekvenčním pořadí, narazíme na problémy související
-s~asociativitou cache. Tyto problémy se začnou projevovat ve chvíli, kdy je kapacita cache v bytech menší než počet vrcholů stromu
-vynásobený nejvyšší mocninou dvojky, která dělí množství bytů, které v~paměti
+s~asociativitou cache. Tyto problémy se začnou projevovat ve chvíli, kdy je kapacita cache v~bytech menší než počet vrcholů stromu
+vynásobený nejvyšší mocninou dvojky, jež dělí množství bytů, které v~paměti
 zabírá jeden vrchol.
 
-Nad sekvenčními a sekvenčními podmožinovými přístupovými posloupnostmi se
+Nad sekvenčními posloupnostmi a sekvenčními podmožinovými přístupovými posloupnostmi se
 naopak nejlépe choval splay strom. U~něj jsme naopak narazili na zpomalení,
-když vrcholy v~rostoucím pořadí uloženy nebyly Toto zpomalení však nebylo dost
+když vrcholy v~rostoucím pořadí uloženy nebyly. Toto zpomalení však nebylo dost
 velké na to, aby byl splay strom červenočerným stromem překonán. Pro náhodné
 podmnožinové posloupnosti byl splay strom srovnatelně rychlý jako červenočerný
-strom, pokud byla velikost podmnožiny $M$, z níž byly cílové vrcholy přístupů vybírány, zhruba stokrát menší, než kolik měl strom vrcholů. Pro nižší hodnoty $|M|$ byl rychlejší splay strom,
+strom, pokud byla velikost podmnožiny $M$, z níž jsme vybírali cílové vrcholy přístupů, zhruba stokrát menší, než kolik měl strom vrcholů. Pro nižší hodnoty $|M|$ byl rychlejší splay strom,
 pro vyšší červenočerný strom. 
 
 Pro vykonávání proměnlivě podmnožinových přístupových posloupností se ukázal
-obecně vhodnější červenočerný strom. Splay strom byl rychlejší pouze pro volbu
-parametru $|M|$ takovou, aby se $|M|$ vrcholů sice vešlo do cache, ale pouze těsně.
+obecně vhodnější červenočerný strom. Splay strom byl rychlejší pouze pro takovou volbu
+parametru $|M|$, aby se $|M|$ vrcholů sice vešlo do cache, ale pouze těsně.
 
-Při vykonávání všech zmíněných posloupností byl tango strom časově s~velkým
-rozdílem nejhorší, i když počtem dotčených vrcholů při vykonávání sekvenční
+Při vykonávání všech zmíněných posloupností potřeboval tango strom s~velkým
+rozdílem nejvíce času, i když počtem dotčených vrcholů při vykonávání sekvenční
 přístupové posloupnosti se zařadil před červenočerný strom. Multisplay strom se
 choval výrazně lépe než tango strom, ale stále hůře než oba zbývající stromy.
 
-Našli jsme také jednu velmi specifickou přístupovou posloupnost, při jejímž vykonávání se tango strom choval nejlépe ze všech stromů. Najít přístupovou posloupnost, na které by se choval nejlépe multisplay strom, se nám nepovedlo. U~několika různých tříd posloupností jsme nabyli dojmu, že multisplay stromu škodí, že na konci každé operace \ope{Find} provede ještě změnu preferovaného směru v~cílovém vrcholu -- mohlo by být zajímavé zopakovat experimenty s~variantou multisplay stromu, který tuto změnu neprovádí. Protože ale na této změně závisí důkazy asymptotického chování struktury, nemuseli bychom ji vynechávat, pouze nahradit operací \ope{Splay} zavolanou na cílový vrchol -- pak by vlastnosti struktury tak, jak je  představili \citet{multisplay}, zůstaly zachovány.
+Našli jsme také jednu velmi specifickou přístupovou posloupnost, při jejímž vykonávání se tango strom choval nejlépe ze všech stromů. Najít přístupovou posloupnost, na které by se choval nejlépe multisplay strom, se nám nepovedlo. U~několika různých tříd posloupností jsme nabyli dojmu, že multisplay stromu škodí, že na konci každé operace \ope{Find} provede ještě změnu preferovaného směru v~cílovém vrcholu. Mohlo by být zajímavé zopakovat experimenty s~variantou multisplay stromu, který tuto změnu neprovádí. Protože ale na této změně závisí důkazy asymptotického chování struktury, nemuseli bychom ji vynechávat, pouze nahradit operací \ope{Splay} zavolanou na cílový vrchol -- pak by vlastnosti struktury tak, jak je  představili \citet{multisplay}, zůstaly zachovány.
 
 Dále by bylo zajímavé najít přístupovou posloupnost z reálné aplikace binárních vyhledávacích stromů a otestovat stromy na ní, jak jsme ale již zmínili, není jednoduché vhodnou posloupnost najít.
 

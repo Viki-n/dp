@@ -799,18 +799,18 @@ Proměnlivě podmnožinová posloupnost je posloupnost, která vypadá podobně 
 
 \graphfigure{comparison_e}{Průměrný čas na operaci -- proměnlivě podmnožinová přístupová posloupnost; $n=10^7$.}
 
-Při zkoumání chování jednotlivých stromů nad touto přístupovou posloupností jsme neobjevili nic zajímavého, co bychom ještě nepopsali. Podrobné grafy jsou k~dispozici v~příloze \ref{sec:app2}. Zajímavé je ale porovnání potřebného času na operaci splay stromu a červenočerného stromu pro nejvyšší zkoumané $n=10^7$ pro různé hodnoty $k$.
+Při zkoumání chování jednotlivých stromů nad touto přístupovou posloupností jsme neobjevili nic zajímavého, co v~této práci ještě nebylo popsáno. Podrobné grafy jsou k~dispozici v~příloze \ref{sec:app2}. Zajímavé je ale porovnání času potřebného na operaci splay stromu a červenočerného stromu pro nejvyšší zkoumané $n=10^7$ pro různé hodnoty $k$.
 
 Na obrázku \ref{obr:comparison_e} je vidět, že pro nízké hodnoty $k$ je
 rychlejší červenočerný strom -- když přistupujeme k~danému prvku po změně
 multimnožiny $M$ poprvé, je potřeba ho ve splay stromu přesunout potenciálně
-z~velké hloubky, což je pomalejší, než v~červenočerném stromu načíst do cache
+z~velké hloubky, což je pomalejší než v~červenočerném stromu načíst do cache
 cestu k~němu. Následující přístupy ve splay stromu jsou sice už rychlé, ale
 není jich moc a červenočerný strom nebude o~mnoho pomalejší -- jedná se
 o~pohyb po již nacachované části stromu. 
 
 Když ale začnou pro rostoucí $k$
-postupně docházet různé úrovně cachí, projeví se, že  červenočerný strom musí mít v~cachi uloženou celou relevantní část stromu, která může mít, jak jsme již ukázali, až zhruba $k \cdot (1+\log(n/k))$ vrcholů. Splay stromu proti tomu stačí v~cachi $k$ vrcholů. Proto je pro $k$ větší než asi $7\cdot10^3$ splay strom rychlejší než červenočerný strom. Pro ještě větší hodnoty $k$ se nám ale už ani $k$ vrcholů do cache nevejde, a proto bude pro $k$ větší než přibližně $1.5\cdot 10^5$ opět rychlejší červenočerný strom.
+postupně docházet různé úrovně cachí, projeví se, že  červenočerný strom musí mít v~cachi uloženou celou relevantní část stromu, která může mít, jak jsme již ukázali, až zhruba $k \cdot (1+\log(n/k))$ vrcholů. Splay stromu naproti tomu stačí v~cachi $k$ vrcholů. Proto je pro $k$ větší než asi $7\cdot10^3$ splay strom rychlejší než červenočerný strom. Pro ještě větší hodnoty $k$ se nám ale už ani $k$ vrcholů do cache nevejde, a proto bude pro $k$ větší než přibližně $1.5\cdot 10^5$ opět rychlejší červenočerný strom.
 
 \section{Posloupnost z reálného světa}
 
