@@ -78,7 +78,7 @@ Podobným algoritmem budeme prvky přidávat, pouze místo nahlášení neexiste
 \begin{itemize}
 \item Je-li vrchol obsahující mazaný prvek list, prostě ho smaž.
 \item Má-li vrchol obsahující mazaný prvek právě jednoho syna, prvek smaž a jeho syna připoj pod rodiče mazaného prvku na místo mazaného prvku.
-\item Má-li vrchol obsahující mazaný prvek dva syny, najdi ve stromu nejblížší větší prvek, jeho
+\item Má-li vrchol obsahující mazaný prvek dva syny, najdi ve stromu nejbližší větší prvek, jeho
 hodnotu zapiš na místo odstraňovaného prvku a odstraň vrchol, v~němž byl uložen tento nejbližší větší
 prvek. Tomuto vrcholu nutně chybí přinejmenším levý syn (kdyby existoval, hodnota
 v~něm by byla menší než hodnota jeho rodiče, ale větší než hodnota odstraňovaného
@@ -101,7 +101,7 @@ její délku budeme značit $m$.
 Přirozená otázka zní, jak vypadá binární vyhledávací strom, který pro danou
 posloupnost přístupů vykoná nejméně kroků. V~plné obecnosti budeme tuto otázku řešit v~pozdějších částech této kapitoly. Pro tuto sekci se omezíme na statické
 stromy. To znamená stromy, jejichž strukturu (tedy v jejich vrcholech uložené
-ukazatele) po vybudování již mebudeme měnit. Na druhou stranu budeme
+ukazatele) po vybudování již nebudeme měnit. Na druhou stranu budeme
 předpokládat, že přístupovou posloupnost, nebo alespoň četnost jednotlivých
 prvků v~ní, předem známe. V~tomto modelu se počet kroků přesně rovná počtu
 navštívených vrcholů (včetně násobnosti).
@@ -115,7 +115,7 @@ Naším cílem bude najít strom nad množinou klíčů $[n]$ s co nejnižší c
 
 Váha klíče
 $i$ $w[i]$ může být buď pravděpodobnost, že daný přístup bude mít za
-cíl klíč~$i$, nebo počet výskytů kíče~$i$ v~přístupové
+cíl klíč~$i$, nebo počet výskytů klíče~$i$ v~přístupové
 posloupnosti. V~prvním případě dostaneme jako váhu výsledného stromu střední
 hodnotu počtu navštívených vrcholů při přístupu, v~druhém případě součet počtů navštívených vrcholů přes
 celou přístupovou posloupnost.
@@ -570,7 +570,7 @@ Pro danou přístupovou posloupnost $S$ existuje přístupový algoritmus, kter�
 vykoná optimálně, tedy v~nejkratším čase ze všech možných algoritmů. Tento
 počet kroků označíme $\opt(S)$. Zde předpokládáme, že je strom na začátku
 v~nejlepší možné konfiguraci. Tím však nesnížíme čas potřebný na přístupy o~více
-než aditivní $\mathcal O(n)$, protože z~libovolného BVS je možné pomocí
+než aditivní $\mathcal O(n)$, protože z~libovolného binárního vyhledávacího stromu je možné pomocí
 $\mathcal O(n)$ rotací vytvořit libovolný jiný (nad toutéž množinou klíčů).
 Proto budeme dále zkoumat pouze přístupové posloupnosti $S$ takové, že $m \in
 \Omega(n)$. Vzhledem k~tomu, že nahlédneme, že $\opt(S)\geq m$, je aditivní

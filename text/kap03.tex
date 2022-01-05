@@ -72,7 +72,7 @@ Procesorový čas jsme měřili pomocí funkce {\tt clock()} z~hlavičkového so
 {\tt time.h}. K~měření jsme použili procesor {\tt AMD EPYC 7301}
 s~frekvencí  $2.7\, \operatorname{GHz}$. Tento procesor obsahuje 16 fyzických, a tedy
 32 logických jader, naše měření však nebylo nijak paralelizováno. Jedno jádro má k dispozici $64\,\operatorname{kB}$ L1 cache, $512\,\operatorname{kB}$ L2 cache a $8\,\operatorname{MB}$ L3 cache. Procesory však mohou využívat i L3 cache patřící jiným procesorům; součet kapacit všech L3 cachí v systému je $128\,\operatorname{MB}$. V~systému bylo
-k~dispozici $126\,\operatorname{GB}$ RAM. Vzhledem k~tomu, že na pamětově
+k~dispozici $126\,\operatorname{GB}$ RAM. Vzhledem k~tomu, že na paměťově
 nejnáročnější z~navržených testů stačilo méně než $10\,\operatorname{GB}$
 paměti, nás tedy dostupná paměť nijak neomezila. Měření proběhlo pod operačním
 systémem {\tt Debian GNU/Linux 11}.

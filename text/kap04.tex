@@ -39,8 +39,8 @@ Na základě teorie bychom čekali, že počet doteků na operaci u~multisplay, 
 \let\oldlog\log
 \def\log{\oldlog_2}
 
-Na grafu vidíme, že červenočerný strom potřebuje konzistentně přibližně $(\log
-n) - 1/2$ doteků na operaci. Funkci $\log n$ jsme do grafu přidali pro porovnání. To zní podezřele --
+Na grafu vidíme, že červenočerný strom potřebuje na operaci konzistentně přibližně $(\log
+n) - 1/2$ doteků. Funkci $\log n$ jsme do grafu přidali pro porovnání. To zní podezřele --
 pro červenočerný strom je střední hodnota počtu doteků na operaci z~náhodné
 přístupové posloupnosti prostě průměrná hloubka vrcholu (kde kořen má hloubku
 1). Dokonale vyvážený strom na $n$ vrcholech má průměrnou hloubku
@@ -283,7 +283,7 @@ Rotovaná hrana vždy leží na cestě z~nového vrcholu do kořene. Víme, že 
 $u$ leží na pravé páteři. Kdyby se nám po rotaci stalo, že budeme mít červený vrchol mimo pravou páteř $T$ a i mimo její sousedství, musel by před rotací být červený alespoň jeden z~vrcholů $w$ a $x$. To ale není možné. Víme, že v~případě, že jsme přistoupili k~vyvažování, musí být vrchol $v$ černý a vrchol $u$ i jeho pravý syn červený. To znamená, že vrchol $u$ musel být červený již před aktuální operací \ope{Insert}. Kdyby tedy byl vrchol $x$ červený, porušoval by již před aktuální operací \ope{Insert} spolu s~vrcholem $u$ invariant červenočerného stromu. Kdyby byl červený vrchol $w$, nevyvažovali bychom strom rotací, ale přebarvením $u$ a $w$ na černo a $v$ na červeno. 
 \end{dukaz}
 
-Z~invariantu červenočerného stromu vyplývá, že pokud v~červenočerném stromu nejsou krom možná kořene žádné červené vrcholy, musí být všechny cesty z~kořene do externího vrcholu stejně dlouhé. Tento strom tedy musí být dokonale vyvážený a počet vrcholů v~něm musí být bez jednoho mocnina dvojky. Totéž platí i o~podstromech jednotlivých vrcholů v~červenočerném stromu.
+Z~invariantu červenočerného stromu vyplývá, že pokud v~červenočerném stro\-mu nejsou krom možná kořene žádné červené vrcholy, musí být všechny cesty z~kořene do externího vrcholu stejně dlouhé. Tento strom tedy musí být dokonale vyvážený a počet vrcholů v~něm musí být bez jednoho mocnina dvojky. Totéž platí i o~podstromech jednotlivých vrcholů v~červenočerném stromu.
 
 Před další částí důkazu nahlédneme, že v~$T$ nikdy nemůže být pravý ani levý podstrom vrcholu menší než libovolný z~podstromů jeho syna, krom případu, kdy některé z~těchto podstromů obsahují část pravé páteře $T$.
 
@@ -327,11 +327,11 @@ Pravý podstrom $v$ chceme naopak co největší. Pravý syn $v_1$ vrcholu $v$
 musí být červený. Proto musí být levý podstrom $v_1$ čistě černý a musí
 obsahovat také $2^{h-1} -1$ vrcholů. Pravý syn $v_2$ vrcholu $v_1$ musí být
 černý, jeho levý podstrom tedy může mít červený kořen. Proto může mít také
-$2^{h-1} -1$ vrcholů. Pravý syn $v_3$ vrcholu $v_2$ bude červený, jeho levý
+$2^{h-1} -1$ vrcholů. Pravý syn~$v_3$ vrcholu~$v_2$ bude červený, jeho levý
 podstrom tedy čistě černý a bude mít $2^{h-2}-1$ vrcholů. Takto bychom
 mohli pokračovat dál. Dojdeme k~tomu, že $v_i$ má levý podstrom velikosti
 $2^{h-\lceil i/2\rceil} -1$. První nepravidelnost nastane až u~$v_{2h}$ --
-vrchol $v_{2h-2}$ je černý a jeho levý i pravý podstrom už je tvořen jen
+vrchol~$v_{2h-2}$ je černý a jeho levý i pravý podstrom už je tvořen jen
 jediným červeným vrcholem. Vrchol~$v_{2h}$ tedy neexistuje.
 
 To znamená, že počet vrcholů v~pravém podstromu $v$ je $$\sum_{i=1}^{2h-1}\left(2^{h-\left\lceil \frac i2\right\rceil} -1 +1\right) = 2^{h+1}-3 = 4\cdot (2^{h-1}-1) +1 \leq 5\cdot(2^{h-1}-1).$$
@@ -616,7 +616,7 @@ která nezávisí pouze na $n$ a $k$, ale i na přesné volbě $M$. My zde pro
 představu spočítáme pouze horní odhad velikosti relevantní části stromu pro
 dokonale vyvážený binární strom pro případ, kdy $k\leq2\cdot n$. 
 
-Největší možné relevantní části stromu dosáhneme, když budou všechny prvky~$M$ v~listech stromu a v~nějakém smyslu pravidelně rozprostřené -- pod tím si můžeme představit, že se pro libovolný vrchol bude počet prvků $M$ v~pravém a levém podstromu tohoto vrcholu lišit nejvýše o~jedna. Potom do relevantní části stromu plně patří prvních $\log k$ hladin stromu. K~nim navíc musíme přidat cestu z~každého vrcholu na $(\log k)$-té hladině do některého listu. Těchto cest je $k$ a každá z~nich má délku $\log n - \log k = \log (n/k)$. Relevantní část stromu  má tedy celkem $2k + k\cdot \log (n/k)$ vrcholů.
+Největší možné relevantní části stromu dosáhneme, když budou všechny prv\-ky~$M$ v~listech stromu a v~nějakém smyslu pravidelně rozprostřené -- pod tím si můžeme představit, že se pro libovolný vrchol bude počet prvků $M$ v~pravém a levém podstromu tohoto vrcholu lišit nejvýše o~jedna. Potom do relevantní části stromu plně patří prvních $\log k$ hladin stromu. K~nim navíc musíme přidat cestu z~každého vrcholu na $(\log k)$-té hladině do některého listu. Těchto cest je $k$ a každá z~nich má délku $\log n - \log k = \log (n/k)$. Relevantní část stromu  má tedy celkem $2k + k\cdot \log (n/k)$ vrcholů.
 
 Vzhledem k~tomu, že jsme si již všimli, že náš červenočerný strom má tvarem k~dokonale vyváženému stromu blízko, můžeme tato pozorování na červenočerný strom uplatnit.
 
@@ -772,7 +772,7 @@ při vykonávání podmnožinové náhodné přístupové posloupnosti na operac
 90 doteků a 5 mikrosekund. Podle obrázku \ref{obr:multisplay_u} stačilo
 multisplay stromu na tutéž operaci přibližně 50 doteků a 3 mikrosekundy.
 Podobně při vykonávání podmnožinové sekvenční přístupové posloupnosti
-potřeboval tango strom asi 42 doteků a 2 mikrosekundy na operaci, multisplay
+potřeboval tango strom asi 42 doteků a 2~mikrosekundy na operaci, multisplay
 stromu stačilo 27 doteků a 660 nanosekund, jak je vidět na obrázku
 \ref{obr:multisplay_b}.
 
@@ -790,7 +790,7 @@ $n$ je ale pro oba stromy podobné jako při provádění standardní sekvenčn�
 přístupové posloupnosti a není tedy nutné jej znovu popisovat. Pro podmnožinové
 náhodné přístupové posloupnosti platí, že se splay strom chová lépe než
 červenočerný strom, pokud je $k$ alespoň stokrát menší než $n$. V~případě, že
-nemůžem celý strom uložit do cache, se potom červenočerný strom pro $k$
+nemůžeme celý strom uložit do cache, se potom červenočerný strom pro $k$
 přibližující se k~$n$ zrychluje. Chování splay stromu naopak závisí pouze na~$k$ a čas potřebný na operaci s~ním logaritmicky roste.
 \newpage
 \section{Proměnlivě podmnožinová posloupnost}
