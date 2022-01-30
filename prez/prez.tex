@@ -126,13 +126,32 @@
 \item Statická optimalita
 \item Model dynamického BVS
 \item Optimální strom
+\begin{itemize}
+\item Vidí do budoucnosti
+\item Vykoná každou přístupovou posloupnost s nejmenším možným počtem navštívených vrcholů
+\end{itemize}
 \item Online přístupový algoritmus
+\begin{itemize}
+\item Nevidí do budoucnosti
+\item Má ve vrcholech $\mathcal O(1)$ slov paměti pomocné informace
+\end{itemize}
 \item Odhady
 \begin{itemize}
 \item Interleave bound
 \end{itemize}
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+\frametitle{Stromy}
+\begin{itemize}
+\item Červenočerný strom
+\item Splay strom
+\item Tango strom
+\item Multisplay strom
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Splay strom}
@@ -180,6 +199,89 @@
 \item Worst case $\mathcal O(\log^2 n)$ na přístup
 \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Výsledky -- Sekvenční přístupová posloupnost}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.75\linewidth]{../text/graphs/touch_s}
+\caption{Počet dotyků -- sekvenční přístupová posloupnost} 
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Výsledky -- Sekvenční přístupová posloupnost}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.75\linewidth]{../text/graphs/time_s}
+\caption{Čas na přístup -- sekvenční přístupová posloupnost} 
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Výsledky -- náhodná přístupová posloupnost}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.75\linewidth]{../text/graphs/time_r}
+\caption{Čas na přístup -- náhodná přístupová posloupnost} 
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Výsledky -- náhodná přístupová posloupnost}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.75\linewidth]{../text/graphs/randomized_rb}
+\caption{Červenočerný strom -- náhodná a sekvenční alokace} 
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Výsledky -- sekvenční přístupová posloupnost}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.75\linewidth]{../text/graphs/randomized_splay}
+\caption{Splay strom -- náhodná a sekvenční alokace} 
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Výsledky -- další zkoumané posloupnosti}
+\begin{itemize}
+
+\item Bit reversal posloupnost na páteři
+\begin{itemize}
+\item Umělá, vyrobená přímo na míru tango stromu
+\end{itemize}
+
+\item Sekvenční podmnožinová posloupnost
+\begin{itemize}
+\item Nejlepšího výsledku dosáhl splay strom, stále ale výrazně horší než pro \uv{normální} podmnožinovou posloupnost
+\end{itemize}
+
+\item Náhodná podmnožinová posloupnost
+\begin{itemize}
+\item Nejlepšího výsledku dosáhl splay strom, pokud byla velikost podmnožiny $<n/100$. Červenočerný strom se naopak pro rostoucí podmnožinu zrychloval.
+\end{itemize}
+
+\item Proměnlivě podmnožinová posloupnost
+\begin{itemize}
+\item Nejlepšího výsledku dosáhl pro většinu voleb velikosti podmnožiny červnočerný strom.
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Proměnlivě podmnožinová přístupová posloupnost}
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=.75\linewidth]{../text/graphs/comparison_e}
+\caption{Čas na přístup -- $n=10^7$} 
+\end{figure}
 \end{frame}
 
 \begin{frame}
