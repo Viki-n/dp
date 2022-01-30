@@ -145,7 +145,24 @@
 
 \begin{frame}
 \frametitle{Tango strom}
+
+
+\begin{figure}[h!]
+
+  \centering
+  \includegraphics[width=.9\linewidth]{tango}
+\caption{Tango strom -- referenční strom a odpovídající \uv{reálný} strom} 
+
+\label{obr:cut_tango} 
+ 
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Tango strom}
 \begin{itemize}
+\item Tvořen pomocnými červenočernými stromy
 \item $\log\log(n)$-kompetitivní
 \item Náhodný přístup v $\mathcal O(\log n \cdot \log\log n)$
 \end{itemize}
@@ -154,21 +171,16 @@
 \begin{frame}
 \frametitle{Multisplay strom}
 \begin{itemize}
+\item Jako tango strom, ale pomocné stromy jsou splay stromy
 \item Teoreticky spojuje to nejlepší z Tango stromu a Splay stromu
 \begin{itemize}
 \item $\log\log(n)$-kompetitivní
 \item Inorder průchod v $\mathcal O(n)$
 \item Amortizovaně $\mathcal O(\log n)$ na přístup
 \item Worst case $\mathcal O(\log^2 n)$ na přístup
-
 \end{itemize}
-
 \end{itemize}
 \end{frame}
-
-
-
-
 
 \begin{frame}
 \Huge{\centerline{Děkuji za pozornost}}
